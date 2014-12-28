@@ -41,3 +41,6 @@ Traceback (most recent call last):
   File "/Users/Root1/venv/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
     raise request.routing_exception
 NotFound: 404: Not Found
+2014-12-28 12:14:10,776 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:34]
+2014-12-28 12:14:11,225 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:34]
+2014-12-28 12:15:22,574 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:34]

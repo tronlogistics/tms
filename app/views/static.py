@@ -75,6 +75,7 @@ def logout():
 def register():
 	form = RegisterForm()
 	if form.validate_on_submit():
+		app.logger.debug("Creating user - %s" % form.email.data)
 		user = User(company_name=form.company_name.data,
 					email=form.email.data,
 					password=form.password.data)
@@ -83,7 +84,9 @@ def register():
 		db.session.add(role)
 		user.roles.append(role)
 		db.session.add(user)
+		app.logger.debug("Saving user - %s" % form.email.data)
 		db.session.commit()
+		app.logger.debug("User saved - %s" % form.email.data)
 		return redirect(url_for('.login'))
 	return render_template('static/register.html', form=form, user=g.user)
 
