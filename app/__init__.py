@@ -3,7 +3,6 @@ import os
 
 app = Flask(__name__)
 
-
 from .views.load import load
 #from .views.dashboard import dashboard
 #from .views.carrier import carrier
@@ -19,4 +18,4 @@ app.jinja_env.globals['static'] = (
     lambda filename: url_for('static', filename = filename)
 )
 
-from app import views
+from app import views, models
