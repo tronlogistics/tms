@@ -1,4 +1,5 @@
-from app import db, bcrypt
+from app import db
+from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import create_engine, Column, Integer, String, Date, ForeignKey, event, Boolean, Table
 from sqlalchemy.orm import scoped_session, sessionmaker, backref, relationship
 
@@ -63,6 +64,12 @@ class User(db.Model):
 	def is_anonymous(self):
 		#False, as anonymous users aren't supported."""
 		return False
+
+	def set_password(self, password):
+		self.pw_hash = generate_password_hash(password)
+
+	def check_password(self, password):
+		return check_password_hash(self.pw_hash, password)
 
 	def __repr__(self):
 		return '<User %r>' % (self.company_name)
