@@ -1,0 +1,55 @@
+<div class="container-fluid nopadding">
+    <div class="row-fluid">
+        <div class="span12">
+            <div id="header">
+				          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <a href="#">
+					<img src="{{ static('img/logo.png') }}" alt="" />
+				</a>
+				
+				<div class="hright">
+					<div id="search" class="column">
+						<div class="search">
+							<form method="post" action="#">
+								<input type="text" placeholder="Search here" value="Search here" name="keyword" id="keyword" /> 
+							</form>
+						</div>
+					</div>}
+					{# {% if g.user.is_authenticated() %} #}
+					<div id="userinfo" class="column">
+						<a class="userinfo dropown-toggle" data-toggle="dropdown" href="#userinfo">
+							<img alt="" src="{{ static('img/avatar.jpg') }}" />
+							<span><strong>Admin</strong></span>
+						</a>
+                            <ul class="dropdown-menu">
+								<li><a href="#">Edit Profile</a></li>
+								<li><a href="#">Edit Preferences</a></li>
+								<li><a href="#">Private Messages</a></li>
+								<li class="divider"></li>}
+								{# <li><a href="{{ url_for('logout') }}">Logout</a></li> #}
+							</ul>
+					</div>
+					{# {% endif %} #}
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
