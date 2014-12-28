@@ -5,17 +5,17 @@ from sqlalchemy.orm import scoped_session, sessionmaker, backref, relationship
 
 
 user_to_user = db.Table('user_to_user', db.metadata,
-	db.Column("left_user_id", db.Integer, db.ForeignKey("user.email"), primary_key=True),
-	db.Column("right_user_id", db.Integer, db.ForeignKey("user.email"), primary_key=True)
+	db.Column("left_user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
+	db.Column("right_user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True)
 )
 
 assigned_users = db.Table('assigned_users', db.metadata,
-	Column('user_id', Integer, ForeignKey('user.email')),
+	Column('user_id', Integer, ForeignKey('user.id')),
 	Column('load_id', Integer, ForeignKey('load.id'))
 )
 
 class User(db.Model):
-	#id = db.Column(db.Integer, primary_key=True)
+	id = db.Column(db.Integer, primary_key=True)
 	
 	# User authentication information
 	#username = db.Column(db.String(50), nullable=False, unique=True)
@@ -23,7 +23,7 @@ class User(db.Model):
 	#reset_password_token = db.Column(db.String(100), nullable=False, server_default='')
 
 	# User email information
-	email = db.Column(db.String(255), nullable=False, unique=True, primary_key=True)
+	email = db.Column(db.String(255), nullable=False, unique=True, index=True)
 	confirmed_at = db.Column(db.DateTime())
 
 	# User information
@@ -34,8 +34,8 @@ class User(db.Model):
 	fleet = db.relationship("Fleet", uselist=False, backref="carrier")
 	contacts = db.relationship("User",
 					secondary=user_to_user,
-					primaryjoin=email==user_to_user.c.left_user_id,
-					secondaryjoin=email==user_to_user.c.right_user_id,
+					primaryjoin=id==user_to_user.c.left_user_id,
+					secondaryjoin=id==user_to_user.c.right_user_id,
 					backref="contacted_by"
     )
 	roles = db.relationship('Role')
@@ -44,7 +44,7 @@ class User(db.Model):
 	def __init__(self, email, company_name, password):
 		self.email = email
 		self.company_name = company_name
-		self.password = bcrypt.generate_password_hash(password)
+		self.password = set_password(password)
 		self.fleet = Fleet()
 
 	def is_carrier(self):
@@ -76,13 +76,13 @@ class User(db.Model):
 
 class Load(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	user_id = db.Column(db.Integer, db.ForeignKey('user.email'))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	name = db.Column(db.String(80), index=True)
 	status = db.Column(db.String(20))
 	lane = db.relationship("Lane", uselist=False, backref="load")
 	load_detail = db.relationship("LoadDetail", uselist=False, backref="load")
-	broker_id = db.Column(db.Integer, db.ForeignKey('user.email'))
-	carrier_id = db.Column(db.Integer, db.ForeignKey('user.email'))
+	broker_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+	carrier_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	bids = db.relationship('Bid', backref='load')
 	carrier_cost = db.Column(db.Float(3))
 	price = db.Column(db.Float(3))
@@ -96,8 +96,8 @@ class Load(db.Model):
 class Bid(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	load_id = Column(Integer, ForeignKey('load.id'))
-	offered_by_id = Column(db.Integer, db.ForeignKey('user.email'))
-	offered_to_id = Column(db.Integer, db.ForeignKey('user.email'))
+	offered_by_id = Column(db.Integer, db.ForeignKey('user.id'))
+	offered_to_id = Column(db.Integer, db.ForeignKey('user.id'))
 	offered_by = relationship("User", foreign_keys=offered_by_id)
 	offered_to = relationship("User", backref="offered_bids", foreign_keys=offered_to_id)
 	value = db.Column(db.Float(3))
@@ -156,14 +156,14 @@ class Location(db.Model):
 
 class Fleet(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	user_id = db.Column(Integer, ForeignKey('user.email'))
+	user_id = db.Column(Integer, ForeignKey('user.id'))
 	trucks = db.relationship('Truck', backref='fleet', lazy='dynamic')
 	drivers = db.relationship('Driver', backref='fleet', lazy='dynamic')
 
 
 class Truck(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
-	user_id = db.Column(db.Integer, db.ForeignKey('user.email'))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	fleet_id = db.Column(Integer, ForeignKey('fleet.id'))
 	driver_id = db.Column(db.Integer, db.ForeignKey('driver.id'))
 	name = db.Column(db.String(100))
@@ -180,7 +180,7 @@ class Truck(db.Model):
 class Driver(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	fleet_id = db.Column(db.Integer, ForeignKey('fleet.id'))
-	user_id = db.Column(db.Integer, db.ForeignKey('user.email'))
+	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	first_name = db.Column(db.String(30))
 	last_name = db.Column(db.String(30))
 	phone_area_code = db.Column(db.String(3))
@@ -196,4 +196,4 @@ class Driver(db.Model):
 class Role(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(100))
-	user_id = db.Column(db.String, db.ForeignKey('user.email'))
+	user_id = db.Column(db.String, db.ForeignKey('user.id'))
