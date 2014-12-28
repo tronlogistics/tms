@@ -1,0 +1,124 @@
+<h4>Users</h4>
+<table border="1">
+	<thead>
+		<th>email</th>
+	</thead>
+	<tbody>
+		{% for user in users %}
+		<tr>
+			<td>{{ user.email }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% for user in users %}
+<h4>{{ user.email }} - Loads</h4>
+<table border="1">
+	<thead>
+		<th>ID</th>
+	</thead>
+	<tbody>
+		{% for load in user.loads %}
+		<tr>
+			<td>{{ load.id }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+{% endfor %}
+
+<h4>Loads</h4>
+<table border="1">
+	<thead>
+		<th>ID</th>
+		<th>Name</th>
+		<th>Lane ID</th>
+		<th>Detail ID</th>
+		<th>Is Assigned</th>
+	</thead>
+	<tbody>
+		{% for load in loads %}
+		<tr>
+			<td>{{ load.id }}</td>
+			<td>{{ load.name }}</td>
+			<td>{{ load.lane.id }}</td>
+			<td>{{ load.load_detail.id }}</td>
+			<td>{{ load.is_assigned }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+<h4>Load Details</h4>
+<table border="1">
+	<thead>
+		<th>LoadDetails ID</th>
+		<th>weight</th>
+		<th>dim_width</th>
+		<th>dim_height</th>
+		<th>dim_length</th>
+		<th>pickup date</th>
+		<th>delivery date</th>
+		<th>number pieces</th>
+		<th>special instructions</th>
+	</thead>
+	<tbody>
+		{% for detail in load_details %}
+		<tr>
+			<td>{{ detail.id }}</td>
+			<td>{{ detail.weight }}</td>
+			<td>{{ detail.dim_width }}</td>
+			<td>{{ detail.dim_height }}</td>
+			<td>{{ detail.dim_length }}</td>
+			<td>{{ detail.pickup_date }}</td>
+			<td>{{ detail.delivery_date }}</td>
+			<td>{{ detail.number_pieces }}</td>
+			<td>{{ detail.special_instructions }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+<h4>Lanes</h4>
+<table border="1">
+	<thead>
+		<th>Lane ID</th>
+		<th>Origin ID</th>
+		<th>Destination ID</th>
+	</thead>
+	<tbody>
+		{% for lane in lanes %}
+		<tr>
+			<td>{{ lane.id }}</td>
+			<td>{{ lane.origin.id }}</td>
+			<td>{{ lane.destination.id }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+
+<h4>Locations</h4>
+<table border="1">
+	<thead>
+		<th>Lane ID</th>
+		<th>Address 1</th>
+		<th>Address 2</th>
+		<th>City</th>
+		<th>State</th>
+		<th>Postal Code</th>
+		<th>Is Origin?</th>
+	</thead>
+	<tbody>
+		{% for location in locations %}
+		<tr>
+			<td>{{ location.id }}</td>
+			<td>{{ location.address1 }}</td>
+			<td>{{ location.address2 }}</td>
+			<td>{{ location.city }}</td>
+			<td>{{ location.state }}</td>
+			<td>{{ location.postal_code }}</td>
+			<td>{{ location.is_origin }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
