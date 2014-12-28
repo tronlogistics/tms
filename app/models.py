@@ -1,4 +1,4 @@
-from tronms import db, bcrypt
+from app import db, bcrypt
 from sqlalchemy import create_engine, Column, Integer, String, Date, ForeignKey, event, Boolean, Table
 from sqlalchemy.orm import scoped_session, sessionmaker, backref, relationship
 
