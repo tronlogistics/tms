@@ -32,4 +32,5 @@ def all():
 	#	loads.append(g.user.brokered_loads)
 	#	return render_template('load/all.html', loads=loads)
 	#else:
+	
 	return render_template('load/all.html')#, loads=g.user.brokered_loads, user=g.user)

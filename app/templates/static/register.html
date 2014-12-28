@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<form name="edit" action="" method="post" class="form-horizontal">
+	{{ form.hidden_tag() }}
+	<div class="container-fluid" id="container">
+		<div class="row-fluid">
+		    <div class="span12">
+        		<div class="box">
+            		<div class="box-title">
+                		Register
+            		</div>
+            		<div class="box-content nopadding">
+	                	<div class="form-horizontal">
+	                		<div class="control-group">
+	                        	<label class="control-label">Account Type</label>
+	                        	<div class="controls">
+	                           		{{ form.account_type() }}
+	                           		{% for error in form.account_type.errors %}
+    									<span style="color: red;">{{ error }}</span>
+  									{% endfor %}
+                                    <!--<span class="help-inline">Description goes here</span>-->
+	                        	</div>
+	                    	</div>
+	                    	<div class="control-group">
+	                        	<label class="control-label">Company Name</label>
+	                        	<div class="controls">
+	                           		{{ form.company_name(size=64) }}
+	                           		{% for error in form.company_name.errors %}
+    									<span style="color: red;">{{ error }}</span>
+  									{% endfor %}
+                                    <!--<span class="help-inline">Description goes here</span>-->
+	                        	</div>
+	                    	</div>
+	                    	<div class="control-group">
+	                        	<label class="control-label">E-Mail</label>
+	                        	<div class="controls">
+	                           		{{ form.email(size=120) }}
+	                           		{% for error in form.email.errors %}
+    									<span style="color: red;">{{ error }}</span>
+  									{% endfor %}
+                                    <!--<span class="help-inline">Description goes here</span>-->
+	                        	</div>
+	                    	</div>
+	                    	<div class="control-group">
+	                        	<label class="control-label">Password</label>
+	                        	<div class="controls">
+	                           		{{ form.password(size=20) }}
+                                    {% for error in form.password.errors %}
+    									<span style="color: red;">{{ error }}</span>
+  									{% endfor %}
+	                        	</div>
+	                    	</div>
+	                    	<div class="control-group">
+	                        	<label class="control-label">Password</label>
+	                        	<div class="controls">
+	                           		{{ form.confirm(size=20) }}
+                                    {% for error in form.confirm.errors %}
+    									<span style="color: red;">{{ error }}</span>
+  									{% endfor %}
+	                        	</div>
+	                    	</div>
+	                    	<div class="form-actions">
+			                	<input type="submit" class="btn btn-primary" value="Save" />
+			                	<button class="btn">Cancel</button>
+			                </div>
+	                	</div> 
+                	</div>
+            	</div>
+		 	</div>         
+	    </div>
+	</div> 
+</form>
+
+<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+
+{% endblock %}
