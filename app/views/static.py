@@ -29,12 +29,15 @@ def login():
 		return redirect(url_for('load.all'))
 	form = LoginForm()
 	if form.validate_on_submit():
-		user = User.query.get(form.email.data)
+		user = User.query.filter_by(email=form.email.data).first()
+		flash(user is not None)
 		#user = User.query.filter_by(email=form.email.data).first()
 		
 		#return render_template('static/login.html', form=form)
 		if user is not None:
-			if bcrypt.check_password_hash(user.password, form.password.data):
+			flash(user.password)
+			flash(user.check_password(form.password.data))
+			if user.check_password(form.password.data):
 
 				user.authenticated = True
 				db.session.add(user)
@@ -42,8 +45,8 @@ def login():
 				login_user(user, remember=True)
 
 				# Tell Flask-Principal the user has logged in
-				identity_changed.send(current_app._get_current_object(),
-										identity=Identity(user.email))
+				#identity_changed.send(current_app._get_current_object(),
+				#						identity=Identity(user.email))
 				return redirect(url_for("load.all"))
 	return render_template('static/login.html', form=form, user=g.user)
 

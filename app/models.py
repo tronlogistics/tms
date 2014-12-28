@@ -44,7 +44,7 @@ class User(db.Model):
 	def __init__(self, email, company_name, password):
 		self.email = email
 		self.company_name = company_name
-		self.password = set_password(password)
+		self.set_password(password)
 		self.fleet = Fleet()
 
 	def is_carrier(self):
@@ -66,10 +66,10 @@ class User(db.Model):
 		return False
 
 	def set_password(self, password):
-		self.pw_hash = generate_password_hash(password)
+		self.password = generate_password_hash(password)
 
 	def check_password(self, password):
-		return check_password_hash(self.pw_hash, password)
+		return check_password_hash(self.password, password)
 
 	def __repr__(self):
 		return '<User %r>' % (self.company_name)
