@@ -20,3 +20,24 @@ Traceback (most recent call last):
   File "/Users/Root1/venv/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
     raise request.routing_exception
 NotFound: 404: Not Found
+2014-12-28 12:07:31,826 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:34]
+2014-12-28 12:07:32,293 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:34]
+2014-12-28 12:07:33,126 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:92]
+Traceback (most recent call last):
+  File "/Users/Root1/venv/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/Root1/venv/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Users/Root1/venv/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2014-12-28 12:08:04,188 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:34]
+2014-12-28 12:08:05,373 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:93]
+Traceback (most recent call last):
+  File "/Users/Root1/venv/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/Root1/venv/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Users/Root1/venv/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
