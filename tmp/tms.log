@@ -1,0 +1,22 @@
+2014-12-28 11:44:29,542 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:34]
+2014-12-28 11:44:29,942 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:34]
+2014-12-28 11:46:05,791 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:34]
+2014-12-28 11:46:06,220 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:34]
+2014-12-28 11:47:15,137 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:34]
+2014-12-28 11:47:15,566 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:34]
+2014-12-28 11:47:38,656 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:34]
+2014-12-28 11:47:39,092 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:34]
+2014-12-28 11:48:03,802 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:34]
+2014-12-28 11:48:04,252 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:34]
+2014-12-28 11:57:08,290 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:34]
+2014-12-28 11:57:08,707 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:34]
+2014-12-28 11:58:13,977 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:34]
+2014-12-28 11:58:18,552 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:92]
+Traceback (most recent call last):
+  File "/Users/Root1/venv/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Users/Root1/venv/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Users/Root1/venv/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
