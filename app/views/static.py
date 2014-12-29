@@ -38,7 +38,7 @@ def login():
 
 				# Tell Flask-Principal the user has logged in
 				identity_changed.send(current_app._get_current_object(),
-										identity=Identity(user.id))
+										identity=Identity(user.email))
 				return redirect(url_for("load.all"))
 	return render_template('static/login.html', form=form, user=g.user)
 

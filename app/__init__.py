@@ -1,6 +1,7 @@
 from flask import Flask, url_for
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
+from flask.ext.principal import Principal
 
 import os
 
@@ -11,6 +12,8 @@ db = SQLAlchemy(app)
 
 lm = LoginManager()
 lm.init_app(app)
+
+principals = Principal(app)
 
 from .views.load import load
 #from .views.dashboard import dashboard

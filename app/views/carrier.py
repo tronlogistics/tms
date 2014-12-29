@@ -272,7 +272,7 @@ def delete_driver(driver_id):
 
 ####################################
 
-@identity_changed.connect_via(app)
+@identity_changed.connect
 def on_identity_changed(sender, identity):
 	# Set the identity user object
 	identity.user = g.user
