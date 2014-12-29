@@ -463,7 +463,7 @@ def view_db():
 							locations=locations, user=g.user)
 
 
-@identity_changed.connect_via(tronms)
+@identity_changed.connect_via(app)
 def on_identity_changed(sender, identity):
 	# Set the identity user object
 	identity.user = g.user
