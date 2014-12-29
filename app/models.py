@@ -5,13 +5,13 @@ from sqlalchemy.orm import scoped_session, sessionmaker, backref, relationship
 
 
 #user_to_user = db.Table('user_to_user', db.metadata,
-#	db.Column("left_user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True),
-#	db.Column("right_user_id", db.Integer, db.ForeignKey("user.id"), primary_key=True)
+#	db.Column("left_user_id", db.Integer, db.ForeignKey("User.id"), primary_key=True),
+#	db.Column("right_user_id", db.Integer, db.ForeignKey("User.id"), primary_key=True)
 #)
 
 #assigned_users = db.Table('assigned_users', db.metadata,
-#	Column('user_id', Integer, ForeignKey('user.id')),
-#	Column('load_id', Integer, ForeignKey('load.id'))
+#	Column('user_id', Integer, ForeignKey('User.id')),
+#	Column('load_id', Integer, ForeignKey('Load.id'))
 #)
 
 class User(db.Model):
@@ -75,18 +75,18 @@ class User(db.Model):
 
 #class Load(db.Model):
 #	id = db.Column(db.Integer, primary_key=True)
-#	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+#	user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
 #	name = db.Column(db.String(80), index=True)
 #	status = db.Column(db.String(20))
 #	lane = db.relationship("Lane", uselist=False, backref="load")
 #	load_detail = db.relationship("LoadDetail", uselist=False, backref="load")
-#	broker_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-#	carrier_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+#	broker_id = db.Column(db.Integer, db.ForeignKey('User.id'))
+#	carrier_id = db.Column(db.Integer, db.ForeignKey('User.id'))
 #	bids = db.relationship('Bid', backref='load')
 #	carrier_cost = db.Column(db.Float(3))
 #	price = db.Column(db.Float(3))
 #	description = db.Column(db.String(250))
-#	driver_id = db.Column(db.Integer, db.ForeignKey('driver.id'))
+#	driver_id = db.Column(db.Integer, db.ForeignKey('Driver.id'))
 #	assigned_driver = db.relationship("Driver", backref="loads")
 #	
 #	def __repr__(self):
@@ -94,7 +94,7 @@ class User(db.Model):
 #
 #class Bid(db.Model):
 #	id = db.Column(db.Integer, primary_key=True)
-#	load_id = Column(Integer, ForeignKey('load.id'))
+#	load_id = Column(Integer, ForeignKey('Load.id'))
 #	offered_by_id = Column(db.Integer, db.ForeignKey('user.id'))
 #	offered_to_id = Column(db.Integer, db.ForeignKey('user.id'))
 #	offered_by = relationship("User", foreign_keys=offered_by_id)
@@ -195,4 +195,4 @@ class User(db.Model):
 class Role(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(100))
-	user_id = db.Column(db.String, db.ForeignKey('User.id'))
+	user_id = db.Column(db.String, db.ForeignKey('user.id'))
