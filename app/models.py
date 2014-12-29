@@ -86,7 +86,7 @@ class Load(db.Model):
 	carrier_cost = db.Column(db.Float(3))
 	price = db.Column(db.Float(3))
 	description = db.Column(db.String(250))
-	driver_id = db.Column(db.Integer, db.ForeignKey('Driver.id'))
+	driver_id = db.Column(db.Integer, db.ForeignKey('driver.id'))
 	assigned_driver = db.relationship("Driver", backref="loads")
 	
 	def __repr__(self):
