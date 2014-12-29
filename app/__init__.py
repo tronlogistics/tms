@@ -14,10 +14,10 @@ lm.init_app(app)
 
 from .views.load import load
 #from .views.dashboard import dashboard
-#from .views.carrier import carrier
+from .views.carrier import carrier
 from .views.static import static
 app.register_blueprint(load)
-#app.register_blueprint(carrier)
+app.register_blueprint(carrier)
 #app.register_blueprint(dashboard)
 app.register_blueprint(static)
 

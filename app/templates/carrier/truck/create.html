@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<form name="edit" action="" method="post" class="form-horizontal">
+	{{ form.hidden_tag() }}
+	<div class="container-fluid" id="container">
+		<div class="row-fluid">
+		    <div class="span12">
+		    	<div class="row-fluid">
+		    		<div class="span12">
+		        		<div class="box">
+		            		<div class="box-title">
+		                		Carrier
+		            		</div>
+		            		<div class="box-content nopadding">
+			                	<div class="form-horizontal">
+			                    	<div class="control-group">
+			                        	<label class="control-label">Name</label>
+			                        	<div class="controls">
+			                           		{{ form.name(size=50) }}
+			                           		{% for error in form.name.errors %}
+            									<span style="color: red;">[{{ error }}]</span>
+          									{% endfor %}
+			                        	</div>
+			                    	</div>
+			                    	<div class="control-group">
+			                        	<label class="control-label">Trailer Group</label>
+			                        	<div class="controls">
+			                           		{{ form.trailer_group() }}
+			                           		{% for error in form.trailer_group.errors %}
+            									<span style="color: red;">[{{ error }}]</span>
+          									{% endfor %}
+			                        	</div>
+			                    	</div>
+			                    	<div class="control-group">
+			                        	<label class="control-label">Trailer Type</label>
+			                        	<div class="controls">
+			                           		{{ form.trailer_type() }}
+			                           		{% for error in form.trailer_type.errors %}
+            									<span style="color: red;">[{{ error }}]</span>
+          									{% endfor %}
+			                        	</div>
+			                    	</div>
+			                    	<div class="control-group">
+			                        	<label class="control-label">Max Weight</label>
+			                        	<div class="controls">
+			                           		{{ form.max_weight(size=80) }}
+			                           		{% for error in form.max_weight.errors %}
+            									<span style="color: red;">[{{ error }}]</span>
+          									{% endfor %}
+			                        	</div>
+			                    	</div>
+			                    	<div class="control-group">
+			                        	<label class="control-label">Length</label>
+			                        	<div class="controls">
+			                           		{{ form.dim_length(size=80) }}
+			                           		{% for error in form.dim_length.errors %}
+            									<span style="color: red;">[{{ error }}]</span>
+          									{% endfor %}
+			                        	</div>
+			                    	</div>
+			                    	<div class="control-group">
+			                        	<label class="control-label">Height</label>
+			                        	<div class="controls">
+			                           		{{ form.dim_height(size=80) }}
+			                           		{% for error in form.dim_height.errors %}
+            									<span style="color: red;">[{{ error }}]</span>
+          									{% endfor %}
+			                        	</div>
+			                    	</div>
+			                    	<div class="control-group">
+			                        	<label class="control-label">Width</label>
+			                        	<div class="controls">
+			                           		{{ form.dim_width(size=80) }}
+			                           		{% for error in form.dim_width.errors %}
+            									<span style="color: red;">[{{ error }}]</span>
+          									{% endfor %}
+			                        	</div>
+			                    	</div>
+			                    	<div class="form-actions">
+			                        	<input type="submit" class="btn btn-primary" value="Save" />
+			                        	<a href="{{ url_for('carrier.all') }}" class="btn">Cancel</a>
+			                    	</div>
+			                	</div> 
+		                	</div>
+		            	</div>
+		         	</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
+
+
+{% endblock %}
