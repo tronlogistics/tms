@@ -1,10 +1,10 @@
 from flask import Blueprint, render_template, url_for, redirect, request, flash, session, abort, g
 from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_changed, Identity, RoleNeed
-from tronms import db, lm, tronms
-from tronms.forms import DriverForm, TruckForm, AssignDriverForm
-from tronms.models import Load, Driver, Truck
-from tronms.permissions import *
+from app import db, lm, app
+from app.forms import DriverForm, TruckForm, AssignDriverForm
+from app.models import Load, Driver, Truck
+from app.permissions import *
 
 carrier = Blueprint('carrier', __name__, url_prefix='/fleet')
 
