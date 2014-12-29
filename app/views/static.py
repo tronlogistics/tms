@@ -28,26 +28,20 @@ def login():
 	if g.user.is_authenticated():
 		return redirect(url_for('load.all'))
 	form = LoginForm()
-	#if form.validate_on_submit():
-	#	user = User.query.filter_by(email=form.email.data).first()
-		#flash(user is not None)
-		#user = User.query.filter_by(email=form.email.data).first()
-		
-		#return render_template('static/login.html', form=form)
-		#if user is not None:
-		#	flash(user.password)
-		#	flash(user.check_password(form.password.data))
-		#	if user.check_password(form.password.data):
+	if form.validate_on_submit():
+		user = User.query.filter_by(email=form.email.data).first()
+		if user is not None:
+			if user.check_password(form.password.data):
 
-		#		user.authenticated = True
-		#		db.session.add(user)
-		#		db.session.commit()
-		#		login_user(user, remember=True)
+				user.authenticated = True
+				db.session.add(user)
+				db.session.commit()
+				login_user(user, remember=True)
 
 				# Tell Flask-Principal the user has logged in
 				#identity_changed.send(current_app._get_current_object(),
 				#						identity=Identity(user.email))
-		#		return redirect(url_for("load.all"))
+				return redirect(url_for("load.all"))
 	return render_template('static/login.html', form=form, user=g.user)
 
 @static.route("/logout", methods=["GET"])

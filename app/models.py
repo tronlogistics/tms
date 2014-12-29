@@ -82,7 +82,7 @@ class Load(db.Model):
 	load_detail = db.relationship("LoadDetail", uselist=False, backref="load")
 	broker_id = db.Column(db.Integer, db.ForeignKey('User.id'))
 	carrier_id = db.Column(db.Integer, db.ForeignKey('User.id'))
-	bids = db.relationship('Bid', backref='load', lazy='dynamic')
+	bids = db.relationship('Bid', backref='load')
 	carrier_cost = db.Column(db.Float(3))
 	price = db.Column(db.Float(3))
 	description = db.Column(db.String(250))
@@ -94,7 +94,7 @@ class Load(db.Model):
 
 class Bid(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	load_id = Column(db.Integer, ForeignKey('Load.id'))
+	load_id = Column(db.Integer, db.ForeignKey('load.id'))
 	offered_by_id = Column(db.Integer, db.ForeignKey('user.id'))
 	offered_to_id = Column(db.Integer, db.ForeignKey('user.id'))
 	offered_by = db.relationship("User", foreign_keys=offered_by_id)
