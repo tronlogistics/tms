@@ -1,8 +1,8 @@
+from app import app
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import create_engine, Column, Integer, String, Date, ForeignKey, event, Boolean, Table
 from sqlalchemy.orm import scoped_session, sessionmaker, backref, relationship
-
 
 #user_to_user = db.Table('user_to_user', db.metadata,
 #	db.Column("left_user_id", db.Integer, db.ForeignKey("User.id"), primary_key=True),
