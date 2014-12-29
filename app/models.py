@@ -5,8 +5,8 @@ from sqlalchemy import create_engine, Column, Integer, String, Date, ForeignKey,
 from sqlalchemy.orm import scoped_session, sessionmaker, backref, relationship
 
 user_to_user = db.Table('user_to_user', db.metadata,
-	db.Column('left_user_id', db.Integer, db.ForeignKey('User.id'), primary_key=True),
-	db.Column('right_user_id', db.Integer, db.ForeignKey('User.id'), primary_key=True)
+	db.Column('left_user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
+	db.Column('right_user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True)
 )
 
 #assigned_users = db.Table('assigned_users', db.metadata,
