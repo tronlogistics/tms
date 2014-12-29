@@ -192,7 +192,7 @@ class User(db.Model):
 #	def get_full_name(self):
 #		return self.first_name + " " + self.last_name
 #
-#class Role(db.Model):
-#	id = db.Column(db.Integer, primary_key=True)
-#	name = db.Column(db.String(100))
-#	user_id = db.Column(db.String, db.ForeignKey('user.id'))
+class Role(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(100))
+	user_id = db.Column(db.String, db.ForeignKey('user.id'))
