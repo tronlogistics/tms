@@ -30,9 +30,11 @@ def login():
 	form = LoginForm()
 	if form.validate_on_submit():
 		user = User.query.filter_by(email=form.email.data).first()
+		flash("user - %s" % user.email)
 		if user is not None:
+			flash("checking password")
 			if user.check_password(form.password.data):
-
+				flash("password accepted")
 				user.authenticated = True
 				db.session.add(user)
 				db.session.commit()
