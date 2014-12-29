@@ -195,4 +195,4 @@ class User(db.Model):
 class Role(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(100))
-	user_id = db.Column(db.String, db.ForeignKey('user.id'))
+	user_id = db.Column(db.String, db.ForeignKey('User.id'))
