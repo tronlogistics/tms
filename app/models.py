@@ -44,7 +44,7 @@ class User(db.Model):
 		self.email = email
 		self.company_name = company_name
 		self.set_password(password)
-		self.fleet = Fleet()
+		#self.fleet = Fleet()
 
 	def is_carrier(self):
 		return len(filter((lambda role: role.name == 'carrier'), self.roles)) == 1
