@@ -9,10 +9,10 @@ from sqlalchemy.orm import scoped_session, sessionmaker, backref, relationship
 #	db.Column("right_user_id", db.Integer, db.ForeignKey("User.id"), primary_key=True)
 #)
 
-assigned_users = db.Table('assigned_users', db.metadata,
-	Column('user_id', Integer, ForeignKey('User.id')),
-	Column('load_id', Integer, ForeignKey('Load.id'))
-)
+#assigned_users = db.Table('assigned_users', db.metadata,
+#	Column('user_id', Integer, ForeignKey('User.id')),
+#	Column('load_id', Integer, ForeignKey('Load.id'))
+#)
 
 class User(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
