@@ -44,7 +44,7 @@ class User(db.Model):
 		self.email = email
 		self.company_name = company_name
 		self.set_password(password)
-		self.fleet = Fleet()
+		#self.fleet = Fleet()
 
 	def is_carrier(self):
 		return len(filter((lambda role: role.name == 'carrier'), self.roles)) == 1
@@ -192,7 +192,7 @@ class User(db.Model):
 #	def get_full_name(self):
 #		return self.first_name + " " + self.last_name
 #
-class Role(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String(100))
-	user_id = db.Column(db.String, db.ForeignKey('user.id'))
+#class Role(db.Model):
+#	id = db.Column(db.Integer, primary_key=True)
+#	name = db.Column(db.String(100))
+#	user_id = db.Column(db.String, db.ForeignKey('user.id'))

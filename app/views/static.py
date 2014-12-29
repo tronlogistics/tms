@@ -3,7 +3,7 @@ from flask.ext.login import login_user, logout_user, current_user, login_require
 #from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app
 from app.forms import LoginForm, RegisterForm
-from app.models import User, Role#, Fleet
+from app.models import User#, Role#, Fleet
 #from app.permissions import *
 
 
@@ -80,9 +80,9 @@ def register():
 					email=form.email.data,
 					password=form.password.data)
 		db.session.add(user)
-		role = Role(name=form.account_type.data)
-		db.session.add(role)
-		user.roles.append(role)
+		#role = Role(name=form.account_type.data)
+		#db.session.add(role)
+		#user.roles.append(role)
 		db.session.add(user)
 		app.logger.debug("Saving user - %s" % form.email.data)
 		db.session.commit()
