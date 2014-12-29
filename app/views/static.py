@@ -95,6 +95,7 @@ def not_found_error(error):
 @app.errorhandler(500)
 def internal_error(error):
 	flash(error)
+	print error
 	app.logger.exception(error)
 	db.session.rollback()
 	return render_template('500.html', error=error), 500
