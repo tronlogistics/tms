@@ -3,10 +3,10 @@ from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_changed, Identity, RoleNeed
 from geopy import geocoders 
 from geopy.geocoders import Nominatim
-from tronms import db, lm, tronms, SQLAlchemy
-from tronms.forms import LoadForm, BidForm
-from tronms.models import Load, LoadDetail, Lane, Location, Truck, User, Bid, Driver
-from tronms.permissions import *
+from app import db, lm, app, SQLAlchemy
+from app.forms import LoadForm, BidForm
+from app.models import Load, LoadDetail, Lane, Location, Truck, User, Bid, Driver
+from app.permissions import *
 from sqlalchemy import desc
 
 load = Blueprint('load', __name__, url_prefix='/load')
