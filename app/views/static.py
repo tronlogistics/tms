@@ -25,11 +25,11 @@ def index():
 
 @static.route('/login', methods=['GET', 'POST'])
 def login():
-	if g.user.is_authenticated():
-		return redirect(url_for('load.all'))
-	form = LoginForm()
-	if form.validate_on_submit():
-		user = User.query.filter_by(email=form.email.data).first()
+	#if g.user.is_authenticated():
+	#	return redirect(url_for('load.all'))
+	#form = LoginForm()
+	#if form.validate_on_submit():
+	#	user = User.query.filter_by(email=form.email.data).first()
 		#flash(user is not None)
 		#user = User.query.filter_by(email=form.email.data).first()
 		
