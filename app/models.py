@@ -28,8 +28,8 @@ class User(db.Model):
 	# User information
 	authenticated = db.Column(db.Boolean(), nullable=False, server_default='0')
 	company_name = db.Column(db.String(100), nullable=False, server_default='')
-	brokered_loads = db.relationship('Load', backref='broker', lazy='dynamic', foreign_keys='Load.broker_id')
-	assigned_loads = db.relationship('Load', backref='carrier', lazy='dynamic', foreign_keys='Load.carrier_id')
+	brokered_loads = db.relationship('Load', backref='broker', lazy='dynamic', foreign_keys='load.broker_id')
+	assigned_loads = db.relationship('Load', backref='carrier', lazy='dynamic', foreign_keys='load.carrier_id')
 	fleet = db.relationship("Fleet", uselist=False, backref="carrier")
 	contacts = db.relationship("User",
 					secondary=user_to_user,
