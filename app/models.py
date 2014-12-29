@@ -50,7 +50,7 @@ class User(db.Model):
 		return len(filter((lambda role: role.name == 'carrier'), self.roles)) == 1
 
 	def get_id(self):
-		return self.email
+		return self.id
 
 	def is_active(self):
 		#True, as all users are active.

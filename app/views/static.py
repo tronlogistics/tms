@@ -6,13 +6,12 @@ from app.forms import LoginForm, RegisterForm
 from app.models import User, Role
 from app.permissions import *
 
-
-
 static = Blueprint('static', __name__, url_prefix='')
 
 @lm.user_loader
 def load_user(user_id):
-    return User.query.get(user_id)
+	flash(user_id)
+	return User.query.get(user_id)
 
 @static.before_request
 def before_request():
@@ -30,19 +29,16 @@ def login():
 	form = LoginForm()
 	if form.validate_on_submit():
 		user = User.query.filter_by(email=form.email.data).first()
-		flash("user - %s" % user.email)
 		if user is not None:
-			flash("checking password")
 			if user.check_password(form.password.data):
-				flash("password accepted")
 				user.authenticated = True
 				db.session.add(user)
 				db.session.commit()
 				login_user(user, remember=True)
 
 				# Tell Flask-Principal the user has logged in
-				#identity_changed.send(current_app._get_current_object(),
-				#						identity=Identity(user.email))
+				identity_changed.send(current_app._get_current_object(),
+										identity=Identity(user.id))
 				return redirect(url_for("load.all"))
 	return render_template('static/login.html', form=form, user=g.user)
 
@@ -71,7 +67,6 @@ def logout():
 def register():
 	form = RegisterForm()
 	if form.validate_on_submit():
-		app.logger.debug("Creating user - %s" % form.email.data)
 		user = User(company_name=form.company_name.data,
 					email=form.email.data,
 					password=form.password.data)
@@ -80,9 +75,8 @@ def register():
 		db.session.add(role)
 		user.roles.append(role)
 		db.session.add(user)
-		app.logger.debug("Saving user - %s" % form.email.data)
 		db.session.commit()
-		app.logger.debug("User saved - %s" % form.email.data)
+		#flash("user created - %s" % user.email)
 		return redirect(url_for('.login'))
 	return render_template('static/register.html', form=form, user=g.user)
 
@@ -146,4 +140,6 @@ def on_identity_loaded(sender, identity):
 		for bid in current_user.offered_bids:
 			identity.provides.add(ViewLoadNeed(unicode(bid.load.id)))
 			identity.provides.add(AssignLoadNeed(unicode(bid.load.id)))
+
+
 

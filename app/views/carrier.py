@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, url_for, redirect, request, flash, session, abort, g
 from flask.ext.login import current_user, login_required
-from flask.ext.principal import identity_changed, Identity, RoleNeed
+from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app
 from app.forms import DriverForm, TruckForm, AssignDriverForm
 from app.models import Load, Driver, Truck
@@ -272,7 +272,7 @@ def delete_driver(driver_id):
 
 ####################################
 
-@identity_changed.connect
+@identity_changed.connect_via(app)
 def on_identity_changed(sender, identity):
 	# Set the identity user object
 	identity.user = g.user
@@ -288,11 +288,15 @@ def on_identity_changed(sender, identity):
 
 	# Assuming the User model has a list of posts the user
 	# has authored, add the needs to the identity
-	if hasattr(current_user, 'loads'):
-		for load in current_user.loads:
-			if filter((lambda role: role.name == 'broker'), current_user.roles):
-				identity.provides.add(EditLoadNeed(unicode(load.id)))
-				identity.provides.add(DeleteLoadNeed(unicode(load.id)))
+	if hasattr(current_user, 'brokered_loads'):
+		for load in current_user.brokered_loads:
+			identity.provides.add(EditLoadNeed(unicode(load.id)))
+			identity.provides.add(DeleteLoadNeed(unicode(load.id)))
+			identity.provides.add(ViewLoadNeed(unicode(load.id)))
+			identity.provides.add(AssignLoadNeed(unicode(load.id)))
+
+	if hasattr(current_user, 'assigned_loads'):
+		for load in current_user.assigned_loads:
 			identity.provides.add(ViewLoadNeed(unicode(load.id)))
 			identity.provides.add(AssignLoadNeed(unicode(load.id)))
 
@@ -301,8 +305,13 @@ def on_identity_changed(sender, identity):
 			identity.provides.add(EditTruckNeed(unicode(truck.id)))
 			identity.provides.add(DeleteTruckNeed(unicode(truck.id)))
 			identity.provides.add(ViewTruckNeed(unicode(truck.id)))
-		
+
 		for driver in current_user.fleet.drivers:
 			identity.provides.add(EditDriverNeed(unicode(driver.id)))
 			identity.provides.add(DeleteDriverNeed(unicode(driver.id)))
 			identity.provides.add(ViewDriverNeed(unicode(driver.id)))
+
+	if hasattr(current_user, 'offered_bids'):
+		for bid in current_user.offered_bids:
+			identity.provides.add(ViewLoadNeed(unicode(bid.load.id)))
+			identity.provides.add(AssignLoadNeed(unicode(bid.load.id)))

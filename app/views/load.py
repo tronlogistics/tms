@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, url_for, redirect, request, flash, session, g, abort
 from flask.ext.login import current_user, login_required
-from flask.ext.principal import identity_changed, Identity, RoleNeed
+from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from geopy import geocoders 
 from geopy.geocoders import Nominatim
 from app import db, lm, app, SQLAlchemy
