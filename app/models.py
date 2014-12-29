@@ -5,8 +5,8 @@ from sqlalchemy import create_engine, Column, Integer, String, Date, ForeignKey,
 from sqlalchemy.orm import scoped_session, sessionmaker, backref, relationship
 
 user_to_user = db.Table('user_to_user', db.metadata,
-	db.Column("left_user_id", db.Integer, db.ForeignKey("User.id"), primary_key=True),
-	db.Column("right_user_id", db.Integer, db.ForeignKey("User.id"), primary_key=True)
+	db.Column('left_user_id', db.Integer, db.ForeignKey('User.id'), primary_key=True),
+	db.Column('right_user_id', db.Integer, db.ForeignKey('User.id'), primary_key=True)
 )
 
 #assigned_users = db.Table('assigned_users', db.metadata,
@@ -28,14 +28,14 @@ class User(db.Model):
 	# User information
 	authenticated = db.Column(db.Boolean(), nullable=False, server_default='0')
 	company_name = db.Column(db.String(100), nullable=False, server_default='')
-	brokered_loads = db.relationship('Load', backref='broker', lazy='dynamic', foreign_keys='load.broker_id')
-	assigned_loads = db.relationship('Load', backref='carrier', lazy='dynamic', foreign_keys='load.carrier_id')
-	fleet = db.relationship("Fleet", uselist=False, backref="carrier")
-	contacts = db.relationship("User",
+	brokered_loads = db.relationship('load', backref='broker', lazy='dynamic', foreign_keys='load.broker_id')
+	assigned_loads = db.relationship('load', backref='carrier', lazy='dynamic', foreign_keys='load.carrier_id')
+	fleet = db.relationship('Fleet', uselist=False, backref='carrier')
+	contacts = db.relationship('User',
 					secondary=user_to_user,
 					primaryjoin=id==user_to_user.c.left_user_id,
 					secondaryjoin=id==user_to_user.c.right_user_id,
-					backref="contacted_by"
+					backref='contacted_by'
     )
 	roles = db.relationship('Role')
 
@@ -57,11 +57,11 @@ class User(db.Model):
 		return True
 
 	def is_authenticated(self):
-		#"""Return True if the user is authenticated."""
+		#'Return True if the user is authenticated.'
 		return self.authenticated
 
 	def is_anonymous(self):
-		#False, as anonymous users aren't supported."""
+		#False, as anonymous users aren't supported.'
 		return False
 
 	def set_password(self, password):
@@ -78,8 +78,8 @@ class Load(db.Model):
 	user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
 	name = db.Column(db.String(80), index=True)
 	status = db.Column(db.String(20))
-	lane = db.relationship("Lane", uselist=False, backref="load")
-	load_detail = db.relationship("LoadDetail", uselist=False, backref="load")
+	lane = db.relationship('Lane', uselist=False, backref='load')
+	load_detail = db.relationship('LoadDetail', uselist=False, backref='load')
 	broker_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	carrier_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	bids = db.relationship('Bid', backref='load')
@@ -87,7 +87,7 @@ class Load(db.Model):
 	price = db.Column(db.Float(3))
 	description = db.Column(db.String(250))
 	driver_id = db.Column(db.Integer, db.ForeignKey('driver.id'))
-	assigned_driver = db.relationship("Driver", backref="loads")
+	assigned_driver = db.relationship('Driver', backref='loads')
 	
 	def __repr__(self):
 		return '<User %r>' % (self.name)
@@ -97,8 +97,8 @@ class Bid(db.Model):
 	load_id = Column(db.Integer, db.ForeignKey('load.id'))
 	offered_by_id = Column(db.Integer, db.ForeignKey('user.id'))
 	offered_to_id = Column(db.Integer, db.ForeignKey('user.id'))
-	offered_by = db.relationship("User", foreign_keys=offered_by_id)
-	offered_to = db.relationship("User", backref="offered_bids", foreign_keys=offered_to_id)
+	offered_by = db.relationship('User', foreign_keys=offered_by_id)
+	offered_to = db.relationship('User', backref='offered_bids', foreign_keys=offered_to_id)
 	value = db.Column(db.Float(3))
 	status = db.Column(db.String(10))
 
@@ -127,8 +127,8 @@ class Lane(db.Model):
 	load_id = db.Column(Integer, ForeignKey('load.id'))
 	origin_id = db.Column(db.Integer, db.ForeignKey('location.id'))
 	destination_id = db.Column(db.Integer, db.ForeignKey('location.id'))
-	origin = db.relationship("Location", backref="origin_lanes", foreign_keys=origin_id)
-	destination = db.relationship("Location", backref="destination_lanes", foreign_keys=destination_id)
+	origin = db.relationship('Location', backref='origin_lanes', foreign_keys=origin_id)
+	destination = db.relationship('Location', backref='destination_lanes', foreign_keys=destination_id)
 	#locations = db.relationship('Location', backref='lane', lazy='dynamic')
 
 
@@ -185,12 +185,13 @@ class Driver(db.Model):
 	phone_area_code = db.Column(db.String(3))
 	phone_prefix = db.Column(db.String(3))
 	phone_line_number = db.Column(db.String(4))
-	truck = db.relationship("Truck", uselist=False, backref="driver")
+	truck = db.relationship('Truck', uselist=False, backref='driver')
 
 	def get_phone_number(self):
-		return "1 (" + str(self.phone_area_code) + ")-" + str(self.phone_prefix) +"-" + str(self.phone_line_number)
+		return '1 (' + str(self.phone_area_code) + ')-' + str(self.phone_prefix) +'-' + str(self.phone_line_number)
+
 	def get_full_name(self):
-		return self.first_name + " " + self.last_name
+		return self.first_name + ' ' + self.last_name
 
 class Role(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
