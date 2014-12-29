@@ -24,7 +24,7 @@ def before_request():
 def create():
 	form = LoadForm()
 	if form.validate_on_submit():
-		#geolocator = Nominatim()
+		geolocator = Nominatim()
 		load = Load(name=form.name.data, 
 					price=form.price.data, 
 					description=form.description.data) 
@@ -69,9 +69,9 @@ def create():
 				prepend_value += "0"
 			origin.contact_phone_line_number = prepend_value + origin.contact_phone_line_number
 
-		#location = geolocator.geocode(origin.postal_code)
-		#origin.latitude = location.latitude
-		#origin.longitude = location.longitude
+		location = geolocator.geocode(origin.postal_code)
+		origin.latitude = location.latitude
+		origin.longitude = location.longitude
 		db.session.add(origin)
 		destination = Location(address1=form.destination_address1.data,
 							address2=form.destination_address2.data,
@@ -101,9 +101,9 @@ def create():
 			for x in range(0, 4 - len(destination.contact_phone_line_number)):
 				prepend_value += "0"
 			destination.contact_phone_line_number = prepend_value + destination.contact_phone_line_number
-		#location = geolocator.geocode(destination.postal_code)
-		#destination.latitude = location.latitude
-		#destination.longitude = location.longitude
+		location = geolocator.geocode(destination.postal_code)
+		destination.latitude = location.latitude
+		destination.longitude = location.longitude
 		db.session.add(destination)
 		lane = Lane(origin=origin, destination=destination)
 		db.session.add(lane)
@@ -143,7 +143,7 @@ def edit(load_id):
 		form = LoadForm()
 		if form.validate_on_submit():
 
-			#geolocator = Nominatim()
+			geolocator = Nominatim()
 			load_detail = load.load_detail
 			origin = load.lane.origin
 			destination = load.lane.destination
@@ -159,9 +159,9 @@ def edit(load_id):
 			origin.contact_phone_line_number = form.origin_contact_phone_line_number.data
 			origin.contact_email = form.origin_contact_email.data
 			origin.contact_name = form.origin_contact_name.data
-			#location = geolocator.geocode(origin.postal_code)
-			#origin.latitude = location.latitude
-			#origin.longitude = location.longitude
+			location = geolocator.geocode(origin.postal_code)
+			origin.latitude = location.latitude
+			origin.longitude = location.longitude
 			destination.address1 = form.destination_address1.data
 			destination.address2 = form.destination_address2.data
 			destination.city = form.destination_city.data
@@ -172,15 +172,15 @@ def edit(load_id):
 			destination.contact_phone_line_number = form.origin_contact_phone_line_number.data
 			destination.contact_email = form.destination_contact_email.data
 			destination.contact_name = form.destination_contact_name.data
-			#location = geolocator.geocode(destination.postal_code)
-			#destination.latitude = location.latitude
-			#destination.longitude = location.longitude
+			location = geolocator.geocode(destination.postal_code)
+			destination.latitude = location.latitude
+			destination.longitude = location.longitude
 			load.load_detail.weight = form.weight.data
 			load.load_detail.dim_width = form.dim_width.data
 			load.load_detail.dim_length = form.dim_length.data
 			load.load_detail.dim_height = form.dim_height.data
-			#load.load_detail.pickup_date = form.pickup_date.data
-			#load.load_detail.delivery_date = form.delivery_date.data
+			load.load_detail.pickup_date = form.pickup_date.data
+			load.load_detail.delivery_date = form.delivery_date.data
 			load.load_detail.comments = form.comments.data
 			load.load_detail.number_pieces = form.number_pieces.data
 			load.load_detail.trailer_group = form.trailer_group.data
