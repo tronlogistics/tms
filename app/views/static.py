@@ -80,9 +80,9 @@ def register():
 					email=form.email.data,
 					password=form.password.data)
 		db.session.add(user)
-		#role = Role(name=form.account_type.data)
-		#db.session.add(role)
-		#user.roles.append(role)
+		role = Role(name=form.account_type.data)
+		db.session.add(role)
+		user.roles.append(role)
 		db.session.add(user)
 		app.logger.debug("Saving user - %s" % form.email.data)
 		db.session.commit()

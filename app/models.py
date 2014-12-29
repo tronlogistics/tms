@@ -94,7 +94,7 @@ class Load(db.Model):
 
 class Bid(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	load_id = Column(Integer, ForeignKey('Load.id'))
+	load_id = Column(db.Integer, ForeignKey('Load.id'))
 	offered_by_id = Column(db.Integer, db.ForeignKey('user.id'))
 	offered_to_id = Column(db.Integer, db.ForeignKey('user.id'))
 	offered_by = relationship("User", foreign_keys=offered_by_id)
