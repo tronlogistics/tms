@@ -1215,3 +1215,9 @@ a.fc-event,
       clear:both;
       /*width:150px;*/
   }
+
+  .vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
