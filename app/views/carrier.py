@@ -64,6 +64,7 @@ def remove(driver_id):
 	db.session.add(driver)
 	db.session.commit()
 	return redirect(url_for('carrier.all'))
+	
 #############################
 #							#
 #							#

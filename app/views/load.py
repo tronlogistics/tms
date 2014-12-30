@@ -462,6 +462,17 @@ def view_db():
 							load_details=load_details, 
 							locations=locations, user=g.user)
 
+@app.errorhandler(404)
+def not_found_error(error):
+	app.logger.exception(error)
+	return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+	print error
+	app.logger.exception(error)
+	db.session.rollback()
+	return render_template('500.html'), 500
 
 @identity_changed.connect_via(app)
 def on_identity_changed(sender, identity):
