@@ -17,10 +17,6 @@ def before_request():
     g.user = current_user
 
 @static.route('/')
-def index():
-	form = LoginForm()
-	return render_template('static/index.html')
-
 @static.route('/login', methods=['GET', 'POST'])
 def login():
 	if g.user.is_authenticated():
