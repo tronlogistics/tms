@@ -64,7 +64,7 @@ def remove(driver_id):
 	db.session.add(driver)
 	db.session.commit()
 	return redirect(url_for('carrier.all'))
-	
+
 #############################
 #							#
 #							#
@@ -272,6 +272,18 @@ def delete_driver(driver_id):
 
 
 ####################################
+
+@app.errorhandler(404)
+def not_found_error(error):
+	app.logger.exception(error)
+	return render_template('404.html', user=g.user), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+	print error
+	app.logger.exception(error)
+	db.session.rollback()
+	return render_template('500.html', user=g.user), 500
 
 @identity_changed.connect
 def on_identity_changed(sender, identity):
