@@ -152,3 +152,11 @@ Traceback (most recent call last):
 NotFound: 404: Not Found
 2014-12-29 21:04:51,216 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
 2014-12-29 21:04:51,630 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-29 21:19:56,184 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-29 21:19:56,587 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-29 21:20:24,421 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-29 21:21:45,351 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-29 21:21:45,769 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-29 21:21:54,800 INFO: User "carrier" with role "<app.models.Role object at 0x104628bd0>" created [in /Users/Root1/App/app/views/static.py:74]
+2014-12-29 21:22:14,601 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-29 21:22:24,178 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]

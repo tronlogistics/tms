@@ -71,6 +71,7 @@ def register():
 		user.roles.append(role)
 		db.session.add(user)
 		db.session.commit()
+		app.logger.info("User \"%s\" with role \"%s\" created" % (user.email, user.roles[0].name))
 		#flash("user created - %s" % user.email)
 		return redirect(url_for('.login'))
 	return render_template('static/register.html', form=form, user=g.user)
