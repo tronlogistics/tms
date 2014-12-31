@@ -5,7 +5,7 @@ from app import db, lm, app, mail
 from app.forms import LoginForm, RegisterForm
 from app.models import User, Role
 from app.permissions import *
-from app.emails import register_account
+from app.emails import register_account, get_serializer
 
 static = Blueprint('static', __name__, url_prefix='')
 
@@ -28,7 +28,12 @@ def login():
 	form = LoginForm()
 	if form.validate_on_submit():
 		user = User.query.filter_by(email=form.email.data).first()
+
 		if user is not None:
+			if not user.is_confirmed():
+				flash("You must confirm your e-mail prior to logging in. To confirm your e-mail, click the activation link provided to %s" % user.email )
+				return render_template('static/login.html', form=form, user=g.user)
+
 			if user.check_password(form.password.data):
 				user.authenticated = True
 				db.session.add(user)
@@ -75,11 +80,28 @@ def register():
 		user.roles.append(role)
 		db.session.add(user)
 		db.session.commit()
+		
 		register_account(user)
 		app.logger.info("User \"%s\" with role \"%s\" created" % (user.email, user.roles[0].name))
-		#flash("user created - %s" % user.email)
 		return redirect(url_for('.login'))
 	return render_template('static/register.html', form=form, user=g.user)
+
+@static.route('/activate/<activation_slug>')
+def activate_user(activation_slug):
+    s = get_serializer()
+    try:
+    	user_id = s.loads(activation_slug)
+    	app.logger.info("User %s" % user_id)
+    except BadSignature:
+    	abort(404)
+    
+    user = User.query.get_or_404(user_id)
+    user.activate()
+    db.session.add(user)
+    db.session.commit()
+    app.logger.info("User \"%s\" is now activated" % user.email)
+    flash('Your account is now activated. Please log in.')
+    return redirect(url_for('.login'))
 
 @app.errorhandler(404)
 def not_found_error(error):

@@ -3,6 +3,7 @@ from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import create_engine, Column, Integer, String, Date, ForeignKey, event, Boolean, Table
 from sqlalchemy.orm import scoped_session, sessionmaker, backref, relationship
+from datetime import datetime
 
 user_to_user = db.Table('user_to_user', db.metadata,
 	db.Column('left_user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
@@ -69,6 +70,12 @@ class User(db.Model):
 
 	def check_password(self, password):
 		return check_password_hash(self.password, password)
+
+	def activate(self):
+		self.confirmed_at = datetime.now()
+
+	def is_confirmed(self):
+		return self.confirmed_at is not None
 
 	def __repr__(self):
 		return '<User %r>' % (self.company_name)

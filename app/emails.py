@@ -4,6 +4,7 @@ from config import ADMINS
 from threading import Thread
 from flask import current_app, render_template
 from .decorators import async
+from itsdangerous import URLSafeSerializer, BadSignature
 
 @async
 def send_async_email(app, msg):
@@ -17,11 +18,32 @@ def send_email(subject, sender, recipients, text_body, html_body):
     send_async_email(app, msg)
 
 def register_account(user):
-	app.logger.info("Sending email to %s" % [ADMINS[1]])
+	app.logger.info("Sending email to %s" % user.email)
+	app.logger.info("User %s" % user.id)
+	s = get_serializer()
+
+	activation_slug = s.dumps(user.id)
+	app.logger.info("Slug %s" % activation_slug)
+	s = get_serializer()
+	try:
+		user_id = s.loads(activation_slug)
+		app.logger.info("User %s" % user_id)
+	except BadSignature:
+		abort(404)
 	send_email("Register Your Account",
 		ADMINS[0],
 		[user.email],
 		render_template("register_email.txt", 
-			user=user),
+			user=user, activation_slug=activation_slug),
 		render_template("register_email.html", 
-			user=user))
+			user=user, activation_slug=activation_slug))
+
+def get_serializer(secret_key=None):
+    if secret_key is None:
+        secret_key = app.secret_key
+    return URLSafeSerializer(secret_key)
+
+def get_activation_link(user):
+    s = get_serializer()
+    payload = s.dumps(user.id)
+    return url_for('activate_user', payload=payload, _external=True)
