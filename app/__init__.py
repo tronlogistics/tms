@@ -2,6 +2,8 @@ from flask import Flask, url_for
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.principal import Principal
+from flask.ext.mail import Mail
+
 
 import os
 
@@ -12,6 +14,8 @@ db = SQLAlchemy(app)
 
 lm = LoginManager()
 lm.init_app(app)
+
+mail = Mail(app)
 
 principals = Principal(app)
 

@@ -160,3 +160,149 @@ NotFound: 404: Not Found
 2014-12-29 21:21:54,800 INFO: User "carrier" with role "<app.models.Role object at 0x104628bd0>" created [in /Users/Root1/App/app/views/static.py:74]
 2014-12-29 21:22:14,601 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
 2014-12-29 21:22:24,178 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-29 21:36:30,206 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-29 21:36:30,578 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-29 21:36:36,777 ERROR: 404: Not Found [in /Users/Root1/App/app/views/static.py:81]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2014-12-29 21:37:06,467 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-29 21:37:07,001 ERROR: 404: Not Found [in /Users/Root1/App/app/views/static.py:81]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2014-12-30 10:25:48,330 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-30 10:25:48,416 ERROR: 404: Not Found [in /Users/Root1/App/app/views/static.py:81]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2014-12-30 10:26:16,169 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-30 10:26:19,516 ERROR: 404: Not Found [in /Users/Root1/App/app/views/static.py:81]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2014-12-30 10:27:46,927 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-30 10:27:47,283 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-30 10:27:51,878 ERROR: 404: Not Found [in /Users/Root1/App/app/views/static.py:81]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2014-12-30 10:28:50,511 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-30 10:28:53,013 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-30 10:28:54,670 ERROR: 404: Not Found [in /Users/Root1/App/app/views/static.py:84]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2014-12-30 10:29:30,943 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-30 10:29:35,643 ERROR: 404: Not Found [in /Users/Root1/App/app/views/static.py:84]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2014-12-30 10:30:14,951 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-30 10:30:19,455 ERROR: 404: Not Found [in /Users/Root1/App/app/views/static.py:84]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2014-12-30 10:30:32,634 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-30 10:30:37,172 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-30 10:30:37,543 ERROR: 404: Not Found [in /Users/Root1/App/app/views/static.py:84]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2014-12-30 10:30:50,755 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:37]
+2014-12-30 10:31:36,004 ERROR: 404: Not Found [in /Users/Root1/App/app/views/static.py:84]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2014-12-31 09:51:07,934 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 09:51:08,392 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 09:51:46,477 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 09:53:13,246 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 09:53:48,258 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 09:53:51,781 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 09:56:37,607 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 09:57:06,489 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 09:57:37,438 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 09:58:26,653 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 09:59:15,878 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 10:01:12,089 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 10:01:25,767 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 10:01:43,551 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 10:02:14,506 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 10:02:57,654 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 10:02:58,137 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 10:03:03,319 INFO: User "email7@test.com" with role "carrier" created [in /Users/Root1/App/app/views/static.py:79]
+2014-12-31 10:05:09,409 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 10:05:57,627 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 10:06:01,206 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 10:06:09,957 INFO: Sending email to ['john@tronlogistics.com'] [in /Users/Root1/App/app/emails.py:19]
+2014-12-31 10:06:10,595 INFO: User "email9@test.com" with role "carrier" created [in /Users/Root1/App/app/views/static.py:79]
+2014-12-31 10:09:51,000 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 10:10:05,685 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 10:10:29,267 INFO: Sending email to ['john@tronlogistics.com'] [in /Users/Root1/App/app/emails.py:19]
+2014-12-31 10:10:29,824 INFO: User "123@123.com" with role "carrier" created [in /Users/Root1/App/app/views/static.py:79]
+2014-12-31 10:19:13,538 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 10:19:13,972 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 10:19:29,615 INFO: Sending email to ['john@tronlogistics.com'] [in /Users/Root1/App/app/emails.py:20]
+2014-12-31 10:19:30,156 INFO: User "2@2.com" with role "carrier" created [in /Users/Root1/App/app/views/static.py:79]
+2014-12-31 10:20:48,110 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 10:20:50,682 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 10:21:07,196 INFO: Sending email to ['john@tronlogistics.com'] [in /Users/Root1/App/app/emails.py:20]
+2014-12-31 10:21:07,260 INFO: User "asdf@asdf.com" with role "carrier" created [in /Users/Root1/App/app/views/static.py:79]
+2014-12-31 10:21:43,915 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 10:21:45,470 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 10:22:07,613 INFO: Sending email to ['john@tronlogistics.com'] [in /Users/Root1/App/app/emails.py:20]
+2014-12-31 10:22:08,167 INFO: User "asdf1324@asdf.com" with role "carrier" created [in /Users/Root1/App/app/views/static.py:79]
+2014-12-31 10:23:07,148 INFO: TMS startup [in /Users/Root1/App/app/__init__.py:41]
+2014-12-31 10:23:39,321 INFO: Sending email to ['john@tronlogistics.com'] [in /Users/Root1/App/app/emails.py:20]
+2014-12-31 10:23:39,368 INFO: User "john@tronlogistics.com" with role "carrier" created [in /Users/Root1/App/app/views/static.py:79]

@@ -28,12 +28,12 @@ WHOOSH_ENABLED = os.environ.get('HEROKU') is None
 DATABASE_QUERY_TIMEOUT = 0.5
 
 # email server
-MAIL_SERVER = ''  # your mailserver
-MAIL_PORT = 25
+MAIL_SERVER = 'mail.privateemail.com'  # your mailserver
+MAIL_PORT = 465
 MAIL_USE_TLS = False
-MAIL_USE_SSL = False
-MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
-MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
+MAIL_USE_SSL = True
+MAIL_USERNAME = 'admin@tronlogistics.com'#os.environ.get('MAIL_USERNAME')
+MAIL_PASSWORD = 'Tr0nadmin'#os.environ.get('MAIL_PASSWORD')
 
 # available languages
 LANGUAGES = {
@@ -46,7 +46,7 @@ MS_TRANSLATOR_CLIENT_ID = ''  # enter your MS translator app id here
 MS_TRANSLATOR_CLIENT_SECRET = ''  # enter your MS translator app secret here
 
 # administrator list
-ADMINS = ['you@example.com']
+ADMINS = ['admin@tronlogistics.com', 'john@tronlogistics.com', 'troy@tronlogistics.com']
 
 # pagination
 POSTS_PER_PAGE = 50

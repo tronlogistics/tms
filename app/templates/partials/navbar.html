@@ -1,4 +1,5 @@
 <!-- Static navbar -->
+{% if user.is_authenticated() %}
 <div class="container-fluid nopadding">
   <div class="row-fluid">
     <div class="span12">
@@ -41,3 +42,4 @@
     </div>
   </div>
 </div>
+{% endif %}

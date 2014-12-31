@@ -1,10 +1,11 @@
 from flask import Blueprint, render_template, url_for, redirect, request, flash, session, g, current_app
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
-from app import db, lm, app
+from app import db, lm, app, mail
 from app.forms import LoginForm, RegisterForm
 from app.models import User, Role
 from app.permissions import *
+from app.emails import register_account
 
 static = Blueprint('static', __name__, url_prefix='')
 
@@ -17,6 +18,9 @@ def before_request():
     g.user = current_user
 
 @static.route('/')
+def index():
+	return redirect(url_for('.login'))
+
 @static.route('/login', methods=['GET', 'POST'])
 def login():
 	if g.user.is_authenticated():
@@ -71,6 +75,7 @@ def register():
 		user.roles.append(role)
 		db.session.add(user)
 		db.session.commit()
+		register_account(user)
 		app.logger.info("User \"%s\" with role \"%s\" created" % (user.email, user.roles[0].name))
 		#flash("user created - %s" % user.email)
 		return redirect(url_for('.login'))
@@ -79,14 +84,14 @@ def register():
 @app.errorhandler(404)
 def not_found_error(error):
 	app.logger.exception(error)
-	return render_template('404.html'), 404
+	return render_template('404.html', user=current_user), 404
 
 @app.errorhandler(500)
 def internal_error(error):
 	print error
 	app.logger.exception(error)
 	db.session.rollback()
-	return render_template('500.html'), 500
+	return render_template('500.html', user=current_user), 500
 
 @identity_loaded.connect_via(app)
 def on_identity_loaded(sender, identity):

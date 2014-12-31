@@ -1,0 +1,7 @@
+Dear {{ user.company_name }},
+
+Please confim your e-mail by clicking here: {{ url_for('static.login', _external=True) }}
+
+Regards,
+
+TronMS Team
