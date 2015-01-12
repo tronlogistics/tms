@@ -39,6 +39,7 @@ class User(db.Model):
 					backref='contacted_by'
     )
 	roles = db.relationship('Role')
+	customer_id = db.Column(db.Integer)
 
 
 	def __init__(self, email, company_name, password):

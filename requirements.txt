@@ -28,3 +28,5 @@ Tempita==0.5.2
 Werkzeug==0.9.6
 WTForms==2.0.1
 geopy==1.6.1
+stripe==1.19.1
+requests==0.13.2

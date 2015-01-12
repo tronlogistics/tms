@@ -76,6 +76,7 @@ class RegisterForm(Form):
 		])
 	confirm = PasswordField('Repeat Password')
 	account_type = SelectField('Account Type', choices = [('','<none selected>'),('broker', 'Broker'), ('carrier', 'Carrier')], validators = [DataRequired()])
+	subscription_tier = SelectField('Account Tier', choices = [('','<none selected>'),('0000', 'BETA Access (Free!)'),('0000', 'Silver ($30/month)'),('0000', 'Gold ($40/month)')], validators = [DataRequired()])
 
 class BidForm(Form):
 	value = FloatField('Bid Amount', validators=[DataRequired()])
@@ -83,3 +84,5 @@ class BidForm(Form):
 class AssignDriverForm(Form):
 	truck = IntegerField("Truck", validators=[])
 	driver = SelectField('Category', choices=[], coerce=int, validators=[])
+
+

@@ -6,6 +6,7 @@ from app.forms import LoginForm, RegisterForm
 from app.models import User, Role
 from app.permissions import *
 from app.emails import register_account, get_serializer
+#from app import stripe, stripe_keys
 
 static = Blueprint('static', __name__, url_prefix='')
 
@@ -70,6 +71,7 @@ def logout():
 @static.route('/register', methods=['GET', 'POST'])
 def register():
 	form = RegisterForm()
+	form.account_type.data = 'carrier'
 	if form.validate_on_submit():
 		user = User(company_name=form.company_name.data,
 					email=form.email.data,
@@ -86,6 +88,31 @@ def register():
 		return redirect(url_for('.login'))
 	return render_template('static/register.html', form=form, user=g.user)
 
+@static.route('/choose_plan', methods=['GET', 'POST'])
+def choose_plan():
+	return render_template('static/choose_plan.html', key=stripe_keys['publishable_key'], user=g.user)
+
+@static.route('/setup_plan', methods=['POST'])
+def charge():
+    # Amount in cents
+    amount = 0000
+
+    customer = stripe.Customer.create(
+        email=g.user.email,
+        card=request.form['stripeToken']
+    )
+
+    charge = stripe.Charge.create(
+        customer=customer.id,
+        amount=amount,
+        currency='usd',
+        description='Flask Charge'
+    )
+    g.user.customer_id = customer.id
+    db.session.add(g.user)
+    db.session.commit(g.user)
+    return render_template('charge.html', amount=amount)
+
 @static.route('/activate/<activation_slug>')
 def activate_user(activation_slug):
     s = get_serializer()
@@ -94,7 +121,7 @@ def activate_user(activation_slug):
     	app.logger.info("User %s" % user_id)
     except BadSignature:
     	abort(404)
-    
+
     user = User.query.get_or_404(user_id)
     user.activate()
     db.session.add(user)

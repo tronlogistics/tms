@@ -3,9 +3,17 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.principal import Principal
 from flask.ext.mail import Mail
+#import stripe
 
 
 import os
+
+#stripe_keys = {
+#	'secret_key': 'sk_test_jFav95nmL7CuiqTq1r3helDT',
+#    'publishable_key': 'pk_test_6kN4KpOzRqZww0k55vsbM0Pa'
+#}
+
+#stripe.api_key = stripe_keys['secret_key']
 
 app = Flask(__name__)
 app.config.from_object('config')
