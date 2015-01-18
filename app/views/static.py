@@ -45,6 +45,10 @@ def login():
 				identity_changed.send(current_app._get_current_object(),
 										identity=Identity(user.email))
 				return redirect(url_for("load.all"))
+			else:
+				flash("Wrong username/password")
+		else:
+			flash("Wrong username/password")
 	return render_template('static/login.html', form=form, user=g.user)
 
 @static.route("/logout", methods=["GET"])

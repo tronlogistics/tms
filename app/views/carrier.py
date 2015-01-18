@@ -80,7 +80,6 @@ def create_truck():
 		form = TruckForm()
 		if form.validate_on_submit():
 			truck = Truck(name=form.name.data, 
-						trailer_group=form.trailer_group.data,
 						trailer_type=form.trailer_type.data,
 						max_weight=form.max_weight.data,
 						dim_length=form.dim_length.data,
@@ -118,7 +117,6 @@ def edit_truck(truck_id):
 			#form.latitude.data = carrier.latitude
 			#form.longitude.data = carrier.longitude
 			form.name.data = truck.name
-			form.trailer_group.data = truck.trailer_group
 			form.trailer_type.data = truck.trailer_type
 			form.max_weight.data = truck.max_weight
 			form.dim_length.data = truck.dim_length

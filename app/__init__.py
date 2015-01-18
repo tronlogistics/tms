@@ -3,6 +3,8 @@ from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from flask.ext.principal import Principal
 from flask.ext.mail import Mail
+from flask.ext.admin import Admin, BaseView, expose
+from flask.ext.admin.contrib.sqla import ModelView
 #import stripe
 
 
@@ -36,6 +38,9 @@ app.register_blueprint(carrier)
 #app.register_blueprint(dashboard)
 app.register_blueprint(static)
 
+
+#from .controllers.factory import LoadFactory
+
 from config import basedir, ADMINS, MAIL_SERVER, MAIL_PORT, MAIL_USERNAME, MAIL_PASSWORD
 
 if not app.debug:
@@ -55,3 +60,9 @@ app.jinja_env.globals['static'] = (
 )
 
 from app import views, models
+
+from models import User, Load
+admin = Admin(app, name='Tron Logistics')
+admin.add_view(ModelView(User, db.session))
+#admin.add_view(ModelView(Load, db.session))
+

@@ -1,6 +1,19 @@
 from flask.ext.wtf import Form
-from wtforms import StringField, FloatField, PasswordField, SelectField, DateField, BooleanField, IntegerField, HiddenField
+from wtforms import StringField, FloatField, PasswordField, SelectField, DateField, BooleanField, IntegerField, HiddenField, FormField, FieldList
 from wtforms.validators import DataRequired, EqualTo, NumberRange
+
+class LocationForm(Form):
+	address1 = StringField("Address 1", validators =[])
+	address2 = StringField("Address 2", validators =[])
+	city = StringField("City", validators =[])
+	state = StringField("State", validators =[])
+	postal_code = StringField("Zip Code", validators =[DataRequired()])
+	contact_name = StringField('Name', validators=[])
+	contact_email = StringField('Email', validators=[])
+	contact_phone = StringField('Phone', validators=[])
+	contact_phone_area_code = IntegerField('Area Code', validators=[DataRequired()])
+	contact_phone_prefix = IntegerField('Prefix', validators=[DataRequired()])
+	contact_phone_line_number = IntegerField('Line Number', validators=[DataRequired()])
 
 class LoadForm(Form):
 	name = StringField('Name', validators=[])
@@ -26,8 +39,22 @@ class LoadForm(Form):
 	comments = StringField("Comments", validators =[])
 	pickup_date = DateField("Pickup Date", validators = [], format='%m/%d/%Y')
 	delivery_date = DateField('Delivery Date', validators = [], format='%m/%d/%Y')
-	trailer_group = SelectField('Trailer Group', choices = [('','<none selected>'),('flat', 'Flat'), ('van', 'Van')], validators = [])
-	trailer_type = SelectField('Trailer Type', choices = [('','<none selected>'),('flat', 'Flat'), ('van', 'Van')], validators = [])
+	trailer_type = SelectField('Trailer Type', choices = [('','<none selected>'),
+															('auto_carrier', 'Auto Carrier'), 
+															('conestoga', 'Conestoga'),
+															('container', 'Container'),
+															('double_drop', 'Double Drop'),
+															('flatbed', 'Flatbed'),
+															('hotshot', 'Hotshot'),
+															('lowboy', 'Lowboy'),
+															('moving_van', 'Moving Van'),
+															('power_only', 'Power Only'),
+															('reefer', 'Reefer'),
+															('rgn', 'RGN'),
+															('step_deck', 'Step Deck'),
+															('tanker', 'Tanker'),
+															('van', 'Van'),], 
+															validators = [])
 	load_type = SelectField('Load Type', choices = [('','<none selected>'),('LTL', 'LTL'), ('TL', 'TL')], validators = [])
 	total_miles = IntegerField('Total Miles', validators=[])
 	price = FloatField('Total Price', validators=[DataRequired()])
@@ -46,11 +73,29 @@ class LoadForm(Form):
 	destination_contact_phone_area_code = IntegerField('Area Code', validators=[DataRequired()])
 	destination_contact_phone_prefix = IntegerField('Prefix', validators=[DataRequired()])
 	destination_contact_phone_line_number = IntegerField('Line Number', validators=[DataRequired()])
+	#location = FormField(LocationForm)
+	#locations = FieldList(FormField(LocationForm))
+
+
 
 class TruckForm(Form):
 	name = StringField('Name', validators=[DataRequired()])
-	trailer_group = SelectField('Trailer Group', choices = [('','<none selected>'),('flat', 'Flat'), ('van', 'Van')], validators = [])
-	trailer_type = SelectField('Trailer Type', choices = [('','<none selected>'),('flat', 'Flat'), ('van', 'Van')], validators = [])
+	trailer_type = SelectField('Trailer Type', choices = [('','<none selected>'),
+															('auto_carrier', 'Auto Carrier'), 
+															('conestoga', 'Conestoga'),
+															('container', 'Container'),
+															('double_drop', 'Double Drop'),
+															('flatbed', 'Flatbed'),
+															('hotshot', 'Hotshot'),
+															('lowboy', 'Lowboy'),
+															('moving_van', 'Moving Van'),
+															('power_only', 'Power Only'),
+															('reefer', 'Reefer'),
+															('rgn', 'RGN'),
+															('step_deck', 'Step Deck'),
+															('tanker', 'Tanker'),
+															('van', 'Van'),], 
+															validators = [])
 	max_weight = IntegerField("Max Weight", validators =[])
 	dim_length = IntegerField("Length", validators =[])
 	dim_height = IntegerField("Height", validators =[])
@@ -84,5 +129,15 @@ class BidForm(Form):
 class AssignDriverForm(Form):
 	truck = IntegerField("Truck", validators=[])
 	driver = SelectField('Category', choices=[], coerce=int, validators=[])
+
+class StatusForm(Form):
+	status = SelectField('Load Status:', choices = [#('Pending Truck Assignment', 'Pending Truck Assignment'),
+													('Truck Assigned', 'Truck Assigned'),
+													('In Transit to Pickup', 'In Transit to Pickup'),
+													('Truck at Origin Location', 'Truck at Origin Location'),
+													('In Transit', 'In Transit'), 
+													('Truck at Destination', 'Truck at Destination'), 
+													('Load Complete', 'Load Completed')], 
+													validators = [DataRequired()])
 
 

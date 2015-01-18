@@ -4,10 +4,12 @@ from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousI
 from geopy import geocoders 
 from geopy.geocoders import Nominatim
 from app import db, lm, app, SQLAlchemy
-from app.forms import LoadForm, BidForm
+from app.forms import LoadForm, BidForm, StatusForm
 from app.models import Load, LoadDetail, Lane, Location, Truck, User, Bid, Driver
 from app.permissions import *
+#from app.factories
 from sqlalchemy import desc
+
 
 load = Blueprint('load', __name__, url_prefix='/load')
 
@@ -24,111 +26,110 @@ def before_request():
 def create():
 	form = LoadForm()
 	if form.validate_on_submit():
-		geolocator = Nominatim()
-		load = Load(name=form.name.data, 
-					price=form.price.data, 
-					description=form.description.data) 
-		if g.user.is_carrier():
-			load.status="Pending Truck Assignment"
-			load.carrier=g.user
-			load.carrier_cost=form.price.data
-		else:
-			load.status="Unassigned"
-		load.assigned_driver = None
-		db.session.add(load)
-		g.user.brokered_loads.append(load)
+		#geolocator = Nominatim()
+		#load = Load(name=form.name.data, 
+		#			price=form.price.data, 
+		#			description=form.description.data) 
+		#if g.user.is_carrier():
+		#	load.status="Pending Truck Assignment"
+		#	load.carrier=g.user
+		#	load.carrier_cost=form.price.data
+		#else:
+		#	load.status="Unassigned"
+		#load.assigned_driver = None
+		#db.session.add(load)
+		#g.user.brokered_loads.append(load)
 
 
 
-		origin = Location(address1=form.origin_address1.data,
-							address2=form.origin_address2.data,
-							city=form.origin_city.data,
-							state=form.origin_state.data,
-							postal_code=form.origin_postal_code.data,
-							contact_name=form.origin_contact_name.data,
-							contact_email=form.origin_contact_email.data)
+		#origin = Location(address1=form.origin_address1.data,
+		#					address2=form.origin_address2.data,
+		#					city=form.origin_city.data,
+		#					state=form.origin_state.data,
+		#					postal_code=form.origin_postal_code.data,
+		#					contact_name=form.origin_contact_name.data,
+		#					contact_email=form.origin_contact_email.data)
 
-		origin.contact_phone_area_code = str(form.origin_contact_phone_area_code.data)
-		if len(origin.contact_phone_area_code) < 3:
-			prepend_value = ""
-			for x in range(0, 3 - len(origin.contact_phone_area_code)):
-				prepend_value += "0"
-			origin.contact_phone_area_code = prepend_value + origin.contact_phone_area_code
+		#origin.contact_phone_area_code = str(form.origin_contact_phone_area_code.data)
+		#if len(origin.contact_phone_area_code) < 3:
+		#	prepend_value = ""
+		#	for x in range(0, 3 - len(origin.contact_phone_area_code)):
+		#		prepend_value += "0"
+		#	origin.contact_phone_area_code = prepend_value + origin.contact_phone_area_code
 		
-		origin.contact_phone_prefix = str(form.origin_contact_phone_prefix.data)
-		if len(origin.contact_phone_prefix) < 3:
-			prepend_value = ""
-			for x in range(0, 3 - len(origin.contact_phone_prefix)):
-				prepend_value += "0"
-			origin.contact_phone_prefix = prepend_value + origin.contact_phone_prefix
+		#origin.contact_phone_prefix = str(form.origin_contact_phone_prefix.data)
+		#if len(origin.contact_phone_prefix) < 3:
+		#	prepend_value = ""
+		#	for x in range(0, 3 - len(origin.contact_phone_prefix)):
+		#		prepend_value += "0"
+		#	origin.contact_phone_prefix = prepend_value + origin.contact_phone_prefix
 		
-		origin.contact_phone_line_number = str(form.origin_contact_phone_line_number.data)
-		if len(origin.contact_phone_line_number) < 4:
-			prepend_value = ""
-			for x in range(0, 4 - len(origin.contact_phone_line_number)):
-				prepend_value += "0"
-			origin.contact_phone_line_number = prepend_value + origin.contact_phone_line_number
+		#origin.contact_phone_line_number = str(form.origin_contact_phone_line_number.data)
+		#if len(origin.contact_phone_line_number) < 4:
+		#	prepend_value = ""
+		#	for x in range(0, 4 - len(origin.contact_phone_line_number)):
+		#		prepend_value += "0"
+		#	origin.contact_phone_line_number = prepend_value + origin.contact_phone_line_number
 
-		location = geolocator.geocode(origin.postal_code)
-		origin.latitude = location.latitude
-		origin.longitude = location.longitude
-		db.session.add(origin)
-		destination = Location(address1=form.destination_address1.data,
-							address2=form.destination_address2.data,
-							city=form.destination_city.data,
-							state=form.destination_state.data,
-							postal_code=form.destination_postal_code.data,
-							contact_name=form.destination_contact_name.data,
-							contact_email=form.destination_contact_email.data)
+		#location = geolocator.geocode(origin.postal_code)
+		#origin.latitude = location.latitude
+		#origin.longitude = location.longitude
+		#db.session.add(origin)
+		#destination = Location(address1=form.destination_address1.data,
+		#					address2=form.destination_address2.data,
+		#					city=form.destination_city.data,
+		#					state=form.destination_state.data,
+		#					postal_code=form.destination_postal_code.data,
+		#					contact_name=form.destination_contact_name.data,
+		#					contact_email=form.destination_contact_email.data)
 
-		destination.contact_phone_area_code = str(form.destination_contact_phone_area_code.data)
-		if len(destination.contact_phone_area_code) < 3:
-			prepend_value = ""
-			for x in range(0, 3 - len(destination.contact_phone_area_code)):
-				prepend_value += "0"
-			destination.contact_phone_area_code = prepend_value + destination.contact_phone_area_code
+		#destination.contact_phone_area_code = str(form.destination_contact_phone_area_code.data)
+		#if len(destination.contact_phone_area_code) < 3:
+		#	prepend_value = ""
+		#	for x in range(0, 3 - len(destination.contact_phone_area_code)):
+		#		prepend_value += "0"
+		#	destination.contact_phone_area_code = prepend_value + destination.contact_phone_area_code
+		#
+		#destination.contact_phone_prefix = str(form.destination_contact_phone_prefix.data)
+		#if len(destination.contact_phone_prefix) < 3:
+		#	prepend_value = ""
+		#	for x in range(0, 3 - len(destination.contact_phone_prefix)):
+		#		prepend_value += "0"
+		#	destination.contact_phone_prefix = prepend_value + destination.contact_phone_prefix
 		
-		destination.contact_phone_prefix = str(form.destination_contact_phone_prefix.data)
-		if len(destination.contact_phone_prefix) < 3:
-			prepend_value = ""
-			for x in range(0, 3 - len(destination.contact_phone_prefix)):
-				prepend_value += "0"
-			destination.contact_phone_prefix = prepend_value + destination.contact_phone_prefix
-		
-		destination.contact_phone_line_number = str(form.destination_contact_phone_line_number.data)
-		if len(destination.contact_phone_line_number) < 4:
-			prepend_value = ""
-			for x in range(0, 4 - len(destination.contact_phone_line_number)):
-				prepend_value += "0"
-			destination.contact_phone_line_number = prepend_value + destination.contact_phone_line_number
-		location = geolocator.geocode(destination.postal_code)
-		destination.latitude = location.latitude
-		destination.longitude = location.longitude
-		db.session.add(destination)
-		lane = Lane(origin=origin, destination=destination)
-		db.session.add(lane)
+		#destination.contact_phone_line_number = str(form.destination_contact_phone_line_number.data)
+		#if len(destination.contact_phone_line_number) < 4:
+		#	prepend_value = ""
+		#	for x in range(0, 4 - len(destination.contact_phone_line_number)):
+		#		prepend_value += "0"
+		#	destination.contact_phone_line_number = prepend_value + destination.contact_phone_line_number
+		#location = geolocator.geocode(destination.postal_code)
+		#destination.latitude = location.latitude
+		#destination.longitude = location.longitude
+		#db.session.add(destination)
+		#lane = Lane(origin=origin, destination=destination)
+		#db.session.add(lane)
 
-		load_detail = LoadDetail(weight = form.weight.data,
-								dim_length = form.dim_length.data,
-								dim_width = form.dim_width.data,
-								dim_height = form.dim_height.data,
-								number_pieces = form.number_pieces.data,
-								comments = form.comments.data,
-								pickup_date=form.pickup_date.data, 
-								delivery_date=form.delivery_date.data,
-								trailer_group=form.trailer_group.data,
-								trailer_type=form.trailer_type.data,
-								load_type=form.load_type.data,
-								total_miles=form.total_miles.data,
-								purchase_order = form.purchase_order.data,
-								over_dimensional = form.over_dimensional.data)
-		db.session.add(load_detail)
-		load.lane = lane
-		load.load_detail = load_detail
-		load.broker = g.user
-		db.session.add(load)
-		db.session.add(g.user)
-		db.session.commit()
+		#load_detail = LoadDetail(weight = form.weight.data,
+		#						dim_length = form.dim_length.data,
+		#						dim_width = form.dim_width.data,
+		#						dim_height = form.dim_height.data,
+		#						number_pieces = form.number_pieces.data,
+		#						comments = form.comments.data,
+		#						pickup_date=form.pickup_date.data, 
+		#						delivery_date=form.delivery_date.data,
+		#						trailer_type=form.trailer_type.data,
+		#						load_type=form.load_type.data,
+		#						total_miles=form.total_miles.data,
+		#						purchase_order = form.purchase_order.data,
+		#						over_dimensional = form.over_dimensional.data)
+		#db.session.add(load_detail)
+		#load.lane = lane
+		#load.load_detail = load_detail
+		#load.broker = g.user
+		#db.session.add(load)
+		#db.session.add(g.user)
+		#db.session.commit()
 		return redirect(url_for('.view', load_id=load.id))
 	return render_template('load/create.html',
    							title="Create Load",
@@ -183,7 +184,6 @@ def edit(load_id):
 			load.load_detail.delivery_date = form.delivery_date.data
 			load.load_detail.comments = form.comments.data
 			load.load_detail.number_pieces = form.number_pieces.data
-			load.load_detail.trailer_group = form.trailer_group.data
 			load.load_detail.trailer_type = form.trailer_type.data
 			load.load_detail.load_type = form.load_type.data
 			load.load_detail.total_miles = form.total_miles.data
@@ -244,7 +244,6 @@ def edit(load_id):
 			form.name.data = load.name
 			form.pickup_date.data = load.load_detail.pickup_date
 			form.delivery_date.data = load.load_detail.delivery_date
-			form.trailer_group.data = load.load_detail.trailer_group
 			form.trailer_type.data = load.load_detail.trailer_type
 			form.load_type.data = load.load_detail.load_type
 			form.total_miles.data = load.load_detail.total_miles
@@ -254,17 +253,22 @@ def edit(load_id):
 
 	abort(403)  # HTTP Forbidden
 
-@load.route('/<load_id>/view')
+@load.route('/<load_id>/view', methods=['GET', 'POST'])
 @login_required
 def view(load_id):
 	permission = ViewLoadPermission(load_id)
 	if permission.can():
-		form = BidForm()
+		bid_form = BidForm()
+		status_form = StatusForm()
 		#gn = geocoders.GeoNames()
 		#gn.geocode(filter((lambda location: location.is_origin), load.lane.locations)[0].postal_code)
 		load = Load.query.get(int(load_id))
-		
-	
+		if status_form.validate_on_submit():
+			load.status = status_form.status.data
+			db.session.add(load)
+			db.session.commit()
+		if load.status is not "Pending Truck Assignment":
+			status_form.status.data = load.status
 		#TODO: filter by applicabale carriers
 		if not g.user.is_carrier():
 			carriers = []
@@ -275,7 +279,9 @@ def view(load_id):
 			for bid in load.bids:
 				carriers = filter((lambda carrier: carrier != bid.offered_to), carriers)
 		else:
-			carriers = filter((lambda truck: truck.is_available and truck.driver is not None), g.user.fleet.trucks)
+			carriers = filter((lambda truck: truck.is_available 
+												and truck.trailer_type == load.load_detail.trailer_type), 
+												g.user.fleet.trucks)
 		################################
 
 		#if load.status == "Assigned" or load.status == "Complete":
@@ -291,7 +297,8 @@ def view(load_id):
 		for offered_bid in offered_bids:
 			requested_bids = filter((lambda bid: bid.offered_to != offered_bid.offered_by), requested_bids)
 		offered_bids = filter((lambda bid: bid.status=="Offered"), load.bids)
-		return render_template('load/view.html', form=form,
+		return render_template('load/view.html', status_form=status_form,
+												bid_form=bid_form,
 												load=load, 
 												carriers=carriers,
 												origin = load.lane.origin,
@@ -402,7 +409,7 @@ def assign(load_id, assign_id):
 			truck = Truck.query.get(assign_id)
 			load.assigned_driver = truck.driver
 			truck.is_available = False
-			load.status = "Assigned"
+			load.status = "Driver Assigned"
 			db.session.add(truck)
 			db.session.add(load)
 		#If current user is a broker:
@@ -441,7 +448,7 @@ def complete(load_id):
 	if permission.can():
 		load = Load.query.get(int(load_id))
 		load.assigned_driver.truck.is_available = True
-		load.status = "Complete"
+		load.status = "Load Complete"
 		db.session.add(load)
 		db.session.add(load.assigned_driver)
 		db.session.commit()
