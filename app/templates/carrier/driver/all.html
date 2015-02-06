@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    {#<div class="row-fluid">
+            <div class="btn-toolbar">
+                Actions: &nbsp;&nbsp;<a href="{{ url_for('drivers.create') }}" class="btn btn-primary">New Driver</a>
+            </div>
+    </div>#}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <i class="clip-pie"></i>
+            All Drivers
+            <div class="panel-tools">
+                <a class="btn btn-xs btn-link panel-collapse collapses" href="#">
+                </a>
+                <a class="btn btn-xs btn-link panel-config" href="#panel-config" data-toggle="modal">
+                    <i class="fa fa-wrench"></i>
+                </a>
+                <a class="btn btn-xs btn-link panel-refresh" href="#">
+                    <i class="fa fa-refresh"></i>
+                </a>
+                <a class="btn btn-xs btn-link panel-close" href="#">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="sample-table-1">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone Number</th>
+                            <th>Truck</th>
+                            <th>&nbsp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for driver in drivers %}
+                            <tr>
+                                <td>{{ driver.get_full_name() }}</td>
+                                <td>{{ driver.get_phone_number() }}</td>
+                                <td>
+                                    {% if driver.truck is not none %}
+                                        {{ driver.truck.name }}
+                                    {% else %}
+                                        N/a
+                                    {% endif %}
+                                <td>
+                                    <a href="{{ url_for('drivers.view', driver_id=driver.id) }}" class="btn btn-primary btn-mini">View</a>
+
+                                    <a href="{{ url_for('drivers.edit', driver_id=driver.id)}}" class="btn btn-primary btn-mini">Edit</a>
+                                    
+                                    <a href="{{ url_for('drivers.delete', driver_id=driver.id)}}" class="btn btn-danger btn-mini delete">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+<script type="text/javascript" src="{{ static('backend/js/jquery.dataTables.min.js') }}"></script>
+
+            {% endblock %}

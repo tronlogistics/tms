@@ -133,16 +133,12 @@ class LoadDetail(db.Model):
 class Lane(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	load_id = db.Column(Integer, ForeignKey('load.id'))
-	origin_id = db.Column(db.Integer, db.ForeignKey('location.id'))
-	destination_id = db.Column(db.Integer, db.ForeignKey('location.id'))
-	origin = db.relationship('Location', backref='origin_lanes', foreign_keys=origin_id)
-	destination = db.relationship('Location', backref='destination_lanes', foreign_keys=destination_id)
-	#locations = db.relationship('Location', backref='lane', lazy='dynamic')
+	locations = db.relationship('Location', backref='lane', lazy='dynamic')
 
 
 class Location(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	#lane_id = db.Column(db.Integer, db.ForeignKey('lane.id'))
+	lane_id = db.Column(db.Integer, db.ForeignKey('lane.id'))
 	address1 = db.Column(db.String(100))
 	address2 = db.Column(db.String(100))
 	city = db.Column(db.String(100))

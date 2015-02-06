@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    {#<div class="row-fluid">
+            <div class="btn-toolbar">
+                Actions: &nbsp;&nbsp;<a href="{{ url_for('loads.create') }}" class="btn btn-primary">New Load</a>
+            </div>
+    </div>#}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <i class="clip-pie"></i>
+            All Trucks
+            <div class="panel-tools">
+                <a class="btn btn-xs btn-link panel-collapse collapses" href="#">
+                </a>
+                <a class="btn btn-xs btn-link panel-config" href="#panel-config" data-toggle="modal">
+                    <i class="fa fa-wrench"></i>
+                </a>
+                <a class="btn btn-xs btn-link panel-refresh" href="#">
+                    <i class="fa fa-refresh"></i>
+                </a>
+                <a class="btn btn-xs btn-link panel-close" href="#">
+                    <i class="fa fa-times"></i>
+                </a>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="sample-table-1">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Trailer Type</th>
+                            <th>Driver</th>
+                            <th>&nbsp</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for truck in trucks %}
+                            <tr>
+                                <td>{{ truck.name }}</td>
+                                <td>{{ truck.trailer_type }}</td>
+                                <td>
+                                    {% if truck.driver is not none %}
+                                        {{ truck.driver.get_full_name() }}
+                                    {% else %}
+                                        N/a
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <a href="{{ url_for('trucks.view', truck_id=truck.id) }}" class="btn btn-primary btn-mini">View</a>
+
+                                    <a href="{{ url_for('trucks.edit', truck_id=truck.id)}}" class="btn btn-primary btn-mini">Edit</a>
+                                    
+                                    <a href="{{ url_for('trucks.delete', truck_id=truck.id)}}" class="btn btn-danger btn-mini delete">Delete</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+<script type="text/javascript" src="{{ static('backend/js/jquery.dataTables.min.js') }}"></script>
+
+            {% endblock %}

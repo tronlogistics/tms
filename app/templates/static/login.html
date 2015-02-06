@@ -1,51 +1,189 @@
 {% extends "layout.html" %}
-
-{% block content %}
-<form name="edit" action="" method="post" class="form-horizontal">
-	{{ form.hidden_tag() }}
-	<div class="container-fluid" id="container">
-		<div class="row-fluid">&nbsp;</div>
-		<div class="row-fluid">
-			<div class="span3"></div>
-		    <div class="span6">
-        		<div class="box">
-            		<div class="box-title">
-                		Login
-            		</div>
-            		<div class="box-content nopadding">
-	                	<div class="form-horizontal">
-	                    	<div class="control-group">
-	                        	<label class="control-label">E-Mail</label>
-	                        	<div class="controls">
-	                           		{{ form.email(size=60) }}
-	                           		{% for error in form.email.errors %}
-    									<span style="color: red;">{{ error }}</span>
-  									{% endfor %}
-                                    <!--<span class="help-inline">Description goes here</span>-->
-	                        	</div>
-	                    	</div>
-	                    	<div class="control-group">
-	                        	<label class="control-label">Password</label>
-	                        	<div class="controls">
-	                           		{{ form.password(size=20) }}
-                                    {% for error in form.password.errors %}
-    									<span style="color: red;">{{ error }}</span>
-  									{% endfor %}
-	                        	</div>
-	                    	</div>
-	                    	<div class="form-actions">
-			                	<input type="submit" class="btn btn-primary" value="Save" />
-			                	<button class="btn">Cancel</button>
-			                </div>
-	                	</div> 
-                	</div>
-            	</div>
-		 	</div>
-		 	<div class="span3"></div>         
-	    </div>
-	</div> 
-</form>
-
-<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
+{% block login %}
+		<div class="login example1">
+		<div class="main-login col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+			<div class="logo">Tron Logistics
+			</div>
+			<!-- start: LOGIN BOX -->
+			<div class="box-login">
+				<h3>Sign in to your account</h3>
+				<p>
+					Please enter your name and password to log in.
+				</p>
+				<form name="login" action="" method="post" class="form-login">
+					{{ login_form.hidden_tag() }}
+					<div class="errorHandler alert alert-danger no-display">
+						<i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
+					</div>
+					<fieldset>
+						<div class="form-group">
+							<span class="input-icon">
+								{{ login_form.email(class="form-control", placeholder="Email") }} {#<input type="text" class="form-control" name="username" placeholder="Username">#}
+								<i class="fa fa-user"></i> </span>
+							<!-- To mark the incorrectly filled input, you must add the class "error" to the input -->
+							<!-- example: <input type="text" class="login error" name="login" value="Username" /> -->
+						</div>
+						<div class="form-group form-actions">
+							<span class="input-icon">
+								{{ login_form.password(class="form-control password", placeholder="Password") }}{#<input type="password" class="form-control password" name="password" placeholder="Password">#}
+								<i class="fa fa-lock"></i>
+								<a class="forgot" href="?box=forgot">
+									I forgot my password
+								</a> </span>
+						</div>
+						<div class="form-actions">
+							<label for="remember" class="checkbox-inline">
+								<input type="checkbox" class="grey remember" id="remember" name="remember">
+								Keep me signed in
+							</label>
+							<button type="submit" class="btn btn-bricky pull-right">
+								Login <i class="fa fa-arrow-circle-right"></i>
+							</button>
+						</div>
+						<div class="new-account">
+							Don't have an account yet?
+							<a href="?box=register" class="register">
+								Create an account
+							</a>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			<!-- end: LOGIN BOX -->
+			<!-- start: FORGOT BOX -->
+			<div class="box-forgot">
+				<h3>Forget Password?</h3>
+				<p>
+					Enter your e-mail address below to reset your password.
+				</p>
+				<form class="form-forgot">
+					<div class="errorHandler alert alert-danger no-display">
+						<i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
+					</div>
+					<fieldset>
+						<div class="form-group">
+							<span class="input-icon">
+								<input type="email" class="form-control" name="email" placeholder="Email">
+								<i class="fa fa-envelope"></i> </span>
+						</div>
+						<div class="form-actions">
+							<a href="?box=login" class="btn btn-light-grey go-back">
+								<i class="fa fa-circle-arrow-left"></i> Back
+							</a>
+							<button type="submit" class="btn btn-bricky pull-right">
+								Submit <i class="fa fa-arrow-circle-right"></i>
+							</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			<!-- end: FORGOT BOX -->
+			<!-- start: REGISTER BOX -->
+			<div class="box-register">
+				<h3>Sign Up</h3>
+				<p>
+					Enter your personal details below:
+				</p>
+				{#<form class="form-register">#}
+					<form name="forgot_register" action="{{ url_for('.register') }}" method="post" class="form-register">
+					{{ register_form.hidden_tag() }}
+					<div class="errorHandler alert alert-danger no-display">
+						<i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
+					</div>
+					<fieldset>
+						<div class="form-group">
+							{{ register_form.name(class="form-control", placeholder="Full Name") }}
+						</div>
+						<div class="form-group">
+							{{ register_form.company_name(class="form-control", placeholder="Company Name") }}
+						</div>
+						<div class="form-group">
+							{{ register_form.address(class="form-control", placeholder="Street Address") }}
+						</div>
+						<div class="form-group">
+							{{ register_form.city(class="form-control", placeholder="City") }}
+						</div>
+						<div class="form-group">
+							{{ register_form.state(class="form-control", placeholder="State") }}
+						</div>
+						<div class="form-group">
+							{{ register_form.postal_code(class="form-control", placeholder="Zip Code") }}
+						</div>
+						<p>
+							Enter your account details below:
+						</p>
+						<div class="form-group">
+							<span class="input-icon">
+								{{ register_form.email(class="form-control", placeholder="Email") }}
+								<i class="fa fa-envelope"></i> </span>
+						</div>
+						<div class="form-group">
+							<span class="input-icon">
+								{{ register_form.password(class="form-control", placeholder="Password") }}
+								<i class="fa fa-lock"></i> </span>
+						</div>
+						<div class="form-group">
+							<span class="input-icon">
+								{{ register_form.confirm(class="form-control", placeholder="Confirm Password") }}
+								<i class="fa fa-lock"></i> </span>
+						</div>
+						<div class="form-group">
+							<div>
+								<label for="agree" class="checkbox-inline">
+									<input type="checkbox" class="grey agree" id="agree" name="agree">
+									I agree to the Terms of Service and Privacy Policy
+								</label>
+							</div>
+						</div>
+						<div class="form-actions">
+							<a href="?box=login" class="btn btn-light-grey go-back">
+								<i class="fa fa-circle-arrow-left"></i> Back
+							</a>
+							<button type="submit" class="btn btn-bricky pull-right">
+								Submit <i class="fa fa-arrow-circle-right"></i>
+							</button>
+						</div>
+					</fieldset>
+				</form>
+			</div>
+			<!-- end: REGISTER BOX -->
+			<!-- start: COPYRIGHT -->
+			<div class="copyright">
+				2015 &copy; Tron Logistics
+			</div>
+			<!-- end: COPYRIGHT -->
+		</div>
+	</div>
+		<!-- start: MAIN JAVASCRIPTS -->
+		<!--[if lt IE 9]>
+		<script src="{{ static('backend/plugins/respond.min.js') }}"></script>
+		<script src="{{ static('backend/plugins/excanvas.min.js') }}"></script>
+		<script type="text/javascript" src="{{ static('backend/plugins/jQuery-lib/1.10.2/jquery.min.js') }}"></script>
+		<![endif]-->
+		<!--[if gte IE 9]><!-->
+		<script src="{{ static('backend/plugins/jQuery-lib/2.0.3/jquery.min.js') }}"></script>
+		<!--<![endif]-->
+		<script src="{{ static('backend/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js') }}"></script>
+		<script src="{{ static('backend/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+		<script src="{{ static('backend/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js') }}"></script>
+		<script src="{{ static('backend/plugins/blockUI/jquery.blockUI.js') }}"></script>
+		<script src="{{ static('backend/plugins/iCheck/jquery.icheck.min.js') }}"></script>
+		<script src="{{ static('backend/plugins/perfect-scrollbar/src/jquery.mousewheel.js') }}"></script>
+		<script src="{{ static('backend/plugins/perfect-scrollbar/src/perfect-scrollbar.js') }}"></script>
+		<script src="{{ static('backend/plugins/less/less-1.5.0.min.js') }}"></script>
+		<script src="{{ static('backend/plugins/jquery-cookie/jquery.cookie.js') }}"></script>
+		<script src="{{ static('backend/plugins/bootstrap-colorpalette/js/bootstrap-colorpalette.js') }}"></script>
+		<script src="{{ static('backend/js/main.js') }}"></script>
+		<!-- end: MAIN JAVASCRIPTS -->
+		<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+		<script src="{{ static('backend/plugins/jquery-validation/dist/jquery.validate.min.js') }}"></script>
+		<script src="{{ static('backend/js/login.js') }}"></script>
+		<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+		<script>
+			jQuery(document).ready(function() {
+				Main.init();
+				Login.init();
+			});
+		</script>
 
 {% endblock %}

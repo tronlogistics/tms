@@ -1,21 +1,93 @@
-<div class="span3 leftmenu">
-    <ul class="nav">
-        <li class="active"><a href="index.html"><span class="ico"><i class="icon-home"></i></span><span class="text">Dashboard</span></a></li>
-        <li><a href="forms.html"><span class="ico"><i class="icon-edit"></i></span><span class="text">Forms</span></a></li>
-        <li><a href="typography.html"><span class="ico"><i class="icon-bold"></i></span><span class="text">Typography</span></a></li>
-        <li><a href="tables.html"><span class="ico"><i class="icon-th-list"></i></span><span class="text">Tables</span></a></li>
-        <li><a href="charts.html"><span class="ico"><i class="icon-signal"></i></span><span class="text">Charts</span></a></li>
-        <li><a href="components.html"><span class="ico"><i class="icon-inbox"></i></span><span class="text">Components</span></a></li>
-        <li><a href="interface-elements.html"><span class="ico"><i class="icon-tasks"></i></span><span class="text">Interface elements</span></a></li>                        
-        <li><a href="grid.html"><span class="ico"><i class="icon-th"></i></span><span class="text">Grid</span></a></li>
-        <li><a href="calendar.html"><span class="ico"><i class="icon-calendar"></i></span><span class="text">Calendar</span></a></li>
-        <li>
-            <a href="#"><span class="ico"><i class="icon-align-justify"></i></span><span class="text">Submenu test</span><span class="indicator"></span></a>
-            <ul>
-                <li><a href=""><span class="ico"><i class="icon-tint"></i></span><span class="text">Submenu One</span></a></li>
-                <li><a href=""><span class="ico"><i class="icon-leaf"></i></span><span class="text">Submenu Two</span></a></li>
-                <li><a href=""><span class="ico"><i class="icon-fire"></i></span><span class="text">Submenu Three</span></a></li>
-            </ul>
-        </li>
-    </ul>
-</div>
+<div class="navbar-content">
+                <!-- start: SIDEBAR -->
+                <div class="main-navigation navbar-collapse collapse">
+                    <!-- start: MAIN MENU TOGGLER BUTTON -->
+                    <div class="navigation-toggler">
+                        <i class="clip-chevron-left"></i>
+                        <i class="clip-chevron-right"></i>
+                    </div>
+                    <!-- end: MAIN MENU TOGGLER BUTTON -->
+                    <!-- start: MAIN NAVIGATION MENU -->
+                    <ul class="main-navigation-menu">
+                        <li {% if active == "Dashboard" %}class="active open" {% endif%}>
+                            <a href="index.html"><i class="clip-home-3"></i>
+                                <span class="title"> Dashboard </span><span class="selected"></span>
+                            </a>
+                        </li>
+                        <li {% if active == "Loads" %}class="active open" {% endif%}>
+                            <a href="javascript:void(0)"><i class="fa fa-money"></i>
+                                <span class="title"> Loads </span><i class="icon-arrow"></i>
+                                <span class="selected"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="{{ url_for('loads.create') }}">
+                                        <span class="title"> New Load </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url_for('loads.all') }}">
+                                        <span class="title"> View All </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li {% if active == "Trucks" %}class="active open" {% endif%}>
+                            <a href="javascript:void(0)"><i class="fa fa-truck"></i>
+                                <span class="title"> Trucks </span><i class="icon-arrow"></i>
+                                <span class="selected"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="{{ url_for('trucks.create') }}">
+                                        <span class="title"> New Truck </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url_for('trucks.all') }}">
+                                        <span class="title"> View All </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li {% if active == "Drivers" %}class="active open" {% endif%}>
+                            <a href="javascript:void(0)"><i class="clip-users"></i>
+                                <span class="title"> Drivers </span><i class="icon-arrow"></i>
+                                <span class="selected"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="{{ url_for('drivers.create') }}">
+                                        <span class="title"> New Driver </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url_for('drivers.all') }}">
+                                        <span class="title"> View All </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li {% if active == "Fleet" %}class="active open" {% endif%}>
+                            <a href="{{ url_for('fleet.view') }}"><i class="fa fa-globe"></i>
+                                <span class="title"> Fleet </span>
+                                <span class="selected"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a href="layouts_horizontal_menu1.html">
+                                        <span class="title"> New Driver </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="layouts_sidebar_closed.html">
+                                        <span class="title"> View All </span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- end: MAIN NAVIGATION MENU -->
+                </div>
+                <!-- end: SIDEBAR -->
+            </div>

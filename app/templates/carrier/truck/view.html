@@ -1,116 +1,103 @@
 {% extends "layout.html" %}
 
 {% block content %}
-	<div class="container-fluid" id="container">
-		<div class="row-fluid">
-			<div class="box">
-				<div class="box-title">
-					Actions: &nbsp;&nbsp;<a href="{{ url_for('carrier.edit_truck', truck_id=truck.id) }}" class="btn btn-primary">Edit</a>
+	<div class="row-fluid">
+		<div class="box">
+			<div class="box-title">
+				Actions: &nbsp;&nbsp;<a href="{{ url_for('trucks.edit', truck_id=truck.id) }}" class="btn btn-primary">Edit</a>
+			</div>
+		</div>
+	</div>
+	<div class="row-fluid">
+	    <div class="col-sm-6">
+	    	<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-external-link-square"></i>
+					Truck
 				</div>
+				<table id="truck" class="table table-condensed">
+					<tbody>
+						<tr>
+							<td><b>Name:</b></td>
+							<td>{{ truck.name }}
+						</tr>
+						<tr>
+							<td><b>Trailer Type:</b></td>
+							<td>{{ truck.trailer_type }}
+						</tr>
+						<tr>
+							<td><b>Max Weight:</b></td>
+							<td>{{ truck.max_weight }}
+						</tr>
+						<tr>
+							<td><b>Length:</b></td>
+							<td>{{ truck.dim_length }}
+						</tr>
+						<tr>
+							<td><b>Width:</b></td>
+							<td>{{ truck.dim_width }}
+						</tr>
+						<tr>
+							<td><b>Height:</b></td>
+							<td>{{ truck.dim_height }}
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
+		<div class="col-sm-6">
 
-
-		
-		<div class="row-fluid">
-		    <div class="span6">
-        		<div class="box">
-            		<div class="box-title">
-                		Truck
-            		</div>
-            		<div class="box-content nopadding">
-	                	<div class="form-horizontal">
-	                    	<div class="control-group">
-	                        	<label class="control-label">Name</label>
-	                        	<div class="controls">
-	                           		<p>{{truck.name }}</p>
-	                        	</div>
-	                    	</div>             	
-	                    	<div class="control-group">
-	                        	<label class="control-label">Trailer Type</label>
-	                        	<div class="controls">
-	                           		<p>{{truck.trailer_type }}</p>
-	                        	</div>
-	                    	</div>
-	                    	<div class="control-group">
-	                        	<label class="control-label">Max Weight</label>
-	                        	<div class="controls">
-	                           		<p>{{truck.max_weight }}</p>
-	                        	</div>
-	                    	</div>
-	                    	<div class="control-group">
-	                        	<label class="control-label">Length</label>
-	                        	<div class="controls">
-	                           		<p>{{truck.dim_length }}</p>
-	                        	</div>
-	                    	</div>
-	                    	<div class="control-group">
-	                        	<label class="control-label">Width</label>
-	                        	<div class="controls">
-	                           		<p>{{truck.dim_width }}</p>
-	                        	</div>
-	                    	</div>
-	                    	<div class="control-group">
-	                        	<label class="control-label">Height</label>
-	                        	<div class="controls">
-	                           		<p>{{truck.dim_height }}</p>
-	                        	</div>
-	                    	</div>
-	                	</div> 
-                	</div>
-            	</div>
-			</div>
-			<div class="span6">
-        		<div class="box">
-            		<div class="box-title">
-	                	Driver
-                	</div>
-
-                	{% if truck.driver is not none %}
-            		<div class="box-content nopadding">
-	                	<div class="form-horizontal">
-	                    	<div class="control-group">
-	                        	<label class="control-label">Name</label>
-	                        	<div class="controls">
-	                           		<p>{{ truck.driver.get_full_name() }}</p>
-	                        	</div>
-	                    	</div>
-	                    	<div class="control-group">
-	                        	<label class="control-label">Phone</label>
-	                        	<div class="controls">
-	                           		<p>{{ truck.driver.get_phone_number() }}</p>
-	                        	</div>
-	                    	</div>
-	                    	<div class="form-actions">
-	                    		<button type="button" onclick="location.href='{{ url_for('carrier.remove', driver_id=truck.driver.id)}}'" class="btn btn-warning">Remove Driver</button>
-	                    	</div>
-	                	</div> 
-                	</div>
-                	{% else %}
-                	<div class="box-content nopadding">
-                		<form name="assign" action="{{ url_for('carrier.assign') }}" method="post" class="form-horizontal">
-	                		<div class="form-horizontal">
-	                    		<div class="control-group">
-	                        		<label class="control-label">Assign Driver:</label>
-	                        		<div class="controls">
-	                        		
-	                           			{{ form.hidden_tag() }}
-                                        {{ form.truck(value=truck.id, type='hidden') }}
-                                        {{ form.driver()}}
-                                       
-                                    
-	                        		</div>
-	                        	</div>
-	                        	<div class="form-actions">
-			                        <input type="submit" class="btn btn-primary" value="Save" />
-			                       	<a href="{{ url_for('load.all') }}" class="btn">Cancel</a>
-			                    </div>
-	                    	</div>
-	                	</form> 
-                	</div>
-                	{% endif %}
-            	</div>
+			<div class="panel panel-default">
+	    		<div class="panel-heading">
+	        		<i class="fa fa-external-link-square"></i>
+	        		DRIVER
+	        
+	    		</div>
+	    	<div class="panel-body">
+	    		{% if truck.driver is not none %}
+	        		<table id="truck" class="table table-condensed">
+						<tbody>
+							<tr>
+								<td><b>Name:</b></td>
+								<td>{{ truck.diver.get_full_name() }}
+							</tr>
+							<tr>
+								<td><b>Phone:</b></td>
+								<td>{{ truck.driver.get_phone_number() }}
+							</tr>
+						</tbody>
+					</table>
+	        	{% else %}
+	        		<form name="assign" action="{{ url_for('fleet.assign') }}" method="post" class="form-horizontal">
+	            		{{ form.hidden_tag() }}
+	    
+	        			<div class="form-group">
+							<label class="col-sm-3 control-label" for="driver">
+								Assign Driver
+							</label>
+							<div class="col-sm-9">
+								{{ form.truck(value=truck.id, type='hidden') }}
+	                            {{ form.driver(class="form-control")}}
+							</div>
+						</div>
+	                	<div class="form-group">
+							<div class="col-sm-2 col-sm-offset-3">
+								<button class="btn btn-light-grey back-step btn-block">
+									<i class="fa fa-circle-arrow-left"></i> Cancel
+								</button>
+							</div>
+							<div class="col-sm-2 col-sm-offset-3">
+								<button type="submit" class="btn btn-blue next-step btn-block">
+									Submit <i class="fa fa-arrow-circle-right"></i>
+								</button>
+							</div>
+						</div>
+	            	</form> 
+	        	{% endif %}
 			</div>
 		</div>
+	</div>
+
+				
 
 {% endblock %}

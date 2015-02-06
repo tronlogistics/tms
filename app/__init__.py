@@ -29,12 +29,16 @@ mail = Mail(app)
 
 principals = Principal(app)
 
-from .views.load import load
+from .views.loads import loads
 #from .views.dashboard import dashboard
-from .views.carrier import carrier
+from .views.fleet import fleet
+from .views.drivers import drivers
+from .views.trucks import trucks
 from .views.static import static
-app.register_blueprint(load)
-app.register_blueprint(carrier)
+app.register_blueprint(loads)
+app.register_blueprint(fleet)
+app.register_blueprint(drivers)
+app.register_blueprint(trucks)
 #app.register_blueprint(dashboard)
 app.register_blueprint(static)
 
@@ -58,6 +62,14 @@ if not app.debug:
 app.jinja_env.globals['static'] = (
     lambda filename: url_for('static', filename = filename)
 )
+
+# Function to easily find your assets
+# In your template use <link rel=stylesheet href="{{ static('filename') }}">
+app.jinja_env.globals['f_static'] = (
+    lambda filename: url_for('static', filename = filename)
+)
+
+
 
 from app import views, models
 

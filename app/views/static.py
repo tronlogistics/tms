@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, url_for, redirect, request, flash,
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, mail
-from app.forms import LoginForm, RegisterForm
+from app.forms import LoginForm, RegisterForm, EmailForm
 from app.models import User, Role
 from app.permissions import *
 from app.emails import register_account, get_serializer
@@ -19,23 +19,30 @@ def before_request():
     g.user = current_user
 
 @static.route('/')
+@static.route('/index')
+@static.route('/home')
 def index():
-	return redirect(url_for('.login'))
+	form = EmailForm()
+	return render_template('static/coming_soon.html', form=form)
+	#return render_template('static/index.html')
 
 @static.route('/login', methods=['GET', 'POST'])
 def login():
-	if g.user.is_authenticated():
-		return redirect(url_for('load.all'))
-	form = LoginForm()
-	if form.validate_on_submit():
-		user = User.query.filter_by(email=form.email.data).first()
+	#if g.user.is_authenticated():
+	#	return redirect(url_for('load.all'))
+	login_form = LoginForm()
+	register_form = RegisterForm()
+	register_form.account_type.data = 'carrier'
+	
+	if login_form.validate_on_submit():
+		user = User.query.filter_by(email=login_form.email.data).first()
 
 		if user is not None:
-			if not user.is_confirmed():
-				flash("You must confirm your e-mail prior to logging in. To confirm your e-mail, click the activation link provided to %s" % user.email )
-				return render_template('static/login.html', form=form, user=g.user)
+			#if not user.is_confirmed():
+			#	flash("You must confirm your e-mail prior to logging in. To confirm your e-mail, click the activation link provided to %s" % user.email )
+			#	return render_template('static/login.html', login_form=login_form, register_form=register_form, user=g.user)
 
-			if user.check_password(form.password.data):
+			if user.check_password(login_form.password.data):
 				user.authenticated = True
 				db.session.add(user)
 				db.session.commit()
@@ -44,12 +51,26 @@ def login():
 				# Tell Flask-Principal the user has logged in
 				identity_changed.send(current_app._get_current_object(),
 										identity=Identity(user.email))
-				return redirect(url_for("load.all"))
+				return redirect(url_for("loads.all"))
 			else:
 				flash("Wrong username/password")
 		else:
 			flash("Wrong username/password")
-	return render_template('static/login.html', form=form, user=g.user)
+		
+	if register_form.validate_on_submit():
+		user = User(company_name=register_form.company_name.data,
+					email=register_form.email.data,
+					password=register_form.password.data)
+		db.session.add(user)
+		role = Role(name=register_form.account_type.data)
+		db.session.add(role)
+		user.roles.append(role)
+		db.session.add(user)
+		db.session.commit()
+	
+		register_account(user)
+		app.logger.info("User \"%s\" with role \"%s\" created" % (user.email, user.roles[0].name))
+	return render_template('static/login.html', login_form=login_form, register_form=register_form, user=g.user)
 
 @static.route("/logout", methods=["GET"])
 @login_required
@@ -74,14 +95,14 @@ def logout():
 
 @static.route('/register', methods=['GET', 'POST'])
 def register():
-	form = RegisterForm()
-	form.account_type.data = 'carrier'
-	if form.validate_on_submit():
-		user = User(company_name=form.company_name.data,
-					email=form.email.data,
-					password=form.password.data)
+	register_form = RegisterForm()
+	register_form.account_type.data = 'carrier'
+	if register_form.validate_on_submit():
+		user = User(company_name=register_form.company_name.data,
+					email=register_form.email.data,
+					password=register_form.password.data)
 		db.session.add(user)
-		role = Role(name=form.account_type.data)
+		role = Role(name=register_form.account_type.data)
 		db.session.add(role)
 		user.roles.append(role)
 		db.session.add(user)
@@ -90,7 +111,8 @@ def register():
 		register_account(user)
 		app.logger.info("User \"%s\" with role \"%s\" created" % (user.email, user.roles[0].name))
 		return redirect(url_for('.login'))
-	return render_template('static/register.html', form=form, user=g.user)
+	flash(register_form.errors)
+	return render_template('static/register.html', register_form=register_form, user=g.user)
 
 @static.route('/choose_plan', methods=['GET', 'POST'])
 def choose_plan():

@@ -1,348 +1,315 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<form name="edit" action="" method="post" class="form-horizontal">
+
+<form name="create" role="form" action="" method="post" class="form-horizontal">
 	{{ form.hidden_tag() }}
-	<div class="container-fluid" id="container">
-		<div class="row-fluid">
-		    <div class="span12">
-		    	<div class="row-fluid">
-		    		<div class="span6">
-		        		<div class="box">
-		            		<div class="box-title">
-		                		Origin
-		            		</div>
-		            		<div class="box-content nopadding">
-			                	<div class="form-horizontal">
-			                    	<div class="control-group">
-			                        	<label class="control-label">Address 1</label>
-			                        	<div class="controls">
-			                           		{{ form.origin_address1(size=50) }}
-			                           		{% for error in form.origin_address1.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-	                                        <!--<span class="help-inline">Description goes here</span>-->
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Address 2</label>
-			                        	<div class="controls">
-			                           		{{ form.origin_address2(size=50) }}
-	                                        {% for error in form.origin_address2.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">City</label>
-			                        	<div class="controls">
-			                           		{{ form.origin_city(size=50) }}
-	                                        {% for error in form.origin_city.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">State</label>
-			                        	<div class="controls">
-			                           		{{ form.origin_state(size=50) }}
-	                                        {% for error in form.origin_state.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Zip</label>
-			                        	<div class="controls">
-			                           		{{ form.origin_postal_code(size=10) }}
-	                                        {% for error in form.origin_postal_code.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group" id="datetimepicker1">
-			                        	<label class="control-label">Pickup Date</label>
-			                        	<div class="controls">
-			                           		{{ form.pickup_date() }}
-	                                        {% for error in form.pickup_date.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Contact Name</label>
-			                        	<div class="controls">
-			                           		{{ form.origin_contact_name() }}
-	                                        {% for error in form.origin_contact_name.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Contact Email</label>
-			                        	<div class="controls">
-			                           		{{ form.origin_contact_email() }}
-	                                        {% for error in form.origin_contact_email.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Contact Phone</label>
-			                        	<div class="controls">
-			                           		+1 ({{ form.origin_contact_phone_area_code(size=3, class='input-mini') }})-{{ form.origin_contact_phone_prefix(size=3, class='input-mini') }}-{{ form.origin_contact_phone_line_number(size=4, class='input-mini') }}
-          									{% for error in form.origin_contact_phone_area_code.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-          									{% for error in form.origin_contact_phone_prefix.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                           		{% for error in form.origin_contact_phone_line_number.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                	</div> 
-		                	</div>
+	<div class="row">
+		<div class="col-sm-6">
+			<!-- start: TEXT FIELDS PANEL -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-external-link-square"></i>
+					Origin
+				</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Street Address
+						</label>
+						<div class="col-sm-9">
+							{{ form.origin_address1(size=50, placeholder="Street Address", class="form-control") }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							City
+						</label>
+						<div class="col-sm-9">
+							{{ form.origin_city(size=50, placeholder="City", class="form-control") }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							State
+						</label>
+						<div class="col-sm-9">
+							{{ form.origin_state(size=50, placeholder="State", class="form-control") }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Zip Code
+						</label>
+						<div class="col-sm-9">
+							{{ form.origin_postal_code(size=50, placeholder="Zip Code", class="form-control") }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Pickup Date
+						</label>
+						<div class="col-sm-9">
+							{{ form.pickup_date() }}
+						</div>
+					</div>
+					<hr>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Contact Name
+						</label>
+						<div class="col-sm-9">
+							{{ form.origin_contact_name() }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Contact Email
+						</label>
+						<div class="col-sm-9">
+							{{ form.origin_contact_email() }}
+						</div>
+					</div>
+					<div class="control-group">
+		            	<label class="col-sm-3 control-label" for="origin_address1">
+							Contact Phone
+						</label>
+		            	<div class="col-sm-9">
+		               		+1 ({{ form.origin_contact_phone_area_code(size=3, class='input-mini') }})-{{ form.origin_contact_phone_prefix(size=3, class='input-mini') }}-{{ form.origin_contact_phone_line_number(size=4, class='input-mini') }}
 		            	</div>
-		         	</div>
-		         	<div class="span6">
-		        		<div class="box">
-		            		<div class="box-title">
-		                		Destination
-		            		</div>
-		            		<div class="box-content nopadding">
-			                	<div class="form-horizontal">
-			                    	<div class="control-group">
-			                        	<label class="control-label">Address 1</label>
-			                        	<div class="controls">
-			                           		{{ form.destination_address1(size=50) }}
-	                                        {% for error in form.destination_address1.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Address 2</label>
-			                        	<div class="controls">
-			                           		{{ form.destination_address2(size=50) }}
-	                                        {% for error in form.destination_address2.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">City</label>
-			                        	<div class="controls">
-			                           		{{ form.destination_city(size=50) }}
-	                                        {% for error in form.destination_city.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">State</label>
-			                        	<div class="controls">
-			                           		{{ form.destination_state(size=50) }}
-	                                        {% for error in form.destination_state.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Zip</label>
-			                        	<div class="controls">
-			                           		{{ form.destination_postal_code(size=10) }}
-	                                        {% for error in form.destination_postal_code.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Delivery Date</label>
-			                        	<div class="controls">
-			                           		{{ form.delivery_date() }}
-	                                        {% for error in form.delivery_date.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Contact Name</label>
-			                        	<div class="controls">
-			                           		{{ form.destination_contact_name() }}
-	                                        {% for error in form.destination_contact_name.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Contact Email</label>
-			                        	<div class="controls">
-			                           		{{ form.destination_contact_email() }}
-	                                        {% for error in form.destination_contact_email.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Contact Phone</label>
-			                        	<div class="controls">
-			                           		+1 ({{ form.destination_contact_phone_area_code(size=3, class='input-mini') }})-{{ form.destination_contact_phone_prefix(size=3, class='input-mini') }}-{{ form.destination_contact_phone_line_number(size=4, class='input-mini') }}
-          									{% for error in form.destination_contact_phone_area_code.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-          									{% for error in form.destination_contact_phone_prefix.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                           		{% for error in form.destination_contact_phone_line_number.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                	</div> 
-		                	</div>
+	        		</div>
+	        	</div>
+	        </div>
+	    </div>
+	    <div class="col-sm-6">
+			<!-- start: TEXT FIELDS PANEL -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-external-link-square"></i>
+					Origin
+				</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Street Address
+						</label>
+						<div class="col-sm-9">
+							{{ form.destination_address1(size=50, placeholder="Street Address", class="form-control") }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							City
+						</label>
+						<div class="col-sm-9">
+							{{ form.destination_city(size=50, placeholder="City", class="form-control") }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							State
+						</label>
+						<div class="col-sm-9">
+							{{ form.destination_state(size=50, placeholder="State", class="form-control") }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Zip Code
+						</label>
+						<div class="col-sm-9">
+							{{ form.destination_postal_code(size=50, placeholder="Zip Code", class="form-control") }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Delivery Date
+						</label>
+						<div class="col-sm-9">
+							{{ form.delivery_date() }}
+						</div>
+					</div>
+					<hr>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Contact Name
+						</label>
+						<div class="col-sm-9">
+							{{ form.destination_contact_name() }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Contact Email
+						</label>
+						<div class="col-sm-9">
+							{{ form.destination_contact_email() }}
+						</div>
+					</div>
+					<div class="control-group">
+		            	<label class="col-sm-3 control-label" for="origin_address1">
+							Contact Phone
+						</label>
+		            	<div class="col-sm-9">
+		               		+1 ({{ form.destination_contact_phone_area_code(size=3, class='input-mini') }})-{{ form.destination_contact_phone_prefix(size=3, class='input-mini') }}-{{ form.destination_contact_phone_line_number(size=4, class='input-mini') }}
 		            	</div>
-		         	</div>
-		        </div>
-		        <div class="row-fluid">
-		    		<div class="span12">
-		        		<div class="box">
-		            		<div class="box-title">
-		                		Load Details
-		            		</div>
-		            		<div class="box-content nopadding">
-			                	<div class="form-horizontal">
-			                    	<div class="control-group">
-			                        	<label class="control-label">Description</label>
-			                        	<div class="controls">
-			                           		{{ form.description(size=250) }}
-	                                        {% for error in form.description.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Purchase order</label>
-			                        	<div class="controls">
-			                           		{{ form.purchase_order() }}
-	                                        {% for error in form.purchase_order.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Over Dimensional?</label>
-			                        	<div class="controls">
-			                           		{{ form.over_dimensional() }}
-	                                        {% for error in form.over_dimensional.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Weight</label>
-			                        	<div class="controls">
-			                           		{{ form.weight(size=50) }}
-	                                        {% for error in form.weight.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Length</label>
-			                        	<div class="controls">
-			                           		{{ form.dim_length(size=50) }}
-	                                        {% for error in form.dim_length.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Width</label>
-			                        	<div class="controls">
-			                           		{{ form.dim_width(size=50) }}
-	                                        {% for error in form.dim_width.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Height</label>
-			                        	<div class="controls">
-			                           		{{ form.dim_height(size=50) }}
-	                                        {% for error in form.dim_height.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Number of pieces</label>
-			                        	<div class="controls">
-			                           		{{ form.number_pieces(size=50) }}
-	                                        {% for error in form.number_pieces.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Comments</label>
-			                        	<div class="controls">
-			                           		{{ form.comments(size=500) }}
-	                                        {% for error in form.comments.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Trailer Type</label>
-			                        	<div class="controls">
-			                           		{{ form.trailer_type() }}
-	                                        {% for error in form.trailer_type.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Load Type</label>
-			                        	<div class="controls">
-			                           		{{ form.load_type() }}
-	                                        {% for error in form.load_type.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Total Miles</label>
-			                        	<div class="controls">
-			                           		{{ form.total_miles(size=500) }}
-	                                        {% for error in form.total_miles.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="control-group">
-			                        	<label class="control-label">Total Price</label>
-			                        	<div class="controls">
-			                           		{{ form.price() }}
-	                                        {% for error in form.price.errors %}
-            									<span style="color: red;">[{{ error }}]</span>
-          									{% endfor %}
-			                        	</div>
-			                    	</div>
-			                    	<div class="form-actions">
-			                        	<input type="submit" class="btn btn-primary" value="Save" />
-			                        	<a href="{{ url_for('load.view', load_id=load.id) }}" class="btn">Cancel</a>
-			                    	</div>
-			                    </div>
-		                	</div>
-		            	</div>
-		         	</div>         
-		        </div>
-		    </div> 
-		</div>
+	        		</div>
+	        	</div>
+	        </div>
+	    </div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<!-- start: TEXT FIELDS PANEL -->
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-external-link-square"></i>
+					Load Details
+				</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Description
+						</label>
+						<div class="col-sm-9">
+							{{ form.description(size=250, placeholder="Description", class="form-control") }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Purchase Order
+						</label>
+						<div class="col-sm-9">
+							{{ form.purchase_order(placeholder="Purchase Order", class="form-control") }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Over Dimensional?
+						</label>
+						<div class="col-sm-9">
+							{{ form.over_dimensional() }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Weight
+						</label>
+						<div class="col-sm-9">
+							{{ form.weight(size=50, placeholder="Weight", class="form-control") }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Length
+						</label>
+						<div class="col-sm-9">
+							{{ form.dim_length() }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Width
+						</label>
+						<div class="col-sm-9">
+							{{ form.dim_width() }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Height
+						</label>
+						<div class="col-sm-9">
+							{{ form.dim_height() }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Number of Pieces
+						</label>
+						<div class="col-sm-9">
+							{{ form.number_pieces() }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Comments
+						</label>
+						<div class="col-sm-9">
+							{{ form.comments() }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Trailer Type
+						</label>
+						<div class="col-sm-9">
+							{{ form.trailer_type() }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Load Type
+						</label>
+						<div class="col-sm-9">
+							{{ form.load_type() }}
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Total Miles
+						</label>
+						<div class="col-sm-9">
+							{{ form.total_miles() }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Total Prices
+						</label>
+						<div class="col-sm-9">
+							{{ form.price() }}
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-2 col-sm-offset-3">
+							<button class="btn btn-light-grey back-step btn-block">
+								<i class="fa fa-circle-arrow-left"></i> Cancel
+							</button>
+						</div>
+						<div class="col-sm-2 col-sm-offset-3">
+							<button type="submit" class="btn btn-blue next-step btn-block">
+								Submit <i class="fa fa-arrow-circle-right"></i>
+							</button>
+						</div>
+					</div>
+	        	</div>
+	        </div>
+	    </div>
 	</div>
 </form>
+				
+	<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+	<script type="text/javascript">
+		// When the document is ready
+		$(document).ready(function () {
+			$('#pickup_date').datepicker({
+				format: "mm/dd/yyyy",
+				minDate: 0
+			});
+		});
+	</script>
+
+	<script type="text/javascript">
+		// When the document is ready
+		$(document).ready(function () {
+			$('#delivery_date').datepicker({
+				format: "mm/dd/yyyy",
+				minDate: 0
+			});
+		});
+	</script>
 
 <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
 
