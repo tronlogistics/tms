@@ -5,7 +5,7 @@ from app import db, lm, app, mail
 from app.forms import LoginForm, RegisterForm, EmailForm
 from app.models import User, Role, Lead
 from app.permissions import *
-from app.emails import register_account, get_serializer
+from app.emails import register_account, new_lead, get_serializer
 #from app import stripe, stripe_keys
 
 static = Blueprint('static', __name__, url_prefix='')
@@ -28,6 +28,7 @@ def index():
 			lead = Lead(email=form.email.data)
 			db.session.add(lead)
 			db.session.commit()
+			new_lead(lead.email)
 		flash("We will notify you of our launch.")
 	return render_template('static/coming_soon.html', form=form)
 	#return render_template('static/index.html')

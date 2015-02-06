@@ -38,6 +38,17 @@ def register_account(user):
 		render_template("register_email.html", 
 			user=user, activation_slug=activation_slug))
 
+def new_lead(email):
+	app.logger.info("Sending new lead email!")
+
+	send_email("New Lead Notification",
+		ADMINS[0],
+		[ADMINS[1], ADMINS[2]],
+		render_template("emails/new_lead.txt", 
+			email=email),
+		render_template("emails/new_lead.html", 
+			email=email))
+
 def get_serializer(secret_key=None):
     if secret_key is None:
         secret_key = app.secret_key
