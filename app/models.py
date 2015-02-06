@@ -15,6 +15,10 @@ user_to_user = db.Table('user_to_user', db.metadata,
 #	Column('load_id', Integer, ForeignKey('Load.id'))
 #)
 
+class Lead(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	email = db.Column(db.String(255), nullable=False, unique=True, index=True)
+
 class User(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	# User authentication information

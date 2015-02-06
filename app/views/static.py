@@ -3,7 +3,7 @@ from flask.ext.login import login_user, logout_user, current_user, login_require
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, mail
 from app.forms import LoginForm, RegisterForm, EmailForm
-from app.models import User, Role
+from app.models import User, Role, Lead
 from app.permissions import *
 from app.emails import register_account, get_serializer
 #from app import stripe, stripe_keys
@@ -18,11 +18,17 @@ def load_user(user_id):
 def before_request():
     g.user = current_user
 
-@static.route('/')
-@static.route('/index')
-@static.route('/home')
+@static.route('/', methods=['GET', 'POST'])
+@static.route('/index', methods=['GET', 'POST'])
+@static.route('/home', methods=['GET', 'POST'])
 def index():
 	form = EmailForm()
+	if form.validate_on_submit():
+		if not Lead.query.filter_by(email=form.email.data).first():
+			lead = Lead(email=form.email.data)
+			db.session.add(lead)
+			db.session.commit()
+		flash("We will notify you of our launch.")
 	return render_template('static/coming_soon.html', form=form)
 	#return render_template('static/index.html')
 

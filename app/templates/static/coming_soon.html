@@ -43,6 +43,22 @@
 		<div class="logo">
 			Tron Logistics
 		</div>
+		{% with messages = get_flashed_messages() %}
+			{% if messages %}
+		    	{% for message in messages %}
+		    	<div class="container">
+		    		<div class="alert alert-success">
+		    			<button data-dismiss="alert" class="close">
+								&times;
+						</button>
+						<i class="fa fa-check-circle"></i>
+						<strong>Thank you!</strong> {{ message }}
+
+	    			</div>
+	    		</div>
+		    	{% endfor %}
+		  	{% endif %}
+		{% endwith %}
 		<div class="timer-area">
 			<h1>We're coming soon...</h1>
 			<ul id="countdown">
@@ -79,18 +95,34 @@
 			<div class="row">
 				<div class="col-sm-4 col-sm-offset-4">
 					<div class="input-group">
-						<form name="notify" action="" method="post">
+						<form name="notify" action="#" method="post">
+
 							{{ form.hidden_tag() }}
-							{{ form.email(size=40, class="form-control", placeholder="enter your email address")}}
-							<!--<input type="text" class="form-control" placeholder="enter your email address">-->
-							<span class="input-group-btn">
-								<button class="btn btn-teal" type="submit">
-									NOTIFY ME
-								</button> </span>
+							{% if form.email.errors %}
+								<div class="form-group has-error">
+										{{ form.email(size=40, class="form-control", placeholder="Enter a valid e-mail address")}}
+										<span class="input-group-btn">
+											<button class="btn btn-red" type="submit">
+												NOTIFY ME
+											</button> 
+										</span>
+								</div>
+							{% else %}
+								<div class="form-group">
+									{{ form.email(size=40, class="form-control", placeholder="Enter a valid e-mail address")}}
+									<span class="input-group-btn">
+										<button class="btn btn-red" type="submit">
+											NOTIFY ME
+										</button> 
+									</span>
+								</div>
+								
+							{% endif %}
 						</form>
 					</div>
 				</div>
 			</div>
+          
 			<div class="row">
 				<div id="disclaimer" class="col-md-12">
 					<p>
@@ -127,11 +159,14 @@
 		<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 		<script src="{{ static('backend/js/utility-coming-soon.js') }}"></script>
 		<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+		<script src="{{ static('backend/js/form-elements.js') }}"></script>
+
 		<script>
 			
 			jQuery(document).ready(function() {
 				Main.init();
 				ComingSoon.init();
+				FormElements.init();
 			});
 		</script>
 	</body>
