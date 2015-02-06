@@ -31,7 +31,10 @@ def index():
 			new_lead(lead.email)
 		flash("We will notify you of our launch.")
 	return render_template('static/coming_soon.html', form=form)
-	#return render_template('static/index.html')
+
+@static.route('/marketing')
+def marketing():
+	return render_template('static/index.html')
 
 @static.route('/login', methods=['GET', 'POST'])
 def login():
