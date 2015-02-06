@@ -98,9 +98,10 @@
 						<form name="notify" action="#" method="post">
 
 							{{ form.hidden_tag() }}
-							{% if form.email.errors %}
+
+							{% if form.email.errors|length > 0 %}
 								<div class="form-group has-error">
-										{{ form.email(size=40, class="form-control", placeholder="Enter a valid e-mail address")}}
+										{{ form.email(size=40, class="form-control", placeholder="Enter a valid e-mail address", style="")}}
 										<span class="input-group-btn">
 											<button class="btn btn-red" type="submit">
 												NOTIFY ME
@@ -111,7 +112,7 @@
 								<div class="form-group">
 									{{ form.email(size=40, class="form-control", placeholder="Enter a valid e-mail address")}}
 									<span class="input-group-btn">
-										<button class="btn btn-red" type="submit">
+										<button class="btn btn-teal" type="submit">
 											NOTIFY ME
 										</button> 
 									</span>
@@ -159,14 +160,12 @@
 		<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 		<script src="{{ static('backend/js/utility-coming-soon.js') }}"></script>
 		<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
-		<script src="{{ static('backend/js/form-elements.js') }}"></script>
 
 		<script>
 			
 			jQuery(document).ready(function() {
 				Main.init();
 				ComingSoon.init();
-				FormElements.init();
 			});
 		</script>
 	</body>
