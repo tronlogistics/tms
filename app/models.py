@@ -87,19 +87,33 @@ class User(db.Model):
 
 class Load(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
+	#referencing classes
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-	name = db.Column(db.String(80), index=True)
-	status = db.Column(db.String(20))
-	lane = db.relationship('Lane', uselist=False, backref='load')
-	load_detail = db.relationship('LoadDetail', uselist=False, backref='load')
 	broker_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	carrier_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-	bids = db.relationship('Bid', backref='load')
+
+	#general
+	name = db.Column(db.String(80), index=True)
+	status = db.Column(db.String(20))
+	trailer_group = db.Column(db.String(20))
+	trailer_type = db.Column(db.String(20))
+	load_type = db.Column(db.String(20))
+	total_miles = db.Column(db.Integer) 
+	purchase_order = db.Column(db.String(20))
+	over_dimensional = db.Column(db.Boolean)
 	carrier_cost = db.Column(db.Float(3))
 	price = db.Column(db.Float(3))
 	description = db.Column(db.String(250))
+	comments = db.Column(db.String(500))
+
+	#children
+	lane = db.relationship('Lane', uselist=False, backref='load')
+	bids = db.relationship('Bid', backref='load')
+
+	#assignments
 	driver_id = db.Column(db.Integer, db.ForeignKey('driver.id'))
 	assigned_driver = db.relationship('Driver', backref='loads')
+	
 	
 	def __repr__(self):
 		return '<User %r>' % (self.name)
@@ -116,22 +130,16 @@ class Bid(db.Model):
 
 class LoadDetail(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
+	pickup_id = db.Column(db.Integer, db.ForeignKey('location.id'))
+	delivery_id = db.Column(db.Integer, db.ForeignKey('location.id'))
 	weight = db.Column(db.Integer)
 	dim_length = db.Column(db.Integer)
 	dim_width = db.Column(db.Integer)
 	dim_height = db.Column(db.Integer)
 	approx_miles = db.Column(db.Integer)
 	number_pieces = db.Column(db.Integer)
-	comments = db.Column(db.String(500))
-	load_id = db.Column(Integer, ForeignKey('load.id'))
-	pickup_date = db.Column(db.Date) 
-	delivery_date = db.Column(db.Date)
-	trailer_group = db.Column(db.String(20))
-	trailer_type = db.Column(db.String(20))
-	load_type = db.Column(db.String(20))
-	total_miles = db.Column(db.Integer) 
-	purchase_order = db.Column(db.String(20))
-	over_dimensional = db.Column(db.Boolean)
+	
+	
 
 
 class Lane(db.Model):
@@ -143,6 +151,22 @@ class Lane(db.Model):
 class Location(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	lane_id = db.Column(db.Integer, db.ForeignKey('lane.id'))
+	
+	address = db.relationship('Address', uselist=False, backref='location')
+	contact = db.relationship('Contact', uselist=False, backref='location')
+
+	pickup_detail = db.relationship("LoadDetail", foreign_keys='LoadDetail.pickup_id', backref='pickup_location')
+	delivery_detail = db.relationship("LoadDetail", foreign_keys='LoadDetail.delivery_id', backref='delivery_location')
+
+	arrival_date = db.Column(db.Date)
+	#arrival_time = 
+
+	def __repr__(self):
+		return '%s, %s' % (self.city, self.state)
+
+class Address(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	location_id = db.Column(db.Integer, db.ForeignKey('location.id'))
 	address1 = db.Column(db.String(100))
 	address2 = db.Column(db.String(100))
 	city = db.Column(db.String(100))
@@ -150,6 +174,10 @@ class Location(db.Model):
 	postal_code = db.Column(db.Integer)
 	latitude = db.Column(db.Float(6))
 	longitude = db.Column(db.Float(6))
+
+class Contact(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	location_id = db.Column(db.Integer, db.ForeignKey('location.id'))
 	contact_name = db.Column(db.String(60))
 	contact_email = db.Column(db.String(30))
 	contact_phone = db.Column(db.String(30))
@@ -157,9 +185,6 @@ class Location(db.Model):
 	contact_phone_area_code = db.Column(db.String(3))
 	contact_phone_prefix = db.Column(db.String(3))
 	contact_phone_line_number = db.Column(db.String(4))
-
-	def __repr__(self):
-		return '%s, %s' % (self.city, self.state)
 
 class Fleet(db.Model):
 	id = db.Column(db.Integer, primary_key=True)

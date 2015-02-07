@@ -4,6 +4,13 @@
 		<div class="main-login col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
 			<div class="logo">Tron Logistics
 			</div>
+			{% with messages = get_flashed_messages() %}
+						{% if messages %}
+					    	{% for message in messages %}
+					    		<div class="alert alert-warning" role="alert">{{ message }}</div>
+					    	{% endfor %}
+					  	{% endif %}
+					{% endwith %}
 			<!-- start: LOGIN BOX -->
 			<div class="box-login">
 				<h3>Sign in to your account</h3>
@@ -56,14 +63,15 @@
 				<p>
 					Enter your e-mail address below to reset your password.
 				</p>
-				<form class="form-forgot">
+				<form name="forgot" action="" method="post" class="form-forgot">
+					{{ forgot_form.hidden_tag() }}
 					<div class="errorHandler alert alert-danger no-display">
 						<i class="fa fa-remove-sign"></i> You have some form errors. Please check below.
 					</div>
 					<fieldset>
 						<div class="form-group">
 							<span class="input-icon">
-								<input type="email" class="form-control" name="email" placeholder="Email">
+								{{ forgot_form.email() }} {#<input type="email" class="form-control" name="email" placeholder="Email">#}
 								<i class="fa fa-envelope"></i> </span>
 						</div>
 						<div class="form-actions">

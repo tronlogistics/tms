@@ -5,18 +5,20 @@ from wtforms.validators import DataRequired, EqualTo, NumberRange, Email
 class EmailForm(Form):
 	email = StringField('Email', validators=[Email("Please enter a valid e-mail")])
 
-class LocationForm(Form):
+class LaneLocationForm(Form):
 	def __init__(self, *args, **kwargs):
 		kwargs['csrf_enabled'] = False
 		Form.__init__(self, *args, **kwargs)
 
-
 	address1 = StringField("Address 1", validators =[])
-	address2 = StringField("Address 2", validators =[])
 	city = StringField("City", validators =[])
 	state = StringField("State", validators =[])
 	postal_code = StringField("Zip Code", validators =[])
-	stop_number = StringField("Stop #", validators=[])
+	stop_number = HiddenField("Stop #", validators=[])
+	arrival_date = DateField("Date", validators=[], format='%m/%d/%Y')
+	arrival_Time = StringField("Time", validators=[])
+	pickup_weight = IntegerField("Pickup Weight", validators=[])
+	delivery_weight = IntegerField("Delivery Weight", validators=[])
 	contact_name = StringField('Name', validators=[])
 	contact_email = StringField('Email', validators=[])
 	contact_phone = StringField('Phone', validators=[])
@@ -46,8 +48,8 @@ class LoadForm(Form):
 	dim_width = IntegerField("Width", validators =[])
 	number_pieces = IntegerField("Number of Pieces", validators =[])
 	comments = StringField("Comments", validators =[])
-	pickup_date = DateField("Pickup Date", validators = [], format='%m/%d/%Y')
-	delivery_date = DateField('Delivery Date', validators = [], format='%m/%d/%Y')
+	#pickup_date = DateField("Pickup Date", validators = [], format='%m/%d/%Y')
+	#delivery_date = DateField('Delivery Date', validators = [], format='%m/%d/%Y')
 	trailer_type = SelectField('Trailer Type', choices = [('','<none selected>'),
 															('Auto Carrier', 'Auto Carrier'), 
 															('Conestoga', 'Conestoga'),
@@ -83,7 +85,7 @@ class LoadForm(Form):
 	destination_contact_phone_prefix = IntegerField('Prefix', validators=[])
 	destination_contact_phone_line_number = IntegerField('Line Number', validators=[])
 	#location = FormField(LocationForm)
-	locations = FieldList(FormField(LocationForm))
+	locations = FieldList(FormField(LaneLocationForm))
 
 
 
@@ -113,6 +115,7 @@ class TruckForm(Form):
 class DriverForm(Form):
 	first_name = StringField('First Name', validators=[DataRequired()])
 	last_name = StringField('Last Name', validators=[DataRequired()])
+	email = StringField('Email', validators=[Email("Please enter a valid e-mail")])
 	phone_area_code = IntegerField('Area Code', validators=[DataRequired()])
 	phone_prefix = IntegerField('Prefix', validators=[DataRequired()])
 	phone_line_number = IntegerField('Line Number', validators=[DataRequired()])
@@ -120,6 +123,13 @@ class DriverForm(Form):
 class LoginForm(Form):
 	email = StringField('email', validators=[DataRequired()])
 	password = PasswordField('password', validators=[DataRequired()])
+
+class ResetPasswordForm(Form):
+	password = PasswordField('New Password', [
+		DataRequired(),
+		EqualTo('confirm', message='Passwords must match')
+		])
+	confirm = PasswordField('Repeat Password')
 
 class RegisterForm(Form):
 	company_name = StringField('Company Name', validators=[DataRequired()])

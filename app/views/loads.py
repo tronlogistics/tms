@@ -1,12 +1,11 @@
 from flask import Blueprint, render_template, url_for, redirect, request, flash, session, g, abort
 from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
-from geopy import geocoders 
-from geopy.geocoders import Nominatim
 from app import db, lm, app, SQLAlchemy
 from app.forms import LoadForm, BidForm, StatusForm
 from app.models import Load, LoadDetail, Lane, Location, Truck, User, Bid, Driver
 from app.permissions import *
+from app.controllers import LoadFactory
 #from app.factories
 from sqlalchemy import desc
 
@@ -30,22 +29,22 @@ def create():
 	flash(form.validate())
 	flash(form.errors)
 	if form.validate_on_submit():
-		geolocator = Nominatim()
-		load = Load(name=form.name.data, 
-					price=form.price.data, 
-					description=form.description.data) 
-		if g.user.is_carrier():
-			load.status="Pending Truck Assignment"
-			load.carrier=g.user
-			load.carrier_cost=form.price.data
-		else:
-			load.status="Unassigned"
-		load.assigned_driver = None
-		db.session.add(load)
-		g.user.brokered_loads.append(load)
+		#geolocator = Nominatim()
+		#load = Load(name=form.name.data, 
+		#			price=form.price.data, 
+		#			description=form.description.data) 
+		#if g.user.is_carrier():
+		#	load.status="Pending Truck Assignment"
+		#	load.carrier=g.user
+		#	load.carrier_cost=form.price.data
+		#else:
+		#	load.status="Unassigned"
+		#load.assigned_driver = None
+		#db.session.add(load)
+		#g.user.brokered_loads.append(load)
 
-		for location in form.locations:
-			app.logger.exception("Location: %s" % location.address1.data)			
+		#for location in form.locations:
+		#	app.logger.exception("Location: %s" % location.address1.data)			
 
 		#origin = Location(address1=form.origin_address1.data,
 		#					address2=form.origin_address2.data,
@@ -115,26 +114,34 @@ def create():
 		#lane = Lane(origin=origin, destination=destination)
 		#db.session.add(lane)
 
-		load_detail = LoadDetail(weight = form.weight.data,
-								dim_length = form.dim_length.data,
-								dim_width = form.dim_width.data,
-								dim_height = form.dim_height.data,
-								number_pieces = form.number_pieces.data,
-								comments = form.comments.data,
-								pickup_date=form.pickup_date.data, 
-								delivery_date=form.delivery_date.data,
-								trailer_type=form.trailer_type.data,
-								load_type=form.load_type.data,
-								total_miles=form.total_miles.data,
-								purchase_order = form.purchase_order.data,
-								over_dimensional = form.over_dimensional.data)
-		db.session.add(load_detail)
-		load.lane = lane
-		load.load_detail = load_detail
-		load.broker = g.user
-		db.session.add(load)
-		db.session.add(g.user)
-		db.session.commit()
+		#load_detail = LoadDetail(weight = form.weight.data,
+		#						dim_length = form.dim_length.data,
+		#						dim_width = form.dim_width.data,
+		#						dim_height = form.dim_height.data,
+		#						number_pieces = form.number_pieces.data,
+		#						comments = form.comments.data,
+		#						pickup_date=form.pickup_date.data, 
+		#						delivery_date=form.delivery_date.data,
+		#						trailer_type=form.trailer_type.data,
+		#						load_type=form.load_type.data,
+		#						total_miles=form.total_miles.data,
+		#						purchase_order = form.purchase_order.data,
+		#						over_dimensional = form.over_dimensional.data)
+		#db.session.add(load_detail)
+		#load.lane = lane
+		#load.load_detail = load_detail
+		#load.broker = g.user
+		#load = LoadFactory(form)
+		#load.broker = g.user
+		#if g.user.is_carrier:
+		#	load.status="Pending Truck Assignment"
+		#	load.carrier=g.user
+		#	load.carrier_cost=form.price.data
+		#else:
+		#	load.status="Unassigned"
+		#db.session.add(load)
+		#db.session.add(g.user)
+		#db.session.commit()
 		return redirect(url_for('.view', load_id=load.id))
 	return render_template('load/create2.html',
    							title="Create Load",

@@ -2,7 +2,7 @@
 {% block body %}
 
 
-{% if user.is_authenticated() %}
+{% if user.is_authenticated() and user.password is not none %}
 	{% include "partials/navbar.html" %}
 	<!-- start: MAIN CONTAINER -->
 		<div class="main-container">
@@ -19,7 +19,6 @@
 					    	{% endfor %}
 					  	{% endif %}
 					{% endwith %}
-
 					{% block content %}{% endblock %}
 				</div>
 			</div>
@@ -29,7 +28,7 @@
 {% endif %}
 
 
-</div>
+
 
 		<!-- start: MAIN JAVASCRIPTS -->
 		<!--[if lt IE 9]>
@@ -38,7 +37,7 @@
 		<script type="text/javascript" src="{{ static('backend/plugins/jQuery-lib/1.10.2/jquery.min.js') }}"></script>
 		<![endif]-->
 		<!--[if gte IE 9]><!-->
-		{#<script src="{{ static('backend/plugins/jQuery-lib/2.0.3/jquery.min.js') }}"></script>#}
+		<script src="{{ static('backend/plugins/jQuery-lib/2.0.3/jquery.min.js') }}"></script>
 		<!--<![endif]-->
 		<script src="{{ static('backend/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js') }}"></script>
 		<script src="{{ static('backend/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
@@ -65,12 +64,15 @@
 		<script type="text/javascript" src="{{ static('backend/plugins/select2/select2.min.js') }}"></script>
 		<script type="text/javascript" src="{{ static('backend/plugins/DataTables/media/js/jquery.dataTables.min.js') }}"></script>
 		<script src="{{ static('backend/js/table-data.js') }}"></script>
+		<!--<script src="{{ static('backend/js/form-elements.js') }}"></script>-->
 
         <script>
             jQuery(document).ready(function() {
                 Main.init();
+                //FormElements.init();
                 FormWizard.init();
                 TableData.init();
+                
             });
         </script>
 		<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->

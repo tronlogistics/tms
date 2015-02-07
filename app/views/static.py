@@ -2,10 +2,10 @@ from flask import Blueprint, render_template, url_for, redirect, request, flash,
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, mail
-from app.forms import LoginForm, RegisterForm, EmailForm
+from app.forms import LoginForm, RegisterForm, EmailForm, ResetPasswordForm
 from app.models import User, Role, Lead
 from app.permissions import *
-from app.emails import register_account, new_lead, get_serializer
+from app.emails import register_account, new_lead, reset_pass, get_serializer
 #from app import stripe, stripe_keys
 
 static = Blueprint('static', __name__, url_prefix='')
@@ -42,8 +42,20 @@ def login():
 	#	return redirect(url_for('load.all'))
 	login_form = LoginForm()
 	register_form = RegisterForm()
+	forgot_form = EmailForm()
+
 	register_form.account_type.data = 'carrier'
 	
+	#flash(login_form.is_submitted())
+	#flash(login_form.validate_on_submit())
+	#flash(login_form.errors)
+	#flash(register_form.is_submitted())
+	#flash(register_form.validate_on_submit())
+	#flash(register_form.errors)
+	#flash(forgot_form.is_submitted())
+	#flash(forgot_form.validate_on_submit())
+	#flash(forgot_form.errors)
+
 	if login_form.validate_on_submit():
 		user = User.query.filter_by(email=login_form.email.data).first()
 
@@ -79,8 +91,14 @@ def login():
 		db.session.commit()
 	
 		register_account(user)
+		flash("An registration e-mail has been sent to %s" % register_form.email.data)
 		app.logger.info("User \"%s\" with role \"%s\" created" % (user.email, user.roles[0].name))
-	return render_template('static/login.html', login_form=login_form, register_form=register_form, user=g.user)
+	if forgot_form.validate_on_submit():
+		user = User.query.filter_by(email=forgot_form.email.data).first()
+		app.logger.info("User \"%s\" requested a password reset" % user.email)
+		reset_pass(user)
+		flash("Password reset instrunctions have been sent to %s" % forgot_form.email.data)
+	return render_template('static/login.html', login_form=login_form, register_form=register_form, forgot_form=forgot_form, user=g.user)
 
 @static.route("/logout", methods=["GET"])
 @login_required
@@ -119,9 +137,9 @@ def register():
 		db.session.commit()
 		
 		register_account(user)
+		flash("An registration e-mail has been sent to %s" % register_form.email.data)
 		app.logger.info("User \"%s\" with role \"%s\" created" % (user.email, user.roles[0].name))
 		return redirect(url_for('.login'))
-	flash(register_form.errors)
 	return render_template('static/register.html', register_form=register_form, user=g.user)
 
 @static.route('/choose_plan', methods=['GET', 'POST'])
@@ -165,6 +183,40 @@ def activate_user(activation_slug):
     app.logger.info("User \"%s\" is now activated" % user.email)
     flash('Your account is now activated. Please log in.')
     return redirect(url_for('.login'))
+
+@static.route('/reset/<activation_slug>', methods=['GET', 'POST'])
+def reset_password(activation_slug):
+	form = ResetPasswordForm()
+	flash(form.is_submitted())
+	flash(form.validate_on_submit())
+	flash(form.errors)
+	if form.validate_on_submit():
+		g.user.password = form.password.data
+		g.user.authenticated = True
+		db.session.add(g.user)
+		db.session.commit()
+		login_user(g.user, remember=True)
+		return redirect(url_for('loads.all'))
+	else:
+		s = get_serializer()
+		try:
+			user_id = s.loads(activation_slug)
+		except BadSignature:
+			abort(404)
+
+		user = User.query.get_or_404(user_id)
+		login_user(user, remember=True)
+		app.logger.info("User \"%s\"'s password is now reset" % user.email)
+		flash('Your password has been reset. Please create a new password.')
+
+		return render_template('static/reset_password.html', form=form, user=user)
+
+@static.route('/reset', methods=['POST'])
+def change_password():
+	form = ResetPasswordForm()
+	if form.validate_on_submit():
+		g.user.password = form.password.data
+		return redirect(url_for('load.all'))
 
 @app.errorhandler(404)
 def not_found_error(error):

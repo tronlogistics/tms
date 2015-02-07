@@ -23,11 +23,12 @@
 		<link rel="stylesheet" href="{{ static('backend/fonts/style.css') }}">
 		<link rel="stylesheet" href="{{ static('backend/css/main.css') }}">
 		<link rel="stylesheet" href="{{ static('backend/css/main-responsive.css') }}">
-		<link rel="stylesheet" href="{{ static('backend/plugins/iCheck/skins/all.css') }}">
-		<link rel="stylesheet" href="{{ static('backend/plugins/bootstrap-colorpalette/css/bootstrap-colorpalette.css') }}">
-		<link rel="stylesheet" href="{{ static('backend/plugins/perfect-scrollbar/src/perfect-scrollbar.css') }}">
-		<link rel="stylesheet" href="{{ static('backend/css/theme_light.css') }}" type="text/css" id="skin_color">
-		<link rel="stylesheet" href="{{ static('backend/css/print.css') }}" type="text/css" media="print"/>
+		<link rel="stylesheet" href="{{ static('frontend/css/main.css') }}">
+		<link rel="stylesheet" href="{{ static('frontend/css/main-responsive.css') }}">
+
+		<!-- end: MAIN CSS -->
+		<!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
+
 		<!--[if IE 7]>
 		<link rel="stylesheet" href="{{ static('backend/plugins/font-awesome/css/font-awesome-ie7.min.css') }}">
 		<![endif]-->
@@ -88,53 +89,123 @@
 				</li>
 			</ul>
 		</div>
-		<div class="container">
-			<h2>Sign up and we'll notify you of our launch.
-			<br />
-			We'll also throw in a freebie for your effort :)</h2>
-			<div class="row">
-				<div class="col-sm-4 col-sm-offset-4">
-					<div class="input-group">
-						<form name="notify" action="#" method="post">
-
-							{{ form.hidden_tag() }}
-
-							{% if form.email.errors|length > 0 %}
-								<div class="form-group has-error">
-										{{ form.email(size=40, class="form-control", placeholder="Enter a valid e-mail address", style="")}}
-										<span class="input-group-btn">
-											<button class="btn btn-red" type="submit">
-												NOTIFY ME
-											</button> 
-										</span>
-								</div>
-							{% else %}
-								<div class="form-group">
-									{{ form.email(size=40, class="form-control", placeholder="Enter a valid e-mail address")}}
-									<span class="input-group-btn">
-										<button class="btn btn-teal" type="submit">
-											NOTIFY ME
-										</button> 
-									</span>
-								</div>
-								
-							{% endif %}
-						</form>
+		<section>
+			<div class="container">
+				<div class="container">
+					<div class="row">
+						<h2>Load Planning and Dispatching, redefined</h2>
+						<hr>
+						<p>
+						It is estimated that 97% of carriers in the United States operate 20 or fewer trucks, but these firms lack dedicated and affordable technology solutions to drive greater business value in the 21<super>st</super> century. The trucking industry grew up with America, but small firms have missed the wave of technology. Tron Logistics has developed software specifically for this market to fill the gap. Stay in the know by signing up for our e-mail list.</p>
 					</div>
 				</div>
 			</div>
-          
-			<div class="row">
-				<div id="disclaimer" class="col-md-12">
-					<p>
-						<span>*</span> We won't use your email for spam, just to notify you of our launch.
-					</p>
+		</section>	
+		<section>
+			<div class="container">
+				<div class="row">
+					<h4>Provide your e-mail address below to receive updates and exclusive access to what we are creating</h4>
 				</div>
 			</div>
-		</div>
-		<div class="copyright">
+		</section>
+		<section>
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4 col-sm-offset-4">
+						<div class="input-group">
+							<form name="notify" action="#" method="post">
+								{{ form.hidden_tag() }}
+
+								{% if form.email.errors|length > 0 %}
+									<div class="form-group has-error">
+											{{ form.email(size=40, class="form-control", placeholder="E-mail me with updates", style="")}}
+											<span class="input-group-btn">
+												<button class="btn btn-red" type="submit">
+													NOTIFY ME
+												</button> 
+											</span>
+									</div>
+								{% else %}
+									<div class="form-group">
+										{{ form.email(size=40, class="form-control", placeholder="Enter a valid e-mail address")}}
+										<span class="input-group-btn">
+											<button class="btn btn-teal" type="submit">
+												NOTIFY ME
+											</button> 
+										</span>
+									</div>
+									
+								{% endif %}
+							</form>
+						</div>
+					</div>
+				</div>
+
+          
+				<div class="row">
+					<div id="disclaimer" class="col-md-12">
+						<p>
+							<span>*</span> We won't use your email for spam, just to notify you of our launch.
+						</p>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section class="wrapper wrapper-grey padding50">
+			<!-- start: CORE BOXES CONTAINER -->
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-4">
+						<div class="core-box">
+							<div class="heading">
+								<i class="clip-mobile circle-icon"></i>
+								<h2>Manage trucks, trailers and drivers</h2>
+							</div>
+							<div class="content">
+								Integrating the management of your three most important assets under one application with a digital information hub
+							</div>
+							{#<a class="view-more" href="#">
+								View More <i class="fa fa-angle-right"></i>
+							</a>#}
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="core-box">
+							<div class="heading">
+								<i class="clip-clip circle-icon"></i>
+								<h2>Plan loads with real time visibility</h2>
+							</div>
+							<div class="content">
+								Holistic load planning with consideration of all your assets that make your company profitable
+							</div>
+							{#<a class="view-more" href="#">
+								View More <i class="fa fa-angle-right"></i>
+							</a>#}
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div class="core-box">
+							<div class="heading">
+								<i class="clip-cogs circle-icon"></i>
+								<h2>Communicate seamlessly</h2>
+							</div>
+							<div class="content">
+								Communication between dispatchers and drivers stitched together seamlessly
+							</div>
+							{#<a class="view-more" href="#">
+								View More <i class="fa fa-angle-right"></i>
+							</a>#}
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="copyright">
 			2015 &copy; Tron Logistics.
 		</div>
+			<!-- end: CORE BOXES CONTAINER -->
+		</section>
+
+		
 		<!-- end: PAGE -->
 		<!-- start: MAIN JAVASCRIPTS -->
 		<!--[if lt IE 9]>

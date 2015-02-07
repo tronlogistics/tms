@@ -1,5 +1,5 @@
 var FormElements = function () {
-    //function to initiate jquery.inputlimiter
+   /* //function to initiate jquery.inputlimiter
     var runInputLimiter = function () {
         $('.limited').inputlimiter({
             remText: 'You only have %n character%s remaining...',
@@ -33,14 +33,14 @@ var FormElements = function () {
     };
     var runMaskMoney = function () {
         $(".currency").maskMoney();
-    };
+    };*/
     //function to initiate bootstrap-datepicker
     var runDatePicker = function () {
         $('.date-picker').datepicker({
             autoclose: true
         });
     };
-    //function to initiate bootstrap-timepicker
+   /* //function to initiate bootstrap-timepicker
     var runTimePicker = function () {
         $('.time-picker').timepicker();
     };
@@ -87,23 +87,23 @@ var FormElements = function () {
     var runCKEditor = function () {
         CKEDITOR.disableAutoInline = true;
         $('textarea.ckeditor').ckeditor();
-    };
+    };*/
     return {
         //main function to initiate template pages
         init: function () {
-            runInputLimiter();
-            runAutosize();
-            runSelect2();
-            runMaskInput();
-            runMaskMoney();
+            //runInputLimiter();
+            //runAutosize();
+            //runSelect2();
+            //runMaskInput();
+            //runMaskMoney();
             runDatePicker();
-            runTimePicker();
-            runDateRangePicker();
-            runColorPicker();
-            runColorPalette();
-            runTagsInput();
-            runSummerNote();
-            runCKEditor();
+            //runTimePicker();
+            //runDateRangePicker();
+            //runColorPicker();
+            //runColorPalette();
+            //runTagsInput();
+            //runSummerNote();
+            //runCKEditor();
         }
     };
 }();

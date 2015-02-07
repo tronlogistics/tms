@@ -19,15 +19,12 @@ def send_email(subject, sender, recipients, text_body, html_body):
 
 def register_account(user):
 	app.logger.info("Sending email to %s" % user.email)
-	app.logger.info("User %s" % user.id)
 	s = get_serializer()
 
 	activation_slug = s.dumps(user.id)
-	app.logger.info("Slug %s" % activation_slug)
 	s = get_serializer()
 	try:
 		user_id = s.loads(activation_slug)
-		app.logger.info("User %s" % user_id)
 	except BadSignature:
 		abort(404)
 	send_email("Register Your Account",
@@ -36,6 +33,24 @@ def register_account(user):
 		render_template("register_email.txt", 
 			user=user, activation_slug=activation_slug),
 		render_template("register_email.html", 
+			user=user, activation_slug=activation_slug))
+
+def reset_pass(user):
+	app.logger.info("Sending email to %s" % user.email)
+	s = get_serializer()
+
+	activation_slug = s.dumps(user.id)
+	s = get_serializer()
+	try:
+		user_id = s.loads(activation_slug)
+	except BadSignature:
+		abort(404)
+	send_email("Password Reset",
+		ADMINS[0],
+		[user.email],
+		render_template("emails/reset_password.txt", 
+			user=user, activation_slug=activation_slug),
+		render_template("emails/reset_password.html", 
 			user=user, activation_slug=activation_slug))
 
 def new_lead(email):

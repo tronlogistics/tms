@@ -49,17 +49,17 @@
                                     {% if load.assigned_driver is none %}
 
                                     {% else %}
-                                        <a href="{{ url_for('carrier.view_driver', driver_id=loads.assigned_driver.id) }}">{{ loads.assigned_driver.get_full_name() }}
+                                        <a href="{{ url_for('drivers.view', driver_id=load.assigned_driver.id) }}">{{ load.assigned_driver.get_full_name() }}
                                     {% endif %}
                                 </td>
                                 <td>{{ load.status }}</td>
                                 <td>
                                     {% if load.status == "Assigned" %}
-                                        <a href="{{ url_for('loads.complete', load_id=loads.id)}}" class="btn btn-primary btn-mini ">Complete</a>
+                                        <a href="{{ url_for('loads.complete', load_id=load.id)}}" class="btn btn-primary btn-mini ">Complete</a>
                                     {% elif load.status != "Complete" %}
-                                        <a href="{{ url_for('loads.edit', load_id=loads.id)}}" class="btn btn-primary btn-mini">Edit</a>
+                                        <a href="{{ url_for('loads.edit', load_id=load.id)}}" class="btn btn-primary btn-mini">Edit</a>
                                     
-                                        <a href="{{ url_for('loads.delete', load_id=loads.id)}}" class="btn btn-danger btn-mini delete">Delete</a>
+                                        <a href="{{ url_for('loads.delete', load_id=load.id)}}" class="btn btn-danger btn-mini delete">Delete</a>
                                     {% endif %}
                                 </td>
                             </tr>

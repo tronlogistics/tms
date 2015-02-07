@@ -11,7 +11,7 @@ var FormWizard = function() {
 		});
 		var numberOfSteps = 0;
 		animateBar();
-		initValidator();
+		//initValidator();
 	};
 	var animateBar = function(val) {
 		if (( typeof val == 'undefined') || val == "") {
@@ -21,15 +21,15 @@ var FormWizard = function() {
 		var valueNow = Math.floor(100 / numberOfSteps * val);
 		$('.step-bar').css('width', valueNow + '%');
 	};
-	var initValidator = function() {
-		$.validator.addMethod("cardExpiry", function() {
-			//if all values are selected
-			if ($("#card_expiry_mm").val() != "" && $("#card_expiry_yyyy").val() != "") {
-				return true;
-			} else {
-				return false;
-			}
-		}, 'Please select a month and year');
+	/*var initValidator = function() {
+		//$.validator.addMethod("cardExpiry", function() {
+		//	//if all values are selected
+		//	if ($("#card_expiry_mm").val() != "" && $("#card_expiry_yyyy").val() != "") {
+		//		return true;
+		//	} else {
+		//		return false;
+		//	}
+		//}, 'Please select a month and year');
 		$.validator.setDefaults({
 			errorElement : "span", // contain the error msg in a span tag
 			errorClass : 'help-block',
@@ -120,7 +120,7 @@ var FormWizard = function() {
 				$(element).closest('.form-group').removeClass('has-error').addClass('has-success').find('.symbol').removeClass('required').addClass('ok');
 			}
 		});
-	};
+	};*/
 	var displayConfirm = function() {
 		$('.display-value', form).each(function() {
 			var input = $('[name="' + $(this).attr("data-display") + '"]', form);

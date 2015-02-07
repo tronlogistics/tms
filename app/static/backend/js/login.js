@@ -17,6 +17,9 @@ var Login = function () {
        var el = $('.box-login');
 		if (getParameterByName('box').length) {
 			switch(getParameterByName('box')) {
+                case "reset" :
+                    el = $('.box-reset');
+                    break;
 				case "register" :
 					el = $('.box-register');
 					break;

@@ -3,7 +3,7 @@ var TableData = function() {
 	//DataTable is a highly flexible tool, based upon the foundations of progressive enhancement,
 	//which will add advanced interaction controls to any HTML table
 	//For more information, please visit https://datatables.net/
-	var runDataTable = function() {
+	/*var runDataTable = function() {
 		var oTable = $('#sample_1').dataTable({
 			"aoColumnDefs" : [{
 				"aTargets" : [0]
@@ -22,19 +22,19 @@ var TableData = function() {
 			// set the initial value
 			"iDisplayLength" : 10,
 		});
-		$('#sample_1_wrapper .dataTables_filter input').addClass("form-control input-sm").attr("placeholder", "Search");
+		//$('#sample_1_wrapper .dataTables_filter input').addClass("form-control input-sm").attr("placeholder", "Search");
 		// modify table search input
-		$('#sample_1_wrapper .dataTables_length select').addClass("m-wrap small");
+		//$('#sample_1_wrapper .dataTables_length select').addClass("m-wrap small");
 		// modify table per page dropdown
-		$('#sample_1_wrapper .dataTables_length select').select2();
+		//$('#sample_1_wrapper .dataTables_length select').select2();
 		// initialzie select2 dropdown
-		$('#sample_1_column_toggler input[type="checkbox"]').change(function() {
-			/* Get the DataTables object again - this is not a recreation, just a get of the object */
-			var iCol = parseInt($(this).attr("data-column"));
-			var bVis = oTable.fnSettings().aoColumns[iCol].bVisible;
-			oTable.fnSetColumnVis(iCol, ( bVis ? false : true));
-		});
-	};
+		//$('#sample_1_column_toggler input[type="checkbox"]').change(function() {
+		//	 Get the DataTables object again - this is not a recreation, just a get of the object 
+		//	var iCol = parseInt($(this).attr("data-column"));
+		//	var bVis = oTable.fnSettings().aoColumns[iCol].bVisible;
+		//	oTable.fnSetColumnVis(iCol, ( bVis ? false : true));
+		//});
+	};*/
 
 	var runEditableTable = function() {
 
@@ -56,16 +56,19 @@ var TableData = function() {
 			var aData = oTable.fnGetData(nRow);
 			var jqTds = $('>td', nRow);
 			var rowNum = oTable.fnSettings().fnRecordsTotal()
-			//<input class="form-control" id="total_miles" name="total_miles" placeholder="Total Miles" type="text" value="">
-			jqTds[0].innerHTML = '<input type="text" id="locations-' + rowNum + '-stop_number" name="locations-' + rowNum + '-stop_number" class="form-control" value="' + aData[2] + '">';
-			jqTds[1].innerHTML = '<input type="text" class="form-control" value="' + aData[1] + '">';
-			jqTds[2].innerHTML = '<input type="text" id="locations-' + rowNum + '-address1" name="locations-' + rowNum + '-address1" class="form-control" value="' + aData[2] + '">';
-			jqTds[3].innerHTML = '<input type="text" id="locations-' + rowNum + '-city" name="locations-' + rowNum + '-city" class="form-control" value="' + aData[3] + '">';
-			jqTds[4].innerHTML = '<input type="text" id="locations-' + rowNum + '-state" name="locations-' + rowNum + '-state" class="form-control" value="' + aData[4] + '">';
-			jqTds[5].innerHTML = '<input type="text" id="locations-' + rowNum + '-postal_code" name="locations-' + rowNum + '-postal_code" class="form-control" value="' + aData[5] + '">';
-			jqTds[6].innerHTML = '<a class="delete-row" href="">Delete</a>';
-			//jqTds[6].innerHTML = '<a class="save-row" href="">Save</a>';
-			//jqTds[7].innerHTML = '<a class="cancel-row" href="">Cancel</a>';
+			
+			jqTds[0].innerHTML = '<input type="hidden" id="locations-' + rowNum + '-stop_number" name="locations-' + rowNum + '-stop_number" class="form-control" value="' + rowNum + '">' + rowNum;
+			jqTds[1].innerHTML = '<input type="text" id="locations-' + rowNum + '-address1" name="locations-' + rowNum + '-address1" class="form-control" value="' + aData[1] + '">';
+			jqTds[2].innerHTML = '<input type="text" id="locations-' + rowNum + '-city" name="locations-' + rowNum + '-city" class="form-control" value="' + aData[2] + '">';
+			jqTds[3].innerHTML = '<input type="text" id="locations-' + rowNum + '-state" name="locations-' + rowNum + '-state" class="form-control" value="' + aData[3] + '">';
+			jqTds[4].innerHTML = '<input type="text" id="locations-' + rowNum + '-postal_code" name="locations-' + rowNum + '-postal_code" class="form-control" value="' + aData[4] + '">';
+			jqTds[5].innerHTML = '<input type="text" id="locations-' + rowNum + '-pickup_weight" name="locations-' + rowNum + '-pickup_weight" class="form-control" value="' + aData[5] + '">';
+			jqTds[6].innerHTML = '<input type="text" id="locations-' + rowNum + '-delivery_weight" name="locations-' + rowNum + '-delivery_weight" class="form-control" value="' + aData[6] + '">';
+			jqTds[7].innerHTML = '<input type="text" id="locations-' + rowNum + '-arrival_date" name="locations-' + rowNum + '-arrival_date" data-date-format="dd-mm-yyyy" data-date-viewmode="years" class="form-control date-picker" value="' + aData[7] + '">';
+			jqTds[8].innerHTML = '<input type="text" id="locations-' + rowNum + '-arrival_time" name="locations-' + rowNum + '-arrival_time" class="form-control" value="' + aData[8] + '">';
+			jqTds[9].innerHTML = '<a class="delete-row" href="">Delete</a>';
+
+			
 
 		}
 
@@ -84,19 +87,14 @@ var TableData = function() {
 			actualEditingRow = null;
 		}
 
-
 		$('body').on('click', '.add-row', function(e) {
 			e.preventDefault();
-			//if (newRow == false) {
-			//	if (actualEditingRow) {
-			//		restoreRow(oTable, actualEditingRow);
-			//	}
-				newRow = true;
-				var aiNew = oTable.fnAddData(['', '', '', '', '', '', '', '', '']);
-				var nRow = oTable.fnGetNodes(aiNew[0]);
-				editRow(oTable, nRow);
-				actualEditingRow = nRow;
-			//}
+		
+			newRow = true;
+			var aiNew = oTable.fnAddData(['', '', '', '', '', '', '', '', '', '']);
+			var nRow = oTable.fnGetNodes(aiNew[0]);
+			editRow(oTable, nRow);
+			actualEditingRow = nRow;
 		});
 		$('#sample_2').on('click', '.cancel-row', function(e) {
 
@@ -212,7 +210,7 @@ var TableData = function() {
 		// modify table search input
 		$('#sample_2_wrapper .dataTables_length select').addClass("m-wrap small");
 		// modify table per page dropdown
-		$('#sample_2_wrapper .dataTables_length select').select2();
+		//$('#sample_2_wrapper .dataTables_length select').select2();
 		// initialzie select2 dropdown
 		$('#sample_2_column_toggler input[type="checkbox"]').change(function() {
 			/* Get the DataTables object again - this is not a recreation, just a get of the object */
@@ -226,7 +224,7 @@ var TableData = function() {
 	return {
 		//main function to initiate template pages
 		init : function() {
-			runDataTable();
+			//runDataTable();
 			runEditableTable();
 		}
 	};
