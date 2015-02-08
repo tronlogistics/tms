@@ -212,47 +212,33 @@
 	    		<div class="col-sm-12">
 	        		<div class="panel panel-default">
 	            		<div class="panel-heading">
-	                		Load Details
+	                		Locations
 	            		</div>
 	            		<div class="panel-body">
-		                	<div class="form-horizontal">
-		                    	{#<div class="control-group">
-		                        	<label class="control-label">Name</label>
-		                        	<div class="controls">
-		                           		{{ load.name }}
-		                        	</div>
-		                    	</div>#}
-		                    	<div class="control-group">
-		                        	<label class="control-label">Weight</label>
-		                        	<div class="controls">
-		                           		{{ load.load_detail.weight }}
-		                        	</div>
-		                    	</div>
-		                    	<div class="control-group">
-		                        	<label class="control-label">Length</label>
-		                        	<div class="controls">
-		                           		{{ load.load_detail.dim_length }}
-		                        	</div>
-		                    	</div>
-		                    	<div class="control-group">
-		                        	<label class="control-label">Width</label>
-		                        	<div class="controls">
-		                           		{{ load.load_detail.dim_width }}
-		                        	</div>
-		                    	</div>
-		                    	<div class="control-group">
-		                        	<label class="control-label">Height</label>
-		                        	<div class="controls">
-		                           		{{ load.load_detail.dim_height }}
-		                        	</div>
-		                    	</div>
-		                    	<div class="control-group">
-		                        	<label class="control-label">Number of pieces</label>
-		                        	<div class="controls">
-		                           		{{ load.load_detail.number_pieces }}
-		                        	</div>
-		                    	</div>
-		                    </div>
+		                	<table class="table table-bordered table-hover" id="sample-table-1">
+			                    <thead>
+			                        <tr>
+			                            <th>Stop #</th>
+			                            <th>Address 1</th>
+			                            <th>City, State ZIP</th>
+			                            <th>Pickup Weight</th>
+			                            <th>Delivery Weight</th>
+			                            <th>Arrival Date</th>
+			                        </tr>
+			                    </thead>
+			                    <tbody>
+			                        {% for location in load.lane.locations %}
+			                            <tr>
+			                            	<td>{{ location.stop_number }}</td>
+			                            	<td>{{ location.address.address1 }}
+			                            	<td>{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
+			                            	<td>{{ location.arrival_details[0].weight }}</td>
+			                            	<td>{{ location.arrival_details[-1].weight }}</td>
+			                            	<td>{{ location.arrival_date }}</td>
+			                            </tr>
+			                        {% endfor %}
+			                    </tbody>
+			                </table>
 	                	</div>
 	            	</div>
 	         	</div>         
@@ -260,6 +246,9 @@
 	    </div> 
 	</div>
 </div>
+
+{% include "partials/main_javascripts.html" %}
+
 <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.2.min.js"></script>
   {#<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>#}
 	<script>

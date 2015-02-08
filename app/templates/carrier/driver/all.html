@@ -32,6 +32,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Email</th>
                             <th>Phone Number</th>
                             <th>Truck</th>
                             <th>&nbsp</th>
@@ -41,6 +42,7 @@
                         {% for driver in drivers %}
                             <tr>
                                 <td>{{ driver.get_full_name() }}</td>
+                                <td>{{ driver.email }}</td>
                                 <td>{{ driver.get_phone_number() }}</td>
                                 <td>
                                     {% if driver.truck is not none %}
@@ -64,6 +66,6 @@
     </div>
 
 
-<script type="text/javascript" src="{{ static('backend/js/jquery.dataTables.min.js') }}"></script>
+    {% include "partials/main_javascripts.html" %}
 
-            {% endblock %}
+    {% endblock %}

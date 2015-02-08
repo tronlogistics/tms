@@ -143,7 +143,7 @@ def create():
 		db.session.add(g.user)
 		db.session.commit()
 		return redirect(url_for('.view', load_id=load.id))
-	return render_template('load/create2.html',
+	return render_template('load/create.html',
    							title="Create Load",
    							active="Loads",
    							form=form, user=g.user)
@@ -298,7 +298,7 @@ def view(load_id):
 				carriers = filter((lambda carrier: carrier != bid.offered_to), carriers)
 		else:
 			carriers = filter((lambda truck: truck.is_available 
-												and truck.trailer_type == load.load_detail.trailer_type), 
+												and truck.trailer_type == load.trailer_type), 
 												g.user.fleet.trucks)
 		################################
 
@@ -319,8 +319,8 @@ def view(load_id):
 												bid_form=bid_form,
 												load=load, 
 												carriers=carriers,
-												origin = load.lane.origin,
-												destination = load.lane.destination,
+												origin = load.lane.locations[0].address,
+												destination = load.lane.locations[-1].address,
 												rejected_bids=rejected_bids,
 												offered_bids=offered_bids,
 												requested_bids=requested_bids,

@@ -67,7 +67,8 @@ def create():
 		form = DriverForm()
 		if form.validate_on_submit():
 			driver = Driver(first_name=form.first_name.data, 
-						last_name=form.last_name.data)
+						last_name=form.last_name.data,
+						email=form.email.data)
 
 			driver.phone_area_code = str(form.phone_area_code.data)
 			if len(driver.phone_area_code) < 3:

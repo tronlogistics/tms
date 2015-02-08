@@ -130,8 +130,8 @@ class Bid(db.Model):
 
 class LoadDetail(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	pickup_id = db.Column(db.Integer, db.ForeignKey('location.id'))
-	delivery_id = db.Column(db.Integer, db.ForeignKey('location.id'))
+	location_id = db.Column(db.Integer, db.ForeignKey('location.id'))
+	type = db.Column(db.String(10))
 	weight = db.Column(db.Integer)
 	dim_length = db.Column(db.Integer)
 	dim_width = db.Column(db.Integer)
@@ -155,9 +155,9 @@ class Location(db.Model):
 	address = db.relationship('Address', uselist=False, backref='location')
 	contact = db.relationship('Contact', uselist=False, backref='location')
 
-	pickup_detail = db.relationship("LoadDetail", foreign_keys='LoadDetail.pickup_id', backref='pickup_location')
-	delivery_detail = db.relationship("LoadDetail", foreign_keys='LoadDetail.delivery_id', backref='delivery_location')
+	arrival_details = db.relationship("LoadDetail",  backref='lane', lazy='dynamic')
 
+	stop_number = db.Column(db.Integer)
 	arrival_date = db.Column(db.Date)
 	#arrival_time = 
 
@@ -215,6 +215,7 @@ class Driver(db.Model):
 	user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 	first_name = db.Column(db.String(30))
 	last_name = db.Column(db.String(30))
+	email = db.Column(db.String(255))
 	phone_area_code = db.Column(db.String(3))
 	phone_prefix = db.Column(db.String(3))
 	phone_line_number = db.Column(db.String(4))
