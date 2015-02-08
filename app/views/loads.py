@@ -24,10 +24,10 @@ def before_request():
 @login_required
 def create():
 	form = LoadForm()
-	flash(form.is_submitted())
-	flash(request.method)
-	flash(form.validate())
-	flash(form.errors)
+	#flash(form.is_submitted())
+	#flash(request.method)
+	#flash(form.validate())
+	#flash(form.errors)
 	if form.validate_on_submit():
 		#geolocator = Nominatim()
 		#load = Load(name=form.name.data, 
@@ -131,17 +131,17 @@ def create():
 		#load.lane = lane
 		#load.load_detail = load_detail
 		#load.broker = g.user
-		#load = LoadFactory(form)
-		#load.broker = g.user
-		#if g.user.is_carrier:
-		#	load.status="Pending Truck Assignment"
-		#	load.carrier=g.user
-		#	load.carrier_cost=form.price.data
-		#else:
-		#	load.status="Unassigned"
-		#db.session.add(load)
-		#db.session.add(g.user)
-		#db.session.commit()
+		load = LoadFactory(form)
+		load.broker = g.user
+		if g.user.is_carrier:
+			load.status="Pending Truck Assignment"
+			load.carrier=g.user
+			load.carrier_cost=form.price.data
+		else:
+			load.status="Unassigned"
+		db.session.add(load)
+		db.session.add(g.user)
+		db.session.commit()
 		return redirect(url_for('.view', load_id=load.id))
 	return render_template('load/create2.html',
    							title="Create Load",

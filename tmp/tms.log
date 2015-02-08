@@ -14431,3 +14431,7 @@ Traceback (most recent call last):
   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/helpers.py", line 614, in send_from_directory
     raise NotFound()
 NotFound: 404: Not Found
+2015-02-07 18:16:38,981 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-02-07 18:16:39,506 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-02-07 18:30:11,559 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-02-07 18:31:25,113 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]

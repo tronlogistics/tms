@@ -222,9 +222,14 @@
 		<script src="{{ static('backend/plugins/jquery.maskedinput/src/jquery.maskedinput.js') }}"></script>
 		<script src="{{ static('backend/plugins/jquery-maskmoney/jquery.maskMoney.js') }}"></script>
 		<script src="{{ static('backend/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+		
+		{#<script>
+			$(document).on('focus',".date-picker", function(){
+			    $(this).datepicker();
+			});​
+		</script>#}
 		<script>
 		$( document ).on( "focus", "input.date-picker", function() {
-
 			$('.date-picker').datepicker({
 		            autoclose: true,
 		            format: "mm/dd/yyyy",
