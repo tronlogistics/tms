@@ -118,7 +118,7 @@
 
 								{% if form.email.errors|length > 0 %}
 									<div class="form-group has-error">
-											{{ form.email(size=40, class="form-control", placeholder="Enter a valid e-mail so we can contact you!", style="")}}
+											{{ form.email(size=45, class="form-control", placeholder="Enter a valid e-mail so we can contact you!", style="")}}
 											<span class="input-group-btn">
 												<button class="btn btn-red" type="submit">
 													NOTIFY ME
@@ -127,7 +127,7 @@
 									</div>
 								{% else %}
 									<div class="form-group">
-										{{ form.email(size=40, class="form-control", placeholder="E-mail me with updates")}}
+										{{ form.email(size=45, class="form-control", placeholder="E-mail me with updates")}}
 										<span class="input-group-btn">
 											<button class="btn btn-teal" type="submit">
 												NOTIFY ME
