@@ -39,7 +39,7 @@ def marketing():
 @static.route('/login', methods=['GET', 'POST'])
 def login():
 	if g.user.is_authenticated():
-		return redirect(url_for('load.all'))
+		return redirect(url_for('loads.all'))
 	login_form = LoginForm()
 	register_form = RegisterForm()
 	forgot_form = EmailForm()
