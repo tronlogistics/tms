@@ -60,6 +60,18 @@
 		    	{% endfor %}
 		  	{% endif %}
 		{% endwith %}
+		{% if form.errors|length > 0 %}
+			<div class="container">
+	    		<div class="alert alert-danger">
+	    			<button data-dismiss="alert" class="close">
+							&times;
+					</button>
+					<i class="fa fa-check-circle"></i>
+					<strong>Try again!</strong> Your e-mail was invalid!
+
+    			</div>
+    		</div>
+	    {% endif %}
 		<div class="timer-area">
 			<h1>We're coming soon...</h1>
 			<ul id="countdown">
