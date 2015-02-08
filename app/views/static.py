@@ -57,26 +57,20 @@ def login():
 	#flash(forgot_form.errors)
 
 	if login_form.validate_on_submit():
-		print("test1")
 		user = User.query.filter_by(email=login_form.email.data).first()
-		print("test2")
 		if user is not None:
-			print("test3")
-			#if not user.is_confirmed():
-			#	flash("You must confirm your e-mail prior to logging in. To confirm your e-mail, click the activation link provided to %s" % user.email )
-			#	return render_template('static/login.html', login_form=login_form, register_form=register_form, user=g.user)
+			if not user.is_confirmed():
+				flash("You must confirm your e-mail prior to logging in. To confirm your e-mail, click the activation link provided to %s" % user.email )
+				return render_template('static/login.html', login_form=login_form, register_form=register_form, user=g.user)
 
 			if user.check_password(login_form.password.data):
-				print("test4")
 				user.authenticated = True
 				db.session.add(user)
 				db.session.commit()
 				login_user(user, remember=True)
-				print("test5")
 				# Tell Flask-Principal the user has logged in
 				identity_changed.send(current_app._get_current_object(),
 										identity=Identity(user.email))
-				print("test6")
 				return redirect(url_for("loads.all"))
 			else:
 				flash("Wrong username/password")
@@ -132,6 +126,9 @@ def register():
 	register_form = RegisterForm()
 	register_form.account_type.data = 'carrier'
 	if register_form.validate_on_submit():
+		if User.query.filter_by(email=register_form.email.data).first() is not None:
+			flash("This e-mail is already registered.")
+			return render_template('static/login.html?box-register', login_form=LoginForm(), register_form=register_form, forgot_form=EmailForm(), user=g.user)
 		user = User(company_name=register_form.company_name.data,
 					email=register_form.email.data,
 					password=register_form.password.data)
@@ -143,7 +140,7 @@ def register():
 		db.session.commit()
 		
 		register_account(user)
-		flash("An registration e-mail has been sent to %s" % register_form.email.data)
+		flash("n registration e-mail has been sent to %s" % register_form.email.data)
 		app.logger.info("User \"%s\" with role \"%s\" created" % (user.email, user.roles[0].name))
 		return redirect(url_for('.login'))
 	return render_template('static/register.html', register_form=register_form, user=g.user)
@@ -231,7 +228,6 @@ def not_found_error(error):
 
 @app.errorhandler(500)
 def internal_error(error):
-	print error
 	app.logger.exception(error)
 	db.session.rollback()
 	return render_template('500.html', user=current_user), 500
