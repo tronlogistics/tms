@@ -30,3 +30,4 @@ stripe==1.19.1
 Tempita==0.5.2
 Werkzeug==0.9.6
 WTForms==2.0.1
+psycopg2==2.4.4
