@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, url_for, redirect, request, flash,
 from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, SQLAlchemy
-from app.forms import LoadForm, BidForm, StatusForm
+from app.forms import LoadForm, BidForm, StatusForm, LaneLocationForm
 from app.models import Load, LoadDetail, Lane, Location, Truck, User, Bid, Driver
 from app.permissions import *
 from app.controllers import LoadFactory
@@ -158,114 +158,132 @@ def edit(load_id):
 		if form.validate_on_submit():
 
 			geolocator = Nominatim()
-			load_detail = load.load_detail
-			origin = load.lane.origin
-			destination = load.lane.destination
+			#load_detail = load.load_detail
+			#origin = load.lane.origin
+			#destination = load.lane.destination
 
-			origin.address1 = form.origin_address1.data
-			origin.address2 = form.origin_address2.data
-			origin.city = form.origin_city.data
-			origin.state = form.origin_state.data
-			origin.postal_code = form.origin_postal_code.data
-			origin.contact_phone = form.origin_contact_phone.data
-			origin.contact_phone_area_code = form.origin_contact_phone_area_code.data
-			origin.contact_phone_prefix = form.origin_contact_phone_prefix.data
-			origin.contact_phone_line_number = form.origin_contact_phone_line_number.data
-			origin.contact_email = form.origin_contact_email.data
-			origin.contact_name = form.origin_contact_name.data
-			location = geolocator.geocode(origin.postal_code)
-			origin.latitude = location.latitude
-			origin.longitude = location.longitude
-			destination.address1 = form.destination_address1.data
-			destination.address2 = form.destination_address2.data
-			destination.city = form.destination_city.data
-			destination.state = form.destination_state.data
-			destination.postal_code = form.destination_postal_code.data
-			destination.contact_phone_area_code = form.origin_contact_phone_area_code.data
-			destination.contact_phone_prefix = form.origin_contact_phone_prefix.data
-			destination.contact_phone_line_number = form.origin_contact_phone_line_number.data
-			destination.contact_email = form.destination_contact_email.data
-			destination.contact_name = form.destination_contact_name.data
-			location = geolocator.geocode(destination.postal_code)
-			destination.latitude = location.latitude
-			destination.longitude = location.longitude
-			load.load_detail.weight = form.weight.data
-			load.load_detail.dim_width = form.dim_width.data
-			load.load_detail.dim_length = form.dim_length.data
-			load.load_detail.dim_height = form.dim_height.data
-			load.load_detail.pickup_date = form.pickup_date.data
-			load.load_detail.delivery_date = form.delivery_date.data
-			load.load_detail.comments = form.comments.data
-			load.load_detail.number_pieces = form.number_pieces.data
-			load.load_detail.trailer_type = form.trailer_type.data
-			load.load_detail.load_type = form.load_type.data
-			load.load_detail.total_miles = form.total_miles.data
-			load.name = form.name.data
-			load.price = form.price.data
-			load.description = form.description.data
-			load.load_detail.purchase_order = form.purchase_order.data
-			load.load_detail.over_dimensional = form.over_dimensional.data
-			if g.user.is_carrier:
-				load.carrier_cost = form.price.data
-			db.session.add(load_detail)
-			db.session.add(origin)
-			db.session.add(destination)
-			db.session.add(load)
+			#origin.address1 = form.origin_address1.data
+			#origin.address2 = form.origin_address2.data
+			#origin.city = form.origin_city.data
+			#origin.state = form.origin_state.data
+			#origin.postal_code = form.origin_postal_code.data
+			#origin.contact_phone = form.origin_contact_phone.data
+			#origin.contact_phone_area_code = form.origin_contact_phone_area_code.data
+			#origin.contact_phone_prefix = form.origin_contact_phone_prefix.data
+			#origin.contact_phone_line_number = form.origin_contact_phone_line_number.data
+			#origin.contact_email = form.origin_contact_email.data
+			#origin.contact_name = form.origin_contact_name.data
+			#location = geolocator.geocode(origin.postal_code)
+			#origin.latitude = location.latitude
+			#origin.longitude = location.longitude
+			#destination.address1 = form.destination_address1.data
+			#destination.address2 = form.destination_address2.data
+			#destination.city = form.destination_city.data
+			#destination.state = form.destination_state.data
+			#destination.postal_code = form.destination_postal_code.data
+			#destination.contact_phone_area_code = form.origin_contact_phone_area_code.data
+			#destination.contact_phone_prefix = form.origin_contact_phone_prefix.data
+			#destination.contact_phone_line_number = form.origin_contact_phone_line_number.data
+			#destination.contact_email = form.destination_contact_email.data
+			#destination.contact_name = form.destination_contact_name.data
+			#location = geolocator.geocode(destination.postal_code)
+			#destination.latitude = location.latitude
+			#destination.longitude = location.longitude
+			#load.load_detail.weight = form.weight.data
+			#load.load_detail.dim_width = form.dim_width.data
+			#load.load_detail.dim_length = form.dim_length.data
+			#load.load_detail.dim_height = form.dim_height.data
+			#load.load_detail.pickup_date = form.pickup_date.data
+			#load.load_detail.delivery_date = form.delivery_date.data
+			#load.load_detail.comments = form.comments.data
+			#load.load_detail.number_pieces = form.number_pieces.data
+			#load.load_detail.trailer_type = form.trailer_type.data
+			#load.load_detail.load_type = form.load_type.data
+			#load.load_detail.total_miles = form.total_miles.data
+			#load.name = form.name.data
+			#load.price = form.price.data
+			#load.description = form.description.data
+			#load.load_detail.purchase_order = form.purchase_order.data
+			#load.load_detail.over_dimensional = form.over_dimensional.data
+			#if g.user.is_carrier:
+			#	load.carrier_cost = form.price.data
+			#db.session.add(load_detail)
+			#db.session.add(origin)
+			#db.session.add(destination)
+			#db.session.add(load)
 
-			db.session.commit()
+			#db.session.commit()
 			return redirect(url_for('.all'))
 		else:
-			load_detail = load.load_detail
-			origin = load.lane.origin
-			destination = load.lane.destination
+			#load_detail = load.load_detail
+			#origin = load.lane.origin
+			#destination = load.lane.destination
 
-			form.origin_address1.data = origin.address1
-			form.origin_address2.data = origin.address2
-			form.origin_city.data = origin.city
-			form.origin_state.data = origin.state
-			form.origin_postal_code.data = origin.postal_code
-			form.origin_latitude.data = origin.latitude
-			form.origin_longitutde = origin.longitude
-			form.origin_contact_phone.data = origin.contact_phone
-			form.origin_contact_email.data = origin.contact_email
-			form.origin_contact_name.data = origin.contact_name
-			form.origin_contact_phone_area_code.data = origin.contact_phone_area_code
-			form.origin_contact_phone_prefix.data = origin.contact_phone_prefix
-			form.origin_contact_phone_line_number.data = origin.contact_phone_line_number
-			form.destination_address1.data = destination.address1
-			form.destination_address2.data = destination.address2
-			form.destination_city.data = destination.city
-			form.destination_state.data = destination.state
-			form.destination_postal_code.data = destination.postal_code
-			form.destination_contact_phone.data = destination.contact_phone
-			form.destination_contact_email.data = destination.contact_email
-			form.destination_contact_name.data = destination.contact_name
-			form.destination_contact_phone_area_code.data = destination.contact_phone_area_code
-			form.destination_contact_phone_prefix.data = destination.contact_phone_prefix
-			form.destination_contact_phone_line_number.data = destination.contact_phone_line_number
+			form.load_type.data = load.load_type
+			form.trailer_type.data = load.trailer_type
+			form.total_miles.data = load.total_miles
+			form.price.data = load.price
+			form.over_dimensional.data = load.over_dimensional
+			form.comments.data = load.comments
 			form.description.data = load.description
-			form.purchase_order.data = load.load_detail.purchase_order
-			form.over_dimensional.data = load.load_detail.over_dimensional
-			form.weight.data = load.load_detail.weight
-			form.dim_width.data = load.load_detail.dim_width
-			form.dim_length.data = load.load_detail.dim_length
-			form.dim_height.data = load.load_detail.dim_height
+			form.locations = []
+			for stop_off in load.lane.locations:
+				location = LaneLocationForm()
+				location.stop_number.data = stop_off.stop_number
+				location.address1.data = stop_off.address.address1
+				location.city.data = stop_off.address.city
+				location.state.data = stop_off.address.state
+				location.postal_code.data = stop_off.address.postal_code
+				location.pickup_weight.data = stop_off.arrival_details[0].weight
+				location.delivery_weight.data = stop_off.arrival_details[1].weight
+
+				form.locations.append(location)
+			#form.origin_address1.data = origin.address1
+			#form.origin_address2.data = origin.address2
+			#form.origin_city.data = origin.city
+			#form.origin_state.data = origin.state
+			#form.origin_postal_code.data = origin.postal_code
+			#form.origin_latitude.data = origin.latitude
+			#form.origin_longitutde = origin.longitude
+			#form.origin_contact_phone.data = origin.contact_phone
+			#form.origin_contact_email.data = origin.contact_email
+			#form.origin_contact_name.data = origin.contact_name
+			#form.origin_contact_phone_area_code.data = origin.contact_phone_area_code
+			#form.origin_contact_phone_prefix.data = origin.contact_phone_prefix
+			#form.origin_contact_phone_line_number.data = origin.contact_phone_line_number
+			#form.destination_address1.data = destination.address1
+			#form.destination_address2.data = destination.address2
+			#form.destination_city.data = destination.city
+			#form.destination_state.data = destination.state
+			#form.destination_postal_code.data = destination.postal_code
+			#form.destination_contact_phone.data = destination.contact_phone
+			#form.destination_contact_email.data = destination.contact_email
+			#form.destination_contact_name.data = destination.contact_name
+			#form.destination_contact_phone_area_code.data = destination.contact_phone_area_code
+			#form.destination_contact_phone_prefix.data = destination.contact_phone_prefix
+			#form.destination_contact_phone_line_number.data = destination.contact_phone_line_number
+			#form.description.data = load.description
+			#form.purchase_order.data = load.load_detail.purchase_order
+			#form.over_dimensional.data = load.load_detail.over_dimensional
+			#form.weight.data = load.load_detail.weight
+			#form.dim_width.data = load.load_detail.dim_width
+			#form.dim_length.data = load.load_detail.dim_length
+			#form.dim_height.data = load.load_detail.dim_height
 			#form.pickup_date.data = load.load_detail.pickup_date
 			#form.delivery_date.data = load.load_detail.delivery_date
-			form.comments.data = load.load_detail.comments
-			form.number_pieces.data = load.load_detail.number_pieces
-			form.name.data = load.name
-			form.pickup_date.data = load.load_detail.pickup_date
-			form.delivery_date.data = load.load_detail.delivery_date
-			form.trailer_type.data = load.load_detail.trailer_type
-			form.load_type.data = load.load_detail.load_type
-			form.total_miles.data = load.load_detail.total_miles
+			#form.comments.data = load.load_detail.comments
+			#form.number_pieces.data = load.load_detail.number_pieces
+			#form.name.data = load.name
+			#form.pickup_date.data = load.load_detail.pickup_date
+			#form.delivery_date.data = load.load_detail.delivery_date
+			#form.trailer_type.data = load.load_detail.trailer_type
+			#form.load_type.data = load.load_detail.load_type
+			#form.total_miles.data = load.load_detail.total_miles
 			form.price.data = load.price
 
 		return render_template('load/edit.html', 
 								title="Edit Load", 
 								form=form, 
-								load=load,
 								active="Loads",
 								user=g.user)
 

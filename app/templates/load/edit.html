@@ -162,6 +162,18 @@
 											</tr>
 										</thead>
 										<tbody>
+											{% for location in form.locations %}
+											<tr>
+												<td>{{ location.stop_number() }}</td>
+												<td>{{ location.address1() }}</td>
+												<td>{{ location.city() }}</td>
+												<td>{{ location.state() }}</td>
+												<td>{{ location.postal_code() }}</td>
+												<td>{{ location.pickup_weight() }}</td>
+												<td>{{ location.delivery_weight() }}</td>
+												<td></td>
+											</tr>
+											{% endfor %}
 											<!--- Content created by table-data.js -->
 										</tbody>
 									</table>

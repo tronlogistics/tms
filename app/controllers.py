@@ -37,7 +37,10 @@ def LoadFactory(form):
 
 	load = Load(name=form.name.data, 
 				price=form.price.data, 
-				description=form.description.data) 
+				description=form.description.data,
+				trailer_type=form.trailer_type.data,
+				load_type=form.load_type.data,
+				comments=form.comments.data) 
 	
 	load.assigned_driver = None
 
