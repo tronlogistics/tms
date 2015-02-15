@@ -327,6 +327,22 @@
 			    $(".new-modal").click(function(){
 			    	create_modal($('#sample_2').dataTable().fnSettings().aoData.length + 1);  
 			    }); 	
+			    $('#sample_2').on('click', '.delete-row', function(e) {
+					modal_id = $(this).closest('tr').children('td:eq(0)').text();
+					alert(modal_id);
+					alert($('.modal.fade').length);
+					$(this).closest('tr').remove();
+					$('#responsive-'+model_id).children('div').remove();
+					//alert(table.row( this ).data());
+				});
+				$('.edit_modal').on('click', '.edit-modal', function(e) {
+					modal_id = $(this).closest('tr').children('td:eq(0)').text();
+					alert(modal_id);
+					alert($('.modal.fade').length);
+					$(this).closest('tr').remove();
+					$('#responsive-'+model_id).children('.save-modal').text("Save");
+					//alert(table.row( this ).data());
+				});
 			});
 
 			$( document ).on( "focus", "input.date-picker", function() {
@@ -338,6 +354,7 @@
 			});
 
 			$( document ).on( "click", ".save-modal", function() {
+				
 				var count = $('#sample_2').dataTable().fnSettings().aoData.length + 1;
 				$('#sample_2').dataTable().fnAddData( [
 		         	count,
@@ -353,12 +370,14 @@
 				
 				$('.new-modal').prop('href', '#responsive-' + (count + 1));
 
+				
+
 			}); 
 
 			function create_modal(index){
 			    
 			    var modal = '<div id=\"responsive-' + index + '\" class=\"modal fade\" tabindex=\"-1\" data-width=\"840\" style=\"display: none;\">' +
-							'	<div class=\"modal-header\">' +
+							'	<div class=\"modal-header\" id=\"modal-header\">' +
 							'		<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">' +
 							'			&times;' +
 							'		<\/button>' +
@@ -484,7 +503,10 @@
 							'<\/div>'
 			    $("#form-container").append(modal);
 			}
-			
+		
+		
+
+
 		</script>
 
 		

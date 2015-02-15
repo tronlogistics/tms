@@ -465,6 +465,7 @@
 		<script src="{{ static('backend/js/ui-modals.js') }}"></script>
 		
 		<script>
+
 			$(document).ready(function(){
 			    $(".new-modal").click(function(){
 			    	create_modal($('#sample_2').dataTable().fnSettings().aoData.length + 1);  
@@ -474,7 +475,7 @@
 					alert(modal_id);
 					alert($('.modal.fade').length);
 					$(this).closest('tr').remove();
-					$('#responsive-'+model_id).children('div').remove();
+					//$('#responsive-'+model_id).children('div').remove();
 					//alert(table.row( this ).data());
 				});
 				$('.edit_modal').on('click', '.edit-modal', function(e) {
@@ -496,6 +497,7 @@
 			});
 
 			$( document ).on( "click", ".save-modal", function() {
+				
 				var count = $('#sample_2').dataTable().fnSettings().aoData.length + 1;
 				$('#sample_2').dataTable().fnAddData( [
 		         	count,
@@ -506,10 +508,12 @@
 		        	$('#locations-' + count + '-pickup_weight').val(),
 		        	$('#locations-' + count + '-delivery_weight').val(),
 		        	$('#locations-' + count + '-arrival_date').val(),
-		        	"<a class=\"delete-row\" href=\"\">Delete<\/a>" ]
+		        	"<a class=\"edit-modal\" href=\"#responsive-{{ location.stop_number }}\" data-toggle=\"modal\">Edit<\/a>/<a class=\"delete-row\" href=\"\">Delete<\/a>" ]
 		        );
 				
 				$('.new-modal').prop('href', '#responsive-' + (count + 1));
+
+				
 
 			}); 
 
