@@ -4,7 +4,7 @@
 <form name="create" action="" role="form" class="smart-wizard form-horizontal" id="form" method="post">
 	{{ form.hidden_tag() }}
 	<!-- start: PAGE CONTENT -->
-	<div class="row">
+	<div class="row" id="form-container">
 		<div class="col-sm-12">
 			<!-- start: FORM WIZARD PANEL -->
 			<div id="wizard" class="swMain">
@@ -41,10 +41,10 @@
 					<div class="row">
 						<div class="col-sm-10">
 							<div class="form-group">
-								<label class="col-sm-5 control-label">
+								<label class="col-sm-3 control-label">
 									Load Type <span class="symbol required"></span>
 								</label>
-								<div class="col-sm-5">
+								<div class="col-sm-7">
 									{{ form.load_type(class="form-control") }}
 								</div>
 							</div>
@@ -128,7 +128,7 @@
 						<div class="panel panel-default">
 							<div class="panel-heading">
 								<i class="fa fa-external-link-square"></i>
-								Editable Table
+								Locations
 								<div class="panel-tools">
 									<a class="btn btn-xs btn-link panel-collapse collapses" href="#"> </a>
 									<a class="btn btn-xs btn-link panel-config" href="#panel-config" data-toggle="modal"> <i class="fa fa-wrench"></i> </a>
@@ -140,9 +140,9 @@
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-md-12 space20">
-										<button class="btn btn-green add-row">
-											Add New <i class="fa fa-plus"></i>
-										</button>
+										<a href="#responsive-1" data-toggle="modal" class="new-modal btn btn-green">
+													Add New <i class="fa fa-plus"></i>
+												</a>
 									</div>
 								</div>
 								<div class="table-responsive">
@@ -190,7 +190,122 @@
 	</div>
 </form>
 
-
+{#<div id="responsive-1" class="modal fade" tabindex="-1" data-width="760" style="display: none;">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+			&times;
+		</button>
+		<h4 class="modal-title">Add Location</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-external-link-square"></i>
+					Location
+				</div>
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-12">
+							<h4>General</h4>
+							<hr>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">
+									Address <span class="symbol required"></span>
+								</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">
+									City <span class="symbol required"></span>
+								</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">
+									State <span class="symbol required"></span>
+								</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">
+									Zip Code <span class="symbol required"></span>
+								</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row"><hr></div>
+					<div class="row">
+						<div class="col-md-12">
+							<h4>Receiver</h4>
+							<hr>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">
+									Name <span class="symbol required"></span>
+								</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">
+									Phone <span class="symbol required"></span>
+								</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row"><hr></div>
+					<div class="row">
+						<div class="col-md-6">
+							<h4>Pickup</h4>
+							<hr>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">
+									Weight <span class="symbol required"></span>
+								</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<h4>Delivery</h4>
+							<hr>
+							<div class="form-group">
+								<label class="col-sm-3 control-label">
+									Weight <span class="symbol required"></span>
+								</label>
+								<div class="col-sm-7">
+									<input type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button type="button" data-dismiss="modal" class="btn btn-light-grey">
+			Close
+		</button>
+		<button type="button" data-dismiss="modal" class="btn btn-blue save-modal">
+			Add
+		</button>
+	</div>
+</div>#}
 		<!-- end: RIGHT SIDEBAR -->
 {% include "partials/main_javascripts.html" %}
 		<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
@@ -203,27 +318,174 @@
 		<script src="{{ static('backend/plugins/jquery.maskedinput/src/jquery.maskedinput.js') }}"></script>
 		<script src="{{ static('backend/plugins/jquery-maskmoney/jquery.maskMoney.js') }}"></script>
 		<script src="{{ static('backend/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+		<script src="{{ static('backend/plugins/bootstrap-modal/js/bootstrap-modal.js') }}"></script>
+		<script src="{{ static('backend/plugins/bootstrap-modal/js/bootstrap-modalmanager.js') }}"></script>
+		<script src="{{ static('backend/js/ui-modals.js') }}"></script>
 		
-		{#<script>
-			$(document).on('focus',".date-picker", function(){
-			    $(this).datepicker();
-			});​
-		</script>#}
 		<script>
-		$( document ).on( "focus", "input.date-picker", function() {
-			$('.date-picker').datepicker({
-		            autoclose: true,
-		            format: "mm/dd/yyyy",
-					minDate: 0
-		        });
-		}); 
-		</script>
-		
-		<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+			$(document).ready(function(){
+			    $(".new-modal").click(function(){
+			    	create_modal($('#sample_2').dataTable().fnSettings().aoData.length + 1);  
+			    }); 	
+			});
 
-<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
-		
-		<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
+			$( document ).on( "focus", "input.date-picker", function() {
+				$('.date-picker').datepicker({
+			            autoclose: true,
+			            format: "mm/dd/yyyy",
+						minDate: 0
+			        });
+			});
+
+			$( document ).on( "click", ".save-modal", function() {
+				var count = $('#sample_2').dataTable().fnSettings().aoData.length + 1;
+				$('#sample_2').dataTable().fnAddData( [
+		         	count,
+		        	$('#locations-' + count + '-address1').val(),
+		         	$('#locations-' + count + '-city').val(),
+		        	$('#locations-' + count + '-state').val(),
+		        	$('#locations-' + count + '-postal_code').val(),
+		        	$('#locations-' + count + '-pickup_weight').val(),
+		        	$('#locations-' + count + '-delivery_weight').val(),
+		        	$('#locations-' + count + '-arrival_date').val(),
+		        	"<a class=\"delete-row\" href=\"\">Delete<\/a>" ]
+		        );
+				
+				$('.new-modal').prop('href', '#responsive-' + (count + 1));
+
+			}); 
+
+			function create_modal(index){
+			    
+			    var modal = '<div id=\"responsive-' + index + '\" class=\"modal fade\" tabindex=\"-1\" data-width=\"840\" style=\"display: none;\">' +
+							'	<div class=\"modal-header\">' +
+							'		<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">' +
+							'			&times;' +
+							'		<\/button>' +
+							'		<h4 class=\"modal-title\">Add Location<\/h4>' +
+							'	<\/div>' +
+							'	<div class=\"modal-body\">' +
+							'		<div class=\"row\">' +
+							'			<div class=\"panel panel-default\">' +
+							'				<div class=\"panel-heading\">' +
+							'					<i class=\"fa fa-external-link-square\"><\/i>' +
+							'					Location - ' + index + '' +
+							'				<\/div>' +
+							'				<div class=\"panel-body\">' +
+							'					<div class=\"row\">' +
+							'						<div class=\"col-md-12\">' +
+							'							<h4>General<\/h4>' +
+							'							<hr>' +
+							'							<input type="hidden" id="locations-' + index + '-stop_number" name="locations-' + index + '-stop_number" class="form-control" value="' + index + '">' +
+							'							<div class=\"form-group\">' +
+							'								<label class=\"col-sm-3 control-label\">' +
+							'									Address <span class=\"symbol required\"><\/span>' +
+							'								<\/label>' +
+							'								<div class=\"col-sm-7\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-address1\" name=\"locations-' + index + '-address1\" class=\"form-control\" value=\"\">' +
+							'								<\/div>' +
+							'							<\/div>' +
+							'							<div class=\"form-group\">' +
+							'								<label class=\"col-sm-3 control-label\">' +
+							'									City <span class=\"symbol required\"><\/span>' +
+							'								<\/label>' +
+							'								<div class=\"col-sm-7\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-city\" name=\"locations-' + index + '-city\" class=\"form-control\">' +
+							'								<\/div>' +
+							'							<\/div>' +
+							'							<div class=\"form-group\">' +
+							'								<label class=\"col-sm-3 control-label\">' +
+							'									State <span class=\"symbol required\"><\/span>' +
+							'								<\/label>' +
+							'								<div class=\"col-sm-7\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-state\" name=\"locations-' + index + '-state\" class=\"form-control\">' +
+							'								<\/div>' +
+							'							<\/div>' +
+							'							<div class=\"form-group\">' +
+							'								<label class=\"col-sm-3 control-label\">' +
+							'									Zip Code <span class=\"symbol required\"><\/span>' +
+							'								<\/label>' +
+							'								<div class=\"col-sm-7\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-postal_code\" name=\"locations-' + index + '-postal_code\" class=\"form-control\"\>' +
+							'								<\/div>' +
+							'							<\/div>' +
+							'							<div class=\"form-group\">' +
+							'								<label class=\"col-sm-3 control-label\">' +
+							'									Arrival Date <span class=\"symbol required\"><\/span>' +
+							'								<\/label>' +
+							'								<div class=\"col-sm-7\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-arrival_date\" name=\"locations-' + index + '-arrival_date\" data-date-format=\"dd-mm-yyyy\" data-date-viewmode=\"years\" class=\"form-control date-picker\">' +
+							'								<\/div>' +
+							'							<\/div>' +
+							'						<\/div>' +
+							'					<\/div>' +
+							'					<div class=\"row\"><hr><\/div>' +
+							'					<div class=\"row\">' +
+							'						<div class=\"col-md-12\">' +
+							'							<h4>Receiver<\/h4>' +
+							'							<hr>' +
+							'							<div class=\"form-group\">' +
+							'								<label class=\"col-sm-3 control-label\">' +
+							'									Name <span class=\"symbol required\"><\/span>' +
+							'								<\/label>' +
+							'								<div class=\"col-sm-7\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-contact_name\" name=\"locations-' + index + '-contact_name\" class=\"form-control\"\>' +
+							'								<\/div>' +
+							'							<\/div>' +
+							'							<div class=\"form-group\">' +
+							'								<label class=\"col-sm-3 control-label\">' +
+							'									Phone <span class=\"symbol required\"><\/span>' +
+							'								<\/label>' +
+							'								<div class=\"col-sm-7\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-contact_phone\" name=\"locations-' + index + '-contact_phone\" class=\"form-control\"\>' +
+							'								<\/div>' +
+							'							<\/div>' +
+							'						<\/div>' +
+							'					<\/div>' +
+							'					<div class=\"row\"><hr><\/div>' +
+							'					<div class=\"row\">' +
+							'						<div class=\"col-md-6\">' +
+							'							<h4>Pickup<\/h4>' +
+							'							<hr>' +
+							'							<div class=\"form-group\">' +
+							'								<label class=\"col-sm-3 control-label\">' +
+							'									Weight <span class=\"symbol required\"><\/span>' +
+							'								<\/label>' +
+							'								<div class=\"col-sm-7\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-pickup_weight\" name=\"locations-' + index + '-pickup_weight\" class=\"form-control\">' +
+							'								<\/div>' +
+							'							<\/div>' +
+							'						<\/div>' +
+							'						<div class=\"col-md-6\">' +
+							'							<h4>Delivery<\/h4>' +
+							'							<hr>' +
+							'							<div class=\"form-group\">' +
+							'								<label class=\"col-sm-3 control-label\">' +
+							'									Weight <span class=\"symbol required\"><\/span>' +
+							'								<\/label>' +
+							'								<div class=\"col-sm-7\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-delivery_weight\" name=\"locations-' + index + '-delivery_weight\" class=\"form-control\">' +
+							'								<\/div>' +
+							'							<\/div>' +
+							'						<\/div>' +
+							'					<\/div>' +
+							'				<\/div>' +
+							'			<\/div>' +
+							'		<\/div>' +
+							'	<\/div>' +
+							'	<div class=\"modal-footer\">' +
+							'		<button type=\"button\" data-dismiss=\"modal\" class=\"btn btn-light-grey\">' +
+							'			Close' +
+							'		<\/button>' +
+							'		<button type=\"button\" data-dismiss=\"modal\" class=\"btn btn-blue save-modal\">' +
+							'			Add' +
+							'		<\/button>' +
+							'	<\/div>' +
+							'<\/div>'
+			    $("#form-container").append(modal);
+			}
+			
+		</script>
 
 		
 				{% endblock %}
