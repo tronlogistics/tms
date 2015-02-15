@@ -39,7 +39,7 @@
 					<h2 class="StepTitle">Step 1 Content</h2>
 					<hr>
 					<div class="row">
-						<div class="col-sm-5">
+						<div class="col-sm-10">
 							<div class="form-group">
 								<label class="col-sm-3 control-label">
 									Load Type <span class="symbol required"></span>
@@ -73,7 +73,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-5">
+						{#<div class="col-sm-5">
 							<div class="form-group">
 								<label class="col-sm-3 control-label">
 									# Pieces <span class="symbol required"></span>
@@ -95,10 +95,10 @@
 									Comments <span class="symbol required"></span>
 								</label>
 								<div class="col-sm-7">
-									{{ form.comments(class="form-control", placeholder="Number of Pieces") }}
+									{{ form.comments(class="form-control", placeholder="Comments") }}
 								</div>
 							</div>
-						</div>	
+						</div>	#}
 					</div>
 					<hr>
 					<div class="row">
@@ -162,16 +162,36 @@
 											</tr>
 										</thead>
 										<tbody>
-											{% for location in form.locations %}
+											{% for location in load.lane.locations %}
+
 											<tr>
-												<td>{{ location.stop_number() }}</td>
-												<td>{{ location.address1() }}</td>
-												<td>{{ location.city() }}</td>
-												<td>{{ location.state() }}</td>
-												<td>{{ location.postal_code() }}</td>
-												<td>{{ location.pickup_weight() }}</td>
-												<td>{{ location.delivery_weight() }}</td>
-												<td></td>
+
+
+												<td>
+													<input type="hidden" id="locations-{{ loop.index }}-stop_number" name="locations-{{ loop.index }}-stop_number" class="form-control" value="{{ location.stop_number }}"> {{ loop.index }}
+												</td>
+												<td>
+													<input type="text" id="locations-{{ loop.index }}-address1" name="locations-{{ loop.index }}-address1" class="form-control" value="{{ location.address.address1}}">
+												</td>
+												<td>
+													<input type="text" id="locations-{{ loop.index }}-city" name="locations-{{ loop.index }}-city" class="form-control" value="{{ location.address.city }}">
+												</td>
+												<td>
+													<input type="text" id="locations-{{ loop.index }}-state" name="locations-{{ loop.index }}-state" class="form-control" value="{{ location.address.state }}">
+												</td>
+												<td>
+													<input type="text" id="locations-{{ loop.index }}-postal_code" name="locations-{{ loop.index }}-postal_code" class="form-control" value="{{ location.address.postal_code }}">
+												</td>
+												<td>
+													<input type="text" id="locations-{{ loop.index }}-pickup_weight" name="locations-{{ loop.index }}-pickup_weight" class="form-control" value="{{ location.arrival_details[0].weight }}">
+												</td>
+												<td>
+													<input type="text" id="locations-{{ loop.index }}-delivery_weight" name="locations-{{ loop.index }}-delivery_weight" class="form-control" value="{{ location.arrival_details[1].weight }}">
+												</td>
+												<td>
+													<input type="text" id="locations-{{ loop.index }}-arrival_date" name="locations-{{ loop.index }}-arrival_date" data-date-format="dd-mm-yyyy" data-date-viewmode="years" class="form-control date-picker" value="{{ location.arrival_date.strftime('%m/%d/%Y') }}">
+												</td>
+												<td><a class="delete-row" href="">Delete</a></td>
 											</tr>
 											{% endfor %}
 											<!--- Content created by table-data.js -->

@@ -66,7 +66,7 @@ var TableData = function() {
 			jqTds[6].innerHTML = '<input type="text" id="locations-' + rowNum + '-delivery_weight" name="locations-' + rowNum + '-delivery_weight" class="form-control" value="' + aData[6] + '">';
 			jqTds[7].innerHTML = '<input type="text" id="locations-' + rowNum + '-arrival_date" name="locations-' + rowNum + '-arrival_date" data-date-format="dd-mm-yyyy" data-date-viewmode="years" class="form-control date-picker" value="' + aData[7] + '">';
 			//jqTds[8].innerHTML = '<input type="text" id="locations-' + rowNum + '-arrival_time" name="locations-' + rowNum + '-arrival_time" class="form-control" value="' + aData[8] + '">';
-			jqTds[9].innerHTML = '<a class="delete-row" href="">Delete</a>';
+			jqTds[8].innerHTML = '<a class="delete-row" href="">Delete</a>';
 
 			
 
