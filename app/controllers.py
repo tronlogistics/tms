@@ -63,9 +63,10 @@ def LaneFactory(locations):
 	return Lane(locations=locations)
 
 
-def LocationFactory(address, pickup_detail, delivery_detail, arrival_date, stop_number):
+def LocationFactory(address, pickup_detail, delivery_detail, arrival_date, stop_number, pickup, delivery):
 	return Location(address=address, 
-					arrival_details = [pickup_detail, delivery_detail],
+					pickup_details = pickup_detail, 
+					delivery_details= delivery_detail,
 					arrival_date=arrival_date,
 					stop_number=stop_number)
 

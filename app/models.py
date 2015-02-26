@@ -128,20 +128,6 @@ class Bid(db.Model):
 	value = db.Column(db.Float(3))
 	status = db.Column(db.String(10))
 
-class LoadDetail(db.Model):
-	id = db.Column(db.Integer, primary_key=True)
-	location_id = db.Column(db.Integer, db.ForeignKey('location.id'))
-	type = db.Column(db.String(10))
-	weight = db.Column(db.Integer)
-	dim_length = db.Column(db.Integer)
-	dim_width = db.Column(db.Integer)
-	dim_height = db.Column(db.Integer)
-	approx_miles = db.Column(db.Integer)
-	number_pieces = db.Column(db.Integer)
-	
-	
-
-
 class Lane(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	load_id = db.Column(Integer, ForeignKey('load.id'))
@@ -154,8 +140,12 @@ class Location(db.Model):
 	
 	address = db.relationship('Address', uselist=False, backref='location')
 	contact = db.relationship('Contact', uselist=False, backref='location')
+	pickup_id = db.Column(db.Integer, db.ForeignKey('loaddetail.id'))
+	pickup_details = db.relationship('LoadDetail', primaryjoin="LoadDetail.id==Location.pickup_id")
 
-	arrival_details = db.relationship("LoadDetail",  backref='lane', lazy='dynamic')
+	delivery_id = db.Column(db.Integer, db.ForeignKey('loaddetail.id'))
+	#delivery_details_id = db.Column(db.Integer, db.ForeignKey('loaddetail.id'))
+	delivery_details = db.relationship('LoadDetail', primaryjoin="LoadDetail.id==Location.delivery_id")
 
 	stop_number = db.Column(db.Integer)
 	arrival_date = db.Column(db.Date)
@@ -163,6 +153,16 @@ class Location(db.Model):
 
 	def __repr__(self):
 		return '%s, %s' % (self.city, self.state)
+
+class LoadDetail(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	type = db.Column(db.String(10))
+	weight = db.Column(db.Integer)
+	dim_length = db.Column(db.Integer)
+	dim_width = db.Column(db.Integer)
+	dim_height = db.Column(db.Integer)
+	approx_miles = db.Column(db.Integer)
+	number_pieces = db.Column(db.Integer)
 
 class Address(db.Model):
 	id = db.Column(db.Integer, primary_key=True)

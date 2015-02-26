@@ -115,7 +115,7 @@ var TableData = function() {
 				actualEditingRow = null;
 			}
 		});
-		$('#sample_2').on('click', '.delete-row', function(e) {
+		/*$('#sample_2').on('click', '.delete-row', function(e) {
 			e.preventDefault();
 			if (newRow && actualEditingRow) {
 				oTable.fnDeleteRow(actualEditingRow);
@@ -150,7 +150,7 @@ var TableData = function() {
 				}
 			});
 
-		});
+		});*/
 		$('#sample_2').on('click', '.save-row', function(e) {
 			e.preventDefault();
 
@@ -205,7 +205,8 @@ var TableData = function() {
 					"sNext" : ""
 				}
 			},
-			"aaSorting" : [[1, 'asc']],
+			"bSort" : false,
+			"aaSorting" : [[0, 'asc']],
 			"aLengthMenu" : [[5, 10, 15, 20, -1], [5, 10, 15, 20, "All"] // change per page values here
 			],
 			// set the initial value
