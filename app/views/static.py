@@ -55,7 +55,7 @@ def login():
 	#flash(forgot_form.is_submitted())
 	#flash(forgot_form.validate_on_submit())
 	#flash(forgot_form.errors)
-
+	return render_template('static/login.html', login_form=login_form, register_form=register_form, forgot_form=forgot_form, user=g.user)
 	if login_form.validate_on_submit():
 
 		user = User.query.filter_by(email=login_form.email.data).first()
