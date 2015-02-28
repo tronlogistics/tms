@@ -24,10 +24,6 @@ def before_request():
 @login_required
 def create():
 	form = LoadForm()
-	#flash(form.is_submitted())
-	#flash(request.method)
-	#flash(form.validate())
-	#flash(form.errors)
 	if form.validate_on_submit():
 		#geolocator = Nominatim()
 		#load = Load(name=form.name.data, 
@@ -155,7 +151,6 @@ def edit(load_id):
 	if permission.can():
 		load = Load.query.get(int(load_id))
 		form = LoadForm()
-
 		if form.validate_on_submit():
 			load.load_type = form.load_type.data
 			load.trailer_type = form.trailer_type.data
@@ -183,9 +178,10 @@ def edit(load_id):
 			#db.session.add(load.lane)
 			db.session.commit()
 		
-			return redirect(url_for('.all'))
+			return redirect(url_for('.view', load_id=load.id))
 		else:
 			form.load_type.data = load.load_type
+			form.total_miles.data = load.total_miles
 			form.trailer_type.data = load.trailer_type
 			form.total_miles.data = load.total_miles
 			form.price.data = load.price
@@ -200,8 +196,8 @@ def edit(load_id):
 				location.city.data = stop_off.address.city
 				location.state.data = stop_off.address.state
 				location.postal_code.data = stop_off.address.postal_code
-				location.pickup_weight.data = stop_off.arrival_details[0].weight
-				location.delivery_weight.data = stop_off.arrival_details[1].weight
+				location.pickup_weight.data = stop_off.pickup_details.weight
+				location.delivery_weight.data = stop_off.delivery_details.weight
 
 				form.locations.append(location)
 			

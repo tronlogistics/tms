@@ -46,7 +46,7 @@
         <script type="text/javascript">
             function initialize() {
 
-                var myLatlng = new google.maps.LatLng( {{origin.latitude}}, {{origin.longitude}});
+                {#var myLatlng = new google.maps.LatLng( {{origin.latitude}}, {{origin.longitude}});
 
                 var mapOptions = {
                     center: myLatlng,
@@ -95,7 +95,7 @@
             geodesic: false,
             map: map
         }); */
-            }
+            }#}
             google.maps.event.addDomListener(window, 'load', initialize);
         </script>
 </head>

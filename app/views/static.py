@@ -57,11 +57,13 @@ def login():
 	#flash(forgot_form.errors)
 
 	if login_form.validate_on_submit():
+
 		user = User.query.filter_by(email=login_form.email.data).first()
 		if user is not None:
+
 			if not user.is_confirmed():
 				flash("You must confirm your e-mail prior to logging in. To confirm your e-mail, click the activation link provided to %s" % user.email )
-				return render_template('static/login.html', login_form=login_form, register_form=register_form, user=g.user)
+				return render_template('static/login.html', login_form=login_form, register_form=register_form, forgot_form=forgot_form, user=g.user)
 
 			if user.check_password(login_form.password.data):
 				user.authenticated = True
@@ -91,7 +93,7 @@ def login():
 		db.session.commit()
 	
 		register_account(user)
-		flash("An registration e-mail has been sent to %s" % register_form.email.data)
+		flash("A registration e-mail has been sent to %s" % register_form.email.data)
 		app.logger.info("User \"%s\" with role \"%s\" created" % (user.email, user.roles[0].name))
 	if forgot_form.validate_on_submit():
 		user = User.query.filter_by(email=forgot_form.email.data).first()
@@ -140,7 +142,7 @@ def register():
 		db.session.commit()
 		
 		register_account(user)
-		flash("n registration e-mail has been sent to %s" % register_form.email.data)
+		flash("A registration e-mail has been sent to %s" % register_form.email.data)
 		app.logger.info("User \"%s\" with role \"%s\" created" % (user.email, user.roles[0].name))
 		return redirect(url_for('.login'))
 	return render_template('static/register.html', register_form=register_form, user=g.user)

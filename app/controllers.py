@@ -40,6 +40,7 @@ def LoadFactory(form):
 				description=form.description.data,
 				trailer_type=form.trailer_type.data,
 				load_type=form.load_type.data,
+				total_miles=form.total_miles.data,
 				comments=form.comments.data) 
 	
 	load.assigned_driver = None
@@ -63,7 +64,7 @@ def LaneFactory(locations):
 	return Lane(locations=locations)
 
 
-def LocationFactory(address, pickup_detail, delivery_detail, arrival_date, stop_number, pickup, delivery):
+def LocationFactory(address, pickup_detail, delivery_detail, arrival_date, stop_number):
 	return Location(address=address, 
 					pickup_details = pickup_detail, 
 					delivery_details= delivery_detail,

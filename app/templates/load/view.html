@@ -136,7 +136,7 @@ payment processing to owner operator drivers
 											</tr>
 											<tr>
 												<td><b>Driver:</b></td>
-												<td><a href="{{ url_for('carrier.view_driver', driver_id=load.assigned_driver.truck.id) }}">{{ load.assigned_driver.get_full_name() }}</a></td>
+												<td><a href="{{ url_for('drivers.view', driver_id=load.assigned_driver.truck.id) }}">{{ load.assigned_driver.get_full_name() }}</a></td>
 											</tr>
 						                {% else %}
 						                	<tr>
@@ -273,8 +273,8 @@ payment processing to owner operator drivers
 			                            	<td>{{ location.stop_number }}</td>
 			                            	<td>{{ location.address.address1 }}
 			                            	<td>{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
-			                            	<td>{{ location.arrival_details[0].weight }}</td>
-			                            	<td>{{ location.arrival_details[-1].weight }}</td>
+			                            	<td>{{ location.pickup_details.weight }}</td>
+			                            	<td>{{ location.delivery_details.weight }}</td>
 			                            	<td>{{ location.arrival_date }}</td>
 			                            </tr>
 			                        {% endfor %}

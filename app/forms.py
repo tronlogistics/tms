@@ -1,6 +1,6 @@
 from flask.ext.wtf import Form
 from wtforms import StringField, FloatField, PasswordField, SelectField, DateField, BooleanField, IntegerField, HiddenField, FormField, FieldList, TextAreaField
-from wtforms.validators import DataRequired, EqualTo, NumberRange, Email
+from wtforms.validators import DataRequired, EqualTo, NumberRange, Email, Length
 
 class EmailForm(Form):
 	email = StringField('Email', validators=[Email("Please enter a valid e-mail")])
@@ -18,8 +18,8 @@ class LaneLocationForm(Form):
 	retired = HiddenField("Retired", validators=[])
 	arrival_date = DateField("Date", validators=[], format='%m/%d/%Y')
 	arrival_Time = StringField("Time", validators=[])
-	pickup_weight = IntegerField("Pickup Weight", validators=[])
-	delivery_weight = IntegerField("Delivery Weight", validators=[])
+	pickup_weight = StringField("Pickup Weight", validators=[])
+	delivery_weight = StringField("Delivery Weight", validators=[])
 	contact_name = StringField('Name', validators=[])
 	contact_email = StringField('Email', validators=[])
 	contact_phone = StringField('Phone', validators=[])
@@ -86,27 +86,27 @@ class LoadForm(Form):
 	destination_contact_phone_prefix = IntegerField('Prefix', validators=[])
 	destination_contact_phone_line_number = IntegerField('Line Number', validators=[])
 	#location = FormField(LocationForm)
-	locations = FieldList(FormField(LaneLocationForm))
+	locations = FieldList(FormField(LaneLocationForm), validators=[Length(min=2)])
 
 
 
 class TruckForm(Form):
 	name = StringField('Name', validators=[DataRequired()])
 	trailer_type = SelectField('Trailer Type', choices = [('','<none selected>'),
-															('auto_carrier', 'Auto Carrier'), 
-															('conestoga', 'Conestoga'),
-															('container', 'Container'),
-															('double_drop', 'Double Drop'),
-															('flatbed', 'Flatbed'),
+															('Auto Carrier', 'Auto Carrier'), 
+															('Conestoga', 'Conestoga'),
+															('Container', 'Container'),
+															('Double Drop', 'Double Drop'),
+															('Flatbed', 'Flatbed'),
 															('hotshot', 'Hotshot'),
-															('lowboy', 'Lowboy'),
-															('moving_van', 'Moving Van'),
-															('power_only', 'Power Only'),
-															('reefer', 'Reefer'),
-															('rgn', 'RGN'),
-															('step_deck', 'Step Deck'),
-															('tanker', 'Tanker'),
-															('van', 'Van'),], 
+															('Lowboy', 'Lowboy'),
+															('Moving Van', 'Moving Van'),
+															('Power Only', 'Power Only'),
+															('Reefer', 'Reefer'),
+															('RGN', 'RGN'),
+															('Step Deck', 'Step Deck'),
+															('Tanker', 'Tanker'),
+															('Van', 'Van'),], 
 															validators = [])
 	max_weight = IntegerField("Max Weight", validators =[])
 	dim_length = IntegerField("Length", validators =[])
