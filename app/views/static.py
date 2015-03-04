@@ -251,8 +251,8 @@ def on_identity_loaded(sender, identity):
 
 	# Assuming the User model has a list of posts the user
 	# has authored, add the needs to the identity
-	if hasattr(current_user, 'brokered_loads'):
-		for load in current_user.brokered_loads:
+	if hasattr(current_user, 'loads'):
+		for load in current_user.loads:
 			identity.provides.add(EditLoadNeed(unicode(load.id)))
 			identity.provides.add(DeleteLoadNeed(unicode(load.id)))
 			identity.provides.add(ViewLoadNeed(unicode(load.id)))

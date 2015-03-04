@@ -5,11 +5,25 @@ from wtforms.validators import DataRequired, EqualTo, NumberRange, Email, Length
 class EmailForm(Form):
 	email = StringField('Email', validators=[Email("Please enter a valid e-mail")])
 
+class ContactForm(Form):
+	def __init__(self, *args, **kwargs):
+		kwargs['csrf_enabled'] = False
+		Form.__init__(self, *args, **kwargs)
+
+	company_name = StringField('Name', validators=[])
+	phone = StringField('Phone', validators=[])
+	email = StringField('Email', validators=[Email("Please enter a valid e-mail")])
+
 class LaneLocationForm(Form):
 	def __init__(self, *args, **kwargs):
 		kwargs['csrf_enabled'] = False
 		Form.__init__(self, *args, **kwargs)
 
+	stop_type = SelectField('Location Type', choices = [('','<none selected>'),
+														('Pickup', 'Pickup'), 
+														('Drop Off', 'Drop Off'),
+														('Both', 'Both')], 
+														validators = [])
 	address1 = StringField("Address 1", validators =[])
 	city = StringField("City", validators =[])
 	state = StringField("State", validators =[])
@@ -19,7 +33,9 @@ class LaneLocationForm(Form):
 	arrival_date = DateField("Date", validators=[], format='%m/%d/%Y')
 	arrival_Time = StringField("Time", validators=[])
 	pickup_weight = StringField("Pickup Weight", validators=[])
+	pickup_notes = TextAreaField('Description', validators=[])
 	delivery_weight = StringField("Delivery Weight", validators=[])
+	delivery_notes = TextAreaField('Description', validators=[])
 	contact_name = StringField('Name', validators=[])
 	contact_email = StringField('Email', validators=[])
 	contact_phone = StringField('Phone', validators=[])
@@ -86,6 +102,8 @@ class LoadForm(Form):
 	destination_contact_phone_prefix = IntegerField('Prefix', validators=[])
 	destination_contact_phone_line_number = IntegerField('Line Number', validators=[])
 	#location = FormField(LocationForm)
+	broker = FormField(ContactForm)
+	shipper = FormField(ContactForm)
 	locations = FieldList(FormField(LaneLocationForm), validators=[Length(min=2)])
 
 
@@ -155,14 +173,19 @@ class AssignDriverForm(Form):
 	truck = IntegerField("Truck", validators=[])
 	driver = SelectField('Category', choices=[], coerce=int, validators=[])
 
-class StatusForm(Form):
-	status = SelectField('Load Status:', choices = [#('Pending Truck Assignment', 'Pending Truck Assignment'),
-													('Truck Assigned', 'Truck Assigned'),
-													('In Transit to Pickup', 'In Transit to Pickup'),
-													('Truck at Origin Location', 'Truck at Origin Location'),
-													('In Transit', 'In Transit'), 
-													('Truck at Destination', 'Truck at Destination'), 
-													('Load Complete', 'Load Completed')], 
-													validators = [DataRequired()])
 
+
+class LocationStatusForm(Form):
+	def __init__(self, *args, **kwargs):
+		kwargs['csrf_enabled'] = False
+		Form.__init__(self, *args, **kwargs)
+
+	stop_number = HiddenField("Stop Number", validators=[])
+	status = SelectField('Load Status:', choices = [('Pending Arrival', 'Pending Arrival'),
+													('Arrived', 'Arrived'),
+													('Loaded', 'Loaded'),
+													('Departed', 'Departed')], 
+													validators = [])
+class StatusForm(Form):
+	location_status = FieldList(FormField(LocationStatusForm), validators=[])
 

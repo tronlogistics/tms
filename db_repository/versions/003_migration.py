@@ -5,26 +5,28 @@ from migrate import *
 from migrate.changeset import schema
 pre_meta = MetaData()
 post_meta = MetaData()
-Contact = Table('Contact', pre_meta,
-    Column('id', INTEGER, primary_key=True, nullable=False),
-    Column('location_id', INTEGER),
-    Column('contact_phone_area_code', VARCHAR(length=3)),
-    Column('contact_phone_prefix', VARCHAR(length=3)),
-    Column('contact_phone_line_number', VARCHAR(length=4)),
-    Column('email', VARCHAR(length=30)),
-    Column('name', VARCHAR(length=60)),
-    Column('phone', VARCHAR(length=30)),
+assigned_Contacts = Table('assigned_Contacts', post_meta,
+    Column('Contact_id', Integer),
+    Column('load_id', Integer),
 )
 
-Contact = Table('Contact', post_meta,
+Load = Table('Load', post_meta,
     Column('id', Integer, primary_key=True, nullable=False),
-    Column('location_id', Integer),
-    Column('name', String(length=60)),
-    Column('email', String(length=30)),
-    Column('phone', String(length=30)),
-    Column('phone_area_code', String(length=3)),
-    Column('phone_prefix', String(length=3)),
-    Column('phone_line_number', String(length=4)),
+    Column('user_id', Integer),
+    Column('broker_id', Integer),
+    Column('name', String(length=80)),
+    Column('status', String(length=20)),
+    Column('trailer_group', String(length=20)),
+    Column('trailer_type', String(length=20)),
+    Column('load_type', String(length=20)),
+    Column('total_miles', Integer),
+    Column('purchase_order', String(length=20)),
+    Column('over_dimensional', Boolean),
+    Column('carrier_cost', Float(precision=3)),
+    Column('price', Float(precision=3)),
+    Column('description', String(length=250)),
+    Column('comments', String(length=500)),
+    Column('driver_id', Integer),
 )
 
 
@@ -33,21 +35,13 @@ def upgrade(migrate_engine):
     # migrate_engine to your metadata
     pre_meta.bind = migrate_engine
     post_meta.bind = migrate_engine
-    pre_meta.tables['Contact'].columns['contact_phone_area_code'].drop()
-    pre_meta.tables['Contact'].columns['contact_phone_line_number'].drop()
-    pre_meta.tables['Contact'].columns['contact_phone_prefix'].drop()
-    post_meta.tables['Contact'].columns['phone_area_code'].create()
-    post_meta.tables['Contact'].columns['phone_line_number'].create()
-    post_meta.tables['Contact'].columns['phone_prefix'].create()
+    post_meta.tables['assigned_Contacts'].create()
+    post_meta.tables['Load'].columns['broker_id'].create()
 
 
 def downgrade(migrate_engine):
     # Operations to reverse the above upgrade go here.
     pre_meta.bind = migrate_engine
     post_meta.bind = migrate_engine
-    pre_meta.tables['Contact'].columns['contact_phone_area_code'].create()
-    pre_meta.tables['Contact'].columns['contact_phone_line_number'].create()
-    pre_meta.tables['Contact'].columns['contact_phone_prefix'].create()
-    post_meta.tables['Contact'].columns['phone_area_code'].drop()
-    post_meta.tables['Contact'].columns['phone_line_number'].drop()
-    post_meta.tables['Contact'].columns['phone_prefix'].drop()
+    post_meta.tables['assigned_Contacts'].drop()
+    post_meta.tables['Load'].columns['broker_id'].drop()

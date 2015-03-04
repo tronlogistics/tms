@@ -15,6 +15,11 @@ User_to_User = db.Table('user_to_user', db.metadata,
 #	Column('load_id', Integer, ForeignKey('Load.id'))
 #)
 
+assigned_Contacts = db.Table('assigned_Contacts', db.metadata,
+	Column('Contact_id', Integer, ForeignKey('Contact.id')),
+	Column('load_id', Integer, ForeignKey('Load.id'))
+)
+
 class Lead(db.Model):
 	__tablename__ = 'Lead'
 	id = db.Column(db.Integer, primary_key=True)
@@ -35,15 +40,16 @@ class User(db.Model):
 	# User information
 	authenticated = db.Column(db.Boolean(), nullable=False, server_default='0')
 	company_name = db.Column(db.String(100), nullable=False, server_default='')
-	brokered_loads = db.relationship('Load', backref='broker', lazy='dynamic', foreign_keys='Load.broker_id')
-	assigned_loads = db.relationship('Load', backref='carrier', lazy='dynamic', foreign_keys='Load.carrier_id')
+
+	loads = db.relationship('Load', backref='created_by', lazy='dynamic', foreign_keys='Load.user_id')
+	
 	fleet = db.relationship('Fleet', uselist=False, backref='carrier')
-	contacts = db.relationship('User',
-					secondary=User_to_User,
-					primaryjoin=id==User_to_User.c.left_user_id,
-					secondaryjoin=id==User_to_User.c.right_user_id,
-					backref='contacted_by'
-    )
+	#contacts = db.relationship('User',
+	#				secondary=User_to_User,
+	#				primaryjoin=id==User_to_User.c.left_user_id,
+	#				secondaryjoin=id==User_to_User.c.right_user_id,
+	#				backref='contacted_by'
+    #)
 	roles = db.relationship('Role')
 	customer_id = db.Column(db.Integer)
 
@@ -92,8 +98,9 @@ class Load(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	#referencing classes
 	user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
-	broker_id = db.Column(db.Integer, db.ForeignKey('User.id'))
-	carrier_id = db.Column(db.Integer, db.ForeignKey('User.id'))
+
+	broker_id = db.Column(db.Integer, db.ForeignKey('Contact.id'))
+	shipper_id = db.Column(db.Integer, db.ForeignKey('Contact.id'))
 
 	#general
 	name = db.Column(db.String(80), index=True)
@@ -108,6 +115,8 @@ class Load(db.Model):
 	price = db.Column(db.Float(3))
 	description = db.Column(db.String(250))
 	comments = db.Column(db.String(500))
+
+	
 
 	#children
 	lane = db.relationship('Lane', uselist=False, backref='load')
@@ -143,9 +152,10 @@ class Location(db.Model):
 	__tablename__ = 'Location'
 	id = db.Column(db.Integer, primary_key=True)
 	lane_id = db.Column(db.Integer, db.ForeignKey('Lane.id'))
+	contact_id = db.Column(db.Integer, db.ForeignKey('Contact.id'))
 	
 	address = db.relationship('Address', uselist=False, backref='location')
-	contact = db.relationship('Contact', uselist=False, backref='location')
+
 	pickup_id = db.Column(db.Integer, db.ForeignKey('LoadDetail.id'))
 	pickup_details = db.relationship('LoadDetail', primaryjoin="LoadDetail.id==Location.pickup_id")
 
@@ -155,6 +165,9 @@ class Location(db.Model):
 
 	stop_number = db.Column(db.Integer)
 	arrival_date = db.Column(db.Date)
+
+	type = db.Column(db.String(10))
+	status = db.Column(db.String(20))
 	#arrival_time = 
 
 	def __repr__(self):
@@ -170,6 +183,7 @@ class LoadDetail(db.Model):
 	dim_height = db.Column(db.Integer)
 	approx_miles = db.Column(db.Integer)
 	number_pieces = db.Column(db.Integer)
+	notes = db.Column(db.String(500))
 
 class Address(db.Model):
 	__tablename__ = 'Address'
@@ -187,6 +201,15 @@ class Contact(db.Model):
 	__tablename__ = 'Contact'
 	id = db.Column(db.Integer, primary_key=True)
 	location_id = db.Column(db.Integer, db.ForeignKey('Location.id'))
+	#contacts = db.relationship('User',
+	#				secondary=User_to_User,
+	#				primaryjoin=id==User_to_User.c.left_user_id,
+	#				secondaryjoin=id==User_to_User.c.right_user_id,
+	#				backref='contacted_by'
+    #)
+	brokered_loads = db.relationship('Load', backref='broker', lazy='dynamic', foreign_keys='Load.broker_id')
+	shipped_loads = db.relationship('Load', backref='shipper', lazy='dynamic', foreign_keys='Load.shipper_id')
+	location_contact = db.relationship('Location', backref='contact', lazy='dynamic', foreign_keys='Location.contact_id')
 	name = db.Column(db.String(60))
 	email = db.Column(db.String(30))
 	phone = db.Column(db.String(30))

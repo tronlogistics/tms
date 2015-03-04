@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, url_for, redirect, request, flash,
 from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, SQLAlchemy
-from app.forms import LoadForm, BidForm, StatusForm, LaneLocationForm
+from app.forms import LoadForm, BidForm, StatusForm, LaneLocationForm, LocationStatusForm
 from app.models import Load, LoadDetail, Lane, Location, Truck, User, Bid, Driver
 from app.permissions import *
 from app.controllers import LoadFactory, AddressFactory, LocationFactory, LoadDetailFactory
@@ -24,6 +24,7 @@ def before_request():
 @login_required
 def create():
 	form = LoadForm()
+
 	if form.validate_on_submit():
 		#geolocator = Nominatim()
 		#load = Load(name=form.name.data, 
@@ -128,7 +129,7 @@ def create():
 		#load.load_detail = load_detail
 		#load.broker = g.user
 		load = LoadFactory(form)
-		load.broker = g.user
+		g.user.loads.append(load)
 		if g.user.is_carrier:
 			load.status="Pending Truck Assignment"
 			load.carrier=g.user
@@ -223,11 +224,12 @@ def view(load_id):
 		#gn.geocode(filter((lambda location: location.is_origin), load.lane.locations)[0].postal_code)
 		load = Load.query.get(int(load_id))
 		if status_form.validate_on_submit():
-			load.status = status_form.status.data
+			for status in status_form.location_status:
+				location = Location.query.filter_by(stop_number=status.stop_number.data).first_or_404()
+				location.status = status.status.data
+			#load.status = status_form.status.data
 			db.session.add(load)
 			db.session.commit()
-		if load.status is not "Pending Truck Assignment":
-			status_form.status.data = load.status
 		#TODO: filter by applicabale carriers
 		if not g.user.is_carrier():
 			carriers = []
@@ -294,7 +296,7 @@ def all():
 	#	return render_template('load/all.html', loads=loads)
 	#else:
 	return render_template('load/all.html', 
-							loads=g.user.brokered_loads, 
+							loads=g.user.loads, 
 							user=g.user, 
 							active="Loads",
 							title="All Loads")
@@ -448,8 +450,8 @@ def on_identity_changed(sender, identity):
 
 	# Assuming the User model has a list of posts the user
 	# has authored, add the needs to the identity
-	if hasattr(current_user, 'brokered_loads'):
-		for load in current_user.brokered_loads:
+	if hasattr(current_user, 'loads'):
+		for load in current_user.loads:
 			identity.provides.add(EditLoadNeed(unicode(load.id)))
 			identity.provides.add(DeleteLoadNeed(unicode(load.id)))
 			identity.provides.add(ViewLoadNeed(unicode(load.id)))

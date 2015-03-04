@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<form name="create" action="" role="form" class="smart-wizard form-horizontal" id="form" method="post">
+<form name="create" action="" role="form" class="form-horizontal" id="form" method="post">
 	{{ form.hidden_tag() }}
 	<!-- start: PAGE CONTENT -->
 	<div class="row" id="form-container">
@@ -113,8 +113,6 @@
 											<th>City</th>
 											<th>State</th>
 											<th>Zip</th>
-											<th>Pickup Weight</th>
-											<th>Delivery Weight</th>
 											<th>Arrival Date</th>
 											{#<th>Arrival Time</th>#}
 											<th>Delete</th>
@@ -132,8 +130,6 @@
 											<td>{{ location.address.city }}</td>
 											<td>{{ location.address.state }}</td>
 											<td>{{ location.address.postal_code }}</td>
-											<td>{{ location.pickup_details.weight }}</td>
-											<td>{{ location.delivery_details.weight }}</td>
 											<td>{{ location.arrival_date.strftime('%m/%d/%Y') }}</td>
 											<td><a class="edit-modal" href="#responsive-{{ location.stop_number }}" data-toggle="modal">Edit</a>/<a class="delete-row" href="">Delete</a></td>
 										</tr>
@@ -161,7 +157,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	
 	{% for location in load.lane.locations %}
 		<div id="responsive-{{ loop.index }}" class="modal fade" tabindex="-1" data-width="840" style="display: none;">
 			<p style="display:none;" class="modal-id">{{ loop.index }}</p>
@@ -169,28 +165,41 @@
 				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 					&times;
 				</button>
-				<h4 class="modal-title">Add Location - {{ loop.index }}</h4>
+				<h4 class="modal-title">Edit Location</h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<i class="fa fa-external-link-square"></i>
-							Location
+							General
 						</div>
 						<div class="panel-body">
-							<div class="row">
-								<div class="col-md-12">
-									<h4>General</h4>
-									<hr>
+							<div class="form-horizontal">
+								<div class="col-sm-12">
 									<input type="hidden" id="locations-{{ loop.index }}-retired" name="locations-{{ loop.index }}-retired" class="form-control" value="{{ loop.index }}">
 									<div class="form-group">
+										<label class="col-sm-3 control-label">
+											Type <span class="symbol required"></span>
+										</label>
+										<div class="col-sm-7">
+											<select id="locations-{{ loop.index }}-type" name="locations-' + index + '-type" class="form-control location-type" value="">
+												<option value="Pickup" {% if location.type == "Pickup" %}selected="selected"{% endif %}>Pickup</option>
+											
+												<option value="Drop Off" {% if location.type == "Drop Off" %}selected="selected"{% endif %}>Drop Off</option>
+												<option value="Both" {% if location.type == "Both" %}selected="selected"{% endif %}>Both</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<p>
 										<label class="col-sm-3 control-label">
 											Address <span class="symbol required"></span>
 										</label>
 										<div class="col-sm-7">
 											<input type="text" id="locations-{{ loop.index }}-address1" name="locations-{{ loop.index }}-address1" class="form-control" value="{{ location.address.address1 }}">
 										</div>
+									</p>
 									</div>
 									<div class="form-group">
 										<label class="col-sm-3 control-label">
@@ -226,11 +235,18 @@
 									</div>
 								</div>
 							</div>
-							<div class="row"><hr></div>
-							<div class="row">
-								<div class="col-md-12">
-									<h4>Receiver</h4>
-									<hr>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="fa fa-external-link-square"></i>
+							Contact
+						</div>
+						<div class="panel-body">
+							<div class="form-horizontal">
+								<div class="col-sm-12">
 									<div class="form-group">
 										<label class="col-sm-3 control-label">
 											Name <span class="symbol required"></span>
@@ -247,31 +263,72 @@
 											<input type="text" id="locations-{{ loop.index }}-contact_phone" name="locations-{{ loop.index }}-contact_phone" class="form-control" value="{{ location.contact.phone }}">
 										</div>
 									</div>
-								</div>
-							</div>
-							<div class="row"><hr></div>
-							<div class="row">
-								<div class="col-md-6">
-									<h4>Pickup</h4>
-									<hr>
 									<div class="form-group">
 										<label class="col-sm-3 control-label">
-											Weight <span class="symbol required"></span>
+											Email
+										</label>
+										<div class="col-sm-7">
+											<input type="text" id="locations-{{ loop.index }}-contact_email" name="locations-{{ loop.index }}-contact_email" class="form-control" value="{{ location.contact.email }}">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" id="pickup-{{ loop.index }}" style="display:none;">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="fa fa-external-link-square"></i>
+							Pickup Details
+						</div>
+						<div class="panel-body">
+							<div class="form-horizontal">
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label class="col-sm-3 control-label">
+											Weight (lbs) <span class="symbol required"></span>
 										</label>
 										<div class="col-sm-7">
 											<input type="text" id="locations-{{ loop.index }}-pickup_weight" name="locations-{{ loop.index }}-pickup_weight" class="form-control" value="{{ location.pickup_details.weight }}">
 										</div>
 									</div>
-								</div>
-								<div class="col-md-6">
-									<h4>Delivery</h4>
-									<hr>
 									<div class="form-group">
 										<label class="col-sm-3 control-label">
-											Weight <span class="symbol required"></span>
+											Notes <span class="symbol required"></span>
+										</label>
+										<div class="col-sm-7">
+											<textarea class="autosize form-control" id="locations-{{ loop.index }}-pickup_notes" name="locations-{{ loop.index }}-pickup_notes" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 69px;"></textarea>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row" id="delivery-{{ loop.index }}" style="display:none;">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="fa fa-external-link-square"></i>
+							Drop Off Details
+						</div>
+						<div class="panel-body">
+							<div class="form-horizontal">
+								<div class="col-sm-12">
+									<div class="form-group">
+										<label class="col-sm-3 control-label">
+											Weight (lbs) <span class="symbol required"></span>
 										</label>
 										<div class="col-sm-7">
 											<input type="text" id="locations-{{ loop.index }}-delivery_weight" name="locations-{{ loop.index }}-delivery_weight" class="form-control" value="{{ location.delivery_details.weight }}">
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-sm-3 control-label">
+											Notes <span class="symbol required"></span>
+										</label>
+										<div class="col-sm-7">
+											<textarea class="autosize form-control" id="locations-{{ loop.index }}-delivery_notes" name="locations-{{ loop.index }}-pickup_notes" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 69px;"></textarea>
 										</div>
 									</div>
 								</div>
@@ -291,6 +348,7 @@
 			</div>
 		</div>
 	{% endfor %}
+	</div>
 </form>
 		<!-- end: RIGHT SIDEBAR -->
 		{% include "partials/main_javascripts.html" %}
@@ -310,6 +368,48 @@
 		
 		<script>
 			$(document).ready(function(){
+				$('.location-type').each(function(index){
+					var index = index + 1;
+					alert(index + ' - ' + $(this).val());
+					if ($(this).val() == "Pickup") {
+						$('#pickup-' + index).css("display", "");
+						$('#delivery-' + index).css("display", "none");
+						alert($('#pickup-' + index).css("display"));
+					} else if ($(this).val() == "Drop Off") {
+						$('#pickup-' + index).css("display", "none");
+						$('#delivery-' + index).css("display", "");
+					} else if ($(this).val() == "Both") {
+						$('#pickup-' + index).css("display", "");
+						$('#delivery-' + index).css("display", "");
+					} else {
+						$('#pickup-' + index).css("display", "none");
+						$('#delivery-' + index).css("display", "none");
+					}
+				});
+				$( document).on("change", ".location-type", function() {
+					if ($(this).val() == "Pickup") {
+						$('#pickup-' + $(this).attr("id").match(/\d+/)).css("display", "");
+						$('#delivery-' + $(this).attr("id").match(/\d+/)).css("display", "none");
+						$('#locations-' + $(this).attr("id").match(/\d+/) +'-delivery_weight').val("");
+						$('#locations-' + $(this).attr("id").match(/\d+/) +'-delivery_notes').val("");
+					} else if ($(this).val() == "Drop Off") {
+						$('#pickup-' + $(this).attr("id").match(/\d+/)).css("display", "none");
+						$('#locations-' + $(this).attr("id").match(/\d+/) +'-pickup_weight').val("");
+						$('#locations-' + $(this).attr("id").match(/\d+/) +'-pickup_notes').val("");
+						$('#delivery-' + $(this).attr("id").match(/\d+/)).css("display", "");
+					} else if ($(this).val() == "Both") {
+						$('#pickup-' + $(this).attr("id").match(/\d+/)).css("display", "");
+						$('#delivery-' + $(this).attr("id").match(/\d+/)).css("display", "");
+					} else {
+						$('#pickup-' + $(this).attr("id").match(/\d+/)).css("display", "none");
+						$('#locations-' + $(this).attr("id").match(/\d+/) +'-pickup_weight').val("");
+						$('#locations-' + $(this).attr("id").match(/\d+/) +'-pickup_notes').val("");
+						$('#delivery-' + $(this).attr("id").match(/\d+/)).css("display", "none");
+						$('#locations-' + $(this).attr("id").match(/\d+/) +'-delivery_weight').val("");
+						$('#locations-' + $(this).attr("id").match(/\d+/) +'-delivery_notes').val("");
+					}
+			});
+
 			    $(".new-modal").click(function(){
 			    	create_modal($('.modal.fade').length + 1);  
 			    }); 	
@@ -359,8 +459,6 @@
 		         	$('#locations-' + count + '-city').val(),
 		        	$('#locations-' + count + '-state').val(),
 		        	$('#locations-' + count + '-postal_code').val(),
-		        	$('#locations-' + count + '-pickup_weight').val(),
-		        	$('#locations-' + count + '-delivery_weight').val(),
 		        	$('#locations-' + count + '-arrival_date').val(),
 		        	'<a class=\"edit-modal\" href=\"#responsive-' + ($('#sample_2').dataTable().fnSettings().aoData.length + 1) + '\" data-toggle=\"modal\">Edit<\/a>/<a class=\"delete-row\" href=\"\">Delete<\/a>' ]
 		        );
@@ -379,14 +477,36 @@
 		         	$('#locations-' + modal_id + '-city').val(),
 		        	$('#locations-' + modal_id + '-state').val(),
 		        	$('#locations-' + modal_id + '-postal_code').val(),
-		        	$('#locations-' + modal_id + '-pickup_weight').val(),
-		        	$('#locations-' + modal_id + '-delivery_weight').val(),
 		        	$('#locations-' + modal_id + '-arrival_date').val(),
 		        	'<a class=\"edit-modal\" href=\"#responsive-' + modal_id + '\" data-toggle=\"modal\">Edit<\/a>/<a class=\"delete-row\" href=\"\">Delete<\/a>'
 		        	], $('td').filter(function() {
 							return $(this).children("p").text() == modal_id;
 						}).closest('tr').index());
 			}); 
+
+			$( document).on("change", ".location-type", function() {			
+				if ($(this).val() == "Pickup") {
+					$('#pickup-' + $(this).attr("id").match(/\d+/)).css("display", "");
+					$('#delivery-' + $(this).attr("id").match(/\d+/)).css("display", "none");
+					$('#locations-' + $(this).attr("id").match(/\d+/) +'-delivery_weight').val("");
+					$('#locations-' + $(this).attr("id").match(/\d+/) +'-delivery_notes').val("");
+				} else if ($(this).val() == "Drop Off") {
+					$('#pickup-' + $(this).attr("id").match(/\d+/)).css("display", "none");
+					$('#locations-' + $(this).attr("id").match(/\d+/) +'-pickup_weight').val("");
+					$('#locations-' + $(this).attr("id").match(/\d+/) +'-pickup_notes').val("");
+					$('#delivery-' + $(this).attr("id").match(/\d+/)).css("display", "");
+				} else if ($(this).val() == "Both") {
+					$('#pickup-' + $(this).attr("id").match(/\d+/)).css("display", "");
+					$('#delivery-' + $(this).attr("id").match(/\d+/)).css("display", "");
+				} else {
+					$('#pickup-' + $(this).attr("id").match(/\d+/)).css("display", "none");
+					$('#locations-' + $(this).attr("id").match(/\d+/) +'-pickup_weight').val("");
+					$('#locations-' + $(this).attr("id").match(/\d+/) +'-pickup_notes').val("");
+					$('#delivery-' + $(this).attr("id").match(/\d+/)).css("display", "none");
+					$('#locations-' + $(this).attr("id").match(/\d+/) +'-delivery_weight').val("");
+					$('#locations-' + $(this).attr("id").match(/\d+/) +'-delivery_notes').val("");
+				}
+			});
 
 			function create_modal(index){
 			    
@@ -413,7 +533,7 @@
 							'							<input type=\"hidden\" id=\"locations-' + index + '-retired\" name=\"locations-' + index + '-retired\" class=\"form-control\" value=\"'+index+'\">' +
 							'							<div class=\"form-group\">' +
 							'								<label class=\"col-sm-3 control-label\">' +
-							'									Address <span class=\"symbol required\"><\/span>' +
+							'									Address ' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
 							'									<input type=\"text\" id=\"locations-' + index + '-address1\" name=\"locations-' + index + '-address1\" class=\"form-control\" value=\"\">' +
@@ -421,7 +541,7 @@
 							'							<\/div>' +
 							'							<div class=\"form-group\">' +
 							'								<label class=\"col-sm-3 control-label\">' +
-							'									City <span class=\"symbol required\"><\/span>' +
+							'									City ' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
 							'									<input type=\"text\" id=\"locations-' + index + '-city\" name=\"locations-' + index + '-city\" class=\"form-control\">' +
@@ -429,7 +549,7 @@
 							'							<\/div>' +
 							'							<div class=\"form-group\">' +
 							'								<label class=\"col-sm-3 control-label\">' +
-							'									State <span class=\"symbol required\"><\/span>' +
+							'									State ' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
 							'									<input type=\"text\" id=\"locations-' + index + '-state\" name=\"locations-' + index + '-state\" class=\"form-control\">' +
@@ -474,28 +594,38 @@
 							'									<input type=\"text\" id=\"locations-' + index + '-contact_phone\" name=\"locations-' + index + '-contact_phone\" class=\"form-control\"\>' +
 							'								<\/div>' +
 							'							<\/div>' +
+							'							<div class=\"form-group\">' +
+							'								<label class=\"col-sm-3 control-label\">' +
+							'									Email ' +
+							'								<\/label>' +
+							'								<div class=\"col-sm-7\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-contact_email\" name=\"locations-' + index + '-contact_phone\" class=\"form-control\"\>' +
+							'								<\/div>' +
+							'							<\/div>' +
 							'						<\/div>' +
 							'					<\/div>' +
 							'					<div class=\"row\"><hr><\/div>' +
-							'					<div class=\"row\">' +
-							'						<div class=\"col-md-6\">' +
+							'					<div class=\"row\" id=\"pickup-' + index + '\" style=\"display:none;\">' +
+							'						<div class=\"col-md-12\">' +
 							'							<h4>Pickup<\/h4>' +
 							'							<hr>' +
 							'							<div class=\"form-group\">' +
 							'								<label class=\"col-sm-3 control-label\">' +
-							'									Weight <span class=\"symbol required\"><\/span>' +
+							'									Weight (lbs)' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
 							'									<input type=\"text\" id=\"locations-' + index + '-pickup_weight\" name=\"locations-' + index + '-pickup_weight\" class=\"form-control\">' +
 							'								<\/div>' +
 							'							<\/div>' +
 							'						<\/div>' +
-							'						<div class=\"col-md-6\">' +
+							'					<\/div>' +
+							'					<div class=\"row\" id=\"delivery-' + index + '\" style=\"display:none;\">' +
+							'						<div class=\"col-md-12\">' +
 							'							<h4>Delivery<\/h4>' +
 							'							<hr>' +
 							'							<div class=\"form-group\">' +
 							'								<label class=\"col-sm-3 control-label\">' +
-							'									Weight <span class=\"symbol required\"><\/span>' +
+							'									Weight (lbs)' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
 							'									<input type=\"text\" id=\"locations-' + index + '-delivery_weight\" name=\"locations-' + index + '-delivery_weight\" class=\"form-control\">' +

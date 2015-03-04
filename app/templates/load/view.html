@@ -53,10 +53,50 @@ payment processing to owner operator drivers
 	            		</div>
 	            		<div class="panel-body">
 		                	<div id="map-canvas" style="height: 400px; margin: 0; padding: 0;"></div>
+		                	<hr>
+		                	<form name="status" action="" role="form" class="form-horizontal" id="form" method="post">
+		                		{{ status_form.hidden_tag() }}
+			                	<table class="table table-bordered table-hover table-condensed" id="sample-table-1">
+				                    <thead>
+				                        <tr>
+				                            <th>Details</th>
+				                            <th>Address</th>
+				                            <th>Arrival Date</th>
+				                            <th>Status</th>
+				                        </tr>
+				                    </thead>
+				                    <tbody>
+				                        {% for location in locations %}
+				                            <tr>
+				                            	<td><a href="#">View</a></td>
+				                            	<td>{{ location.address.address1 }}<br />{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
+				                            	<td>{{ location.arrival_date }}</td>
+				                            	<td>
+				                            		<input type="hidden" id="location_status-{{ loop.index }}-stop_number" name="location_status-{{ loop.index }}-stop_number" class="form-control" value="{{ location.stop_number }}">
+
+				                            		<select id="location_status-{{ loop.index }}-status" name="location_status-{{ loop.index }}-status" class="form-control location-type" value="">
+															<option value="{{ location.status }}">{{ location.status }}</option>
+															<option value="Arrived">Arrived</option>
+															<option value="Loaded">Loaded</option>
+															<option value="Departed">Departed</option>
+													</select>
+												</td>
+				                            </tr>
+				                        {% endfor %}
+				                    </tbody>
+				                </table>
+				                <div class="form-group">
+									<div class="col-sm-5 col-sm-offset-7">
+										<button type="submit" class="btn btn-success btn-block">
+											Update Status <i class="fa fa-arrow-circle-right"></i>
+										</button>
+									</div>
+								</div>
+							</form>
 	                	</div>
 	            	</div>
 	         	</div>
-	         		{% if user.is_carrier() and load.broker != user %}
+	         		{# {% if user.is_carrier() and load.broker != user %}
 	         		<div class="col-sm-6">
 		        		<div class="panel panel-default">
 		        			<div class="panel-heading">
@@ -82,12 +122,12 @@ payment processing to owner operator drivers
 										</div>
 		            				{% else %}
 			            				<form name="edit" action="{{ url_for('loads.bid', load_id=load.id, company_name=load.broker.company_name) }}" method="post" class="form-horizontal">
-			            					{{ form.hidden_tag() }}
+			            					{{ bid_form.hidden_tag() }}
 			            					<div class="form-horizontal">
 				                    			<div class="control-group">
 													<label class="control-label">Bid</label>
 						                        	<div class="controls">
-						                           		${{ form.value(size=8) }} 
+						                           		${{ bid_form.value(size=8) }} 
 						                           		<input type="submit" class="btn btn-success btn-mini success" value="Place Bid" /> <a href="{{ url_for('loads.reject', load_id=load.id, company_name=load.broker.company_name) }}" class="btn btn-danger btn-mini danger">Reject Load</a>
 				                                        {% for error in form.value.errors %}
 						 									<span style="color: red;">[{{ error }}]</span>
@@ -100,7 +140,7 @@ payment processing to owner operator drivers
 								</div>
 							</div>
 						</div>
-					{% endif %}
+					{% endif %} #}
 	         		{% if load.carrier is not none  %}
 	         			<div class="col-sm-6">
 			        		<div class="panel panel-default">
@@ -247,43 +287,8 @@ payment processing to owner operator drivers
 			            	</div>
 			         	</div>
 	         		{% endif %}
-	        </div>
+	        	</div>
 		    </div>
-	        <div class="row-fluid">
-	    		<div class="col-sm-12">
-	        		<div class="panel panel-default">
-	            		<div class="panel-heading">
-	                		Locations
-	            		</div>
-	            		<div class="panel-body">
-		                	<table class="table table-bordered table-hover" id="sample-table-1">
-			                    <thead>
-			                        <tr>
-			                            <th>Stop #</th>
-			                            <th>Address 1</th>
-			                            <th>City, State ZIP</th>
-			                            <th>Pickup Weight</th>
-			                            <th>Delivery Weight</th>
-			                            <th>Arrival Date</th>
-			                        </tr>
-			                    </thead>
-			                    <tbody>
-			                        {% for location in locations %}
-			                            <tr>
-			                            	<td>{{ location.stop_number }}</td>
-			                            	<td>{{ location.address.address1 }}
-			                            	<td>{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
-			                            	<td>{{ location.pickup_details.weight }}</td>
-			                            	<td>{{ location.delivery_details.weight }}</td>
-			                            	<td>{{ location.arrival_date }}</td>
-			                            </tr>
-			                        {% endfor %}
-			                    </tbody>
-			                </table>
-	                	</div>
-	            	</div>
-	         	</div>         
-	        </div>
 	    </div> 
 	</div>
 </div>
