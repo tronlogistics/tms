@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<form name="create" action="" role="form" class="smart-wizard form-horizontal" id="form" method="post">
+<form name="create" action="" role="form" class="form-horizontal" id="form" method="post">
 	{{ form.hidden_tag() }}
 	<div id="form-container">
 		<!-- start: PAGE CONTENT -->
@@ -236,7 +236,6 @@
 					$('#responsive-' + $.trim(modal_id)).find('.save-modal').text("Update");
 					$('#responsive-' + $.trim(modal_id)).find('.save-modal').addClass("update-modal");
 					$('#responsive-' + $.trim(modal_id)).find('.update-modal').removeClass("save-modal");
-					//alert(table.row( this ).data());
 				});
 			});
 
@@ -269,7 +268,6 @@
 
 			$( document ).on( "click", ".update-modal", function() {
 				var modal_id = $(this).closest(".modal.fade").children("p").text();
-				//alert($(this).closest(".form-control.stop-number").length);
 				$('#sample_2').dataTable().fnUpdate( 
 					['<input type=\"text\" id=\"locations-' + modal_id + '-stop_number\" class=\"form-control stop-number\" value=\"' + modal_id + '\"> <p style=\"display:none;\" class=\"modal-id\">' + modal_id + '<\/p>', 
 					$('#locations-' + modal_id + '-address1').val(),
@@ -309,35 +307,33 @@
 
 			function create_modal(index){
 			    
-			    var modal = '<div id=\"responsive-' + index + '\" class=\"modal fade\" tabindex=\"-1\" data-width=\"840\" style=\"display: none;\">' +
-			   				' <p style=\"display:none;\" class=\"modal-id\">' + index + '<\/p>' + 
+			    var modal = '<div id=\"responsive-' + index + '\" class=\"modal fade\" tabindex=\"-1\" 			data-width=\"840\" style=\"display: none;\">' +
+							'	<p style=\"display:none;\" class=\"modal-id\">' + index + '<\/p>' +
 							'	<div class=\"modal-header\" id=\"modal-header\">' +
-							'		<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-none=\"true\">' +
+							'		<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">' +
 							'			&times;' +
 							'		<\/button>' +
-							'		<h4 class=\"modal-title\">Add Location<\/h4>' +
+							'		<h4 class=\"modal-title\">Edit Location<\/h4>' +
 							'	<\/div>' +
 							'	<div class=\"modal-body\">' +
 							'		<div class=\"row\">' +
 							'			<div class=\"panel panel-default\">' +
 							'				<div class=\"panel-heading\">' +
 							'					<i class=\"fa fa-external-link-square\"><\/i>' +
-							'					Location - ' + index + '' +
+							'					General' +
 							'				<\/div>' +
 							'				<div class=\"panel-body\">' +
-							'					<div class=\"row\">' +
-							'						<div class=\"col-md-12\">' +
-							'							<h4>General<\/h4>' +
-							'							<hr>' +
-							'							<input type=\"none\" id=\"locations-' + index + '-retired\" name=\"locations-' + index + '-retired\" class=\"form-control\" value=\"'+index+'\">' +
+							'					<div class=\"form-horizontal\">' +
+							'						<div class=\"col-sm-12\">' +
+							'							<input type=\"hidden\" id=\"locations-' + 							index + '-retired\" name=\"locations-' + index 							+ '-retired\" class=\"form-control\" value=\"' 							+ index + '\">' +
 							'							<div class=\"form-group\">' +
 							'								<label class=\"col-sm-3 control-label\">' +
 							'									Type <span class=\"symbol required\"><\/span>' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
 							'									<select id=\"locations-' + index + '-stop_type\" name=\"locations-' + index + '-stop_type\" class=\"form-control location-type\" value=\"\">' +
-							'										<option value=\"<none selected>\"><\/option>' +
-							'										<option value=\"Pickup\">Pickup<\/option>' +
+							'										<option value=\"\"><\/option>' +
+							'										<option value=\"Pickup\">Pickup<\/option>' +									
 							'										<option value=\"Drop Off\">Drop Off<\/option>' +
 							'										<option value=\"Both\">Both<\/option>' +
 							'									<\/select>' +
@@ -356,7 +352,7 @@
 							'									City <span class=\"symbol required\"><\/span>' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
-							'									<input type=\"text\" id=\"locations-' + index + '-city\" name=\"locations-' + index + '-city\" class=\"form-control\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-city\" name=\"locations-' + index + '-city\" class=\"form-control\"value=\"\">' +
 							'								<\/div>' +
 							'							<\/div>' +
 							'							<div class=\"form-group\">' +
@@ -364,7 +360,7 @@
 							'									State <span class=\"symbol required\"><\/span>' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
-							'									<input type=\"text\" id=\"locations-' + index + '-state\" name=\"locations-' + index + '-state\" class=\"form-control\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-state\" name=\"locations-' + index + '-state\" class=\"form-control\" value=\"\">' +
 							'								<\/div>' +
 							'							<\/div>' +
 							'							<div class=\"form-group\">' +
@@ -372,7 +368,7 @@
 							'									Zip Code <span class=\"symbol required\"><\/span>' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
-							'									<input type=\"text\" id=\"locations-' + index + '-postal_code\" name=\"locations-' + index + '-postal_code\" class=\"form-control\"\>' +
+							'									<input type=\"text\" id=\"locations-' + index + '-postal_code\" name=\"locations-' + index + '-postal_code\" class=\"form-control\" value=\"\">' +
 							'								<\/div>' +
 							'							<\/div>' +
 							'							<div class=\"form-group\">' +
@@ -380,22 +376,29 @@
 							'									Arrival Date <span class=\"symbol required\"><\/span>' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
-							'									<input type=\"text\" id=\"locations-' + index + '-arrival_date\" name=\"locations-' + index + '-arrival_date\" data-date-format=\"mm-dd-yyyy\" data-date-viewmode=\"years\" class=\"form-control date-picker\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-arrival_date\" name=\"locations-' + index + '-arrival_date\" data-date-format=\"mm-dd-yyyy\" data-date-viewmode=\"years\" class=\"form-control date-picker\" value=\"\">' +
 							'								<\/div>' +
 							'							<\/div>' +
 							'						<\/div>' +
 							'					<\/div>' +
-							'					<div class=\"row\"><hr><\/div>' +
-							'					<div class=\"row\">' +
-							'						<div class=\"col-md-12\">' +
-							'							<h4>Contact<\/h4>' +
-							'							<hr>' +
+							'				<\/div>' +
+							'			<\/div>' +
+							'		<\/div>' +
+							'		<div class=\"row\">' +
+							'			<div class=\"panel panel-default\">' +
+							'				<div class=\"panel-heading\">' +
+							'					<i class=\"fa fa-external-link-square\"><\/i>' +
+							'					Contact' +
+							'				<\/div>' +
+							'				<div class=\"panel-body\">' +
+							'					<div class=\"form-horizontal\">' +
+							'						<div class=\"col-sm-12\">' +
 							'							<div class=\"form-group\">' +
 							'								<label class=\"col-sm-3 control-label\">' +
 							'									Name <span class=\"symbol required\"><\/span>' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
-							'									<input type=\"text\" id=\"locations-' + index + '-contact_name\" name=\"locations-' + index + '-contact_name\" class=\"form-control\"\>' +
+							'									<input type=\"text\" id=\"locations-' + index + '-contact_name\" name=\"locations-' + index + '-contact_name\" class=\"form-control\" value=\"\">' +
 							'								<\/div>' +
 							'							<\/div>' +
 							'							<div class=\"form-group\">' +
@@ -403,52 +406,75 @@
 							'									Phone <span class=\"symbol required\"><\/span>' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
-							'									<input type=\"text\" id=\"locations-' + index + '-contact_phone\" name=\"locations-' + index + '-contact_phone\" class=\"form-control\"\>' +
+							'									<input type=\"text\" id=\"locations-' + index + '-contact_phone\" name=\"locations-' + index + '-contact_phone\" class=\"form-control\" value=\"\">' +
+							'								<\/div>' +
+							'							<\/div>' +
+							'							<div class=\"form-group\">' +
+							'								<label class=\"col-sm-3 control-label\">' +
+							'									Email' +
+							'								<\/label>' +
+							'								<div class=\"col-sm-7\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-contact_email\" name=\"locations-' + index + '-contact_email\" class=\"form-control\" value=\"\">' +
 							'								<\/div>' +
 							'							<\/div>' +
 							'						<\/div>' +
 							'					<\/div>' +
-							'					<div class=\"row\"><hr><\/div>' +
-							'					<div class=\"row\" id=\"pickup-' + index + '\" style=\"display:none;\">' +
-							'						<div class=\"col-md-12\">' +
-							'							<h4>Pickup<\/h4>' +
-							'							<hr>' +
+							'				<\/div>' +
+							'			<\/div>' +
+							'		<\/div>' +
+							'		<div class=\"row\" id=\"pickup-' + index + '\" style=\"display:none;\">' +
+							'			<div class=\"panel panel-default\">' +
+							'				<div class=\"panel-heading\">' +
+							'					<i class=\"fa fa-external-link-square\"><\/i>' +
+							'					Pickup Details' +
+							'				<\/div>' +
+							'				<div class=\"panel-body\">' +
+							'					<div class=\"form-horizontal\">' +
+							'						<div class=\"col-sm-12\">' +
 							'							<div class=\"form-group\">' +
 							'								<label class=\"col-sm-3 control-label\">' +
-							'									Weight <span class=\"symbol required\"><\/span>' +
+							'									Weight (lbs) <span class=\"symbol required\"><\/span>' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
-							'									<input type=\"text\" id=\"locations-' + index + '-pickup_weight\" name=\"locations-' + index + '-pickup_weight\" class=\"form-control\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-pickup_weight\" name=\"locations-' + index + '-pickup_weight\" class=\"form-control\" value=\"\">' +
 							'								<\/div>' +
 							'							<\/div>' +
 							'							<div class=\"form-group\">' +
 							'								<label class=\"col-sm-3 control-label\">' +
-							'									Notes' +
+							'									Notes <span class=\"symbol required\"><\/span>' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
-							'									<textarea class=\"autosize form-control\" id=\"locations-' + index + '-pickup_notes\" name=\"locations-' + index + '-pickup_notes\" style=\"overflow: none; word-wrap: break-word; resize: horizontal; height: 69px;\"><\/textarea>' +
+							'									<textarea class=\"autosize form-control\" id=\"locations-' + index + '-pickup_notes\" name=\"locations-' + index + '-pickup_notes\" style=\"overflow: hidden; word-wrap: break-word; resize: horizontal; height: 69px;\"><\/textarea>' +
 							'								<\/div>' +
 							'							<\/div>' +
 							'						<\/div>' +
 							'					<\/div>' +
-							'					<div class=\"row\" id=\"delivery-' + index + '\" style=\"display:none;\">' +
-							'						<div class=\"col-md-12\">' +
-							'							<h4>Delivery<\/h4>' +
-							'							<hr>' +
+							'				<\/div>' +
+							'			<\/div>' +
+							'		<\/div>' +
+							'		<div class=\"row\" id=\"delivery-' + index + '\" style=\"display:none;\">' +
+							'			<div class=\"panel panel-default\">' +
+							'				<div class=\"panel-heading\">' +
+							'					<i class=\"fa fa-external-link-square\"><\/i>' +
+							'					Drop Off Details' +
+							'				<\/div>' +
+							'				<div class=\"panel-body\">' +
+							'					<div class=\"form-horizontal\">' +
+							'						<div class=\"col-sm-12\">' +
 							'							<div class=\"form-group\">' +
 							'								<label class=\"col-sm-3 control-label\">' +
-							'									Weight <span class=\"symbol required\"><\/span>' +
+							'									Weight (lbs) <span class=\"symbol required\"><\/span>' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
-							'									<input type=\"text\" id=\"locations-' + index + '-delivery_weight\" name=\"locations-' + index + '-delivery_weight\" class=\"form-control\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-delivery_weight\" name=\"locations-' + index + '-delivery_weight\" class=\"form-control\" value=\"\">' +
 							'								<\/div>' +
 							'							<\/div>' +
 							'							<div class=\"form-group\">' +
 							'								<label class=\"col-sm-3 control-label\">' +
-							'									Notes' +
+							'									Notes <span class=\"symbol required\"><\/span>' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
-							'									<textarea class=\"autosize form-control\" id=\"locations-' + index + '-delivery_notes\" name=\"locations-' + index + '-pickup_notes\" style=\"overflow: none; word-wrap: break-word; resize: horizontal; height: 69px;\"><\/textarea>' +
+							'									<textarea class=\"autosize form-control\" id=\"locations-' + index + '-delivery_notes\" name=\"locations-' + index + '-pickup_notes\" style=\"overflow: hidden; word-wrap: break-word; resize: horizontal; height: 69px;\"><\/textarea>' +
 							'								<\/div>' +
 							'							<\/div>' +
 							'						<\/div>' +
@@ -458,14 +484,14 @@
 							'		<\/div>' +
 							'	<\/div>' +
 							'	<div class=\"modal-footer\">' +
-							'   <input type=\"none\" id=\"locations-' + ($('#sample_2').dataTable().fnSettings().aoData.length + 1) + '-stop_number\" name=\"locations-' + ($('#sample_2').dataTable().fnSettings().aoData.length + 1) + '-stop_number\" class=\"form-control stop-number\" value=\"' + ($('#sample_2').dataTable().fnSettings().aoData.length + 1) + '\">' +
+							'   		<input type=\"hidden\" id=\"locations-' + index + '-stop_number\" name=\"locations-' + index + '-stop_number\" class=\"form-control stop-number\" value=\"' + index + '\">' +
 							'		<button type=\"button\" data-dismiss=\"modal\" class=\"btn btn-light-grey\">' +
 							'			Close' +
 							'		<\/button>' +
 							'		<button type=\"button\" data-dismiss=\"modal\" class=\"btn btn-blue save-modal\">' +
 							'			Add' +
 							'		<\/button>' +
-							'	<\/div>' +
+							'	<\/div>' + 
 							'<\/div>'
 			    $("#form-container").append(modal);
 			}

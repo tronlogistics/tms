@@ -1229,7 +1229,10 @@ color: #AAAAAA !important;
 /*	Main Container and main content elements
  /* ---------------------------------------------------------------------- */
 .main-container {
-	margin-top: 48px;
+    border-top-width: 1px;
+    border-top-color: #cccccc;
+    border-top-style: solid;
+	margin-top: 0px;
 }
 .page-full-width .main-container {
 	margin-top: 98px;
@@ -1284,7 +1287,19 @@ ul.main-navigation-menu > li > a {
 	position: relative;
 	text-decoration: none;
 	border-bottom: 1px solid #DDDDDD;
-	border-top: 1px solid #FFFFFF;
+	
+}
+
+ul.main-navigation-menu > li + li > a {
+	border: 0 none;
+	display: block;
+	font-size: 14px;
+	font-weight: 300;
+	margin: 0;
+	padding: 10px 15px;
+	position: relative;
+	text-decoration: none;
+	border-top: 1px solid #DDDDDD;
 }
 ul.main-navigation-menu li  a .badge {
 	float: right;

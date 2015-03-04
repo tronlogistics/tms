@@ -104,5 +104,5 @@ def AddressFactory(address1, city, state, postal_code):
 
 def ContactFactory(name, email, phone):
 	return Contact(name=name,
-					email=email,
-					phone=phone)
+					phone=email,
+					email=phone)

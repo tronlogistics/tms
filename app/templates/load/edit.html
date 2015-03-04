@@ -3,103 +3,148 @@
 {% block content %}
 <form name="create" action="" role="form" class="form-horizontal" id="form" method="post">
 	{{ form.hidden_tag() }}
-	<!-- start: PAGE CONTENT -->
-	<div class="row" id="form-container">
-		<div class="col-sm-12">	
+	<div id="form-container">
+		<!-- start: PAGE CONTENT -->
 			<div class="row">
-				<div class="col-sm-10">
-					<div class="form-group">
-						<label class="col-sm-3 control-label">
-							Load Type <span class="symbol required"></span>
-						</label>
-						<div class="col-sm-7">
-							{{ form.load_type(class="form-control") }}
+				<div class="col-sm-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="fa fa-external-link-square"></i>
+							Shipper
 						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">
-							Required Trailer <span class="symbol required"></span>
-						</label>
-						<div class="col-sm-7">
-							{{ form.trailer_type(class="form-control") }}
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">
-							Total Miles <span class="symbol required"></span>
-						</label>
-						<div class="col-sm-7">
-							{{ form.total_miles(class="form-control", placeholder="Total Miles") }}
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">
-							Cost <span class="symbol required"></span>
-						</label>
-						<div class="col-sm-7">
-							{{ form.price(class="form-control", placeholder="Price") }}
+						<div class="panel-body">
+							<div class="col-sm-10">
+								<div class="form-group">
+									<label class="col-sm-4 control-label">
+										Company Name
+									</label>
+									<div class="col-sm-7">
+										{{ form.shipper.company_name(class="form-control", placeholder="Company Name") }}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">
+										Phone
+									</label>
+									<div class="col-sm-7">
+										{{ form.shipper.phone(class="form-control", placeholder="Phone") }}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">
+										Email
+									</label>
+									<div class="col-sm-7">
+										{{ form.shipper.email(class="form-control", placeholder="Email") }}
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				{#<div class="col-sm-5">
-					<div class="form-group">
-						<label class="col-sm-3 control-label">
-							# Pieces <span class="symbol required"></span>
-						</label>
-						<div class="col-sm-7">
-							{{ form.number_pieces(class="form-control", placeholder="Number of Pieces") }}
+				<div class="col-sm-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="fa fa-external-link-square"></i>
+							Broker
 						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">
-							Over Dimensional? 
-						</label>
-						<div class="col-sm-7">
-							{{ form.over_dimensional() }}
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-sm-3 control-label">
-							Comments <span class="symbol required"></span>
-						</label>
-						<div class="col-sm-7">
-							{{ form.comments(class="form-control", placeholder="Number of Pieces") }}
-						</div>
-					</div>
-				</div>#}
-			</div>
-			<hr>
-			<div class="row">
-				<div class="col-sm-10">
-					<div class="form-group">
-						<label class="col-sm-3 control-label">
-							Load Description
-						</label>
-						<div class="col-sm-7">
-							{{ form.description(class="autosize form-control", style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 69px;") }}
+						<div class="panel-body">
+							<div class="col-sm-10">
+								<div class="form-group">
+									<label class="col-sm-4 control-label">
+										Company Name
+									</label>
+									<div class="col-sm-7">
+										{{ form.broker.company_name(class="form-control", placeholder="Company Name") }}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">
+										Phone
+									</label>
+									<div class="col-sm-7">
+										{{ form.broker.phone(class="form-control", placeholder="Phone") }}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">
+										Email
+									</label>
+									<div class="col-sm-7">
+										{{ form.broker.email(class="form-control", placeholder="Email") }}
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="fa fa-external-link-square"></i>
+							General
+						</div>
+						<div class="panel-body">
+							<div class="col-sm-10">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">
+										Load Type <span class="symbol required"></span>
+									</label>
+									<div class="col-sm-7">
+										{{ form.load_type(class="form-control") }}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">
+										Required Trailer <span class="symbol required"></span>
+									</label>
+									<div class="col-sm-7">
+										{{ form.trailer_type(class="form-control") }}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">
+										Total Miles <span class="symbol required"></span>
+									</label>
+									<div class="col-sm-7">
+										{{ form.total_miles(class="form-control", placeholder="Total Miles") }}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">
+										Cost <span class="symbol required"></span>
+									</label>
+									<div class="col-sm-7">
+										{{ form.price(class="form-control", placeholder="Price") }}
+									</div>
+								</div>
+								<hr>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">
+										Load Description
+									</label>
+									<div class="col-sm-7">
+										{{ form.description(class="autosize form-control", style="overflow: none; word-wrap: break-word; resize: horizontal; height: 69px;") }}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<i class="fa fa-external-link-square"></i>
 							Locations
-							<div class="panel-tools">
-								<a class="btn btn-xs btn-link panel-collapse collapses" href="#"> </a>
-								<a class="btn btn-xs btn-link panel-config" href="#panel-config" data-toggle="modal"> <i class="fa fa-wrench"></i> </a>
-								<a class="btn btn-xs btn-link panel-refresh" href="#"> <i class="fa fa-refresh"></i> </a>
-								<a class="btn btn-xs btn-link panel-expand" href="#"> <i class="fa fa-resize-full"></i> </a>
-								<a class="btn btn-xs btn-link panel-close" href="#"> <i class="fa fa-times"></i> </a>
-							</div>
 						</div>
 						<div class="panel-body">
 							<div class="row">
 								<div class="col-md-12 space20">
-									<a href="#responsive-{{ load.lane.locations.count() + 1 }}" data-toggle="modal" class="new-modal btn btn-green">
+									<a href="#responsive-1" data-toggle="modal" class="new-modal btn btn-green">
 												Add New <i class="fa fa-plus"></i>
 											</a>
 								</div>
@@ -156,200 +201,206 @@
 					</div>
 				</div>
 			</div>
+			{% for location in load.lane.locations %}
+				<div id="responsive-{{ loop.index }}" class="modal fade" tabindex="-1" data-width="840" style="display: none;">
+					<p style="display:none;" class="modal-id">{{ loop.index }}</p>
+					<div class="modal-header" id="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title">Edit Location</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<i class="fa fa-external-link-square"></i>
+									General
+								</div>
+								<div class="panel-body">
+									<div class="form-horizontal">
+										<div class="col-sm-12">
+											<input type="hidden" id="locations-{{ loop.index }}-retired" name="locations-{{ loop.index }}-retired" class="form-control" value="{{ loop.index }}">
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													Type <span class="symbol required"></span>
+												</label>
+												<div class="col-sm-7">
+													<select id="locations-{{ loop.index }}-stop_type" name="locations-{{ loop.index }}-stop_type" class="form-control location-type" value="">
+																	<option value=""></option>
+																	<option value="Pickup" {% if location.type == "Pickup" %}selected="selected"{% endif %}>Pickup</option>								
+																	<option value="Drop Off" {% if location.type == "Drop Off" %}selected="selected"{% endif %}>Drop Off</option>
+																	<option value="Both" {% if location.type == "Both" %}selected="selected"{% endif %}>Both</option>
+																</select>
+													{#<select id="locations-{{ loop.index }}-stop_type" name="locations-' + index + '-stop_type" class="form-control location-type" value="">
+														<option value="Pickup" {% if location.type == "Pickup" %}selected="selected"{% endif %}>Pickup</option>
+													
+														<option value="Drop Off" {% if location.type == "Drop Off" %}selected="selected"{% endif %}>Drop Off</option>
+														<option value="Both" {% if location.type == "Both" %}selected="selected"{% endif %}>Both</option>
+													</select>#}
+												</div>
+											</div>
+											<div class="form-group">
+												<p>
+												<label class="col-sm-3 control-label">
+													Address <span class="symbol required"></span>
+												</label>
+												<div class="col-sm-7">
+													<input type="text" id="locations-{{ loop.index }}-address1" name="locations-{{ loop.index }}-address1" class="form-control" value="{{ location.address.address1 }}">
+												</div>
+											</p>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													City <span class="symbol required"></span>
+												</label>
+												<div class="col-sm-7">
+													<input type="text" id="locations-{{ loop.index }}-city" name="locations-{{ loop.index }}-city" class="form-control"value="{{ location.address.city }}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													State <span class="symbol required"></span>
+												</label>
+												<div class="col-sm-7">
+													<input type="text" id="locations-{{ loop.index }}-state" name="locations-{{ loop.index }}-state" class="form-control" value="{{ location.address.state }}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													Zip Code <span class="symbol required"></span>
+												</label>
+												<div class="col-sm-7">
+													<input type="text" id="locations-{{ loop.index }}-postal_code" name="locations-{{ loop.index }}-postal_code" class="form-control" value="{{ location.address.postal_code }}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													Arrival Date <span class="symbol required"></span>
+												</label>
+												<div class="col-sm-7">
+													<input type="text" id="locations-{{ loop.index }}-arrival_date" name="locations-{{ loop.index }}-arrival_date" data-date-format="mm-dd-yyyy" data-date-viewmode="years" class="form-control date-picker" value="{{ location.arrival_date.strftime('%m/%d/%Y') }}">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<i class="fa fa-external-link-square"></i>
+									Contact
+								</div>
+								<div class="panel-body">
+									<div class="form-horizontal">
+										<div class="col-sm-12">
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													Name <span class="symbol required"></span>
+												</label>
+												<div class="col-sm-7">
+													<input type="text" id="locations-{{ loop.index }}-contact_name" name="locations-{{ loop.index }}-contact_name" class="form-control" value="{{ location.contact.name }}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													Phone <span class="symbol required"></span>
+												</label>
+												<div class="col-sm-7">
+													<input type="text" id="locations-{{ loop.index }}-contact_phone" name="locations-{{ loop.index }}-contact_phone" class="form-control" value="{{ location.contact.phone }}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													Email
+												</label>
+												<div class="col-sm-7">
+													<input type="text" id="locations-{{ loop.index }}-contact_email" name="locations-{{ loop.index }}-contact_email" class="form-control" value="{{ location.contact.email }}">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row" id="pickup-{{ loop.index }}" style="display:none;">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<i class="fa fa-external-link-square"></i>
+									Pickup Details
+								</div>
+								<div class="panel-body">
+									<div class="form-horizontal">
+										<div class="col-sm-12">
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													Weight (lbs) <span class="symbol required"></span>
+												</label>
+												<div class="col-sm-7">
+													<input type="text" id="locations-{{ loop.index }}-pickup_weight" name="locations-{{ loop.index }}-pickup_weight" class="form-control" value="{{ location.pickup_details.weight }}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													Notes <span class="symbol required"></span>
+												</label>
+												<div class="col-sm-7">
+													<textarea class="autosize form-control" id="locations-{{ loop.index }}-pickup_notes" name="locations-{{ loop.index }}-pickup_notes" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 69px;"></textarea>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row" id="delivery-{{ loop.index }}" style="display:none;">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<i class="fa fa-external-link-square"></i>
+									Drop Off Details
+								</div>
+								<div class="panel-body">
+									<div class="form-horizontal">
+										<div class="col-sm-12">
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													Weight (lbs) <span class="symbol required"></span>
+												</label>
+												<div class="col-sm-7">
+													<input type="text" id="locations-{{ loop.index }}-delivery_weight" name="locations-{{ loop.index }}-delivery_weight" class="form-control" value="{{ location.delivery_details.weight }}">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													Notes <span class="symbol required"></span>
+												</label>
+												<div class="col-sm-7">
+													<textarea class="autosize form-control" id="locations-{{ loop.index }}-delivery_notes" name="locations-{{ loop.index }}-pickup_notes" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 69px;"></textarea>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+				   		<input type="hidden" id="locations-{{ loop.index }}-stop_number" name="locations-{{ loop.index }}-stop_number" class="form-control stop-number" value="{{ loop.index }}">
+						<button type="button" data-dismiss="modal" class="btn btn-light-grey">
+							Close
+						</button>
+						<button type="button" data-dismiss="modal" class="btn btn-blue save-modal">
+							Add
+						</button>
+					</div>
+				</div>
+			{% endfor %}
 		</div>
-	
-	{% for location in load.lane.locations %}
-		<div id="responsive-{{ loop.index }}" class="modal fade" tabindex="-1" data-width="840" style="display: none;">
-			<p style="display:none;" class="modal-id">{{ loop.index }}</p>
-			<div class="modal-header" id="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-					&times;
-				</button>
-				<h4 class="modal-title">Edit Location</h4>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<i class="fa fa-external-link-square"></i>
-							General
-						</div>
-						<div class="panel-body">
-							<div class="form-horizontal">
-								<div class="col-sm-12">
-									<input type="hidden" id="locations-{{ loop.index }}-retired" name="locations-{{ loop.index }}-retired" class="form-control" value="{{ loop.index }}">
-									<div class="form-group">
-										<label class="col-sm-3 control-label">
-											Type <span class="symbol required"></span>
-										</label>
-										<div class="col-sm-7">
-											<select id="locations-{{ loop.index }}-type" name="locations-' + index + '-type" class="form-control location-type" value="">
-												<option value="Pickup" {% if location.type == "Pickup" %}selected="selected"{% endif %}>Pickup</option>
-											
-												<option value="Drop Off" {% if location.type == "Drop Off" %}selected="selected"{% endif %}>Drop Off</option>
-												<option value="Both" {% if location.type == "Both" %}selected="selected"{% endif %}>Both</option>
-											</select>
-										</div>
-									</div>
-									<div class="form-group">
-										<p>
-										<label class="col-sm-3 control-label">
-											Address <span class="symbol required"></span>
-										</label>
-										<div class="col-sm-7">
-											<input type="text" id="locations-{{ loop.index }}-address1" name="locations-{{ loop.index }}-address1" class="form-control" value="{{ location.address.address1 }}">
-										</div>
-									</p>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-3 control-label">
-											City <span class="symbol required"></span>
-										</label>
-										<div class="col-sm-7">
-											<input type="text" id="locations-{{ loop.index }}-city" name="locations-{{ loop.index }}-city" class="form-control"value="{{ location.address.city }}">
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-3 control-label">
-											State <span class="symbol required"></span>
-										</label>
-										<div class="col-sm-7">
-											<input type="text" id="locations-{{ loop.index }}-state" name="locations-{{ loop.index }}-state" class="form-control" value="{{ location.address.state }}">
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-3 control-label">
-											Zip Code <span class="symbol required"></span>
-										</label>
-										<div class="col-sm-7">
-											<input type="text" id="locations-{{ loop.index }}-postal_code" name="locations-{{ loop.index }}-postal_code" class="form-control" value="{{ location.address.postal_code }}">
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-3 control-label">
-											Arrival Date <span class="symbol required"></span>
-										</label>
-										<div class="col-sm-7">
-											<input type="text" id="locations-{{ loop.index }}-arrival_date" name="locations-{{ loop.index }}-arrival_date" data-date-format="mm-dd-yyyy" data-date-viewmode="years" class="form-control date-picker" value="{{ location.arrival_date.strftime('%m/%d/%Y') }}">
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<i class="fa fa-external-link-square"></i>
-							Contact
-						</div>
-						<div class="panel-body">
-							<div class="form-horizontal">
-								<div class="col-sm-12">
-									<div class="form-group">
-										<label class="col-sm-3 control-label">
-											Name <span class="symbol required"></span>
-										</label>
-										<div class="col-sm-7">
-											<input type="text" id="locations-{{ loop.index }}-contact_name" name="locations-{{ loop.index }}-contact_name" class="form-control" value="{{ location.contact.name }}">
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-3 control-label">
-											Phone <span class="symbol required"></span>
-										</label>
-										<div class="col-sm-7">
-											<input type="text" id="locations-{{ loop.index }}-contact_phone" name="locations-{{ loop.index }}-contact_phone" class="form-control" value="{{ location.contact.phone }}">
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-3 control-label">
-											Email
-										</label>
-										<div class="col-sm-7">
-											<input type="text" id="locations-{{ loop.index }}-contact_email" name="locations-{{ loop.index }}-contact_email" class="form-control" value="{{ location.contact.email }}">
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row" id="pickup-{{ loop.index }}" style="display:none;">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<i class="fa fa-external-link-square"></i>
-							Pickup Details
-						</div>
-						<div class="panel-body">
-							<div class="form-horizontal">
-								<div class="col-sm-12">
-									<div class="form-group">
-										<label class="col-sm-3 control-label">
-											Weight (lbs) <span class="symbol required"></span>
-										</label>
-										<div class="col-sm-7">
-											<input type="text" id="locations-{{ loop.index }}-pickup_weight" name="locations-{{ loop.index }}-pickup_weight" class="form-control" value="{{ location.pickup_details.weight }}">
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-3 control-label">
-											Notes <span class="symbol required"></span>
-										</label>
-										<div class="col-sm-7">
-											<textarea class="autosize form-control" id="locations-{{ loop.index }}-pickup_notes" name="locations-{{ loop.index }}-pickup_notes" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 69px;"></textarea>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row" id="delivery-{{ loop.index }}" style="display:none;">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<i class="fa fa-external-link-square"></i>
-							Drop Off Details
-						</div>
-						<div class="panel-body">
-							<div class="form-horizontal">
-								<div class="col-sm-12">
-									<div class="form-group">
-										<label class="col-sm-3 control-label">
-											Weight (lbs) <span class="symbol required"></span>
-										</label>
-										<div class="col-sm-7">
-											<input type="text" id="locations-{{ loop.index }}-delivery_weight" name="locations-{{ loop.index }}-delivery_weight" class="form-control" value="{{ location.delivery_details.weight }}">
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-3 control-label">
-											Notes <span class="symbol required"></span>
-										</label>
-										<div class="col-sm-7">
-											<textarea class="autosize form-control" id="locations-{{ loop.index }}-delivery_notes" name="locations-{{ loop.index }}-pickup_notes" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 69px;"></textarea>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="modal-footer">
-		   		<input type="hidden" id="locations-{{ loop.index }}-stop_number" name="locations-{{ loop.index }}-stop_number" class="form-control stop-number" value="{{ loop.index }}">
-				<button type="button" data-dismiss="modal" class="btn btn-light-grey">
-					Close
-				</button>
-				<button type="button" data-dismiss="modal" class="btn btn-blue save-modal">
-					Add
-				</button>
-			</div>
-		</div>
-	{% endfor %}
-	</div>
+
 </form>
+
 		<!-- end: RIGHT SIDEBAR -->
 		{% include "partials/main_javascripts.html" %}
 		<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
@@ -370,11 +421,9 @@
 			$(document).ready(function(){
 				$('.location-type').each(function(index){
 					var index = index + 1;
-					alert(index + ' - ' + $(this).val());
 					if ($(this).val() == "Pickup") {
 						$('#pickup-' + index).css("display", "");
 						$('#delivery-' + index).css("display", "none");
-						alert($('#pickup-' + index).css("display"));
 					} else if ($(this).val() == "Drop Off") {
 						$('#pickup-' + index).css("display", "none");
 						$('#delivery-' + index).css("display", "");
@@ -510,30 +559,41 @@
 
 			function create_modal(index){
 			    
-			    var modal = '<div id=\"responsive-' + index + '\" class=\"modal fade\" tabindex=\"-1\" data-width=\"840\" style=\"display: none;\">' +
-			   				' <p style=\"display:none;\" class=\"modal-id\">' + index + '<\/p>' + 
+			    var modal = '<div id=\"responsive-' + index + '\" class=\"modal fade\" tabindex=\"-1\" 			data-width=\"840\" style=\"display: none;\">' +
+							'	<p style=\"display:none;\" class=\"modal-id\">' + index + '<\/p>' +
 							'	<div class=\"modal-header\" id=\"modal-header\">' +
 							'		<button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">' +
 							'			&times;' +
 							'		<\/button>' +
-							'		<h4 class=\"modal-title\">Add Location<\/h4>' +
+							'		<h4 class=\"modal-title\">Edit Location<\/h4>' +
 							'	<\/div>' +
 							'	<div class=\"modal-body\">' +
 							'		<div class=\"row\">' +
 							'			<div class=\"panel panel-default\">' +
 							'				<div class=\"panel-heading\">' +
 							'					<i class=\"fa fa-external-link-square\"><\/i>' +
-							'					Location - ' + index + '' +
+							'					General' +
 							'				<\/div>' +
 							'				<div class=\"panel-body\">' +
-							'					<div class=\"row\">' +
-							'						<div class=\"col-md-12\">' +
-							'							<h4>General<\/h4>' +
-							'							<hr>' +
-							'							<input type=\"hidden\" id=\"locations-' + index + '-retired\" name=\"locations-' + index + '-retired\" class=\"form-control\" value=\"'+index+'\">' +
+							'					<div class=\"form-horizontal\">' +
+							'						<div class=\"col-sm-12\">' +
+							'							<input type=\"hidden\" id=\"locations-' + 							index + '-retired\" name=\"locations-' + index 							+ '-retired\" class=\"form-control\" value=\"' 							+ index + '\">' +
 							'							<div class=\"form-group\">' +
 							'								<label class=\"col-sm-3 control-label\">' +
-							'									Address ' +
+							'									Type <span class=\"symbol required\"><\/span>' +
+							'								<\/label>' +
+							'								<div class=\"col-sm-7\">' +
+							'									<select id=\"locations-' + index + '-stop_type\" name=\"locations-' + index + '-stop_type\" class=\"form-control location-type\" value=\"\">' +
+							'										<option value=\"\"><\/option>' +
+							'										<option value=\"Pickup\">Pickup<\/option>' +									
+							'										<option value=\"Drop Off\">Drop Off<\/option>' +
+							'										<option value=\"Both\">Both<\/option>' +
+							'									<\/select>' +
+							'								<\/div>' +
+							'							<\/div>' +
+							'							<div class=\"form-group\">' +
+							'								<label class=\"col-sm-3 control-label\">' +
+							'									Address <span class=\"symbol required\"><\/span>' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
 							'									<input type=\"text\" id=\"locations-' + index + '-address1\" name=\"locations-' + index + '-address1\" class=\"form-control\" value=\"\">' +
@@ -541,18 +601,18 @@
 							'							<\/div>' +
 							'							<div class=\"form-group\">' +
 							'								<label class=\"col-sm-3 control-label\">' +
-							'									City ' +
+							'									City <span class=\"symbol required\"><\/span>' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
-							'									<input type=\"text\" id=\"locations-' + index + '-city\" name=\"locations-' + index + '-city\" class=\"form-control\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-city\" name=\"locations-' + index + '-city\" class=\"form-control\"value=\"\">' +
 							'								<\/div>' +
 							'							<\/div>' +
 							'							<div class=\"form-group\">' +
 							'								<label class=\"col-sm-3 control-label\">' +
-							'									State ' +
+							'									State <span class=\"symbol required\"><\/span>' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
-							'									<input type=\"text\" id=\"locations-' + index + '-state\" name=\"locations-' + index + '-state\" class=\"form-control\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-state\" name=\"locations-' + index + '-state\" class=\"form-control\" value=\"\">' +
 							'								<\/div>' +
 							'							<\/div>' +
 							'							<div class=\"form-group\">' +
@@ -560,7 +620,7 @@
 							'									Zip Code <span class=\"symbol required\"><\/span>' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
-							'									<input type=\"text\" id=\"locations-' + index + '-postal_code\" name=\"locations-' + index + '-postal_code\" class=\"form-control\"\>' +
+							'									<input type=\"text\" id=\"locations-' + index + '-postal_code\" name=\"locations-' + index + '-postal_code\" class=\"form-control\" value=\"\">' +
 							'								<\/div>' +
 							'							<\/div>' +
 							'							<div class=\"form-group\">' +
@@ -568,22 +628,29 @@
 							'									Arrival Date <span class=\"symbol required\"><\/span>' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
-							'									<input type=\"text\" id=\"locations-' + index + '-arrival_date\" name=\"locations-' + index + '-arrival_date\" data-date-format=\"dd-mm-yyyy\" data-date-viewmode=\"years\" class=\"form-control date-picker\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-arrival_date\" name=\"locations-' + index + '-arrival_date\" data-date-format=\"mm-dd-yyyy\" data-date-viewmode=\"years\" class=\"form-control date-picker\" value=\"\">' +
 							'								<\/div>' +
 							'							<\/div>' +
 							'						<\/div>' +
 							'					<\/div>' +
-							'					<div class=\"row\"><hr><\/div>' +
-							'					<div class=\"row\">' +
-							'						<div class=\"col-md-12\">' +
-							'							<h4>Receiver<\/h4>' +
-							'							<hr>' +
+							'				<\/div>' +
+							'			<\/div>' +
+							'		<\/div>' +
+							'		<div class=\"row\">' +
+							'			<div class=\"panel panel-default\">' +
+							'				<div class=\"panel-heading\">' +
+							'					<i class=\"fa fa-external-link-square\"><\/i>' +
+							'					Contact' +
+							'				<\/div>' +
+							'				<div class=\"panel-body\">' +
+							'					<div class=\"form-horizontal\">' +
+							'						<div class=\"col-sm-12\">' +
 							'							<div class=\"form-group\">' +
 							'								<label class=\"col-sm-3 control-label\">' +
 							'									Name <span class=\"symbol required\"><\/span>' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
-							'									<input type=\"text\" id=\"locations-' + index + '-contact_name\" name=\"locations-' + index + '-contact_name\" class=\"form-control\"\>' +
+							'									<input type=\"text\" id=\"locations-' + index + '-contact_name\" name=\"locations-' + index + '-contact_name\" class=\"form-control\" value=\"\">' +
 							'								<\/div>' +
 							'							<\/div>' +
 							'							<div class=\"form-group\">' +
@@ -591,44 +658,75 @@
 							'									Phone <span class=\"symbol required\"><\/span>' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
-							'									<input type=\"text\" id=\"locations-' + index + '-contact_phone\" name=\"locations-' + index + '-contact_phone\" class=\"form-control\"\>' +
+							'									<input type=\"text\" id=\"locations-' + index + '-contact_phone\" name=\"locations-' + index + '-contact_phone\" class=\"form-control\" value=\"\">' +
 							'								<\/div>' +
 							'							<\/div>' +
 							'							<div class=\"form-group\">' +
 							'								<label class=\"col-sm-3 control-label\">' +
-							'									Email ' +
+							'									Email' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
-							'									<input type=\"text\" id=\"locations-' + index + '-contact_email\" name=\"locations-' + index + '-contact_phone\" class=\"form-control\"\>' +
-							'								<\/div>' +
-							'							<\/div>' +
-							'						<\/div>' +
-							'					<\/div>' +
-							'					<div class=\"row\"><hr><\/div>' +
-							'					<div class=\"row\" id=\"pickup-' + index + '\" style=\"display:none;\">' +
-							'						<div class=\"col-md-12\">' +
-							'							<h4>Pickup<\/h4>' +
-							'							<hr>' +
-							'							<div class=\"form-group\">' +
-							'								<label class=\"col-sm-3 control-label\">' +
-							'									Weight (lbs)' +
-							'								<\/label>' +
-							'								<div class=\"col-sm-7\">' +
-							'									<input type=\"text\" id=\"locations-' + index + '-pickup_weight\" name=\"locations-' + index + '-pickup_weight\" class=\"form-control\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-contact_email\" name=\"locations-' + index + '-contact_email\" class=\"form-control\" value=\"\">' +
 							'								<\/div>' +
 							'							<\/div>' +
 							'						<\/div>' +
 							'					<\/div>' +
-							'					<div class=\"row\" id=\"delivery-' + index + '\" style=\"display:none;\">' +
-							'						<div class=\"col-md-12\">' +
-							'							<h4>Delivery<\/h4>' +
-							'							<hr>' +
+							'				<\/div>' +
+							'			<\/div>' +
+							'		<\/div>' +
+							'		<div class=\"row\" id=\"pickup-' + index + '\" style=\"display:none;\">' +
+							'			<div class=\"panel panel-default\">' +
+							'				<div class=\"panel-heading\">' +
+							'					<i class=\"fa fa-external-link-square\"><\/i>' +
+							'					Pickup Details' +
+							'				<\/div>' +
+							'				<div class=\"panel-body\">' +
+							'					<div class=\"form-horizontal\">' +
+							'						<div class=\"col-sm-12\">' +
 							'							<div class=\"form-group\">' +
 							'								<label class=\"col-sm-3 control-label\">' +
-							'									Weight (lbs)' +
+							'									Weight (lbs) <span class=\"symbol required\"><\/span>' +
 							'								<\/label>' +
 							'								<div class=\"col-sm-7\">' +
-							'									<input type=\"text\" id=\"locations-' + index + '-delivery_weight\" name=\"locations-' + index + '-delivery_weight\" class=\"form-control\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-pickup_weight\" name=\"locations-' + index + '-pickup_weight\" class=\"form-control\" value=\"\">' +
+							'								<\/div>' +
+							'							<\/div>' +
+							'							<div class=\"form-group\">' +
+							'								<label class=\"col-sm-3 control-label\">' +
+							'									Notes <span class=\"symbol required\"><\/span>' +
+							'								<\/label>' +
+							'								<div class=\"col-sm-7\">' +
+							'									<textarea class=\"autosize form-control\" id=\"locations-' + index + '-pickup_notes\" name=\"locations-' + index + '-pickup_notes\" style=\"overflow: hidden; word-wrap: break-word; resize: horizontal; height: 69px;\"><\/textarea>' +
+							'								<\/div>' +
+							'							<\/div>' +
+							'						<\/div>' +
+							'					<\/div>' +
+							'				<\/div>' +
+							'			<\/div>' +
+							'		<\/div>' +
+							'		<div class=\"row\" id=\"delivery-' + index + '\" style=\"display:none;\">' +
+							'			<div class=\"panel panel-default\">' +
+							'				<div class=\"panel-heading\">' +
+							'					<i class=\"fa fa-external-link-square\"><\/i>' +
+							'					Drop Off Details' +
+							'				<\/div>' +
+							'				<div class=\"panel-body\">' +
+							'					<div class=\"form-horizontal\">' +
+							'						<div class=\"col-sm-12\">' +
+							'							<div class=\"form-group\">' +
+							'								<label class=\"col-sm-3 control-label\">' +
+							'									Weight (lbs) <span class=\"symbol required\"><\/span>' +
+							'								<\/label>' +
+							'								<div class=\"col-sm-7\">' +
+							'									<input type=\"text\" id=\"locations-' + index + '-delivery_weight\" name=\"locations-' + index + '-delivery_weight\" class=\"form-control\" value=\"\">' +
+							'								<\/div>' +
+							'							<\/div>' +
+							'							<div class=\"form-group\">' +
+							'								<label class=\"col-sm-3 control-label\">' +
+							'									Notes <span class=\"symbol required\"><\/span>' +
+							'								<\/label>' +
+							'								<div class=\"col-sm-7\">' +
+							'									<textarea class=\"autosize form-control\" id=\"locations-' + index + '-delivery_notes\" name=\"locations-' + index + '-pickup_notes\" style=\"overflow: hidden; word-wrap: break-word; resize: horizontal; height: 69px;\"><\/textarea>' +
 							'								<\/div>' +
 							'							<\/div>' +
 							'						<\/div>' +
@@ -638,14 +736,14 @@
 							'		<\/div>' +
 							'	<\/div>' +
 							'	<div class=\"modal-footer\">' +
-							'   <input type=\"hidden\" id=\"locations-' + ($('#sample_2').dataTable().fnSettings().aoData.length + 1) + '-stop_number\" name=\"locations-' + ($('#sample_2').dataTable().fnSettings().aoData.length + 1) + '-stop_number\" class=\"form-control stop-number\" value=\"' + ($('#sample_2').dataTable().fnSettings().aoData.length + 1) + '\">' +
+							'   		<input type=\"hidden\" id=\"locations-' + index + '-stop_number\" name=\"locations-' + index + '-stop_number\" class=\"form-control stop-number\" value=\"' + index + '\">' +
 							'		<button type=\"button\" data-dismiss=\"modal\" class=\"btn btn-light-grey\">' +
 							'			Close' +
 							'		<\/button>' +
 							'		<button type=\"button\" data-dismiss=\"modal\" class=\"btn btn-blue save-modal\">' +
 							'			Add' +
 							'		<\/button>' +
-							'	<\/div>' +
+							'	<\/div>' + 
 							'<\/div>'
 			    $("#form-container").append(modal);
 			}

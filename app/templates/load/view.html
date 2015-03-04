@@ -96,100 +96,199 @@ payment processing to owner operator drivers
 	                	</div>
 	            	</div>
 	         	</div>
-	         		{# {% if user.is_carrier() and load.broker != user %}
-	         		<div class="col-sm-6">
+         			<div class="col-sm-3">
 		        		<div class="panel panel-default">
-		        			<div class="panel-heading">
-		                		Bid
+		            		<div class="panel-heading">
+		                		Shipper
 		            		</div>
-		            		<div class="panel-body">
-		            				{% if most_recent_bid is not none %}
-		            					<div class="form-horizontal">
-			                    			<div class="control-group">
-												<label class="control-label">Bid</label>
-					                        	<div class="controls">
-					                           		${{ most_recent_bid.value }}
-					                        	</div>
-					                        	<label class="control-label">Status</label>
-					                        	<div class="controls">
-					                           		{% if load.status == "Pending Truck Assignment" or load.status == "Assigned" %}
-					                        			Accepted
-					                        		{% else %}
-					                        			Pending Acceptance
-					                        		{% endif %}
-					                        	</div>
-											</div>
-										</div>
-		            				{% else %}
-			            				<form name="edit" action="{{ url_for('loads.bid', load_id=load.id, company_name=load.broker.company_name) }}" method="post" class="form-horizontal">
-			            					{{ bid_form.hidden_tag() }}
-			            					<div class="form-horizontal">
-				                    			<div class="control-group">
-													<label class="control-label">Bid</label>
-						                        	<div class="controls">
-						                           		${{ bid_form.value(size=8) }} 
-						                           		<input type="submit" class="btn btn-success btn-mini success" value="Place Bid" /> <a href="{{ url_for('loads.reject', load_id=load.id, company_name=load.broker.company_name) }}" class="btn btn-danger btn-mini danger">Reject Load</a>
-				                                        {% for error in form.value.errors %}
-						 									<span style="color: red;">[{{ error }}]</span>
-			          									{% endfor %}
-						                        	</div>
-												</div>
-											</div>
-										</form>
-									{% endif %}
-								</div>
-							</div>
-						</div>
-					{% endif %} #}
-	         		{% if load.carrier is not none  %}
-	         			<div class="col-sm-6">
-			        		<div class="panel panel-default">
-			            		<div class="panel-heading">
-			                		{% if user.is_carrier() %}
-			                			Assigned Truck/Driver
-			                		{% else %}
-			                			Assigned Carrier
+		            		<table id="truck" class="table table-condensed">
+								<tbody>
+			           
+				                    	<tr>
+											<td><b>Name:</b></td>
+											<td>{{ load.shipper.name }}</td>
+										</tr>
+										<tr>
+											<td><b>Phone:</b></td>
+											<td>{{ load.shipper.phone }}</td>
+										</tr>
+										<tr>
+											<td><b>Email:</b></td>
+											<td>{{ load.shipper.email }}</td>
+										</tr>
+				                </tbody>
+							</table>
+	                	</div>
+	            	</div>
+	            	<div class="col-sm-3">
+		        		<div class="panel panel-default">
+		            		<div class="panel-heading">
+		                		Broker
+		            		</div>
+		            		<table id="truck" class="table table-condensed">
+								<tbody>
+			           
+				                    	<tr>
+											<td><b>Name:</b></td>
+											<td>{{ load.broker.name }}</td>
+										</tr>
+										<tr>
+											<td><b>Phone:</b></td>
+											<td>{{ load.broker.phone }}</td>
+										</tr>
+										<tr>
+											<td><b>Email:</b></td>
+											<td>{{ load.broker.email }}</td>
+										</tr>
+				                </tbody>
+							</table>
+	                	</div>
+	            	</div>
+	            	<div class="col-sm-6">
+		        		<div class="panel panel-default">
+		            		<div class="panel-heading">
+		                		{% if user.is_carrier() %}
+		                			Assigned Truck/Driver
+		                		{% else %}
+		                			Assigned Carrier
+		                		{% endif %}
+		            		</div>
+		            		<table id="truck" class="table table-condensed">
+								<tbody>
+			               			{% if not user.is_carrier() %}
+				                    	<tr>
+											<td><b>Carrier:</b></td>
+											<td>{{ load.carrier.company_name }}</td>
+										</tr>
+										<tr>
+											<td><b>Carrier Fee:</b></td>
+											<td>{{ load.carrier_cost }}</td>
+										</tr>
+				                    {% else %}
+				                    	<tr>
+											<td><b>Amount:</b></td>
+											<td>{{ load.carrier_cost }}</td>
+										</tr>
 			                		{% endif %}
+			                	
+				                	{% if load.assigned_driver is not none %}
+					                    <tr>
+											<td><b>Truck:</b></td>
+											<td><a href="{{ url_for('trucks.view', truck_id=load.assigned_driver.truck.id) }}">{{ load.assigned_driver.truck.name }}</a></td>
+										</tr>
+										<tr>
+											<td><b>Driver:</b></td>
+											<td><a href="{{ url_for('drivers.view', driver_id=load.assigned_driver.truck.id) }}">{{ load.assigned_driver.get_full_name() }}</a></td>
+										</tr>
+					                {% else %}
+					                	<tr>
+											<td><b>Truck:</b></td>
+											<td>To be assigned</td>
+										</tr>
+					               	{% endif %}
+				                </tbody>
+							</table>
+	                	</div>
+	            	</div>
+
+	            	{% if is_dispatch and load.assigned_driver is none %}
+						<div class="col-sm-6">
+			        		{#<div class="panel panel-default">
+			        			<div class="panel-heading">
+			                		Filter
 			            		</div>
-			            		<table id="truck" class="table table-condensed">
-									<tbody>
-				               			{% if not user.is_carrier() %}
-					                    	<tr>
-												<td><b>Carrier:</b></td>
-												<td>{{ load.carrier.company_name }}</td>
-											</tr>
-											<tr>
-												<td><b>Carrier Fee:</b></td>
-												<td>{{ load.carrier_cost }}</td>
-											</tr>
-					                    {% else %}
-					                    	<tr>
-												<td><b>Amount:</b></td>
-												<td>{{ load.carrier_cost }}</td>
-											</tr>
-				                		{% endif %}
-				                	
-					                	{% if load.assigned_driver is not none %}
-						                    <tr>
-												<td><b>Truck:</b></td>
-												<td><a href="{{ url_for('trucks.view', truck_id=load.assigned_driver.truck.id) }}">{{ load.assigned_driver.truck.name }}</a></td>
-											</tr>
-											<tr>
-												<td><b>Driver:</b></td>
-												<td><a href="{{ url_for('drivers.view', driver_id=load.assigned_driver.truck.id) }}">{{ load.assigned_driver.get_full_name() }}</a></td>
-											</tr>
-						                {% else %}
-						                	<tr>
-												<td><b>Truck:</b></td>
-												<td>To be assigned</td>
-											</tr>
-						               	{% endif %}
-					                </tbody>
-								</table>
-				               
-		                	</div>
-		            	</div>
-					{% endif %}
+			            		<div class="panel-body">
+			       
+										Radius from origin - 50, 100, 150, 200, 250
+								</div>
+							</div>#}
+							<div class="panel panel-default">
+			            		<div class="panel-heading">
+			                		Nearby Carriers
+			            		</div>
+			            		<div class="panel-body">
+			            			<table id="datatable" class="table table-striped table-bordered">
+			            				<thead>
+			            					<tr>
+			            						<th>Truck</th>
+			            						<th>Driver</th>
+			            						{% if not is_dispatch %}
+			            							<th>Quote</th>
+			            						{% endif %}
+			            						<th>&nbsp</th>
+			            					</tr>
+			 							</thead>
+			 							<tbody>
+			 								{% if not is_dispatch %}
+			 									{% for bid in offered_bids %}
+			 										<tr class="odd gradeX">
+				 										<td>1</td>
+				 										<td>{{ bid.offered_by.email }}</td>			
+				 										<td>{{ bid.value }}</td>
+				 										<td>
+			       			 								<a href="{{ url_for('loads.assign', load_id=load.id, assign_id=bid.offered_by.company_name)}}" onclick="return confirm("Assign this carrier to this load?")text" class="btn btn-success btn-mini success">Assign</a>
+			                                        	</td>
+				 									</tr>
+			 									{% endfor %}
+			 									{% for bid in requested_bids %}
+			 										<tr class="odd gradeX">
+				 										<td>{{ bid.offered_to.email }}</td>
+				 										<td></td>
+				 										<td></td>
+				 										<td>
+			       			 								Requested Bid
+			                                        	</td>
+				 									</tr>
+			 									{% endfor %}
+			 									{% for carrier in carriers %}
+			 										<tr class="odd gradeX">
+				 										<td>{{ carrier.company_name }}</td>
+				 										<td><a href="{{ url_for('carrier.view', truck_id=carrier.id) }}">{{ carrier.company_name }}</a></td>
+				 										<td></td>
+				 										<td>
+			       			 								<a href="{{ url_for('loads.bid', load_id=load.id, company_name=carrier.company_name)}}" class="btn btn-success btn-mini success">Request Bid</a>
+			                                        	</td>
+				 									</tr>
+				 								{% endfor %}
+			 									{% for bid in rejected_bids %}
+			 										<tr class="odd gradeX">
+				 										<td>{{ bid.offered_by.email }}</td>
+				 										<td>N/a</td>
+				 										<td>
+			       			 								Rejected Bid
+			                                        	</td>
+				 									</tr>
+			 									{% endfor %}
+			 								{% else %}
+				 								{% for carrier in carriers %}
+				 								<tr class="odd gradeX">
+				 									<td><a href="{{ url_for('trucks.view', truck_id=carrier.id) }}">{{ carrier.name }}</a></td>
+				 									<td>
+				 											{% if carrier.driver is none %}
+				 												Unassigned
+				 											{% else %}
+				 												<a href="{{ url_for('drivers.view', driver_id=carrier.driver.id) }}">{{ carrier.driver.get_full_name() }}</a>
+				 											{% endif %}
+				 									</td>
+				 									{% if not is_dispatch %}
+				 										<td>{{ bid.value }}</td>
+				 									{% endif %}
+				 									
+				 									<td>
+				 										{% if is_dispatch and load.assigned_driver is none %}
+			       			 								<a href="{{ url_for('loads.assign', load_id=load.id, assign_id=carrier.id)}}" onclick="return confirm("Assign this carrier to this load?")text" class="btn btn-success btn-mini success">Assign</a>
+			       			 							{% endif %}
+			                                        </td>
+				 								</tr>
+				 								{% endfor %}
+				 							{% endif %}
+			 							</tbody>
+			            			</table>
+			                	</div>
+			            	</div>
+			         	</div>
+	         		{% endif %}
+	            </div>
 					{% if is_dispatch and load.assigned_driver is none %}
 						<div class="col-sm-6">
 			        		{#<div class="panel panel-default">

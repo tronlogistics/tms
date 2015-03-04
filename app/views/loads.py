@@ -3,9 +3,9 @@ from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, SQLAlchemy
 from app.forms import LoadForm, BidForm, StatusForm, LaneLocationForm, LocationStatusForm
-from app.models import Load, LoadDetail, Lane, Location, Truck, User, Bid, Driver
+from app.models import Load, LoadDetail, Lane, Location, Truck, User, Bid, Driver, Contact
 from app.permissions import *
-from app.controllers import LoadFactory, AddressFactory, LocationFactory, LoadDetailFactory
+from app.controllers import LoadFactory, AddressFactory, LocationFactory, LoadDetailFactory, ContactFactory
 #from app.factories
 from sqlalchemy import desc
 
@@ -24,7 +24,6 @@ def before_request():
 @login_required
 def create():
 	form = LoadForm()
-
 	if form.validate_on_submit():
 		#geolocator = Nominatim()
 		#load = Load(name=form.name.data, 
@@ -152,6 +151,7 @@ def edit(load_id):
 	if permission.can():
 		load = Load.query.get(int(load_id))
 		form = LoadForm()
+		form.validate()
 		if form.validate_on_submit():
 			load.load_type = form.load_type.data
 			load.trailer_type = form.trailer_type.data
@@ -161,6 +161,25 @@ def edit(load_id):
 			load.comments = form.comments.data
 			load.description = form.description.data
 			load.lane.locations = []
+			broker = Contact.query.filter_by(name=form.broker.company_name.data, 
+							phone=form.broker.phone.data, 
+							email=form.broker.email.data).first()
+			if broker is None:
+				broker = ContactFactory(form.broker.company_name.data, 
+										form.broker.phone.data, 
+										form.broker.email.data)
+			
+			shipper = Contact.query.filter_by(name=form.shipper.company_name.data, 
+									phone=form.shipper.phone.data, 
+									email=form.shipper.email.data).first()
+			if shipper is None:
+				shipper = ContactFactory(form.shipper.company_name.data, 
+											form.shipper.phone.data, 
+											form.shipper.email.data)
+
+			load.broker = broker
+			load.shipper = shipper
+
 			for location in form.locations:
 				address = AddressFactory(location.address1.data,
 												location.city.data,
@@ -168,7 +187,8 @@ def edit(load_id):
 												location.postal_code.data)
 				pickup_detail = LoadDetailFactory(location.pickup_weight.data, "Pickup")
 				delivery_detail = LoadDetailFactory(location.delivery_weight.data, "Delivery")
-				stop_off = LocationFactory(address, pickup_detail, delivery_detail, location.arrival_date.data, location.stop_number.data)
+				contact = ContactFactory(location.contact_name.data, location.contact_phone.data, location.contact_email.data)
+				stop_off = LocationFactory(address, pickup_detail, delivery_detail, location.arrival_date.data, location.stop_number.data, contact, location.stop_type.data)
 				load.lane.locations.append(stop_off)
 				#db.session.add(stop_off)
 				#db.session.add(address)
@@ -190,6 +210,12 @@ def edit(load_id):
 			form.comments.data = load.comments
 			form.description.data = load.description
 			form.locations = []
+			form.broker.company_name.data = load.broker.name
+			form.broker.phone.data = load.broker.phone
+			form.broker.email.data = load.broker.email
+			form.shipper.company_name.data = load.shipper.name
+			form.shipper.phone.data = load.shipper.phone
+			form.shipper.email.data = load.shipper.email
 			for stop_off in load.lane.locations:
 				location = LaneLocationForm()
 				location.stop_number.data = stop_off.stop_number
