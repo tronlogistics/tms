@@ -168,7 +168,8 @@ class Location(db.Model):
 
 	type = db.Column(db.String(10))
 	status = db.Column(db.String(20))
-	#arrival_time = 
+	latitude = db.Column(db.Float(6))
+	longitude = db.Column(db.Float(6))
 
 	def __repr__(self):
 		return '%s, %s' % (self.city, self.state)

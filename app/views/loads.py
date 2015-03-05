@@ -160,6 +160,11 @@ def edit(load_id):
 			load.over_dimensional = form.over_dimensional.data
 			load.comments = form.comments.data
 			load.description = form.description.data
+			for location in load.lane.locations:
+				db.session.delete(location.address)
+				db.session.delete(location.pickup_details)
+				db.session.delete(location.delivery_details)
+				db.session.delete(location)
 			load.lane.locations = []
 			broker = Contact.query.filter_by(name=form.broker.company_name.data, 
 							phone=form.broker.phone.data, 
@@ -181,6 +186,7 @@ def edit(load_id):
 			load.shipper = shipper
 
 			for location in form.locations:
+
 				address = AddressFactory(location.address1.data,
 												location.city.data,
 												location.state.data,

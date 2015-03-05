@@ -44,59 +44,30 @@
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg">
         </script>
         <script type="text/javascript">
+
+
             function initialize() {
-
-                {#var myLatlng = new google.maps.LatLng( {{origin.latitude}}, {{origin.longitude}});
-
-                var mapOptions = {
-                    center: myLatlng,
-                    zoom: 7
-                };
-                var map = new google.maps.Map(document.getElementById('map-canvas'),
-                mapOptions);
-
-                var marker = new google.maps.Marker({
-                    position: myLatlng,
-                    map: map,
-                    title: 'Origin'
-                });
-
-                var myLatlng = new google.maps.LatLng( {{destination.latitude}}, {{destination.longitude}});
-
-                var marker = new google.maps.Marker({
-                    position: myLatlng,
-                    map: map,
-                    title: 'Destination'
-                });
-
-                {% for carrier in carriers %}
-                    var myLatlng = new google.maps.LatLng( {{ carrier.latitude }}, {{ carrier.longitude }});
+                {% for location in load.lane.locations %}
+                    var myLatlng = new google.maps.LatLng( {{location.latitude}}, {{location.longitude}});
+                    {% if loop.index == 1 %}
+                        var mapOptions = {
+                            center: myLatlng,
+                            zoom: 7
+                        };
+                        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+                    {% endif %}
                     var marker = new google.maps.Marker({
                         position: myLatlng,
                         map: map,
-                        fillColor: 'yellow',
-                        strokeColor: 'yellow',
-                        title: '{{ carrier.name}}'
-                });
+                        title: '{{ location.stop_number }}'
+                    });
                 {% endfor %}
 
-      /*          // create an array of coordinates
-        var arrCoords = [
-            new google.maps.LatLng( {{o_latitude}}, {{o_longitude}}),
-            new google.maps.LatLng( {{d_latitude}}, {{d_longitude}})
-        ];
+            }
 
-        // draw the route on the map            
-        var route = new google.maps.Polyline({
-            path: arrCoords,
-            strokeColor: "#00FF00",
-            strokeOpacity: 1.0,
-            strokeWeight: 4,
-            geodesic: false,
-            map: map
-        }); */
-            }#}
             google.maps.event.addDomListener(window, 'load', initialize);
+
+
         </script>
 </head>
     <!-- end: HEAD -->
@@ -107,5 +78,20 @@
     <!-- end: BODY -->
 </html>
     
-    
+    {# {% for location in load.lane.locations %}
+                    alert('test');
+                    var myLatlng = new google.maps.LatLng( {{location.latitude}}, {{location.longitude}});
+                    {% if loop.index == 1 %}
+                        var mapOptions = {
+                            center: myLatlng,
+                            zoom: 7
+                        };
+                        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+                    {% endif %}
+                    var marker = new google.maps.Marker({
+                        position: myLatlng,
+                        map: map,
+                        title: '{{ location.stop_number }}'
+                    });
+                {% endfor %}#}
 

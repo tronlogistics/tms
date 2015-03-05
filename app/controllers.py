@@ -84,13 +84,17 @@ def LaneFactory(locations):
 
 
 def LocationFactory(address, pickup_detail, delivery_detail, arrival_date, stop_number, contact, stop_type):
+	geolocator = Nominatim()
+	loc = geolocator.geocode(address.postal_code)
 	return Location(address=address, 
 					pickup_details = pickup_detail, 
 					delivery_details= delivery_detail,
 					arrival_date=arrival_date,
 					stop_number=stop_number,
 					contact=contact,
-					type=stop_type)
+					type=stop_type,
+					longitude=loc.longitude,
+					latitude=loc.latitude)
 
 
 def LoadDetailFactory(weight, type):

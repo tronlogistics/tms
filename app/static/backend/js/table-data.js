@@ -52,11 +52,6 @@ var TableData = function() {
 			oTable.fnDraw();
 		}
 
-		function addRow() {
-
-			alert('hi!');
-		}
-
 		function editRow(oTable, nRow) {
 			var aData = oTable.fnGetData(nRow);
 			var jqTds = $('>td', nRow);
