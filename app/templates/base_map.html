@@ -77,21 +77,5 @@
     </body>
     <!-- end: BODY -->
 </html>
-    
-    {# {% for location in load.lane.locations %}
-                    alert('test');
-                    var myLatlng = new google.maps.LatLng( {{location.latitude}}, {{location.longitude}});
-                    {% if loop.index == 1 %}
-                        var mapOptions = {
-                            center: myLatlng,
-                            zoom: 7
-                        };
-                        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-                    {% endif %}
-                    var marker = new google.maps.Marker({
-                        position: myLatlng,
-                        map: map,
-                        title: '{{ location.stop_number }}'
-                    });
-                {% endfor %}#}
+
 

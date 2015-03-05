@@ -111,8 +111,8 @@ class Load(db.Model):
 	total_miles = db.Column(db.Integer) 
 	purchase_order = db.Column(db.String(20))
 	over_dimensional = db.Column(db.Boolean)
-	carrier_cost = db.Column(db.Float(3))
-	price = db.Column(db.Float(3))
+	carrier_cost = db.Column(db.Integer)
+	price = db.Column(db.Integer)
 	description = db.Column(db.String(250))
 	comments = db.Column(db.String(500))
 
@@ -120,7 +120,6 @@ class Load(db.Model):
 
 	#children
 	lane = db.relationship('Lane', uselist=False, backref='load')
-	bids = db.relationship('Bid', backref='load')
 
 	#assignments
 	driver_id = db.Column(db.Integer, db.ForeignKey('Driver.id'))
@@ -129,17 +128,6 @@ class Load(db.Model):
 	
 	def __repr__(self):
 		return '<User %r>' % (self.name)
-
-class Bid(db.Model):
-	__tablename__ = 'Bid'
-	id = db.Column(db.Integer, primary_key=True)
-	load_id = Column(db.Integer, db.ForeignKey('Load.id'))
-	offered_by_id = Column(db.Integer, db.ForeignKey('User.id'))
-	offered_to_id = Column(db.Integer, db.ForeignKey('User.id'))
-	offered_by = db.relationship('User', foreign_keys=offered_by_id)
-	offered_to = db.relationship('User', backref='offered_bids', foreign_keys=offered_to_id)
-	value = db.Column(db.Float(3))
-	status = db.Column(db.String(10))
 
 class Lane(db.Model):
 	__tablename__ = 'Lane'
@@ -152,7 +140,6 @@ class Location(db.Model):
 	__tablename__ = 'Location'
 	id = db.Column(db.Integer, primary_key=True)
 	lane_id = db.Column(db.Integer, db.ForeignKey('Lane.id'))
-	contact_id = db.Column(db.Integer, db.ForeignKey('Contact.id'))
 	
 	address = db.relationship('Address', uselist=False, backref='location')
 
@@ -162,6 +149,9 @@ class Location(db.Model):
 	delivery_id = db.Column(db.Integer, db.ForeignKey('LoadDetail.id'))
 	#delivery_details_id = db.Column(db.Integer, db.ForeignKey('loaddetail.id'))
 	delivery_details = db.relationship('LoadDetail', primaryjoin="LoadDetail.id==Location.delivery_id")
+
+	contact_id = db.Column(db.Integer, db.ForeignKey('Contact.id'))
+	contact = relationship("Contact")
 
 	stop_number = db.Column(db.Integer)
 	arrival_date = db.Column(db.Date)
@@ -201,23 +191,17 @@ class Address(db.Model):
 class Contact(db.Model):
 	__tablename__ = 'Contact'
 	id = db.Column(db.Integer, primary_key=True)
-	location_id = db.Column(db.Integer, db.ForeignKey('Location.id'))
-	#contacts = db.relationship('User',
-	#				secondary=User_to_User,
-	#				primaryjoin=id==User_to_User.c.left_user_id,
-	#				secondaryjoin=id==User_to_User.c.right_user_id,
-	#				backref='contacted_by'
-    #)
-	brokered_loads = db.relationship('Load', backref='broker', lazy='dynamic', foreign_keys='Load.broker_id')
-	shipped_loads = db.relationship('Load', backref='shipper', lazy='dynamic', foreign_keys='Load.shipper_id')
-	location_contact = db.relationship('Location', backref='contact', lazy='dynamic', foreign_keys='Location.contact_id')
+	contact_type = db.Column(db.String(20))
 	name = db.Column(db.String(60))
 	email = db.Column(db.String(30))
 	phone = db.Column(db.String(30))
 
-	phone_area_code = db.Column(db.String(3))
-	phone_prefix = db.Column(db.String(3))
-	phone_line_number = db.Column(db.String(4))
+	brokered_loads = db.relationship('Load', backref='broker', lazy='dynamic', foreign_keys='Load.broker_id')
+	shipped_loads = db.relationship('Load', backref='shipper', lazy='dynamic', foreign_keys='Load.shipper_id')
+	__mapper_args__ = {'polymorphic_on': contact_type}
+
+	
+
 
 class Fleet(db.Model):
 	__tablename__ = 'Fleet'

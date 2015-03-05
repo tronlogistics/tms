@@ -60,7 +60,6 @@ def login():
 
 		user = User.query.filter_by(email=login_form.email.data).first()
 		if user is not None:
-
 			if not user.is_confirmed():
 				flash("You must confirm your e-mail prior to logging in. To confirm your e-mail, click the activation link provided to %s" % user.email )
 				return render_template('static/login.html', login_form=login_form, register_form=register_form, forgot_form=forgot_form, user=g.user)
@@ -127,6 +126,8 @@ def logout():
 def register():
 	register_form = RegisterForm()
 	register_form.account_type.data = 'carrier'
+	register_form.validate()
+	flash(register_form.errors)
 	if register_form.validate_on_submit():
 		if User.query.filter_by(email=register_form.email.data).first() is not None:
 			flash("This e-mail is already registered.")
@@ -145,7 +146,7 @@ def register():
 		flash("A registration e-mail has been sent to %s" % register_form.email.data)
 		app.logger.info("User \"%s\" with role \"%s\" created" % (user.email, user.roles[0].name))
 		return redirect(url_for('.login'))
-	return render_template('static/register.html', register_form=register_form, user=g.user)
+	return redirect(url_for('.login', type='register'))
 
 @static.route('/choose_plan', methods=['GET', 'POST'])
 def choose_plan():

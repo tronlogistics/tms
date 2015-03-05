@@ -57,8 +57,7 @@ def LoadFactory(form):
 				description=form.description.data,
 				trailer_type=form.trailer_type.data,
 				load_type=form.load_type.data,
-				total_miles=form.total_miles.data,
-				comments=form.comments.data) 
+				total_miles=form.total_miles.data) 
 	
 	load.assigned_driver = None
 
@@ -76,7 +75,8 @@ def LoadFactory(form):
 		stop_off_locations.append(stop_off)
 
 	load.lane = LaneFactory(stop_off_locations)
-
+	shipper.shipped_loads.append(load)
+	broker.brokered_loads.append(load)
 	return load
 
 def LaneFactory(locations):

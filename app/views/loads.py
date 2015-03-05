@@ -2,8 +2,8 @@ from flask import Blueprint, render_template, url_for, redirect, request, flash,
 from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, SQLAlchemy
-from app.forms import LoadForm, BidForm, StatusForm, LaneLocationForm, LocationStatusForm
-from app.models import Load, LoadDetail, Lane, Location, Truck, User, Bid, Driver, Contact
+from app.forms import LoadForm, StatusForm, LaneLocationForm, LocationStatusForm
+from app.models import Load, LoadDetail, Lane, Location, Truck, User, Driver, Contact
 from app.permissions import *
 from app.controllers import LoadFactory, AddressFactory, LocationFactory, LoadDetailFactory, ContactFactory
 #from app.factories
@@ -250,7 +250,6 @@ def edit(load_id):
 def view(load_id):
 	permission = ViewLoadPermission(load_id)
 	if permission.can():
-		bid_form = BidForm()
 		status_form = StatusForm()
 		#gn = geocoders.GeoNames()
 		#gn.geocode(filter((lambda location: location.is_origin), load.lane.locations)[0].postal_code)
@@ -269,36 +268,15 @@ def view(load_id):
 				if filter((lambda role: role.name == 'carrier'), carrier.roles):
 					carriers.append(carrier)
 
-			for bid in load.bids:
-				carriers = filter((lambda carrier: carrier != bid.offered_to), carriers)
 		else:
 			carriers = filter((lambda truck: truck.is_available 
 												and truck.trailer_type == load.trailer_type), 
 												g.user.fleet.trucks)
-		################################
 
-		#if load.status == "Assigned" or load.status == "Complete":
-		#	carriers = load.assigned_carriers
-		#elif filter((lambda role: role.name == 'carrier'), g.user.roles):
-		#	carriers = filter((lambda carrier: carrier.dispatcher.email == g.user.email), load.assigned_carriers)
-		rejected_bids = filter((lambda bid: bid.status=="Rejected"), load.bids)
-		offered_bids = filter((lambda bid: bid.status=="Offered"), load.bids)
-		requested_bids = filter((lambda bid: bid.status=="Requested"), load.bids)
-		for rejected_bid in rejected_bids:
-			offered_bids = filter((lambda bid: bid.offered_by != rejected_bid.offered_by), offered_bids)
-			requested_bids = filter((lambda bid: bid.offered_to != rejected_bid.offered_by), requested_bids)
-		for offered_bid in offered_bids:
-			requested_bids = filter((lambda bid: bid.offered_to != offered_bid.offered_by), requested_bids)
-		offered_bids = filter((lambda bid: bid.status=="Offered"), load.bids)
 		return render_template('load/view.html', status_form=status_form,
-												bid_form=bid_form,
 												load=load, 
 												carriers=carriers,
 												locations = load.lane.locations,
-												rejected_bids=rejected_bids,
-												offered_bids=offered_bids,
-												requested_bids=requested_bids,
-												most_recent_bid=Bid.query.filter_by(offered_by=g.user).filter_by(load_id=load.id).order_by(desc(Bid.id)).first(),
 												is_dispatch=g.user.is_carrier(),
 												title="View Load",
 												active="Loads",
@@ -352,48 +330,6 @@ def delete(load_id):
 		return redirect(url_for('.all'))
 	abort(403)  # HTTP Forbidden
 
-@loads.route('/<load_id>/bid/<company_name>', methods=['POST', 'GET'])
-@login_required
-def bid(load_id, company_name):
-	permission = AssignLoadPermission(load_id)
-	if permission.can():
-		load = Load.query.get(int(load_id))
-		form = BidForm()
-		offered_to = User.query.filter_by(company_name=company_name).first()
-		bid = Bid(offered_by=g.user,
-					offered_to=offered_to)
-		bid.value = 0
-		bid.status = "Requested"
-		if form.validate_on_submit():
-			bid.value = form.value.data
-			bid.status = "Offered"
-		#offered_to.loads.append(load)
-		load.bids.append(bid)
-		db.session.add(offered_to)
-		db.session.add(bid)
-		db.session.add(load)
-		db.session.commit()
-		return redirect(url_for('.view', load_id = load.id))
-	abort(403)
-
-@loads.route('/<load_id>/reject/<company_name>', methods=['POST', 'GET'])
-@login_required
-def reject(load_id, company_name):
-	permission = AssignLoadPermission(load_id)
-	if permission.can():
-		load = Load.query.get(int(load_id))
-		offered_to = User.query.filter_by(company_name=company_name).first()
-		bid = Bid(offered_by=g.user,
-					offered_to=offered_to)
-		bid.value = 0
-		bid.status = "Rejected"
-		load.bids.append(bid)
-		db.session.add(bid)
-		db.session.add(load)
-		db.session.commit()
-		return redirect(url_for('.view', load_id = load.id))
-	abort(403)
-
 
 @loads.route('/<load_id>/assign/<assign_id>', methods=['POST', 'GET'])
 @login_required
@@ -403,38 +339,12 @@ def assign(load_id, assign_id):
 		load = Load.query.get(int(load_id))
 		#If current user is a carrier: remove all other currently assigned carriers and indicate 
 		#the load is assigned
-		if g.user.is_carrier():
-			truck = Truck.query.get(assign_id)
-			load.assigned_driver = truck.driver
-			truck.is_available = False
-			load.status = "Driver Assigned"
-			db.session.add(truck)
-			db.session.add(load)
-		#If current user is a broker:
-		#	1. 
-		else:
-			load = Load.query.get(int(load_id))
-
-			#Determine who the broker is
-			broker = load.broker
-		
-			#Retrieve carrier to add to assigned users
-			carrier = User.query.filter_by(company_name=assign_id).first()
-			bid = Bid.query.filter_by(offered_by=carrier).filter_by(load_id=load.id).order_by(desc(Bid.id)).first()
-			load.carrier = carrier
-			load.carrier_cost = bid.value
-			db.session.add(load)
-			db.session.add(carrier)
-
-			#check if broker & dispatcher are contacts.
-			#add to contacts if they are not already contacts
-			#if not filter((lambda user: user.email == broker.email), carrier.contacts):
-			#	carrier.contacts.append(broker)
-			#	broker.contacts.append(carrier)
-			db.session.add(carrier)
-			db.session.add(broker)
-			load.status = "Pending Truck Assignment"
-			db.session.add(load)
+		truck = Truck.query.get(assign_id)
+		load.assigned_driver = truck.driver
+		truck.is_available = False
+		load.status = "Driver Assigned"
+		db.session.add(truck)
+		db.session.add(load)
 		db.session.commit()
 		return redirect(url_for('.view', load_id = load.id))
 	abort(403)
@@ -453,6 +363,11 @@ def complete(load_id):
 
 		return redirect(url_for('.view', load_id = load.id))
 	abort(403)
+
+@app.errorhandler(404)
+def not_found_error(error):
+	app.logger.exception(error)
+	return render_template('404.html', user=g.user), 404
 
 @app.errorhandler(404)
 def not_found_error(error):
@@ -504,8 +419,3 @@ def on_identity_changed(sender, identity):
 			identity.provides.add(EditDriverNeed(unicode(driver.id)))
 			identity.provides.add(DeleteDriverNeed(unicode(driver.id)))
 			identity.provides.add(ViewDriverNeed(unicode(driver.id)))
-
-	if hasattr(current_user, 'offered_bids'):
-		for bid in current_user.offered_bids:
-			identity.provides.add(ViewLoadNeed(unicode(bid.load.id)))
-			identity.provides.add(AssignLoadNeed(unicode(bid.load.id)))
