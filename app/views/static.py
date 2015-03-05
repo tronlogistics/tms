@@ -46,16 +46,6 @@ def login():
 
 	register_form.account_type.data = 'carrier'
 	
-	#flash(login_form.is_submitted())
-	#flash(login_form.validate_on_submit())
-	#flash(login_form.errors)
-	#flash(register_form.is_submitted())
-	#flash(register_form.validate_on_submit())
-	#flash(register_form.errors)
-	#flash(forgot_form.is_submitted())
-	#flash(forgot_form.validate_on_submit())
-	#flash(forgot_form.errors)
-	
 	if login_form.validate_on_submit():
 
 		user = User.query.filter_by(email=login_form.email.data).first()
@@ -126,8 +116,7 @@ def logout():
 def register():
 	register_form = RegisterForm()
 	register_form.account_type.data = 'carrier'
-	register_form.validate()
-	flash(register_form.errors)
+
 	if register_form.validate_on_submit():
 		if User.query.filter_by(email=register_form.email.data).first() is not None:
 			flash("This e-mail is already registered.")
@@ -193,9 +182,7 @@ def activate_user(activation_slug):
 @static.route('/reset/<activation_slug>', methods=['GET', 'POST'])
 def reset_password(activation_slug):
 	form = ResetPasswordForm()
-	flash(form.is_submitted())
-	flash(form.validate_on_submit())
-	flash(form.errors)
+
 	if form.validate_on_submit():
 		g.user.password = form.password.data
 		g.user.authenticated = True
