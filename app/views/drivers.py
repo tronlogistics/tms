@@ -113,6 +113,7 @@ def edit(driver_id):
 		if form.validate_on_submit():
 			driver.first_name = form.first_name.data
 			driver.last_name = form.last_name.data
+			driver.email = form.email.data
 
 			driver.phone_area_code = str(form.phone_area_code.data)
 			if len(driver.phone_area_code) < 3:
@@ -141,6 +142,7 @@ def edit(driver_id):
 		else:
 			form.first_name.data = driver.first_name 
 			form.last_name.data = driver.last_name
+			form.email.data = driver.email
 			form.phone_area_code.data = driver.phone_area_code
 			form.phone_prefix.data = driver.phone_prefix 
 			form.phone_line_number.data = driver.phone_line_number

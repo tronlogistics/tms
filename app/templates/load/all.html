@@ -43,11 +43,11 @@
                         {% for load in loads %}
                             <tr>
                                 <td><a href="{{ url_for('loads.view', load_id=load.id) }}">{{ load.id }}</a></td>
-                                <td>{{ load.lane.origin }}</td>
-                                <td>{{ load.lane.destination }}</td>
+                                <td>{{ load.lane.locations[0].address.city }}, {{ load.lane.locations[0].address.state }} {{ load.lane.locations[0].address.postal_code }}</td>
+                                <td>{{ load.lane.locations[-1].address.city }}, {{ load.lane.locations[-1].address.state }} {{ load.lane.locations[-1].address.postal_code }}</td>
                                 <td>
                                     {% if load.assigned_driver is none %}
-
+                                        Unassigned
                                     {% else %}
                                         <a href="{{ url_for('drivers.view', driver_id=load.assigned_driver.id) }}">{{ load.assigned_driver.get_full_name() }}
                                     {% endif %}
