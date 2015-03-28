@@ -39,9 +39,9 @@ class LaneLocationForm(Form):
 	contact_name = StringField('Name', validators=[])
 	contact_email = StringField('Email', validators=[])
 	contact_phone = StringField('Phone', validators=[])
-	contact_phone_area_code = IntegerField('Area Code', validators=[])
-	contact_phone_prefix = IntegerField('Prefix', validators=[])
-	contact_phone_line_number = IntegerField('Line Number', validators=[])
+	contact_phone_area_code = StringField('Area Code', validators=[])
+	contact_phone_prefix = StringField('Prefix', validators=[])
+	contact_phone_line_number = StringField('Line Number', validators=[])
 
 class LoadForm(Form):
 	name = StringField('Name', validators=[])
@@ -62,8 +62,8 @@ class LoadForm(Form):
 															('Van', 'Van'),], 
 															validators = [])
 	load_type = SelectField('Load Type', choices = [('','<none selected>'),('LTL', 'LTL'), ('TL', 'TL')], validators = [])
-	total_miles = IntegerField('Total Miles', validators=[])
-	price = IntegerField('Total Price', validators=[DataRequired()])
+	total_miles = StringField('Total Miles', validators=[])
+	price = StringField('Total Price', validators=[DataRequired()])
 	purchase_order = StringField('Purchase Order', validators =[])
 	description = TextAreaField('Description', validators=[])
 	broker = FormField(ContactForm)
@@ -90,18 +90,18 @@ class TruckForm(Form):
 															('Tanker', 'Tanker'),
 															('Van', 'Van'),], 
 															validators = [DataRequired()])
-	max_weight = IntegerField("Max Weight", validators =[])
-	dim_length = IntegerField("Length", validators =[])
-	dim_height = IntegerField("Height", validators =[])
-	dim_width = IntegerField("Width", validators =[])
+	max_weight = StringField("Max Weight", validators =[])
+	dim_length = StringField("Length", validators =[])
+	dim_height = StringField("Height", validators =[])
+	dim_width = StringField("Width", validators =[])
 
 class DriverForm(Form):
 	first_name = StringField('First Name', validators=[DataRequired()])
 	last_name = StringField('Last Name', validators=[DataRequired()])
 	email = StringField('Email', validators=[Email("Please enter a valid e-mail")])
-	phone_area_code = IntegerField('Area Code', validators=[DataRequired()])
-	phone_prefix = IntegerField('Prefix', validators=[DataRequired()])
-	phone_line_number = IntegerField('Line Number', validators=[DataRequired()])
+	phone_area_code = StringField('Area Code', validators=[DataRequired()])
+	phone_prefix = StringField('Prefix', validators=[DataRequired()])
+	phone_line_number = StringField('Line Number', validators=[DataRequired()])
 
 class LoginForm(Form):
 	email = StringField('email', validators=[DataRequired()])
@@ -134,7 +134,7 @@ class BidForm(Form):
 	value = FloatField('Bid Amount', validators=[DataRequired()])
 
 class AssignDriverForm(Form):
-	truck = IntegerField("Truck", validators=[])
+	truck = StringField("Truck", validators=[])
 	driver = SelectField('Category', choices=[], coerce=int, validators=[])
 
 
