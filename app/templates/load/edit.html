@@ -17,6 +17,9 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label">
 										Company Name
+										{% for error in form.shipper.company_name.errors %}
+					            <br><span style="color: red;">{{ error }}</span>
+					          {% endfor %}
 									</label>
 									<div class="col-sm-7">
 										{{ form.shipper.company_name(class="form-control", placeholder="Company Name") }}
@@ -25,6 +28,9 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label">
 										Phone
+										{% for error in form.shipper.phone.errors %}
+					            <br><span style="color: red;">{{ error }}</span>
+					          {% endfor %}
 									</label>
 									<div class="col-sm-7">
 										{{ form.shipper.phone(class="form-control", placeholder="Phone") }}
@@ -33,6 +39,9 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label">
 										Email
+										{% for error in form.shipper.email.errors %}
+					            <br><span style="color: red;">{{ error }}</span>
+					          {% endfor %}
 									</label>
 									<div class="col-sm-7">
 										{{ form.shipper.email(class="form-control", placeholder="Email") }}
@@ -47,12 +56,16 @@
 						<div class="panel-heading">
 							<i class="fa fa-external-link-square"></i>
 							Broker
+
 						</div>
 						<div class="panel-body">
 							<div class="col-sm-10">
 								<div class="form-group">
 									<label class="col-sm-4 control-label">
 										Company Name
+										{% for error in form.broker.company_name.errors %}
+					            <br><span style="color: red;">{{ error }}</span>
+					          {% endfor %}
 									</label>
 									<div class="col-sm-7">
 										{{ form.broker.company_name(class="form-control", placeholder="Company Name") }}
@@ -61,6 +74,9 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label">
 										Phone
+										{% for error in form.broker.phone.errors %}
+					            <br><span style="color: red;">{{ error }}</span>
+					          {% endfor %}
 									</label>
 									<div class="col-sm-7">
 										{{ form.broker.phone(class="form-control", placeholder="Phone") }}
@@ -69,6 +85,9 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label">
 										Email
+										{% for error in form.broker.email.errors %}
+					            <br><span style="color: red;">{{ error }}</span>
+					          {% endfor %}
 									</label>
 									<div class="col-sm-7">
 										{{ form.broker.email(class="form-control", placeholder="Email") }}
@@ -91,6 +110,9 @@
 								<div class="form-group">
 									<label class="col-sm-3 control-label">
 										Load Type <span class="symbol required"></span>
+										{% for error in form.load_type.errors %}
+					            <br><span style="color: red;">{{ error }}</span>
+					          {% endfor %}
 									</label>
 									<div class="col-sm-7">
 										{{ form.load_type(class="form-control") }}
@@ -99,6 +121,9 @@
 								<div class="form-group">
 									<label class="col-sm-3 control-label">
 										Required Trailer <span class="symbol required"></span>
+										{% for error in form.trailer_type.errors %}
+					            <br><span style="color: red;">{{ error }}</span>
+					          {% endfor %}
 									</label>
 									<div class="col-sm-7">
 										{{ form.trailer_type(class="form-control") }}
@@ -107,6 +132,9 @@
 								<div class="form-group">
 									<label class="col-sm-3 control-label">
 										Total Miles <span class="symbol required"></span>
+										{% for error in form.total_miles.errors %}
+					            <br><span style="color: red;">{{ error }}</span>
+					          {% endfor %}
 									</label>
 									<div class="col-sm-7">
 										{{ form.total_miles(class="form-control", placeholder="Total Miles") }}
@@ -115,6 +143,9 @@
 								<div class="form-group">
 									<label class="col-sm-3 control-label">
 										Cost <span class="symbol required"></span>
+										{% for error in form.price.errors %}
+					            <br><span style="color: red;">{{ error }}</span>
+					          {% endfor %}
 									</label>
 									<div class="col-sm-7">
 										{{ form.price(class="form-control", placeholder="Price") }}
@@ -124,6 +155,9 @@
 								<div class="form-group">
 									<label class="col-sm-3 control-label">
 										Load Description
+										{% for error in form.description.errors %}
+					            <br><span style="color: red;">{{ error }}</span>
+					          {% endfor %}
 									</label>
 									<div class="col-sm-7">
 										{{ form.description(class="autosize form-control", style="overflow: none; word-wrap: break-word; resize: horizontal; height: 69px;") }}

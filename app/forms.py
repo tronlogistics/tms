@@ -68,7 +68,7 @@ class LoadForm(Form):
 	description = TextAreaField('Description', validators=[])
 	broker = FormField(ContactForm)
 	shipper = FormField(ContactForm)
-	locations = FieldList(FormField(LaneLocationForm), validators=[Length(min=2)])
+	locations = FieldList(FormField(LaneLocationForm), validators=[])
 
 
 
@@ -89,7 +89,7 @@ class TruckForm(Form):
 															('Step Deck', 'Step Deck'),
 															('Tanker', 'Tanker'),
 															('Van', 'Van'),], 
-															validators = [])
+															validators = [DataRequired()])
 	max_weight = IntegerField("Max Weight", validators =[])
 	dim_length = IntegerField("Length", validators =[])
 	dim_height = IntegerField("Height", validators =[])

@@ -24,8 +24,6 @@ def before_request():
 @login_required
 def create():
 	form = LoadForm()
-	form.validate()
-	flash(form.errors)
 	if form.validate_on_submit():
 		#geolocator = Nominatim()
 		#load = Load(name=form.name.data, 

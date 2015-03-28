@@ -1,87 +1,99 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<form name="edit" action="" method="post" class="form-horizontal">
+<form name="create" action="" method="post" class="form-horizontal">
 	{{ form.hidden_tag() }}
-	<div class="container-fluid" id="container">
-		<div class="row-fluid">
-		    <div class="span12">
-		    	<div class="row-fluid">
-		    		<div class="span12">
-		    			<div class="panel panel-default">
-							<div class="panel-heading">
-								<i class="fa fa-external-link-square"></i>
-								Create Truck
-							</div>
-							<div class="panel-body">
-								<div class="form-group">
-									<label class="col-sm-3 control-label" for="origin_address1">
-										Truck Name
-									</label>
-									<div class="col-sm-9">
-										{{ form.name(size=50, placeholder="Truck Name", class="form-control") }}
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-3 control-label" for="origin_address1">
-										Trailer Type
-									</label>
-									<div class="col-sm-9">
-										{{ form.trailer_type(class="form-control") }}
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-3 control-label" for="origin_address1">
-										Max Weight
-									</label>
-									<div class="col-sm-9">
-										{{ form.max_weight(size=50, placeholder="Max Weight", class="form-control") }}
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-3 control-label" for="origin_address1">
-										Length
-									</label>
-									<div class="col-sm-9">
-										{{ form.dim_length(size=50, placeholder="Length", class="form-control") }}
-									</div>
-								</div>
-								<div class="form-group">
-									<label class="col-sm-3 control-label" for="origin_address1">
-										Height
-									</label>
-									<div class="col-sm-9">
-										{{ form.dim_height(size=50, placeholder="Height", class="form-control") }}
-									</div>
-								</div>
-								
-								<div class="form-group">
-									<label class="col-sm-3 control-label" for="origin_address1">
-										Width
-									</label>
-									<div class="col-sm-9">
-										{{ form.dim_width(size=50, placeholder="Height", class="form-control") }}
-									</div>
-								</div>
-								<hr>
-								<div class="form-group">
-									<div class="col-sm-2 col-sm-offset-3">
-										<button class="btn btn-light-grey back-step btn-block">
-											<i class="fa fa-circle-arrow-left"></i> Cancel
-										</button>
-									</div>
-									<div class="col-sm-2 col-sm-offset-3">
-										<button type="submit" class="btn btn-blue next-step btn-block">
-											Submit <i class="fa fa-arrow-circle-right"></i>
-										</button>
-									</div>
-								</div>
-				        	</div>
-				        </div>
-		         	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-external-link-square"></i>
+					Edit Truck
 				</div>
-			</div>
-		</div>
+				<div class="panel-body">
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Truck Name<span class="symbol required"></span>
+							{% for error in form.name.errors %}
+					            <br><span style="color: red;">{{ error }}</span>
+					          {% endfor %}
+						</label>
+						<div class="col-sm-9">
+							{{ form.name(size=50, placeholder="Truck Name", class="form-control") }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Trailer Type<span class="symbol required"></span>
+							{% for error in form.trailer_type.errors %}
+					            <br><span style="color: red;">{{ error }}</span>
+					          {% endfor %}
+						</label>
+						<div class="col-sm-9">
+							{{ form.trailer_type(class="form-control") }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Max Weight
+							{% for error in form.max_weight.errors %}
+					            <br><span style="color: red;">{{ error }}</span>
+					          {% endfor %}
+						</label>
+						<div class="col-sm-9">
+							{{ form.max_weight(size=50, placeholder="Max Weight", class="form-control") }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Length
+							{% for error in form.dim_length.errors %}
+					            <br><span style="color: red;">{{ error }}</span>
+					          {% endfor %}
+						</label>
+						<div class="col-sm-9">
+							{{ form.dim_length(size=50, placeholder="Length", class="form-control") }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Height
+							{% for error in form.dim_height.errors %}
+					            <br><span style="color: red;">{{ error }}</span>
+					          {% endfor %}
+						</label>
+						<div class="col-sm-9">
+							{{ form.dim_height(size=50, placeholder="Height", class="form-control") }}
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Width
+							{% for error in form.dim_width.errors %}
+					            <br><span style="color: red;">{{ error }}</span>
+					          {% endfor %}
+						</label>
+						<div class="col-sm-9">
+							{{ form.dim_width(size=50, placeholder="Height", class="form-control") }}
+						</div>
+					</div>
+					<hr>
+					<div class="form-group">
+						<div class="col-sm-2 col-sm-offset-3">
+							<button class="btn btn-light-grey back-step btn-block">
+								<i class="fa fa-circle-arrow-left"></i> Cancel
+							</button>
+						</div>
+						<div class="col-sm-2 col-sm-offset-3">
+							<button type="submit" class="btn btn-blue next-step btn-block">
+								Submit <i class="fa fa-arrow-circle-right"></i>
+							</button>
+						</div>
+					</div>
+	        	</div>
+	        </div>
+     	</div>
 	</div>
 </form>
 

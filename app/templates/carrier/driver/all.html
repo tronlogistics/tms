@@ -55,7 +55,7 @@
 
                                     <a href="{{ url_for('drivers.edit', driver_id=driver.id)}}" class="btn btn-primary btn-mini">Edit</a>
                                     
-                                    <a href="{{ url_for('drivers.delete', driver_id=driver.id)}}" class="btn btn-danger btn-mini delete" onclick="return confirm('Are you sure?')">Delete</a>
+                                    <a href="{{ url_for('drivers.delete', driver_id=driver.id)}}" class="btn btn-danger btn-mini delete" onclick="return confirm('Are you sure you want to delete this?')">Delete</a>
                                 </td>
                             </tr>
                         {% endfor %}
