@@ -59,7 +59,7 @@
                                     {% elif load.status != "Complete" %}
                                         <a href="{{ url_for('loads.edit', load_id=load.id)}}" class="btn btn-primary btn-mini">Edit</a>
                                     
-                                        <a href="{{ url_for('loads.delete', load_id=load.id)}}" class="btn btn-danger btn-mini delete">Delete</a>
+                                        <a href="{{ url_for('loads.delete', load_id=load.id)}}" class="btn btn-danger btn-mini delete" onclick="return confirm('Are you sure you want to delete this?')">Delete</a>
                                     {% endif %}
                                 </td>
                             </tr>
