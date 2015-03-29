@@ -104,15 +104,15 @@ class Load(db.Model):
 
 	#general
 	name = db.Column(db.String(80), index=True)
-	status = db.Column(db.String(20))
-	trailer_group = db.Column(db.String(20))
-	trailer_type = db.Column(db.String(20))
-	load_type = db.Column(db.String(20))
+	status = db.Column(db.String(150))
+	trailer_group = db.Column(db.String(150))
+	trailer_type = db.Column(db.String(150))
+	load_type = db.Column(db.String(150))
 	total_miles = db.Column(db.Integer) 
-	purchase_order = db.Column(db.String(20))
-	over_dimensional = db.Column(db.Boolean)
-	carrier_cost = db.Column(db.String(10))
-	price = db.Column(db.String(10))
+	#purchase_order = db.Column(db.String(20))
+	#over_dimensional = db.Column(db.Boolean)
+	carrier_cost = db.Column(db.String(150))
+	price = db.Column(db.String(150))
 	description = db.Column(db.String(250))
 	comments = db.Column(db.String(500))
 
