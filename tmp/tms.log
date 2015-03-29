@@ -848,3 +848,5 @@ NotFound: 404: Not Found
 2015-03-29 14:15:11,161 INFO: User "john@tronlogistics.com" with role "carrier" created [in /Users/Root1/app/app/views/static.py:136]
 2015-03-29 14:17:11,356 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
 2015-03-29 14:17:30,492 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-03-29 15:15:48,208 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-03-29 15:15:48,684 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
