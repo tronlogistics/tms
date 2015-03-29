@@ -144,7 +144,7 @@ class LocationStatusForm(Form):
 		kwargs['csrf_enabled'] = False
 		Form.__init__(self, *args, **kwargs)
 
-	stop_number = HiddenField("Stop Number", validators=[])
+	location_id = HiddenField("Location ID", validators=[])
 	status = SelectField('Load Status:', choices = [('Pending Arrival', 'Pending Arrival'),
 													('Arrived', 'Arrived'),
 													('Loaded', 'Loaded'),

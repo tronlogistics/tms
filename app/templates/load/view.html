@@ -72,13 +72,23 @@ payment processing to owner operator drivers
 				                            	<td>{{ location.address.address1 }}<br />{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
 				                            	<td>{{ location.arrival_date }}</td>
 				                            	<td>
-				                            		<input type="hidden" id="location_status-{{ loop.index }}-stop_number" name="location_status-{{ loop.index }}-stop_number" class="form-control" value="{{ location.stop_number }}">
+				                            		<input type="hidden" id="location_status-{{ loop.index }}-location_id" name="location_status-{{ loop.index }}-location_id" class="form-control" value="{{ location.id }}">
 
 				                            		<select id="location_status-{{ loop.index }}-status" name="location_status-{{ loop.index }}-status" class="form-control location-type" value="">
+				                            			{% if location.status is none %}
+															<option value="Pending Arrival">Pending Arrival</option>
+														{% else %}
 															<option value="{{ location.status }}">{{ location.status }}</option>
+														{% endif %}
+														{% if location.status != "Arrived" %}
 															<option value="Arrived">Arrived</option>
+														{% endif %}
+														{% if location.status != "Loaded" %}
 															<option value="Loaded">Loaded</option>
+														{% endif %}
+														{% if location.status != "Departed" %}
 															<option value="Departed">Departed</option>
+														{% endif %}
 													</select>
 												</td>
 				                            </tr>
@@ -125,7 +135,6 @@ payment processing to owner operator drivers
 		            		<div class="panel-heading">
 		                		Broker
 		            		</div>
-		            		<div class="panel-body">
 		            		<table id="truck" class="table table-condensed">
 								<tbody>
 			           
@@ -143,7 +152,6 @@ payment processing to owner operator drivers
 										</tr>
 				                </tbody>
 							</table>
-						</div>
 	                	</div>
 	            	</div>
 	            	<div class="col-sm-6">
@@ -172,7 +180,6 @@ payment processing to owner operator drivers
 											<td>{{ load.carrier_cost }}</td>
 										</tr>
 			                		{% endif %}
-			                	
 				                	{% if load.assigned_driver is not none %}
 					                    <tr>
 											<td><b>Truck:</b></td>

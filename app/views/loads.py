@@ -151,14 +151,11 @@ def edit(load_id):
 	if permission.can():
 		load = Load.query.get(int(load_id))
 		form = LoadForm()
-		form.validate()
 		if form.validate_on_submit():
 			load.load_type = form.load_type.data
 			load.trailer_type = form.trailer_type.data
 			load.total_miles = form.total_miles.data
 			load.price = form.price.data
-			load.over_dimensional = form.over_dimensional.data
-			load.comments = form.comments.data
 			load.description = form.description.data
 			for location in load.lane.locations:
 				db.session.delete(location.address)
@@ -212,8 +209,6 @@ def edit(load_id):
 			form.trailer_type.data = load.trailer_type
 			form.total_miles.data = load.total_miles
 			form.price.data = load.price
-			form.over_dimensional.data = load.over_dimensional
-			form.comments.data = load.comments
 			form.description.data = load.description
 			form.locations = []
 			form.broker.company_name.data = load.broker.name
@@ -249,15 +244,18 @@ def edit(load_id):
 @login_required
 def view(load_id):
 	permission = ViewLoadPermission(load_id)
+	
 	if permission.can():
 		status_form = StatusForm()
 		#gn = geocoders.GeoNames()
 		#gn.geocode(filter((lambda location: location.is_origin), load.lane.locations)[0].postal_code)
 		load = Load.query.get(int(load_id))
+		status_form.validate()
 		if status_form.validate_on_submit():
 			for status in status_form.location_status:
-				location = Location.query.filter_by(stop_number=status.stop_number.data).first_or_404()
+				location = Location.query.filter_by(id=status.location_id.data).first_or_404()
 				location.status = status.status.data
+
 			#load.status = status_form.status.data
 			db.session.add(load)
 			db.session.commit()
@@ -269,7 +267,7 @@ def view(load_id):
 					carriers.append(carrier)
 
 		else:
-			carriers = filter((lambda truck: truck.is_available 
+			carriers = filter((lambda truck: truck.driver is not None
 												and truck.trailer_type == load.trailer_type), 
 												g.user.fleet.trucks)
 
@@ -341,7 +339,6 @@ def assign(load_id, assign_id):
 		#the load is assigned
 		truck = Truck.query.get(assign_id)
 		load.assigned_driver = truck.driver
-		truck.is_available = False
 		load.status = "Driver Assigned"
 		db.session.add(truck)
 		db.session.add(load)

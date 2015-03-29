@@ -23,7 +23,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Driver</th>
-                                <th>Status</th>
+                                <!--<th>Status</th>-->
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -46,12 +46,7 @@
                                             <a href="{{ url_for('drivers.view', driver_id=truck.driver.id)}}">{{ truck.driver.get_full_name() }}</a>
                                         {% endif %}
                                     </td>
-                                    <td>
-                                        {% if truck.is_available %}
-                                            Idle
-                                        {% else %}
-                                            En Route
-                                        {% endif %}
+                                    
                                     <td>
                                         {% if truck.driver is none %}
                                             <input type="submit" class="btn btn-success success" value="Assign Driver" />
