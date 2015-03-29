@@ -315,15 +315,7 @@ def delete(load_id):
 	permission = DeleteLoadPermission(load_id)
 	if permission.can():
 		load = Load.query.get(int(load_id))
-		load_detail = load.load_detail
-		lane = load.lane
-		origin = lane.origin
-		destination = lane.destination
 		db.session.delete(load)
-		db.session.delete(load_detail)
-		db.session.delete(lane)
-		db.session.delete(origin)
-		db.session.delete(destination)
 		db.session.commit()
 		return redirect(url_for('.all'))
 	abort(403)  # HTTP Forbidden
