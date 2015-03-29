@@ -111,8 +111,8 @@ class Load(db.Model):
 	total_miles = db.Column(db.Integer) 
 	purchase_order = db.Column(db.String(20))
 	over_dimensional = db.Column(db.Boolean)
-	carrier_cost = db.Column(db.Integer)
-	price = db.Column(db.Integer)
+	carrier_cost = db.Column(db.String(10))
+	price = db.Column(db.String(10))
 	description = db.Column(db.String(250))
 	comments = db.Column(db.String(500))
 
@@ -153,7 +153,7 @@ class Location(db.Model):
 	contact_id = db.Column(db.Integer, db.ForeignKey('Contact.id'))
 	contact = relationship("Contact")
 
-	stop_number = db.Column(db.Integer)
+	stop_number = db.Column(db.String(10))
 	arrival_date = db.Column(db.Date)
 
 	type = db.Column(db.String(10))
@@ -168,12 +168,12 @@ class LoadDetail(db.Model):
 	__tablename__ = 'LoadDetail'
 	id = db.Column(db.Integer, primary_key=True)
 	type = db.Column(db.String(10))
-	weight = db.Column(db.Integer)
-	dim_length = db.Column(db.Integer)
-	dim_width = db.Column(db.Integer)
-	dim_height = db.Column(db.Integer)
-	approx_miles = db.Column(db.Integer)
-	number_pieces = db.Column(db.Integer)
+	weight = db.Column(db.String(10))
+	dim_length = db.Column(db.String(10))
+	dim_width = db.Column(db.String(10))
+	dim_height = db.Column(db.String(10))
+	approx_miles = db.Column(db.String(10))
+	number_pieces = db.Column(db.String(10))
 	notes = db.Column(db.String(500))
 
 class Address(db.Model):
@@ -184,7 +184,7 @@ class Address(db.Model):
 	address2 = db.Column(db.String(100))
 	city = db.Column(db.String(100))
 	state = db.Column(db.String(80))
-	postal_code = db.Column(db.Integer)
+	postal_code = db.Column(db.String(10))
 	latitude = db.Column(db.Float(6))
 	longitude = db.Column(db.Float(6))
 
@@ -223,10 +223,10 @@ class Truck(db.Model):
 	is_available = db.Column(db.Boolean)
 	trailer_group = db.Column(db.String(30))
 	trailer_type = db.Column(db.String(30))
-	max_weight = db.Column(db.Integer)
-	dim_length = db.Column(db.Integer)
-	dim_height = db.Column(db.Integer)
-	dim_width = db.Column(db.Integer)
+	max_weight = db.Column(db.String(10))
+	dim_length = db.Column(db.String(10))
+	dim_height = db.Column(db.String(10))
+	dim_width = db.Column(db.String(10))
 
 class Driver(db.Model):
 	__tablename__ = 'Driver'
