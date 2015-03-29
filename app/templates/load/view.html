@@ -68,7 +68,7 @@ payment processing to owner operator drivers
 				                    <tbody>
 				                        {% for location in locations %}
 				                            <tr>
-				                            	<td><a href="#">View</a></td>
+				                            	<td><a href="#responsive-{{ loop.index }}" data-toggle="modal">View</a></td>
 				                            	<td>{{ location.address.address1 }}<br />{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
 				                            	<td>{{ location.arrival_date }}</td>
 				                            	<td>
@@ -263,9 +263,11 @@ payment processing to owner operator drivers
 	         		{% endif %}
 	            </div>
 		    </div>
+		    
 	    </div> 
-	</div>
-</div>
+
+
+
 
 {% include "partials/main_javascripts.html" %}
 

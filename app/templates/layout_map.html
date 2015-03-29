@@ -28,7 +28,139 @@
 {% endif %}
 
 
-
+	{% for location in load.lane.locations %}
+	<div id="responsive-{{ loop.index }}" class="modal fade" tabindex="-1" data-width="840" style="display: none;">
+		<div class="modal-header" id="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+				&times;
+			</button>
+			<h4 class="modal-title">Location Details - {{ location.address.address1 }}, {{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</h4>
+		</div>
+		<div class="modal-body">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="fa fa-external-link-square"></i>
+							Contact
+						</div>
+						<table id="truck" class="table table-condensed">
+							<tbody>
+		                    	<tr>
+									<td><b>Name:</b></td>
+									<td>{{ location.contact.name }}</td>
+								</tr>
+								<tr>
+									<td><b>Phone:</b></td>
+									<td>{{ location.contact.phone }}</td>
+								</tr>
+								<tr>
+									<td><b>Email:</b></td>
+									<td>{{ location.contact.email }}</td>
+								</tr>
+			                </tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				{% if location.delivery_details.weight == "" %}
+					<div class="col-sm-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<i class="fa fa-external-link-square"></i>
+								Pickup Details
+							</div>
+							<table id="truck" class="table table-condensed">
+								<tbody>
+			                    	<tr>
+										<td><b>Weight:</b></td>
+										<td>{{ location.pickup_details.weight }}</td>
+									</tr>
+									<tr>
+										<td><b>Notes:</b></td>
+										<td>{{ location.pickup_details.notes }}</td>
+									</tr>
+				                </tbody>
+							</table>
+						</div>
+					</div>
+				{% elif location.pickup_details.weight == "" %}
+					<div class="col-sm-12">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<i class="fa fa-external-link-square"></i>
+								Drop Off Details
+							</div>
+							<table id="truck" class="table table-condensed">
+								<tbody>
+			                    	<tr>
+										<td><b>Weight:</b></td>
+										<td>{{ location.delivery_details.weight }}</td>
+									</tr>
+									<tr>
+										<td><b>Notes:</b></td>
+										<td>{{ location.delivery_details.notes }}</td>
+									</tr>
+				                </tbody>
+							</table>
+						</div>
+					</div>
+				{% else %}
+					<div class="col-sm-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<i class="fa fa-external-link-square"></i>
+								Pickup Details
+							</div>
+							<table id="truck" class="table table-condensed">
+								<tbody>
+			           
+				                    	<tr>
+											<td><b>Weight:</b></td>
+											<td>{{ location.pickup_details.weight }}</td>
+										</tr>
+										<tr>
+											<td><b>Notes:</b></td>
+											<td>{{ location.pickup_details.notes }}</td>
+										</tr>
+				                </tbody>
+							</table>
+						</div>
+					</div>
+					<div class="col-sm-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								<i class="fa fa-external-link-square"></i>
+								Drop Off Details
+							</div>
+							<table id="truck" class="table table-condensed">
+								<tbody>
+			           
+				                    	
+										<tr>
+											<td><b>Weight:</b></td>
+											<td>{{ location.delivery_details.weight }}</td>
+										</tr>
+										<tr>
+											<td><b>Notes:</b></td>
+											<td>{{ location.delivery_details.notes }}</td>
+										</tr>
+				                </tbody>
+							</table>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+		<div class="modal-footer">
+	   		<input type="hidden" id="locations-{{ loop.index }}-stop_number" name="locations-{{ loop.index }}-stop_number" class="form-control stop-number" value="{{ loop.index }}">
+			<button type="button" data-dismiss="modal" class="btn btn-light-grey">
+				Close
+			</button>
+		</div>
+	</div>
+{% endfor %}
 
 		{#<!-- start: MAIN JAVASCRIPTS -->
 		<!--[if lt IE 9]>
