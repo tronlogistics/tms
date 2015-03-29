@@ -116,7 +116,6 @@ def logout():
 def register():
 	register_form = RegisterForm()
 	register_form.account_type.data = 'carrier'
-
 	if register_form.validate_on_submit():
 		if User.query.filter_by(email=register_form.email.data).first() is not None:
 			flash("This e-mail is already registered.")
