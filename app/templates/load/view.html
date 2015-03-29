@@ -1,44 +1,3 @@
-{# 
-
-TODO: 
-
-ADD NOTES! 
-Add supplemental load details (include a supplemental cost)
-
-Add field to indicate if dispatcher has required permits??
-
-Is truck/driver an owner-operator?
-	if yes - upload permits to website and e-mail to trucker?
-
-Do we need to track hours of service for trucks?
-
-sms/email of load details upon assignment
-
-SMS/Email/dial-in based driver logs (on duty/off duty) and/or load status
-
-Loads local to a driver
-
-Create a favorite load
-Recurring loads
-notification system of new loads and recommending drivers
-	# axels
-	shape of trailer
-	type of trailer
-
-prepare/send invoices
-
-Directions to location
-
-upload signed load confirmation
-
-indicate a load as been paid?
-
-integrate with quicken
-
-payment processing to owner operator drivers
-
-#}
-
 {% extends "layout_map.html" %}
 
 {% block content %}
@@ -60,18 +19,20 @@ payment processing to owner operator drivers
 				                    <thead>
 				                        <tr>
 				                            <th>Details</th>
+				                            <th>Stop #</th>
 				                            <th>Address</th>
 				                            <th>Arrival Date</th>
-				                            <th>Status</th>
+				                            <!--<th>Status</th>-->
 				                        </tr>
 				                    </thead>
 				                    <tbody>
 				                        {% for location in locations %}
 				                            <tr>
 				                            	<td><a href="#responsive-{{ loop.index }}" data-toggle="modal">View</a></td>
+				                            	<td>{{location.stop_number}}</td>
 				                            	<td>{{ location.address.address1 }}<br />{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
 				                            	<td>{{ location.arrival_date }}</td>
-				                            	<td>
+				                            	<!--<td>
 				                            		<input type="hidden" id="location_status-{{ loop.index }}-location_id" name="location_status-{{ loop.index }}-location_id" class="form-control" value="{{ location.id }}">
 
 				                            		<select id="location_status-{{ loop.index }}-status" name="location_status-{{ loop.index }}-status" class="form-control location-type" value="">
@@ -90,7 +51,7 @@ payment processing to owner operator drivers
 															<option value="Departed">Departed</option>
 														{% endif %}
 													</select>
-												</td>
+												</td>-->
 				                            </tr>
 				                        {% endfor %}
 				                    </tbody>
@@ -263,7 +224,7 @@ payment processing to owner operator drivers
 	         		{% endif %}
 	            </div>
 		    </div>
-		    
+
 	    </div> 
 
 

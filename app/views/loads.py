@@ -270,7 +270,7 @@ def view(load_id):
 			carriers = filter((lambda truck: truck.driver is not None
 												and truck.trailer_type == load.trailer_type), 
 												g.user.fleet.trucks)
-
+		
 		return render_template('load/view.html', status_form=status_form,
 												load=load, 
 												carriers=carriers,
