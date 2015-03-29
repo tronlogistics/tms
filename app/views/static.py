@@ -220,7 +220,7 @@ def not_found_error(error):
 def internal_error(error):
 	app.logger.exception(error)
 	db.session.rollback()
-	return render_template('500.html', user=current_user), 500
+	return render_template('500.html', user=current_user, error=error), 500
 
 @identity_loaded.connect_via(app)
 def on_identity_loaded(sender, identity):
