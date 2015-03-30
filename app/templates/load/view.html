@@ -148,7 +148,7 @@
 										</tr>
 										<tr>
 											<td><b>Driver:</b></td>
-											<td><a href="{{ url_for('drivers.view', driver_id=load.assigned_driver.truck.id) }}">{{ load.assigned_driver.get_full_name() }}</a></td>
+											<td><a href="{{ url_for('drivers.view', driver_id=load.assigned_driver.id) }}">{{ load.assigned_driver.get_full_name() }}</a></td>
 										</tr>
 					                {% else %}
 					                	<tr>
