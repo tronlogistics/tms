@@ -29,8 +29,13 @@
                         {% for load in loads %}
                             <tr>
                                 <td><a href="{{ url_for('loads.view', load_id=load.id) }}">{{ load.id }}</a></td>
-                                <td>{{ load.lane.locations[0].address.city }}, {{ load.lane.locations[0].address.state }} {{ load.lane.locations[0].address.postal_code }}</td>
-                                <td>{{ load.lane.locations[-1].address.city }}, {{ load.lane.locations[-1].address.state }} {{ load.lane.locations[-1].address.postal_code }}</td>
+                                {% if load.lane.locations.count() > 0 %}
+                                    <td>{{ load.lane.locations[0].address.city }}, {{ load.lane.locations[0].address.state }} {{ load.lane.locations[0].address.postal_code }}</td>
+                                    <td>{{ load.lane.locations[-1].address.city }}, {{ load.lane.locations[-1].address.state }} {{ load.lane.locations[-1].address.postal_code }}</td>
+                                {% else %}
+                                    <td></td>
+                                    <td></td>
+                                {% endif %}
                                 <td>
                                     {% if load.assigned_driver is none %}
                                         Unassigned
