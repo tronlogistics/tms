@@ -240,6 +240,8 @@ def edit(load_id):
 
 	abort(403)  # HTTP Forbidden
 
+
+#View Load
 @loads.route('/<load_id>/view', methods=['GET', 'POST'])
 @login_required
 def view(load_id):
