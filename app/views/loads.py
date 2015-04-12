@@ -283,6 +283,104 @@ def view(load_id):
 												user=g.user)
 	abort(403)
 
+@loads.route('/<load_id>/location', methods=['POST', 'GET'])
+@login_required
+def add_location(load_id):
+	permission = EditLoadPermission(load_id)
+	if permission.can():
+		
+		form = LaneLocationForm()
+		if form.validate_on_submit():
+			load = Load.query.get(int(load_id))
+			address = AddressFactory(form.address1.data,
+									form.city.data,
+									form.state.data,
+									form.postal_code.data)
+			pickup_detail = LoadDetailFactory(form.pickup_weight.data, "Pickup")
+			delivery_detail = LoadDetailFactory(form.delivery_weight.data, "Delivery")
+			contact = ContactFactory(form.contact_name.data, form.contact_phone.data, form.contact_email.data)
+			stop_off = LocationFactory(address, pickup_detail, delivery_detail, form.arrival_date.data, load.lane.locations.count() + 1, contact, form.stop_type.data)
+			load.lane.locations.append(stop_off)
+			db.session.add(load)
+			db.session.commit()
+			return redirect(url_for('.view', load_id=load.id))
+
+		return render_template('load/location/create.html', 
+								title="Add Location", 
+								form=form, 
+								active="Loads",
+								user=g.user)
+
+	abort(403)  # HTTP Forbidden
+
+@loads.route('/<load_id>/location/<location_id>', methods=['POST', 'GET'])
+@login_required
+def edit_location(load_id, location_id):
+	permission = EditLoadPermission(load_id)
+	if permission.can():
+		
+		form = LaneLocationForm()
+		form.validate()
+		flash(form.errors)
+		if form.validate_on_submit():
+			location = Location.query.get(int(location_id))
+			location.address.address1 = form.address1.data
+			location.address.city = form.city.data
+			location.address.state = form.state.data
+			location.address.postal_code = form.postal_code.data
+			location.pickup_details.weight = form.pickup_weight.data
+			location.pickup_details.notes = form.pickup_notes.data
+			location.delivery_details.weight = form.delivery_weight.data
+			location.delivery_details.notes = form.delivery_notes.data
+			location.contact.name = form.contact_name.data
+			location.contact.phone = form.contact_phone.data
+			location.contact.email = form.contact_email.data
+			location.arrival_date = form.arrival_date.data
+			location.type = form.stop_type.data
+			db.session.add(location)
+			db.session.commit()
+			return redirect(url_for('.view', load_id=load_id))
+
+		location = Location.query.get(int(location_id))
+		form.address1.data = location.address.address1
+		form.city.data = location.address.city
+		form.state.data = location.address.state 
+		form.postal_code.data = location.address.postal_code
+		form.pickup_weight.data = location.pickup_details.weight
+		form.pickup_notes.data = location.pickup_details.notes
+		form.delivery_weight.data = location.delivery_details.weight
+		form.delivery_notes.data = location.delivery_details.notes
+		form.contact_name.data = location.contact.name
+		form.contact_phone.data = location.contact.phone 
+		form.contact_email.data = location.contact.email 
+		form.arrival_date.data = location.arrival_date
+		form.stop_type.data = location.type
+
+		return render_template('load/location/edit.html', 
+								title="Edit Location", 
+								form=form, 
+								active="Loads",
+								user=g.user)
+
+	abort(403)  # HTTP Forbidden
+
+@loads.route('/<load_id>/location/<location_id>/delete', methods=['POST', 'GET'])
+@login_required
+def delete_location(load_id, location_id):
+	permission = EditLoadPermission(load_id)
+	if permission.can():
+		load = Load.query.get(int(load_id))
+		location = Location.query.get(int(location_id))
+		for loc in filter((lambda curLoc: curLoc.stop_number > location.stop_number), load.lane.locations):
+			loc.stop_number = int(loc.stop_number) - 1
+			db.session.add(loc)
+		db.session.delete(location)
+		db.session.commit()
+		
+		return redirect(url_for('.view', load_id=load.id))
+
+	abort(403)  # HTTP Forbidden
+
 @loads.route('/all')
 @login_required
 def all():

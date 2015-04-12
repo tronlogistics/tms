@@ -68,8 +68,8 @@ def LoadFactory(form):
 										location.city.data,
 										location.state.data,
 										location.postal_code.data)
-		pickup_detail = LoadDetailFactory(location.pickup_weight.data, "Pickup")
-		delivery_detail = LoadDetailFactory(location.delivery_weight.data, "Delivery")
+		pickup_detail = LoadDetailFactory(location.pickup_weight.data, location.pickup_notes.data, "Pickup")
+		delivery_detail = LoadDetailFactory(location.delivery_weight.data, location.delivery_notes.data, "Delivery")
 		contact = ContactFactory(location.contact_name.data, location.contact_phone.data, location.contact_email.data)
 		stop_off = LocationFactory(address, pickup_detail, delivery_detail, location.arrival_date.data, location.stop_number.data, contact, location.stop_type.data)
 		stop_off_locations.append(stop_off)
@@ -97,8 +97,8 @@ def LocationFactory(address, pickup_detail, delivery_detail, arrival_date, stop_
 					latitude=loc.latitude)
 
 
-def LoadDetailFactory(weight, type):
-	return LoadDetail(weight=weight, type=type)
+def LoadDetailFactory(weight, notes, type):
+	return LoadDetail(weight=weight, notes=notes, type=type)
 
 def AddressFactory(address1, city, state, postal_code):
 	return Address(address1=address1,

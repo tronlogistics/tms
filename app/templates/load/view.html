@@ -13,6 +13,13 @@
 	            		<div class="panel-body">
 		                	<div id="map-canvas" style="height: 400px; margin: 0; padding: 0;"></div>
 		                	<hr>
+		                	<div class="row">
+								<div class="col-md-12 space20">
+									<a href="{{ url_for('.add_location', load_id=load.id) }}" class="new-modal btn btn-green">
+										Add Location <i class="fa fa-plus"></i>
+									</a>
+								</div>
+							</div>
 		                	<form name="status" action="" role="form" class="form-horizontal" id="form" method="post">
 		                		{{ status_form.hidden_tag() }}
 			                	<table class="table table-bordered table-hover table-condensed" id="sample-table-1">
@@ -22,6 +29,7 @@
 				                            <th>Stop #</th>
 				                            <th>Address</th>
 				                            <th>Arrival Date</th>
+				                            <th>Actions</th>
 				                            <!--<th>Status</th>-->
 				                        </tr>
 				                    </thead>
@@ -32,6 +40,7 @@
 				                            	<td>{{location.stop_number}}</td>
 				                            	<td>{{ location.address.address1 }}<br />{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
 				                            	<td>{{ location.arrival_date }}</td>
+				                            	<td><a href="{{ url_for('.edit_location', load_id=load.id, location_id=location.id) }}">Edit</a>/<a href="{{ url_for('.delete_location', load_id=load.id, location_id=location.id) }}">Delete</a>
 				                            	<!--<td>
 				                            		<input type="hidden" id="location_status-{{ loop.index }}-location_id" name="location_status-{{ loop.index }}-location_id" class="form-control" value="{{ location.id }}">
 

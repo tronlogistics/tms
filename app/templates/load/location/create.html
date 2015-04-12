@@ -1,0 +1,229 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<form name="create" action="" role="form" class="form-horizontal" id="form" method="post">
+	{{ form.hidden_tag() }}
+	<div id="form-container">
+		<!-- start: PAGE CONTENT -->
+		<div class="col-sm-12">
+			<div class="row">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<i class="fa fa-external-link-square"></i>
+						General
+					</div>
+					<div class="panel-body">
+						<div class="form-horizontal">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">
+										Type <span class="symbol required"></span>
+									</label>
+									<div class="col-sm-7">
+										{{ form.stop_type(class="form-control location-type") }}
+									</div>
+								</div>
+								<div class="form-group">
+									<p>
+									<label class="col-sm-3 control-label">
+										Address <span class="symbol required"></span>
+									</label>
+									<div class="col-sm-7">
+										{{ form.address1(class="form-control", placeholder="Address") }}
+									</div>
+								</p>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">
+										City <span class="symbol required"></span>
+									</label>
+									<div class="col-sm-7">
+										{{ form.city(class="form-control", placeholder="City") }}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">
+										State <span class="symbol required"></span>
+									</label>
+									<div class="col-sm-7">
+										{{ form.state(class="form-control", placeholder="State") }}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">
+										Zip Code <span class="symbol required"></span>
+									</label>
+									<div class="col-sm-7">
+										{{ form.postal_code(class="form-control", placeholder="Zip Code") }}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">
+										Arrival Date <span class="symbol required"></span>
+									</label>
+									<div class="col-sm-7">
+										{#{{ form.arrival_date(data-date-format="mm-dd-yyyy", data-date-viewmode="years", class="form-control date-picker") }}#}
+
+										<input type="text" id="arrival_date" name="arrival_date" data-date-format="mm-dd-yyyy" data-date-viewmode="years" class="form-control date-picker" value="">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<i class="fa fa-external-link-square"></i>
+						Contact
+					</div>
+					<div class="panel-body">
+						<div class="form-horizontal">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">
+										Name <span class="symbol required"></span>
+									</label>
+									<div class="col-sm-7">
+										{{ form.contact_name(class="form-control", placeholder="Name") }}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">
+										Phone <span class="symbol required"></span>
+									</label>
+									<div class="col-sm-7">
+										{{ form.contact_phone(class="form-control", placeholder="Phone") }}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">
+										Email
+									</label>
+									<div class="col-sm-7">
+										{{ form.contact_email(class="form-control", placeholder="Email") }}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row" id="pickup" style="display:none;">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<i class="fa fa-external-link-square"></i>
+						Pickup Details
+					</div>
+					<div class="panel-body">
+						<div class="form-horizontal">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">
+										Weight (lbs) <span class="symbol required"></span>
+									</label>
+									<div class="col-sm-7">
+										{{ form.pickup_weight(class="form-control", placeholder="Weight") }}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">
+										Notes
+									</label>
+									<div class="col-sm-7">
+										{{ form.pickup_notes(class="form-control", placeholder="Notes") }}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row" id="delivery" style="display:none;">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<i class="fa fa-external-link-square"></i>
+						Drop Off Details
+					</div>
+					<div class="panel-body">
+						<div class="form-horizontal">
+							<div class="col-sm-12">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">
+										Weight (lbs) <span class="symbol required"></span>
+									</label>
+									<div class="col-sm-7">
+										{{ form.delivery_weight(class="form-control", placeholder="Weight") }}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-3 control-label">
+										Notes
+									</label>
+									<div class="col-sm-7">
+										{{ form.delivery_notes(class="form-control", placeholder="Notes") }}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr>
+				<div class="form-group">
+					<div class="col-sm-2 col-sm-offset-3">
+						<button class="btn btn-light-grey back-step btn-block">
+							<i class="fa fa-circle-arrow-left"></i> Back
+						</button>
+					</div>
+					<div class="col-sm-2 col-sm-offset-3">
+						<button type="submit" class="btn btn-success btn-block">
+							Finish <i class="fa fa-arrow-circle-right"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</form>
+		<!-- end: RIGHT SIDEBAR -->
+		{% include "partials/main_javascripts.html" %}
+		
+<script src="{{ static('backend/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+		<script>
+		$( document ).on( "focus", "input.date-picker", function() {
+				$('.date-picker').datepicker({
+			            autoclose: true,
+			            format: "mm/dd/yyyy",
+						minDate: 0
+			        });
+			});
+
+		$( document).on("change", ".location-type", function() {
+			alert('test');
+				if ($(this).val() == "Pickup") {
+					$('#pickup').css("display", "");
+					$('#delivery').css("display", "none");
+					$('#delivery_weight').val("");
+					$('#delivery_notes').val("");
+				} else if ($(this).val() == "Drop Off") {
+					$('#pickup').css("display", "none");
+					$('#pickup_weight').val("");
+					$('#pickup_notes').val("");
+					$('#delivery').css("display", "");
+				} else if ($(this).val() == "Both") {
+					$('#pickup').css("display", "");
+					$('#delivery').css("display", "");
+				} else {
+					$('#pickup').css("display", "none");
+					$('#pickup_weight').val("");
+					$('#pickup_notes').val("");
+					$('#delivery').css("display", "none");
+					$('#delivery_weight').val("");
+					$('#delivery_notes').val("");
+				}
+			});
+		</script>
+				{% endblock %}

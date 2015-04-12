@@ -870,3 +870,35 @@ NotFound: 404: Not Found
 2015-03-31 17:12:55,058 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
 2015-03-31 17:12:57,534 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
 2015-03-31 17:13:25,608 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-11 18:30:23,139 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-11 18:32:11,561 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-11 18:36:22,066 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-12 08:44:55,554 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:215]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-04-12 08:51:02,420 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-12 08:51:02,890 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-12 08:51:59,446 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-12 08:52:20,431 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-12 08:52:34,345 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-12 08:54:46,155 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-12 09:02:51,402 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-12 09:02:51,874 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-12 09:05:20,398 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-12 09:05:20,863 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-12 09:06:22,598 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-12 09:07:51,576 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-12 09:08:12,614 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-12 09:12:44,607 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-12 09:16:44,126 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-12 09:16:57,048 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-12 09:19:43,977 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-12 09:19:44,495 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-12 09:20:28,919 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-04-12 09:20:50,956 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
