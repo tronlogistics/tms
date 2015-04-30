@@ -12,7 +12,7 @@ class ContactForm(Form):
 
 	company_name = StringField('Name', validators=[])
 	phone = StringField('Phone', validators=[])
-	email = StringField('Email', validators=[Email("Please enter a valid e-mail")])
+	email = StringField('Email', validators=[])
 
 class LaneLocationForm(Form):
 	def __init__(self, *args, **kwargs):
@@ -60,9 +60,9 @@ class LoadForm(Form):
 															('Step Deck', 'Step Deck'),
 															('Tanker', 'Tanker'),
 															('Van', 'Van'),], 
-															validators = [])
-	load_type = SelectField('Load Type', choices = [('','<none selected>'),('LTL', 'LTL'), ('TL', 'TL')], validators = [])
-	total_miles = StringField('Total Miles', validators=[])
+															validators = [DataRequired()])
+	load_type = SelectField('Load Type', choices = [('','<none selected>'),('LTL', 'LTL'), ('TL', 'TL')], validators = [DataRequired()])
+	total_miles = StringField('Total Miles', validators=[DataRequired()])
 	price = StringField('Total Price', validators=[DataRequired()])
 	purchase_order = StringField('Purchase Order', validators =[])
 	description = TextAreaField('Description', validators=[])
