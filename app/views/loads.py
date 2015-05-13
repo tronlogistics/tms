@@ -265,8 +265,8 @@ def add_location(load_id):
 									form.city.data,
 									form.state.data,
 									form.postal_code.data)
-			pickup_detail = LoadDetailFactory(form.pickup_weight.data, "Pickup")
-			delivery_detail = LoadDetailFactory(form.delivery_weight.data, "Delivery")
+			pickup_detail = LoadDetailFactory(form.pickup_weight.data, form.pickup_notes.data, "Pickup")
+			delivery_detail = LoadDetailFactory(form.delivery_weight.data, form.delivery_notes.data, "Delivery")
 			contact = ContactFactory(form.contact_name.data, form.contact_phone.data, form.contact_email.data)
 			stop_off = LocationFactory(address, pickup_detail, delivery_detail, form.arrival_date.data, load.lane.locations.count() + 1, contact, form.stop_type.data)
 			load.lane.locations.append(stop_off)
