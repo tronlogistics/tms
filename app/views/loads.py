@@ -157,12 +157,7 @@ def edit(load_id):
 			load.total_miles = form.total_miles.data
 			load.price = form.price.data
 			load.description = form.description.data
-			for location in load.lane.locations:
-				db.session.delete(location.address)
-				db.session.delete(location.pickup_details)
-				db.session.delete(location.delivery_details)
-				db.session.delete(location)
-			load.lane.locations = []
+			
 			broker = Contact.query.filter_by(name=form.broker.company_name.data, 
 							phone=form.broker.phone.data, 
 							email=form.broker.email.data).first()
@@ -181,22 +176,6 @@ def edit(load_id):
 
 			load.broker = broker
 			load.shipper = shipper
-
-			for location in form.locations:
-
-				address = AddressFactory(location.address1.data,
-												location.city.data,
-												location.state.data,
-												location.postal_code.data)
-				pickup_detail = LoadDetailFactory(location.pickup_weight.data, "Pickup")
-				delivery_detail = LoadDetailFactory(location.delivery_weight.data, "Delivery")
-				contact = ContactFactory(location.contact_name.data, location.contact_phone.data, location.contact_email.data)
-				stop_off = LocationFactory(address, pickup_detail, delivery_detail, location.arrival_date.data, location.stop_number.data, contact, location.stop_type.data)
-				load.lane.locations.append(stop_off)
-				#db.session.add(stop_off)
-				#db.session.add(address)
-				#db.session.add(pickup_detail)
-				#db.session.add(delivery_detail)
 			
 			db.session.add(load)
 			#db.session.add(load.lane)
@@ -217,17 +196,7 @@ def edit(load_id):
 			form.shipper.company_name.data = load.shipper.name
 			form.shipper.phone.data = load.shipper.phone
 			form.shipper.email.data = load.shipper.email
-			for stop_off in load.lane.locations:
-				location = LaneLocationForm()
-				location.stop_number.data = stop_off.stop_number
-				location.address1.data = stop_off.address.address1
-				location.city.data = stop_off.address.city
-				location.state.data = stop_off.address.state
-				location.postal_code.data = stop_off.address.postal_code
-				location.pickup_weight.data = stop_off.pickup_details.weight
-				location.delivery_weight.data = stop_off.delivery_details.weight
-
-				form.locations.append(location)
+			
 			
 			form.price.data = load.price
 
