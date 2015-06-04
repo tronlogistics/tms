@@ -290,7 +290,6 @@ def edit_location(load_id, location_id):
 		
 		form = LaneLocationForm()
 		form.validate()
-		flash(form.errors)
 		if form.validate_on_submit():
 			location = Location.query.get(int(location_id))
 			location.address.address1 = form.address1.data
