@@ -1,11 +1,12 @@
 from flask import Blueprint, render_template, url_for, redirect, request, flash, session, abort, g, jsonify
 from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
-from app import db, lm, app
+from app import db, lm, app, mail
 from app.forms import DriverForm, TruckForm, AssignDriverForm
 from app.models import Load, Driver, Truck, LongLat
 from app.permissions import *
 from app.emails import ping_driver, get_serializer
+from itsdangerous import URLSafeSerializer, BadSignature
 
 trucks = Blueprint('trucks', __name__, url_prefix='/trucks')
 
@@ -135,7 +136,7 @@ def check_in(activation_slug):
 	s = get_serializer()
 	try:
 		truck_id = s.loads(activation_slug)
-		app.logger.info("User %s" % user_id)
+		app.logger.info("Truck %s" % truck_id)
 	except BadSignature:
 		abort(404)
 
