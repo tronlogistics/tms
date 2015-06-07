@@ -1068,3 +1068,8 @@ Traceback (most recent call last):
   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/smtplib.py", line 735, in sendmail
     raise SMTPRecipientsRefused(senderrs)
 SMTPRecipientsRefused: {u'johnny.lopez617@gmail.com': (553, '5.7.1 <admin@tronlogistics.com>: Sender address rejected: not logged in')}
+2015-06-06 20:48:00,037 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-06 20:48:00,502 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-06 20:48:26,369 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-06 20:48:31,034 INFO: Sending driver check-in email! [in /Users/Root1/app/app/emails.py:72]
+2015-06-06 20:49:29,008 INFO: Sending driver check-in email! [in /Users/Root1/app/app/emails.py:72]

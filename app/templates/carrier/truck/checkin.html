@@ -17,7 +17,9 @@
 
 <script>
 function locate() {
+  alert("locating...");
 	if(navigator.geolocation) {
+    alert('has geolocate');
 		navigator.geolocation.getCurrentPosition(function(position) {
             $.post('../storelocation/1', {
 		        long: position.coords.longitude,
@@ -40,6 +42,7 @@ function locate() {
 
 // A $( document ).ready() block.
 $( document ).ready(function() {
+    alert("ready");
     locate();
 });
 
