@@ -44,6 +44,7 @@ def reset_pass(user):
 	try:
 		user_id = s.loads(activation_slug)
 	except BadSignature:
+		app.logger.exception(error)
 		abort(404)
 	send_email("Password Reset",
 		ADMINS[0],
@@ -74,6 +75,7 @@ def ping_driver(driver):
 	try:
 		driver_id = s.loads(activation_slug)
 	except BadSignature:
+		app.logger.exception(error)
 		abort(404)
 
 	send_email("Please Check In",

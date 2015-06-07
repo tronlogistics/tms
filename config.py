@@ -28,7 +28,7 @@ WHOOSH_ENABLED = os.environ.get('HEROKU') is None
 DATABASE_QUERY_TIMEOUT = 0.5
 
 # email server
-MAIL_SERVER = 'mail.privateemail.com'  # your mailserver
+MAIL_SERVER = 'mail.tronlogistics.com'  # your mailserver
 MAIL_PORT = 465
 MAIL_USE_TLS = False
 MAIL_USE_SSL = True
