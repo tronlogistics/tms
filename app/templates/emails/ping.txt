@@ -1,0 +1,7 @@
+Dear {{ driver.get_full_name() }},
+
+Please check in by clicking here: {{ url_for('trucks.check_in', activation_slug=activation_slug, _external=True) }}
+
+Regards,
+
+TronMS Team

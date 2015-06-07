@@ -1,0 +1,63 @@
+<h1 id='message' style="display:none">Thank you! {{ truck.longitude }}, {{ truck.latitude }}</h1>
+<h1 id='error' style="display:none">Please try again and enable location services</h1>
+
+<script src="{{ static('backend/plugins/jQuery-lib/2.0.3/jquery.min.js') }}"></script>
+<!--<![endif]-->
+<script src="{{ static('backend/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js') }}"></script>
+<script src="{{ static('backend/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ static('backend/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js') }}"></script>
+<script src="{{ static('backend/plugins/blockUI/jquery.blockUI.js') }}"></script>
+<script src="{{ static('backend/plugins/iCheck/jquery.icheck.min.js') }}"></script>
+<script src="{{ static('backend/plugins/perfect-scrollbar/src/jquery.mousewheel.js') }}"></script>
+<script src="{{ static('backend/plugins/perfect-scrollbar/src/perfect-scrollbar.js') }}"></script>
+<script src="{{ static('backend/plugins/less/less-1.5.0.min.js') }}"></script>
+<script src="{{ static('backend/plugins/jquery-cookie/jquery.cookie.js') }}"></script>
+<script src="{{ static('backend/plugins/bootstrap-colorpalette/js/bootstrap-colorpalette.js') }}"></script>
+<script src="{{ static('backend/js/main.js') }}"></script>
+
+<script>
+function locate() {
+	if(navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(function(position) {
+            $.post('../storelocation/1', {
+		        long: position.coords.longitude,
+		        lat: position.coords.latitude
+		    }).done(function(translated) {
+		    	$('#message').text(translated['message']);
+		        $('#message').show();
+		    }).fail(function() {
+		        $('#error').show();
+		    });
+        }, function() {
+          handleNoGeolocation(true);
+        });
+	    
+	}
+	else {
+		$('#error').show();
+	}
+}
+
+// A $( document ).ready() block.
+$( document ).ready(function() {
+    locate();
+});
+
+function handleNoGeolocation(errorFlag) {
+  if (errorFlag) {
+    var content = 'Error: The Geolocation service failed.';
+  } else {
+    var content = 'Error: Your browser doesn\'t support geolocation.';
+  }
+
+  var options = {
+    map: map,
+    position: new google.maps.LatLng(60, 105),
+    content: content
+  };
+
+  var infowindow = new google.maps.InfoWindow(options);
+  map.setCenter(options.position);
+}
+
+</script>

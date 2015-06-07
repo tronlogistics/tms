@@ -64,6 +64,26 @@ def new_lead(email):
 		render_template("emails/new_lead.html", 
 			email=email))
 
+def ping_driver(driver):
+	app.logger.info("Sending driver check-in email!")
+
+	s = get_serializer()
+
+	activation_slug = s.dumps(driver.id)
+	s = get_serializer()
+	try:
+		driver_id = s.loads(activation_slug)
+	except BadSignature:
+		abort(404)
+
+	send_email("Please Check In",
+		ADMINS[0],
+		[driver.email],
+		render_template("emails/ping.txt", 
+			driver=driver, activation_slug=activation_slug),
+		render_template("emails/ping.html", 
+			driver=driver, activation_slug=activation_slug))
+
 def get_serializer(secret_key=None):
     if secret_key is None:
         secret_key = app.secret_key

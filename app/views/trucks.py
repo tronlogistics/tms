@@ -1,10 +1,11 @@
-from flask import Blueprint, render_template, url_for, redirect, request, flash, session, abort, g
+from flask import Blueprint, render_template, url_for, redirect, request, flash, session, abort, g, jsonify
 from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app
 from app.forms import DriverForm, TruckForm, AssignDriverForm
-from app.models import Load, Driver, Truck
+from app.models import Load, Driver, Truck, LongLat
 from app.permissions import *
+from app.emails import ping_driver, get_serializer
 
 trucks = Blueprint('trucks', __name__, url_prefix='/trucks')
 
@@ -45,7 +46,8 @@ def create():
 						dim_length=form.dim_length.data,
 						dim_height=form.dim_height.data,
 						dim_width=form.dim_width.data,
-						is_available=True)
+						is_available=True,
+						locations = [])
 			db.session.add(truck)
 			g.user.fleet.trucks.append(truck)
 			db.session.add(g.user)
@@ -119,6 +121,41 @@ def delete(truck_id):
 		db.session.commit()
 		return redirect(url_for('.all'))
 	abort(403)
+
+###########################################
+
+@trucks.route('/ping/<truck_id>', methods=['GET', 'POST'])
+def ping(truck_id):
+	truck = Truck.query.get(int(truck_id))
+	ping_driver(truck.driver)
+	return jsonify({'message': 'Pinged ' + truck.driver.get_full_name()})
+
+@trucks.route('/checkin/<activation_slug>', methods=['GET', 'POST'])
+def check_in(activation_slug):
+	s = get_serializer()
+	try:
+		truck_id = s.loads(activation_slug)
+		app.logger.info("User %s" % user_id)
+	except BadSignature:
+		abort(404)
+
+	truck = Truck.query.get_or_404(truck_id)
+	return render_template('carrier/truck/checkin.html', truck=truck)
+
+@trucks.route('/storelocation/<truck_id>', methods=['POST'])
+def store_location(truck_id):
+	truck = Truck.query.get(int(truck_id))
+	longlat = LongLat(latitude=request.form['lat'],
+						longitude=request.form['long'])
+	truck.tracker.append(longlat)
+	for load in filter((lambda l: l.status != "Load Complete"), truck.driver.loads):
+		load.tracker.append(longlat)
+	if truck.tracker.count() > 10: 
+		truck.tracker.pop()
+	db.session.add(truck)
+	db.session.add(load)
+	db.session.commit()
+	return jsonify({'message': 'Thank you for checking in!'})
 
 ##########
 #  MISC  #

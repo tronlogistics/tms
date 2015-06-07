@@ -116,6 +116,7 @@ class Load(db.Model):
 	description = db.Column(db.String(250))
 	comments = db.Column(db.String(500))
 
+	tracker = db.relationship("LongLat", lazy='dynamic')
 	
 
 	#children
@@ -227,6 +228,7 @@ class Truck(db.Model):
 	dim_length = db.Column(db.String(10))
 	dim_height = db.Column(db.String(10))
 	dim_width = db.Column(db.String(10))
+	tracker = db.relationship("LongLat", lazy='dynamic')
 
 class Driver(db.Model):
 	__tablename__ = 'Driver'
@@ -252,3 +254,12 @@ class Role(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(100))
 	user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
+
+class LongLat(db.Model):
+	__tablename__ = 'LongLat'
+	id = db.Column(db.Integer, primary_key = True)
+	latitude = db.Column(db.Float(6))
+	longitude = db.Column(db.Float(6))
+
+	truck_id = db.Column(db.Integer, db.ForeignKey('Truck.id'))
+	load_id = db.Column(db.Integer, db.ForeignKey('Load.id'))

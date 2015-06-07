@@ -908,3 +908,132 @@ NotFound: 404: Not Found
 2015-04-30 14:58:37,714 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
 2015-04-30 14:59:51,599 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
 2015-04-30 15:03:00,822 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 10:08:30,044 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 10:08:30,464 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 10:08:39,998 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:215]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-06-05 10:08:40,033 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:215]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-06-05 11:34:22,238 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 11:34:28,763 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 12:07:55,871 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:215]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-06-05 12:10:44,614 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 12:10:45,022 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 12:16:17,136 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:215]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-06-05 12:17:32,243 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:215]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-06-05 12:21:53,465 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 12:28:29,006 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 12:28:30,527 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 12:29:14,605 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 12:31:05,899 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 12:31:13,472 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 13:00:30,652 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 13:34:45,222 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 13:34:45,674 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 13:35:24,774 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 13:35:29,318 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 13:35:40,469 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 13:37:26,116 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 13:38:20,507 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 13:38:20,946 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 13:38:47,907 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 13:38:50,406 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 13:46:51,327 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 13:46:59,944 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 13:47:05,900 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 13:47:23,885 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 13:47:34,776 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 13:56:25,065 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 13:57:36,722 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 14:00:33,709 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 14:00:34,147 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 15:37:08,492 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 15:37:28,310 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 15:38:05,735 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:215]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-06-05 15:39:03,685 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-05 15:44:21,338 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-06 09:35:50,944 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:215]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-06-06 09:35:54,065 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:215]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-06-06 19:50:18,214 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-06 19:50:18,656 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-06 19:53:54,655 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-06 19:58:05,828 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:215]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-06-06 19:58:25,683 INFO: Sending driver check-in email! [in /Users/Root1/app/app/emails.py:68]
+2015-06-06 20:03:06,312 INFO: Sending driver check-in email! [in /Users/Root1/app/app/emails.py:68]
+2015-06-06 20:05:04,957 INFO: Sending driver check-in email! [in /Users/Root1/app/app/emails.py:68]
+2015-06-06 20:05:50,963 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-06 20:06:55,730 INFO: Sending driver check-in email! [in /Users/Root1/app/app/emails.py:68]
+2015-06-06 20:07:28,022 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-06 20:08:58,537 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-06 20:08:58,962 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-06 20:09:05,472 INFO: Sending driver check-in email! [in /Users/Root1/app/app/emails.py:68]
