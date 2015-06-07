@@ -1047,3 +1047,24 @@ NotFound: 404: Not Found
 2015-06-06 20:31:12,096 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
 2015-06-06 20:31:36,957 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
 2015-06-06 20:32:29,067 INFO: Sending driver check-in email! [in /Users/Root1/app/app/emails.py:68]
+2015-06-06 20:38:25,744 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-06 20:38:26,192 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-06 20:38:30,097 INFO: Sending driver check-in email! [in /Users/Root1/app/app/emails.py:69]
+2015-06-06 20:40:37,573 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-06 20:40:38,042 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-06 20:40:42,407 INFO: Sending driver check-in email! [in /Users/Root1/app/app/emails.py:72]
+2015-06-06 20:41:37,662 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-06 20:41:43,898 INFO: Sending driver check-in email! [in /Users/Root1/app/app/emails.py:72]
+2015-06-06 20:41:44,765 ERROR: {u'johnny.lopez617@gmail.com': (553, '5.7.1 <admin@tronlogistics.com>: Sender address rejected: not logged in')} [in /Users/Root1/app/app/emails.py:15]
+Traceback (most recent call last):
+  File "/Users/Root1/app/app/emails.py", line 13, in send_async_email
+    mail.send(msg)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask_mail.py", line 492, in send
+    message.send(connection)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask_mail.py", line 427, in send
+    connection.send(self)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask_mail.py", line 192, in send
+    message.rcpt_options)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/smtplib.py", line 735, in sendmail
+    raise SMTPRecipientsRefused(senderrs)
+SMTPRecipientsRefused: {u'johnny.lopez617@gmail.com': (553, '5.7.1 <admin@tronlogistics.com>: Sender address rejected: not logged in')}

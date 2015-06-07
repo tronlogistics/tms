@@ -8,8 +8,11 @@ from itsdangerous import URLSafeSerializer, BadSignature
 
 @async
 def send_async_email(app, msg):
-    with app.app_context():
-        mail.send(msg)
+	try:
+		with app.app_context():
+			mail.send(msg)
+	except Exception, e:
+		app.logger.exception(e)
 
 def send_email(subject, sender, recipients, text_body, html_body):
     msg = Message(subject, sender=sender, recipients=recipients)
