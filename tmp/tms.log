@@ -1037,3 +1037,6 @@ NotFound: 404: Not Found
 2015-06-06 20:08:58,537 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
 2015-06-06 20:08:58,962 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
 2015-06-06 20:09:05,472 INFO: Sending driver check-in email! [in /Users/Root1/app/app/emails.py:68]
+2015-06-06 20:18:42,838 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-06 20:18:43,321 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-06 20:19:08,277 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]

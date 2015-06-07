@@ -47,7 +47,7 @@ def create():
 						dim_height=form.dim_height.data,
 						dim_width=form.dim_width.data,
 						is_available=True,
-						locations = [])
+						tracker = [])
 			db.session.add(truck)
 			g.user.fleet.trucks.append(truck)
 			db.session.add(g.user)
