@@ -1084,3 +1084,20 @@ SMTPRecipientsRefused: {u'johnny.lopez617@gmail.com': (553, '5.7.1 <admin@tronlo
 2015-06-06 21:10:01,879 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
 2015-06-06 21:10:23,712 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
 2015-06-06 21:10:23,929 INFO: Truck 1 [in /Users/Root1/app/app/views/trucks.py:139]
+2015-06-13 13:18:34,779 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-13 13:18:35,225 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-13 13:18:39,329 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:215]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Users/Root1/app/app/views/trucks.py", line 141, in check_in
+    abort(404)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/werkzeug/exceptions.py", line 576, in __call__
+    raise self.mapping[code](*args, **kwargs)
+NotFound: 404: Not Found
+2015-06-13 13:19:12,987 INFO: Sending driver check-in email! [in /Users/Root1/app/app/emails.py:72]
+2015-06-13 13:19:26,163 INFO: Truck 1 [in /Users/Root1/app/app/views/trucks.py:139]
+2015-06-13 13:19:40,985 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-13 13:20:05,195 INFO: Truck 1 [in /Users/Root1/app/app/views/trucks.py:139]

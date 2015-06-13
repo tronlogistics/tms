@@ -156,7 +156,7 @@ def store_location(truck_id):
 	db.session.add(truck)
 	db.session.add(load)
 	db.session.commit()
-	return jsonify({'message': 'Thank you for checking in!'})
+	return jsonify({'message': 'Thank you for checking in at %s, %s' % (longlat.latitude, longlat.longitude)})
 
 ##########
 #  MISC  #

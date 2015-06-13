@@ -7,7 +7,7 @@
 			{% if load.assigned_driver is not none %}
 			<a href="javascript:ping_driver({{ load.assigned_driver.truck.id }});" class="new-modal btn btn-green">
 										Ping Driver
-									</a>
+									</a> <br />
 			{% endif %}
 		</div>
 	</div>
@@ -265,7 +265,6 @@
 
 <script>
 function ping_driver(truckID) {
-	alert('hi');
     $.post('/trucks/ping/'+truckID)
 	.done(function(translated) {
        	alert(translated['message']);
