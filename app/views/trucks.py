@@ -145,18 +145,21 @@ def check_in(activation_slug):
 
 @trucks.route('/storelocation/<truck_id>', methods=['POST'])
 def store_location(truck_id):
-	truck = Truck.query.get(int(truck_id))
-	longlat = LongLat(latitude=request.form['lat'],
-						longitude=request.form['long'])
-	truck.tracker.append(longlat)
-	for load in filter((lambda l: l.status != "Load Complete"), truck.driver.loads):
-		load.tracker.append(longlat)
-	if truck.tracker.count() > 10: 
-		truck.tracker.pop()
-	db.session.add(truck)
-	db.session.add(load)
-	db.session.commit()
-	return jsonify({'message': 'Thank you for checking in at %s, %s' % (longlat.latitude, longlat.longitude)})
+	try:
+		truck = Truck.query.get(int(truck_id))
+		longlat = LongLat(latitude=request.form['lat'],
+							longitude=request.form['long'])
+		truck.tracker.append(longlat)
+		for load in filter((lambda l: l.status != "Load Complete"), truck.driver.loads):
+			load.tracker.append(longlat)
+		if truck.tracker.count() > 10: 
+			truck.tracker.pop()
+		db.session.add(truck)
+		db.session.add(load)
+		db.session.commit()
+		return jsonify({'message': 'Thank you for checking in at %s, %s' % (longlat.latitude, longlat.longitude)})
+	except Exception:
+		print "Oops!  Try again..."
 
 ##########
 #  MISC  #
