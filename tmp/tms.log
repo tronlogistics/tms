@@ -1103,3 +1103,8 @@ NotFound: 404: Not Found
 2015-06-13 13:20:05,195 INFO: Truck 1 [in /Users/Root1/app/app/views/trucks.py:139]
 2015-06-13 13:27:32,190 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
 2015-06-13 13:27:32,635 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-13 13:41:07,998 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-13 13:41:08,479 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-13 13:42:47,384 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-13 13:42:57,007 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-13 13:43:41,183 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
