@@ -135,12 +135,12 @@ def ping(truck_id):
 def check_in(activation_slug):
 	s = get_serializer()
 	try:
-		truck_id = s.loads(activation_slug)
-		app.logger.info("Truck %s" % truck_id)
+		driver_id = s.loads(activation_slug)
+		app.logger.info("Truck %s" % driver_id)
 	except BadSignature:
 		abort(404)
 
-	truck = Truck.query.get_or_404(truck_id)
+	truck = Driver.query.get_or_404(driver_id).truck
 	return render_template('carrier/truck/checkin.html', truck=truck)
 
 @trucks.route('/storelocation/<truck_id>', methods=['POST'])
