@@ -19,13 +19,14 @@
 function locate() {
 	if(navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function(position) {
-            $.post('../storelocation/1', {
+            $.post('../storelocation/{{ truck.id }}', {
 		        long: position.coords.longitude,
 		        lat: position.coords.latitude
 		    }).done(function(translated) {
 		    	$('#message').text(translated['message']);
 		        $('#message').show();
-		    }).fail(function() {
+		    }).fail(function(translated) {
+            $('#error').text(translated['message']);
 		        $('#error').show();
 		    });
         }, function() {
