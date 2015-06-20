@@ -2,16 +2,6 @@
 
 {% block content %}
 	<div class="row-fluid">
-		<div class="col-sm-12 text-right">
-
-			{% if load.assigned_driver is not none %}
-			<a href="javascript:ping_driver({{ load.assigned_driver.truck.id }});" class="new-modal btn btn-green">
-										Ping Driver
-									</a> <br />
-			{% endif %}
-		</div>
-	</div>
-	<div class="row-fluid">
 	    <div class="col-sm-12">
 	    	<div class="row">
 	    		<div class="col-sm-6">

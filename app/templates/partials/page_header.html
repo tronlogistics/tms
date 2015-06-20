@@ -5,9 +5,34 @@
 							<!-- start: PAGE TITLE & BREADCRUMB -->
 
 							<div class="page-header">
-								<h1>{{ title }}</h1>
+								<div class="row">
+									<div class="col-sm-10 text-left">
+										<h1>{{ title }}</h1>
+									</div>
+									{% if load is defined and toolbar %}
+										<div class="col-sm-2">
+											<a href="{{ url_for('loads.edit', load_id=load.id) }}" class="btn btn-primary">Edit</a>
+											{% if load.assigned_driver is not none %}
+											<a href="javascript:ping_driver({{ load.assigned_driver.truck.id }});" class="new-modal btn btn-green">Ping Driver</a>
+										{% endif %}
+										</div>
+										
+									{% endif %}
+									{% if truck is defined and toolbar %}
+										<div class="col-sm-2">
+											<a href="{{ url_for('trucks.edit', truck_id=truck.id) }}" class="btn btn-primary">Edit</a>
+										</div>
+									{% endif %}
+									{% if driver is defined and toolbar %}
+										<div class="col-sm-2">
+											<a href="{{ url_for('drivers.edit', driver_id=driver.id) }}" class="btn btn-primary">Edit</a>
+										</div>
+									{% endif %}
+								</div>
 							</div>
+
 							<!-- end: PAGE TITLE & BREADCRUMB -->
 						</div>
 					</div>
 					<!-- end: PAGE HEADER -->
+

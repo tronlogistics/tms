@@ -164,7 +164,8 @@ def view(driver_id):
 								title="View Driver", 
 								driver=driver,
 								active="Drivers", 
-								user=g.user)
+								user=g.user,
+								toolbar=True)
 	abort(403)
 
 

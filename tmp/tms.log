@@ -1510,3 +1510,10 @@ Traceback (most recent call last):
   File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
     raise request.routing_exception
 NotFound: 404: Not Found
+2015-06-20 17:45:18,202 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-20 17:45:18,648 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-20 17:54:44,993 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-20 17:54:45,448 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-20 18:11:49,768 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-20 18:11:58,410 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-20 18:12:07,052 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]

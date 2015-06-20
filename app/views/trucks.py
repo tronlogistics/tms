@@ -33,7 +33,8 @@ def all():
 	return render_template("carrier/truck/all.html", 
 							trucks=g.user.fleet.trucks, 
 							user=g.user,
-							active="Trucks")
+							active="Trucks",
+							title="All Trucks")
 
 @trucks.route('/create', methods=['GET', 'POST'])
 @login_required
@@ -107,7 +108,8 @@ def view(truck_id):
 								title="View Truck", 
 								form=form, 
 								truck=truck, 
-								user=g.user)
+								user=g.user,
+								toolbar=True)
 	abort(403)
 
 
