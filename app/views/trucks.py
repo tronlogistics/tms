@@ -153,13 +153,13 @@ def store_location(truck_id):
 		for load in filter((lambda l: l.status != "Load Complete"), truck.driver.loads):
 			load.tracker.append(longlat)
 		if truck.tracker.count() > 10: 
-			truck.tracker.pop()
+			db.session.delete(truck.tracker.first())
 		db.session.add(truck)
 		db.session.add(load)
 		db.session.commit()
 		return jsonify({'message': 'Thank you for checking in at %s, %s' % (longlat.latitude, longlat.longitude)})
-	except Exception:
-		print "Oops!  Try again..."
+	except Exception as e:
+		return jsonify({'message': '%s' % e })
 
 ##########
 #  MISC  #

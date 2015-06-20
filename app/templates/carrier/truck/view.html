@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "layout_view_truck.html" %}
 
 {% block content %}
 	{#<div class="row-fluid">
@@ -9,93 +9,145 @@
 		</div>
 	</div>#}
 	<div class="row-fluid">
-	    <div class="col-sm-6">
-	    	<div class="panel panel-default">
-				<div class="panel-heading">
-					<i class="fa fa-external-link-square"></i>
-					Truck
-				</div>
-				<table id="truck" class="table table-condensed">
-					<tbody>
-						<tr>
-							<td><b>Name:</b></td>
-							<td>{{ truck.name }}
-						</tr>
-						<tr>
-							<td><b>Trailer Type:</b></td>
-							<td>{{ truck.trailer_type }}
-						</tr>
-						<tr>
-							<td><b>Max Weight:</b></td>
-							<td>{{ truck.max_weight }}
-						</tr>
-						<tr>
-							<td><b>Length:</b></td>
-							<td>{{ truck.dim_length }}
-						</tr>
-						<tr>
-							<td><b>Width:</b></td>
-							<td>{{ truck.dim_width }}
-						</tr>
-						<tr>
-							<td><b>Height:</b></td>
-							<td>{{ truck.dim_height }}
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
 		<div class="col-sm-6">
-
-			<div class="panel panel-default">
-	    		<div class="panel-heading">
-	        		<i class="fa fa-external-link-square"></i>
-	        		Driver 
-	        
-	    		</div>
-	    	<div class="panel-body">
-	    		{% if truck.driver is not none %}
-	        		<table id="truck" class="table table-condensed">
-						<tbody>
-							<tr>
-								<td><b>Name:</b></td>
-								<td>{{ truck.driver.get_full_name() }}
-							</tr>
-							<tr>
-								<td><b>Phone:</b></td>
-								<td>{{ truck.driver.get_phone_number() }}
-							</tr>
-							<tr>
-								<td><b>Email:</b></td>
-								<td>{{ truck.driver.email }}</td>
-							</tr>
-						</tbody>
-					</table>
-	        	{% else %}
-	        		<form name="assign" action="{{ url_for('fleet.assign') }}" method="post" class="form-horizontal">
-	            		{{ form.hidden_tag() }}
-	    
-	        			<div class="form-group">
-							<label class="col-sm-3 control-label" for="driver">
-								Assign Driver
-							</label>
-							<div class="col-sm-9">
-								{{ form.truck(value=truck.id, type='hidden') }}
-	                            {{ form.driver(class="form-control")}}
-							</div>
+    		<div class="panel panel-default">
+        		<div class="panel-heading">
+            		Map
+        		</div>
+        		<div class="panel-body">
+                	<div id="map-canvas" style="height: 400px; margin: 0; padding: 0;"></div>
+            	</div>
+        	</div>
+     	</div>
+     	<div class="col-sm-6">
+     		<div class="row-fluid">
+     			<div class="col-sm-12">
+     				<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="fa fa-external-link-square"></i>
+							Truck
 						</div>
-	                	<div class="form-group">
-							<div class="col-sm-3 col-sm-offset-9">
-								<button type="submit" class="btn btn-blue next-step btn-block">
-									Submit <i class="fa fa-arrow-circle-right"></i>
-								</button>
-							</div>
-						</div>
-	            	</form> 
-	        	{% endif %}
+						<table id="truck" class="table table-condensed">
+							<tbody>
+								<tr>
+									<td><b>Name:</b></td>
+									<td>{{ truck.name }}
+								</tr>
+								<tr>
+									<td><b>Trailer Type:</b></td>
+									<td>{{ truck.trailer_type }}
+								</tr>
+								<tr>
+									<td><b>Max Weight:</b></td>
+									<td>{{ truck.max_weight }}
+								</tr>
+								<tr>
+									<td><b>Length:</b></td>
+									<td>{{ truck.dim_length }}
+								</tr>
+								<tr>
+									<td><b>Width:</b></td>
+									<td>{{ truck.dim_width }}
+								</tr>
+								<tr>
+									<td><b>Height:</b></td>
+									<td>{{ truck.dim_height }}
+								</tr>
+							</tbody>
+						</table>
+					</div>
+     			</div>
+     		</div>
+     		<div class="row-fluid">
+     			<div class="col-sm-12">
+     				<div class="panel panel-default">
+			    		<div class="panel-heading">
+			        		<i class="fa fa-external-link-square"></i>
+			        		Driver 
+			    		</div>
+				    	
+			    		{% if truck.driver is not none %}
+			        		<table id="driver" class="table table-condensed">
+								<tbody>
+									<tr>
+										<td><b>Name:</b></td>
+										<td>{{ truck.driver.get_full_name() }}
+									</tr>
+									<tr>
+										<td><b>Phone:</b></td>
+										<td>{{ truck.driver.get_phone_number() }}
+									</tr>
+									<tr>
+										<td><b>Email:</b></td>
+										<td>{{ truck.driver.email }}</td>
+									</tr>
+								</tbody>
+							</table>
+			        	{% else %}
+			        		<div class="panel-body">
+				        		<form name="assign" action="{{ url_for('fleet.assign') }}" method="post" class="form-horizontal">
+				            		{{ form.hidden_tag() }}
+				    
+				        			<div class="form-group">
+										<label class="col-sm-3 control-label" for="driver">
+											Assign Driver
+										</label>
+										<div class="col-sm-9">
+											{{ form.truck(value=truck.id, type='hidden') }}
+				                            {{ form.driver(class="form-control")}}
+										</div>
+									</div>
+				                	<div class="form-group">
+										<div class="col-sm-3 col-sm-offset-9">
+											<button type="submit" class="btn btn-blue next-step btn-block">
+												Submit <i class="fa fa-arrow-circle-right"></i>
+											</button>
+										</div>
+									</div>
+				            	</form> 
+				            </div>
+			        	{% endif %}
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
+	<div class="row-fluid">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+	    		<div class="panel-heading">
+	        		<i class="fa fa-external-link-square"></i>
+	        		Stop Offs 
+	    		</div>
+		    	<div class="panel-body">
+		    		<table class="table table-condensed">
+		    			<thead>
+		    				<tr>
+	                            <th>Details</th>
+	                            <th>Address</th>
+	                            <th>Arrival Date</th>
+	                            <!--<th>Status</th>-->
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+				    		{% for load in truck.driver.loads %}
+				    			{% for location in load.lane.locations %}
+					        		<tr>
+		                            	<td><a href="#responsive-{{ loop.index }}" data-toggle="modal">View</a></td>
+		                            	<td>{{ location.address.address1 }}<br />{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
+		                            	<td>{{ location.arrival_date }}</td>
+		                            </tr>
+								{% endfor %}
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	   
 
 				
 {% include "partials/main_javascripts.html" %}
