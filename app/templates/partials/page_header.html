@@ -18,12 +18,22 @@
 											{% endif %}
 
 											<a href="{{ url_for('loads.edit', load_id=load.id) }}" class="btn btn-primary">Edit</a>
-											<a href="{{ url_for('.add_location', load_id=load.id) }}" class="new-modal btn btn-green">
-												Add Location <i class="fa fa-plus"></i>
-											</a>
+											
 											
 											{% if load.assigned_driver is not none %}
-												<a href="javascript:ping_driver({{ load.assigned_driver.truck.id }});" class="new-modal btn btn-green">Ping Driver</a>
+												<div class="dropdown">
+												  <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+												    Actions
+												    <span class="caret"></span>
+												  </button>
+												  <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+												    <li><a href="{{ url_for('.add_location', load_id=load.id) }}" class="new-modal btn btn-green">
+															Add Location <i class="fa fa-plus"></i>
+														</a></li>
+												    <li><a href="javascript:ping_driver({{ load.assigned_driver.truck.id }});" class="new-modal btn btn-green">Ping Driver</a></li>
+												  </ul>
+												</div>
+												
 											{% endif %}
 										{% endif %}
 										{% if truck is defined %}
