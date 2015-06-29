@@ -151,7 +151,8 @@ def edit(driver_id):
 								form=form, 
 								driver=driver, 
 								active="Drivers",
-								user=g.user)
+								user=g.user,
+								edit=True)
 	abort(403)
 
 @drivers.route('/drivers/view/<driver_id>', methods=['GET', 'POST'])
@@ -164,8 +165,7 @@ def view(driver_id):
 								title="View Driver", 
 								driver=driver,
 								active="Drivers", 
-								user=g.user,
-								toolbar=True)
+								user=g.user)
 	abort(403)
 
 

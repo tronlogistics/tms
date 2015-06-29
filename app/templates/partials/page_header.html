@@ -3,31 +3,48 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<!-- start: PAGE TITLE & BREADCRUMB -->
-
 							<div class="page-header">
 								<div class="row">
-									<div class="col-sm-10 text-left">
+									<div class="col-sm-4 text-left">
 										<h1>{{ title }}</h1>
 									</div>
-									{% if load is defined and toolbar %}
-										<div class="col-sm-2">
+									<div class="col-sm-9 text-left">
+										{% if load is defined %}
+											{% if edit %}
+												<a class="btn btn-light-grey back-step " href="javascript:history.back()">
+													<i class="fa fa-circle-arrow-left"></i> Cancel
+												</a>
+												<label for="submit" class="btn btn-primary">Submit</label>
+											{% endif %}
+
 											<a href="{{ url_for('loads.edit', load_id=load.id) }}" class="btn btn-primary">Edit</a>
+											<a href="{{ url_for('.add_location', load_id=load.id) }}" class="new-modal btn btn-green">
+												Add Location <i class="fa fa-plus"></i>
+											</a>
+											
 											{% if load.assigned_driver is not none %}
-											<a href="javascript:ping_driver({{ load.assigned_driver.truck.id }});" class="new-modal btn btn-green">Ping Driver</a>
+												<a href="javascript:ping_driver({{ load.assigned_driver.truck.id }});" class="new-modal btn btn-green">Ping Driver</a>
+											{% endif %}
 										{% endif %}
-										</div>
-										
-									{% endif %}
-									{% if truck is defined and toolbar %}
-										<div class="col-sm-2">
+										{% if truck is defined %}
+											{% if edit %}
+												<a class="btn btn-light-grey back-step " href="javascript:history.back()">
+													<i class="fa fa-circle-arrow-left"></i> Cancel
+												</a>
+												<label for="submit" class="btn btn-primary">Submit</label>
+											{% endif %}
 											<a href="{{ url_for('trucks.edit', truck_id=truck.id) }}" class="btn btn-primary">Edit</a>
-										</div>
-									{% endif %}
-									{% if driver is defined and toolbar %}
-										<div class="col-sm-2">
+										{% endif %}
+										{% if driver is defined %}
+											{% if edit %}
+												<a class="btn btn-light-grey back-step " href="javascript:history.back()">
+													<i class="fa fa-circle-arrow-left"></i> Cancel
+												</a>
+												<label for="submit" class="btn btn-primary">Submit</label>
+											{% endif %}
 											<a href="{{ url_for('drivers.edit', driver_id=driver.id) }}" class="btn btn-primary">Edit</a>
-										</div>
-									{% endif %}
+										{% endif %}
+									</div>
 								</div>
 							</div>
 

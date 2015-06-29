@@ -92,7 +92,8 @@ def edit(truck_id):
 								form=form, 
 								truck=truck, 
 								active="Trucks",
-								user=g.user)
+								user=g.user,
+								edit=True)
 	abort(403)
 
 @trucks.route('/view/<truck_id>', methods=['GET', 'POST'])
@@ -108,8 +109,7 @@ def view(truck_id):
 								title="View Truck", 
 								form=form, 
 								truck=truck, 
-								user=g.user,
-								toolbar=True)
+								user=g.user)
 	abort(403)
 
 

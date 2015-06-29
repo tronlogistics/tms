@@ -205,7 +205,8 @@ def edit(load_id):
 								form=form, 
 								active="Loads",
 								load=load,
-								user=g.user)
+								user=g.user,
+								edit=True)
 
 	abort(403)  # HTTP Forbidden
 
@@ -249,8 +250,7 @@ def view(load_id):
 												is_dispatch=g.user.is_carrier(),
 												title="View Load",
 												active="Loads",
-												user=g.user,
-												toolbar=True)
+												user=g.user)
 	abort(403)
 
 @loads.route('/<load_id>/location', methods=['POST', 'GET'])
