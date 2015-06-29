@@ -1528,3 +1528,17 @@ NotFound: 404: Not Found
 2015-06-21 09:06:27,067 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
 2015-06-21 09:07:33,767 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
 2015-06-21 09:07:40,383 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-29 15:02:35,619 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-29 15:02:36,025 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-06-29 15:02:41,769 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:215]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-06-29 15:03:04,894 INFO: Sending driver check-in email! [in /Users/Root1/app/app/emails.py:72]
+2015-06-29 15:03:23,362 INFO: Truck 1 [in /Users/Root1/app/app/views/trucks.py:141]
+2015-06-29 15:04:08,171 INFO: Truck 1 [in /Users/Root1/app/app/views/trucks.py:141]

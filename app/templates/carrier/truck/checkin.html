@@ -1,6 +1,89 @@
-<h1 id='message' style="display:none">Thank you! {{ truck.longitude }}, {{ truck.latitude }}</h1>
-<h1 id='error' style="display:none">Please try again and enable location services</h1>
+<!DOCTYPE html>
+<!-- Template Name: Clip-One - Responsive Admin Template build with Twitter Bootstrap 3.x Version: 1.4 Author: ClipTheme -->
+<!--[if IE 8]><html class="ie8 no-js" lang="en"><![endif]-->
+<!--[if IE 9]><html class="ie9 no-js" lang="en"><![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+    <!--<![endif]-->
+    <!-- start: HEAD -->
+    <head>
+        <title>{{ title }}</title>
+        <!-- start: META -->
+        <meta charset="utf-8" />
+        <!--[if IE]><meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" /><![endif]-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+        <!-- end: META -->
+        <!-- start: MAIN CSS -->
+        <link rel="stylesheet" href="{{ static('backend/plugins/bootstrap/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ static('backend/plugins/font-awesome/css/font-awesome.min.css') }}">
+        <link rel="stylesheet" href="{{ static('backend/fonts/style.css') }}">
+        <link rel="stylesheet" href="{{ static('backend/css/main.css') }}">
+        <link rel="stylesheet" href="{{ static('backend/css/main-responsive.css') }}">
+        <link rel="stylesheet" href="{{ static('backend/plugins/iCheck/skins/all.css') }}">
+        <link rel="stylesheet" href="{{ static('backend/plugins/bootstrap-colorpalette/css/bootstrap-colorpalette.css') }}">
+        <link rel="stylesheet" href="{{ static('backend/plugins/perfect-scrollbar/src/perfect-scrollbar.css') }}">
+        <link rel="stylesheet" href="{{ static('backend/css/theme_light.css') }}" type="text/css" id="skin_color">
+        <link rel="stylesheet" href="{{ static('backend/css/print.css') }}" type="text/css" media="print"/>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" type="text/css" href="{{ static('backend/plugins/select2/select2.css') }}" />
+        <link rel="stylesheet" href="{{ static('backend/plugins/DataTables/media/css/DT_bootstrap.css') }}" />
+        <link rel="stylesheet" href="{{ static('backend/plugins/datepicker/css/datepicker.css') }}">
+        <link rel="stylesheet" href="{{ static('backend/plugins/bootstrap-modal/css/bootstrap-modal-bs3patch.css') }}"  type="text/css"/>
+        <link rel="stylesheet" href="{{ static('backend/plugins/bootstrap-modal/css/bootstrap-modal.css') }}"  type="text/css"/>
+        <!--[if IE 7]>
+        {#<link rel="stylesheet" href="{{ static('backend/plugins/font-awesome/css/font-awesome-ie7.min.css') }}">#}
+        <![endif]-->
+        <!-- end: MAIN CSS -->
+        <!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
+        <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
 
+        
+    </head>
+    <!-- end: HEAD -->
+    <!-- start: BODY -->
+    <body class="login example1">
+        <h1 id='message' style="display:none">Thank you! {{ truck.longitude }}, {{ truck.latitude }}</h1>
+<h1 id='error' style="display:none">Please try again and enable location services</h1>
+<div class="row-fluid">
+  <div class="col-sm-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <i class="fa fa-external-link-square"></i>
+            Stop Offs 
+        </div>
+        <div class="panel-body">
+          <table class="table table-condensed">
+            <thead>
+              <tr>
+                <th>Address</th>
+                <th>Arrival Date</th>
+                <th>Status</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for load in truck.driver.loads %}
+            {% for location in load.lane.locations %}
+              <tr>
+                <td>{{ location.address.address1 }}<br />{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
+                <td>{{ location.arrival_date }}</td>
+                <td>{{ location.arrival_date }}</td>
+                <td><button type="submit" class="btn btn-blue next-step btn-block">
+                  Update <i class="fa fa-arrow-circle-right"></i>
+                </button></td>
+              </tr>
+            {% endfor %}
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 <script src="{{ static('backend/plugins/jQuery-lib/2.0.3/jquery.min.js') }}"></script>
 <!--<![endif]-->
 <script src="{{ static('backend/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js') }}"></script>
@@ -17,26 +100,26 @@
 
 <script>
 function locate() {
-	if(navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(function(position) {
+  if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
             $.post('../storelocation/{{ truck.id }}', {
-		        long: position.coords.longitude,
-		        lat: position.coords.latitude
-		    }).done(function(translated) {
-		    	$('#message').text(translated['message']);
-		        $('#message').show();
-		    }).fail(function(translated) {
+            long: position.coords.longitude,
+            lat: position.coords.latitude
+        }).done(function(translated) {
+          $('#message').text(translated['message']);
+            $('#message').show();
+        }).fail(function(translated) {
           alert(translated['message'])
-		        $('#error').show();
-		    });
+            $('#error').show();
+        });
         }, function() {
           handleNoGeolocation(true);
         });
-	    
-	}
-	else {
-		$('#error').show();
-	}
+      
+  }
+  else {
+    $('#error').show();
+  }
 }
 
 // A $( document ).ready() block.
@@ -62,3 +145,7 @@ function handleNoGeolocation(errorFlag) {
 }
 
 </script>
+    </body>
+    <!-- end: BODY -->
+</html>
+
