@@ -46,106 +46,286 @@
     <!-- end: HEAD -->
     <!-- start: BODY -->
     <body class="login example1">
-        <h1 id='message' style="display:none">Thank you! {{ truck.longitude }}, {{ truck.latitude }}</h1>
-<h1 id='error' style="display:none">Please try again and enable location services</h1>
-<div class="row-fluid">
-  <div class="col-sm-12">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <i class="fa fa-external-link-square"></i>
-            Stop Offs 
+      <h1 id='message' style="display:none">Thank you! {{ truck.longitude }}, {{ truck.latitude }}</h1>
+      <h1 id='error' style="display:none">Please try again and enable location services</h1>
+      <div class="row-fluid">
+        <div class="col-sm-12">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <i class="fa fa-external-link-square"></i>
+                  Stop Offs 
+              </div>
+              <div class="panel-body">
+                <table class="table table-condensed">
+                  <thead>
+                    <tr>
+                      <th>Address</th>
+                      <th>Arrival Date</th>
+                      <th>Status</th>
+                      <th></th>
+                  </tr>
+              </thead>
+              <tbody>
+                {% for load in truck.driver.loads %}
+                  {% for location in load.lane.locations %}
+                  <form name="status_update" method="post">
+                    <tr>
+                      <td>{{ location.address.address1 }}<br />{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
+                      <td>{{ location.arrival_date }}{{ location.status }}</td>
+                      <td>{{ form.status(class="form-control", value=location.status) }}</td>
+                      <td>
+                        {{ form.location_id(value=location.id, type='hidden') }}
+                        <button type="submit" class="btn btn-blue next-step btn-block">
+                        Update <i class="fa fa-arrow-circle-right"></i>
+                      </button></td>
+                    </tr>
+                  </form>
+                  {% endfor %}
+                {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
-        <div class="panel-body">
-          <table class="table table-condensed">
-            <thead>
-              <tr>
-                <th>Address</th>
-                <th>Arrival Date</th>
-                <th>Status</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-          {% for load in truck.driver.loads %}
-            {% for location in load.lane.locations %}
-              <tr>
-                <td>{{ location.address.address1 }}<br />{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
-                <td>{{ location.arrival_date }}</td>
-                <td>{{ location.arrival_date }}</td>
-                <td><button type="submit" class="btn btn-blue next-step btn-block">
-                  Update <i class="fa fa-arrow-circle-right"></i>
-                </button></td>
-              </tr>
-            {% endfor %}
-          {% endfor %}
-          </tbody>
-        </table>
       </div>
-    </div>
-  </div>
-</div>
-<script src="{{ static('backend/plugins/jQuery-lib/2.0.3/jquery.min.js') }}"></script>
-<!--<![endif]-->
-<script src="{{ static('backend/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js') }}"></script>
-<script src="{{ static('backend/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
-<script src="{{ static('backend/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js') }}"></script>
-<script src="{{ static('backend/plugins/blockUI/jquery.blockUI.js') }}"></script>
-<script src="{{ static('backend/plugins/iCheck/jquery.icheck.min.js') }}"></script>
-<script src="{{ static('backend/plugins/perfect-scrollbar/src/jquery.mousewheel.js') }}"></script>
-<script src="{{ static('backend/plugins/perfect-scrollbar/src/perfect-scrollbar.js') }}"></script>
-<script src="{{ static('backend/plugins/less/less-1.5.0.min.js') }}"></script>
-<script src="{{ static('backend/plugins/jquery-cookie/jquery.cookie.js') }}"></script>
-<script src="{{ static('backend/plugins/bootstrap-colorpalette/js/bootstrap-colorpalette.js') }}"></script>
-<script src="{{ static('backend/js/main.js') }}"></script>
-
-<script>
-function locate() {
-  if(navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-            $.post('../storelocation/{{ truck.id }}', {
-            long: position.coords.longitude,
-            lat: position.coords.latitude
-        }).done(function(translated) {
-          $('#message').text(translated['message']);
-            $('#message').show();
-        }).fail(function(translated) {
-          alert(translated['message'])
-            $('#error').show();
-        });
-        }, function() {
-          handleNoGeolocation(true);
-        });
       
-  }
-  else {
-    $('#error').show();
-  }
-}
-
-// A $( document ).ready() block.
-$( document ).ready(function() {
-    locate();
-});
-
-function handleNoGeolocation(errorFlag) {
-  if (errorFlag) {
-    var content = 'Error: The Geolocation service failed.';
-  } else {
-    var content = 'Error: Your browser doesn\'t support geolocation.';
-  }
-
-  var options = {
-    map: map,
-    position: new google.maps.LatLng(60, 105),
-    content: content
-  };
-
-  var infowindow = new google.maps.InfoWindow(options);
-  map.setCenter(options.position);
-}
-
-</script>
     </body>
     <!-- end: BODY -->
+</html>
+
+
+<!doctype html>
+
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<!-- start: HEAD -->
+<head>
+  <title></title>
+  <!-- start: META -->
+  <meta charset="utf-8">
+  <!--[if IE]>
+    <meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" />
+  <![endif]-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta content name="description">
+  <meta content name="author">
+  <!-- end: META -->
+  <!-- start: MAIN CSS -->
+  <link rel="stylesheet" href="CSS/bootstrap.min.css">
+  <link rel="stylesheet" href="CSS/font-awesome.min.css">
+  <link rel="stylesheet" href="CSS/style.css">
+  <link rel="stylesheet" href="CSS/main.css">
+  <link rel="stylesheet" href="CSS/main-responsive.css">
+  <link rel="stylesheet" href="CSS/all.css">
+  <link rel="stylesheet" href="CSS/bootstrap-colorpalette.css">
+  <link rel="stylesheet" href="CSS/perfect-scrollbar.css">
+  <link rel="stylesheet" href="CSS/theme_light.css" type="text/css" id="skin_color">
+  <link rel="stylesheet" href="CSS/print.css" type="text/css" media="print">
+  <link rel="stylesheet" href="CSS/jquery-ui.css">
+  <link rel="stylesheet" type="text/css" href="CSS/select2.css">
+  <link rel="stylesheet" href="CSS/DT_bootstrap.css">
+  <link rel="stylesheet" href="CSS/datepicker.css">
+  <link rel="stylesheet" href="CSS/bootstrap-modal-bs3patch.css" type="text/css">
+  <link rel="stylesheet" href="CSS/bootstrap-modal.css" type="text/css">
+  <!--[if IE 7]>
+  <![endif]-->
+  <!-- end: MAIN CSS -->
+  <!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
+  <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
+</head>
+<!-- end: HEAD -->
+<!-- start: BODY -->
+<body class="login example1">
+  {% for load in truck.driver.loads %}
+    {% for location in load.lane.locations %}
+      <div class="row-fluid">
+        <div class="col-sm-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <i class="fa fa-external-link-square"></i>&nbsp;Current Stop | Load #4555456
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="container">
+                <p>Use the dropdown to select your current trip status</p>
+              <form name="status_update" method="post" class="">
+                <div class="col-sm-8">
+                      {{ form.status(class="form-control", value=location.status) }}
+                      {{ form.location_id(value=location.id, type='hidden') }}
+                  </div>
+                <div class="col-sm-4">
+                  <button type="submit" class="btn btn-blue next-step btn-block">
+                        Update Status</i>
+                      </button>
+                </div>
+              </form>
+            </div>
+          </div>
+            <br />
+            <br />
+              <!--<table class="table table-condensed">
+                <thead>
+                  <tr>
+                    <th>Status</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="btn-group">
+                        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">     Status    <span class="caret"></span>  </a>
+                        <ul class="dropdown-menu">
+                          <li>
+                            <a href="#">In Route</a>
+                          </li>
+                          <li>
+                            <a href="#">Arrived</a>
+                          </li>
+                          <li>
+                            <a href="#">Loaded</a>
+                          </li>
+                          <li>
+                            <a href="#">Unloaded</a>
+                          </li>
+                          <li>
+                            <a href="#">Departed</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </td>
+                    <td>
+                      <button type="submit" class="btn btn-blue next-step btn-block">Update Status<i class="fa fa-arrow-circle-right"></i>
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>-->
+           <!-- <p>Status History</p>
+              <table class="table table-condensed table-striped">
+                <thead>
+                  <tr>
+                    <th>Status Date / Time</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Mon Jun 29 2015<br>
+                      08:00:00 CST</td>
+                    <td>In Route</td>
+                  </tr>
+                  <tr>
+                    <td>Mon Jun 29 2015<br>
+                      12:00:00 CST</td>
+                    <td>Loaded</td>
+                  </tr>
+                </tbody>
+              </table>-->
+          <h4>Location Details</h4>
+          <hr />
+            <table class="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Location Type</th>
+                  <th>Address</th>
+                  <th>Arrival Date/Time</th>
+                  <th>Receiver Name</th>
+                  <th>Receiver Contact #</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% if location.pickup_details is not none %}
+                  <tr>
+                    <td>Pick Up</td>
+                    <td>{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
+                    <td>{{ location.arrival_date }}</td>
+                    <td>{{ location.contact.name }}</td>
+                    <td>{{ location.contact.phone }}</td>
+                  </tr>
+                {% endif %}
+                {% if location.delivery_details is not none %}
+                  <tr>
+                    <td>Drop Off</td>
+                    <td>{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
+                    <td>{{ location.arrival_date }}</td>
+                    <td>{{ location.contact.name }}</td>
+                    <td>{{ location.contact.phone }}</td>
+                  </tr>
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        </div>
+      </div>
+    {% endfor %}
+  {% endfor %}
+
+  <script src="{{ static('backend/plugins/jQuery-lib/2.0.3/jquery.min.js') }}"></script>
+      <!--<![endif]-->
+      <script src="{{ static('backend/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js') }}"></script>
+      <script src="{{ static('backend/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
+      <script src="{{ static('backend/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js') }}"></script>
+      <script src="{{ static('backend/plugins/blockUI/jquery.blockUI.js') }}"></script>
+      <script src="{{ static('backend/plugins/iCheck/jquery.icheck.min.js') }}"></script>
+      <script src="{{ static('backend/plugins/perfect-scrollbar/src/jquery.mousewheel.js') }}"></script>
+      <script src="{{ static('backend/plugins/perfect-scrollbar/src/perfect-scrollbar.js') }}"></script>
+      <script src="{{ static('backend/plugins/less/less-1.5.0.min.js') }}"></script>
+      <script src="{{ static('backend/plugins/jquery-cookie/jquery.cookie.js') }}"></script>
+      <script src="{{ static('backend/plugins/bootstrap-colorpalette/js/bootstrap-colorpalette.js') }}"></script>
+      <script src="{{ static('backend/js/main.js') }}"></script>
+
+      <script>
+      function locate() {
+        if(navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+                  $.post('../storelocation/{{ truck.id }}', {
+                  long: position.coords.longitude,
+                  lat: position.coords.latitude
+              }).done(function(translated) {
+                $('#message').text(translated['message']);
+                  $('#message').show();
+              }).fail(function(translated) {
+                alert(translated['message'])
+                  $('#error').show();
+              });
+              }, function() {
+                handleNoGeolocation(true);
+              });
+            
+        }
+        else {
+          $('#error').show();
+        }
+      }
+
+      // A $( document ).ready() block.
+      $( document ).ready(function() {
+          locate();
+      });
+
+      function handleNoGeolocation(errorFlag) {
+        if (errorFlag) {
+          var content = 'Error: The Geolocation service failed.';
+        } else {
+          var content = 'Error: Your browser doesn\'t support geolocation.';
+        }
+
+        var options = {
+          map: map,
+          position: new google.maps.LatLng(60, 105),
+          content: content
+        };
+
+        var infowindow = new google.maps.InfoWindow(options);
+        map.setCenter(options.position);
+      }
+
+      </script>
+</body>
+
 </html>
 

@@ -2,8 +2,8 @@ from flask import Blueprint, render_template, url_for, redirect, request, flash,
 from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, mail
-from app.forms import DriverForm, TruckForm, AssignDriverForm
-from app.models import Load, Driver, Truck, LongLat
+from app.forms import DriverForm, TruckForm, AssignDriverForm, LocationStatusForm
+from app.models import Load, Driver, Truck, LongLat, Location
 from app.permissions import *
 from app.emails import ping_driver, get_serializer
 from itsdangerous import URLSafeSerializer, BadSignature
@@ -135,6 +135,12 @@ def ping(truck_id):
 
 @trucks.route('/checkin/<activation_slug>', methods=['GET', 'POST'])
 def check_in(activation_slug):
+	form = LocationStatusForm()
+	if form.validate_on_submit():
+		location = Location.query.get(int(form.location_id.data))
+		location.status = form.status.data
+		db.session.add(location)
+		db.session.commit()
 	s = get_serializer()
 	try:
 		driver_id = s.loads(activation_slug)
@@ -143,7 +149,7 @@ def check_in(activation_slug):
 		abort(404)
 
 	truck = Driver.query.get_or_404(driver_id).truck
-	return render_template('carrier/truck/checkin.html', truck=truck)
+	return render_template('carrier/truck/checkin.html', truck=truck, form=form)
 
 @trucks.route('/storelocation/<truck_id>', methods=['POST'])
 def store_location(truck_id):
