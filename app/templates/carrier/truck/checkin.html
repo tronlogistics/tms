@@ -237,7 +237,7 @@
                 </tr>
               </thead>
               <tbody>
-                {% if location.pickup_details is not none %}
+                {% if location.pickup_details.weight is not none %}
                   <tr>
                     <td>Pick Up</td>
                     <td>{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
@@ -246,7 +246,7 @@
                     <td>{{ location.contact.phone }}</td>
                   </tr>
                 {% endif %}
-                {% if location.delivery_details is not none %}
+                {% if location.delivery_details.weight is not none %}
                   <tr>
                     <td>Drop Off</td>
                     <td>{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>

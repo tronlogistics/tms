@@ -260,6 +260,8 @@ def add_location(load_id):
 	if permission.can():
 		
 		form = LaneLocationForm()
+		form.validate_on_submit()
+		flash(form.errors)
 		if form.validate_on_submit():
 			load = Load.query.get(int(load_id))
 			address = AddressFactory(form.address1.data,

@@ -130,15 +130,14 @@
 	                        </tr>
 	                    </thead>
 	                    <tbody>
-				    		{% for load in truck.driver.loads %}
-				    			{% for location in load.lane.locations %}
+				    		{% for location in locations|sort(attribute='stop_number') %}
 					        		<tr>
 		                            	<td><a href="#responsive-{{ loop.index }}" data-toggle="modal">View</a></td>
 		                            	<td>{{ location.address.address1 }}<br />{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
 		                            	<td>{{ location.arrival_date }}</td>
 		                            </tr>
 								{% endfor %}
-							{% endfor %}
+							
 						</tbody>
 					</table>
 				</div>
@@ -151,4 +150,22 @@
 
 				
 {% include "partials/main_javascripts.html" %}
+
+<script>
+$(document).ready(function(){
+    $(".up,.down,.top,.bottom").click(function(){
+        var row = $(this).parents("tr:first");
+        if ($(this).is(".up")) {
+            row.insertBefore(row.prev());
+        } else if ($(this).is(".down")) {
+            row.insertAfter(row.next());
+        } else if ($(this).is(".top")) {
+            //row.insertAfter($("table tr:first"));
+            row.insertBefore($("table tr:first"));
+        }else {
+            row.insertAfter($("table tr:last"));
+        }
+    });
+});
+</script>
 {% endblock %}

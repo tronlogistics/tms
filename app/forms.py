@@ -5,6 +5,14 @@ from wtforms.validators import DataRequired, EqualTo, NumberRange, Email, Length
 class EmailForm(Form):
 	email = StringField('Email', validators=[Email("Please enter a valid e-mail")])
 
+class StopNumberForm(Form):
+	def __init__(self, *args, **kwargs):
+		kwargs['csrf_enabled'] = False
+		Form.__init__(self, *args, **kwargs)
+
+	location_id = HiddenField("Location ID", validators=[])
+	stop_number = HiddenField("Stop #", validators=[])
+
 class ContactForm(Form):
 	def __init__(self, *args, **kwargs):
 		kwargs['csrf_enabled'] = False
@@ -68,7 +76,7 @@ class LoadForm(Form):
 	description = TextAreaField('Description', validators=[])
 	broker = FormField(ContactForm)
 	shipper = FormField(ContactForm)
-	locations = FieldList(FormField(LaneLocationForm), validators=[])
+	locations = FieldList(FormField(StopNumberForm), validators=[])
 
 
 
@@ -94,6 +102,7 @@ class TruckForm(Form):
 	dim_length = StringField("Length", validators =[])
 	dim_height = StringField("Height", validators =[])
 	dim_width = StringField("Width", validators =[])
+	locations = FieldList(FormField(StopNumberForm), validators=[])
 
 class DriverForm(Form):
 	first_name = StringField('First Name', validators=[DataRequired()])
@@ -150,6 +159,9 @@ class LocationStatusForm(Form):
 													('Loaded/Unloaded', 'Loaded/Unloaded'),
 													('Departed', 'Departed')], 
 													validators = [])
+
+
+
 class StatusForm(Form):
 	location_status = FieldList(FormField(LocationStatusForm), validators=[])
 

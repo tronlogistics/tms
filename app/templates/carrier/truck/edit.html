@@ -95,7 +95,78 @@
 	        </div>
      	</div>
 	</div>
-</form>
 
+<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+	    		<div class="panel-heading">
+	        		<i class="fa fa-external-link-square"></i>
+	        		Stop Offs 
+	    		</div>
+		    	<div class="panel-body">
+		    		<table class="table table-condensed">
+		    			<thead>
+		    				<tr>
+		    					<th>Up/Down</th>
+	                            <th>Address</th>
+	                            <th>Arrival Date</th>
+	                            <!--<th>Status</th>-->
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+				    			{% for location in locations|sort(attribute='stop_number') %}
+					        		<tr class="location_order">
+					        			<td>
+					        				<a href="javascript:void()" class="up">Up</a>/<a href="javascript:void()" class="down">Down</a>
+
+					        				<input type="hidden" id="locations-{{ loop.index }}-location_id" name="locations-{{ loop.index }}-location_id" class="form-control location-id" value="{{ location.id }}">
+
+					        				<input type="text" id="locations-{{ loop.index }}-stop_number" name="locations-{{ loop.index }}-stop_number" class="form-control stop-number" value="{{ loop.index }}">
+
+					        			</td>
+		                            	<td>{{ location.address.address1 }}<br />{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
+		                            	<td>{{ location.arrival_date }}</td>
+		                            </tr>
+								{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</form>
+	   
+
+				
 {% include "partials/main_javascripts.html" %}
+
+<script>
+$(document).ready(function(e){
+    $(".up,.down,.top,.bottom").click(function(){
+        var row = $(this).parents("tr:first");
+        
+		
+        if ($(this).is(".up")) {
+            row.insertBefore(row.prev());
+        } else if ($(this).is(".down")) {
+            row.insertAfter(row.next());
+        } else if ($(this).is(".top")) {
+            //row.insertAfter($("table tr:first"));
+            row.insertBefore($("table tr:first"));
+        }else {
+            row.insertAfter($("table tr:last"));
+        }
+        var rowIndex = $(this)
+		    .closest('tr') // Get the closest tr parent element
+		    .prevAll() // Find all sibling elements in front of it
+		    .length + 1; // Get their count
+		alert(rowIndex);
+		$( ".location_order" ).each(function( index ) {
+		  	$(this).find('.stop-number').val(index + 1);
+		  	alert($(this).find('.stop-number').val());
+		});
+    });
+});
+</script>
 {% endblock %}

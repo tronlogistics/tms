@@ -71,8 +71,16 @@ def edit(truck_id):
 	if permission.can():
 		form = TruckForm()
 		truck = Truck.query.get(int(truck_id))
+		flash(form.validate_on_submit())
+		flash(form.errors)
 		if form.validate_on_submit():
 			truck.name = form.name.data
+			for locationData in form.locations:
+				app.logger.info("%s - %s" % (locationData.location_id.data, locationData.stop_number.data))
+				location = Location.query.get(int(locationData.location_id.data))
+				location.stop_number = locationData.stop_number.data
+				app.logger.info("%s - %s" % (location.address.postal_code, location.stop_number))
+				db.session.add(location)
 			#carrier.latitude = form.latitude.data
 			#carrier.longitude = form.longitude.data
 			db.session.add(truck)
@@ -87,8 +95,15 @@ def edit(truck_id):
 			form.dim_length.data = truck.dim_length
 			form.dim_height.data = truck.dim_height
 			form.dim_width.data = truck.dim_width
+
+		locations = []
+		for load in truck.driver.loads:
+			for location in load.lane.locations:
+				locations.append(location)
+
 		return render_template('carrier/truck/edit.html', 
 								title="Edit Truck", 
+								locations=locations,
 								form=form, 
 								truck=truck, 
 								active="Trucks",
@@ -105,8 +120,13 @@ def view(truck_id):
 		categories = [('0', '<none selected>')] + [(driver.id, driver.get_full_name()) for driver in filter((lambda driver: driver.truck is None), g.user.fleet.drivers)]# + [('-1', 'Create New Driver...')]
 		form.driver.choices = categories
 		truck = Truck.query.get(int(truck_id))
+		locations = []
+		for load in truck.driver.loads:
+			for location in load.lane.locations:
+				locations.append(location)
 		return render_template('carrier/truck/view.html', 
 								title="View Truck", 
+								locations=locations,
 								form=form, 
 								truck=truck, 
 								user=g.user)
