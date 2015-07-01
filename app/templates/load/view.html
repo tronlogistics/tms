@@ -26,10 +26,10 @@
 				                        </tr>
 				                    </thead>
 				                    <tbody>
-				                        {% for location in locations %}
+				                        {% for location in locations|sort(attribute="stop_number") %}
 				                            <tr>
 				                            	<td><a href="#responsive-{{ loop.index }}" data-toggle="modal">View</a></td>
-				                            	<td>{{location.stop_number}}</td>
+				                            	<td>{{ loop.index }}</td>
 				                            	<td>{{ location.address.address1 }}<br />{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
 				                            	<td>{{ location.arrival_date }}</td>
 				                            	<td><a href="{{ url_for('.edit_location', load_id=load.id, location_id=location.id) }}">Edit</a>/<a href="{{ url_for('.delete_location', load_id=load.id, location_id=location.id) }}">Delete</a>

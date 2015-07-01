@@ -3,10 +3,11 @@ from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, mail
 from app.forms import DriverForm, TruckForm, AssignDriverForm, LocationStatusForm
-from app.models import Load, Driver, Truck, LongLat, Location
+from app.models import Load, Driver, Truck, LongLat, Location, LocationStatus
 from app.permissions import *
 from app.emails import ping_driver, get_serializer
 from itsdangerous import URLSafeSerializer, BadSignature
+from datetime import datetime
 
 trucks = Blueprint('trucks', __name__, url_prefix='/trucks')
 
@@ -78,7 +79,7 @@ def edit(truck_id):
 			for locationData in form.locations:
 				app.logger.info("%s - %s" % (locationData.location_id.data, locationData.stop_number.data))
 				location = Location.query.get(int(locationData.location_id.data))
-				location.stop_number = locationData.stop_number.data
+				location.stop_number = int(locationData.stop_number.data)
 				app.logger.info("%s - %s" % (location.address.postal_code, location.stop_number))
 				db.session.add(location)
 			#carrier.latitude = form.latitude.data
@@ -158,6 +159,8 @@ def check_in(activation_slug):
 	form = LocationStatusForm()
 	if form.validate_on_submit():
 		location = Location.query.get(int(form.location_id.data))
+		status = LocationStatus(status=form.status.data, created_on=datetime.utcnow())
+		location.status_history.append(status)
 		location.status = form.status.data
 		db.session.add(location)
 		db.session.commit()
@@ -169,7 +172,10 @@ def check_in(activation_slug):
 		abort(404)
 
 	truck = Driver.query.get_or_404(driver_id).truck
-	return render_template('carrier/truck/checkin.html', truck=truck, form=form)
+	location = getNextLocation(truck)
+	#if location.status_history.count > 0:
+	#	form.status.data = location.status_history[-1].status
+	return render_template('carrier/truck/checkin.html', truck=truck, location=location, form=form)
 
 @trucks.route('/storelocation/<truck_id>', methods=['POST'])
 def store_location(truck_id):
@@ -247,3 +253,22 @@ def on_identity_changed(sender, identity):
 		for bid in current_user.offered_bids:
 			identity.provides.add(ViewLoadNeed(unicode(bid.load.id)))
 			identity.provides.add(AssignLoadNeed(unicode(bid.load.id)))
+
+###########################
+
+def getNextLocation(truck):
+	for load in truck.driver.loads:
+		for location in load.lane.locations:
+			app.logger.info("%s, %s" % (location.stop_number, int(location.stop_number) == 1))
+
+			if int(location.stop_number) == 1:
+				app.logger.info("returning %s" % location.stop_number)
+				return location
+	return None
+
+def getUpcomingLocations(truck):
+	locations = []
+	for load in filter(lambda cur: cur.status != "Completed", truck.driver.loads):
+		for location in filter(lambda cur: cur.Status != "Departed", load.lane.locations):
+			locations.append(location)
+	return locations

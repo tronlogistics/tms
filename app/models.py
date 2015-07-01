@@ -141,6 +141,8 @@ class Location(db.Model):
 	__tablename__ = 'Location'
 	id = db.Column(db.Integer, primary_key=True)
 	lane_id = db.Column(db.Integer, db.ForeignKey('Lane.id'))
+
+	status_history = db.relationship('LocationStatus', backref='location', lazy='dynamic')
 	
 	address = db.relationship('Address', uselist=False, backref='location')
 
@@ -158,12 +160,19 @@ class Location(db.Model):
 	arrival_date = db.Column(db.Date)
 
 	type = db.Column(db.String(10))
-	status = db.Column(db.String(20))
+
 	latitude = db.Column(db.Float(6))
 	longitude = db.Column(db.Float(6))
 
 	def __repr__(self):
 		return '%s, %s' % (self.city, self.state)
+
+class LocationStatus(db.Model):
+	__tablename__ = 'LocationStatus'
+	id = db.Column(db.Integer, primary_key=True)
+	location_id = db.Column(db.Integer, db.ForeignKey('Location.id'))
+	status = db.Column(db.String(20))
+	created_on = db.Column(db.DateTime, server_default=db.func.now())
 
 class LoadDetail(db.Model):
 	__tablename__ = 'LoadDetail'

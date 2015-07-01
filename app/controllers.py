@@ -2,6 +2,7 @@ from app import db
 from geopy import geocoders 
 from geopy.geocoders import Nominatim
 from app.models import Load, LoadDetail, Lane, Location, Address, Contact
+
 def LoadFactory(form):
 	#geolocator = Nominatim
 	#load = Load(name=form.name.data, 
@@ -68,8 +69,13 @@ def LoadFactory(form):
 										location.city.data,
 										location.state.data,
 										location.postal_code.data)
-		pickup_detail = LoadDetailFactory(location.pickup_weight.data, location.pickup_notes.data, "Pickup")
-		delivery_detail = LoadDetailFactory(location.delivery_weight.data, location.delivery_notes.data, "Delivery")
+		app.logger.info('test')
+		if(location.pickup_weight.data.strip('\t\n\r') is not None):
+			app.logger.info('creating pickup')
+			pickup_detail = LoadDetailFactory(location.pickup_weight.data, location.pickup_notes.data, "Pickup")
+		if(location.delivery_weight.data.strip('\t\n\r') is not None):
+			app.logger.info('creating delivery')
+			delivery_detail = LoadDetailFactory(location.delivery_weight.data, location.delivery_notes.data, "Delivery")
 		contact = ContactFactory(location.contact_name.data, location.contact_phone.data, location.contact_email.data)
 		stop_off = LocationFactory(address, pickup_detail, delivery_detail, location.arrival_date.data, location.stop_number.data, contact, location.stop_type.data)
 		stop_off_locations.append(stop_off)

@@ -268,8 +268,16 @@ def add_location(load_id):
 									form.city.data,
 									form.state.data,
 									form.postal_code.data)
-			pickup_detail = LoadDetailFactory(form.pickup_weight.data, form.pickup_notes.data, "Pickup")
-			delivery_detail = LoadDetailFactory(form.delivery_weight.data, form.delivery_notes.data, "Delivery")
+			if(form.pickup_weight.data.strip('\t\n\r') != ""):
+				app.logger.info('creating pickup')
+				pickup_detail = LoadDetailFactory(form.pickup_weight.data, form.pickup_notes.data, "Pickup")
+			else:
+				pickup_detail = None
+			if(form.delivery_weight.data.strip('\t\n\r') != ""):
+				app.logger.info('creating delivery')
+				delivery_detail = LoadDetailFactory(form.delivery_weight.data, form.delivery_notes.data, "Delivery")
+			else:
+				delivery_detail = None
 			contact = ContactFactory(form.contact_name.data, form.contact_phone.data, form.contact_email.data)
 			stop_off = LocationFactory(address, pickup_detail, delivery_detail, form.arrival_date.data, load.lane.locations.count() + 1, contact, form.stop_type.data)
 			load.lane.locations.append(stop_off)
@@ -299,10 +307,25 @@ def edit_location(load_id, location_id):
 			location.address.city = form.city.data
 			location.address.state = form.state.data
 			location.address.postal_code = form.postal_code.data
-			location.pickup_details.weight = form.pickup_weight.data
-			location.pickup_details.notes = form.pickup_notes.data
-			location.delivery_details.weight = form.delivery_weight.data
-			location.delivery_details.notes = form.delivery_notes.data
+			if(form.pickup_weight.data.strip('\t\n\r') != ""):
+				if location.pickup_details is None:
+					location.pickup_details = LoadDetailFactory(form.pickup_weight.data, form.pickup_notes.data, "Pickup")
+				else:
+					location.pickup_details.weight = form.pickup_weight.data
+					location.pickup_details.notes = form.pickup_notes.data
+			else:
+				location.pickup_details = None
+
+			if(form.delivery_weight.data.strip('\t\n\r') != ""):
+				if location.delivery_details is None:
+					location.delivery_details = LoadDetailFactory(form.delivery_weight.data, form.delivery_notes.data, "Pickup")
+				else:
+					location.delivery_details.weight = form.delivery_weight.data
+					location.delivery_details.notes = form.delivery_notes.data
+			else:
+				location.delivery_details = None
+			
+			
 			location.contact.name = form.contact_name.data
 			location.contact.phone = form.contact_phone.data
 			location.contact.email = form.contact_email.data
@@ -317,10 +340,12 @@ def edit_location(load_id, location_id):
 		form.city.data = location.address.city
 		form.state.data = location.address.state 
 		form.postal_code.data = location.address.postal_code
-		form.pickup_weight.data = location.pickup_details.weight
-		form.pickup_notes.data = location.pickup_details.notes
-		form.delivery_weight.data = location.delivery_details.weight
-		form.delivery_notes.data = location.delivery_details.notes
+		if location.pickup_details is not None:
+			form.pickup_weight.data = location.pickup_details.weight
+			form.pickup_notes.data = location.pickup_details.notes
+		if location.delivery_details is not None:
+			form.delivery_weight.data = location.delivery_details.weight
+			form.delivery_notes.data = location.delivery_details.notes
 		form.contact_name.data = location.contact.name
 		form.contact_phone.data = location.contact.phone 
 		form.contact_email.data = location.contact.email 

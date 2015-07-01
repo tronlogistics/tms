@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<!-- Template Name: Clip-One - Responsive Admin Template build with Twitter Bootstrap 3.x Version: 1.4 Author: ClipTheme -->
-<!--[if IE 8]><html class="ie8 no-js" lang="en"><![endif]-->
-<!--[if IE 9]><html class="ie9 no-js" lang="en"><![endif]-->
-<!--[if !IE]><!-->
+
+
+
+<!doctype html>
+
 <html lang="en" class="no-js">
-    <!--<![endif]-->
-    <!-- start: HEAD -->
-    <head>
+<!--<![endif]-->
+<!-- start: HEAD -->
+<head>
         <title>{{ title }}</title>
         <!-- start: META -->
         <meta charset="utf-8" />
@@ -43,103 +43,9 @@
 
         
     </head>
-    <!-- end: HEAD -->
-    <!-- start: BODY -->
-    <body class="login example1">
-      <h1 id='message' style="display:none">Thank you! {{ truck.longitude }}, {{ truck.latitude }}</h1>
-      <h1 id='error' style="display:none">Please try again and enable location services</h1>
-      <div class="row-fluid">
-        <div class="col-sm-12">
-          <div class="panel panel-default">
-              <div class="panel-heading">
-                  <i class="fa fa-external-link-square"></i>
-                  Stop Offs 
-              </div>
-              <div class="panel-body">
-                <table class="table table-condensed">
-                  <thead>
-                    <tr>
-                      <th>Address</th>
-                      <th>Arrival Date</th>
-                      <th>Status</th>
-                      <th></th>
-                  </tr>
-              </thead>
-              <tbody>
-                {% for load in truck.driver.loads %}
-                  {% for location in load.lane.locations %}
-                  <form name="status_update" method="post">
-                    <tr>
-                      <td>{{ location.address.address1 }}<br />{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
-                      <td>{{ location.arrival_date }}{{ location.status }}</td>
-                      <td>{{ form.status(class="form-control", value=location.status) }}</td>
-                      <td>
-                        {{ form.location_id(value=location.id, type='hidden') }}
-                        <button type="submit" class="btn btn-blue next-step btn-block">
-                        Update <i class="fa fa-arrow-circle-right"></i>
-                      </button></td>
-                    </tr>
-                  </form>
-                  {% endfor %}
-                {% endfor %}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-    </body>
-    <!-- end: BODY -->
-</html>
-
-
-<!doctype html>
-
-<html lang="en" class="no-js">
-<!--<![endif]-->
-<!-- start: HEAD -->
-<head>
-  <title></title>
-  <!-- start: META -->
-  <meta charset="utf-8">
-  <!--[if IE]>
-    <meta http-equiv='X-UA-Compatible' content="IE=edge,IE=9,IE=8,chrome=1" />
-  <![endif]-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta content name="description">
-  <meta content name="author">
-  <!-- end: META -->
-  <!-- start: MAIN CSS -->
-  <link rel="stylesheet" href="CSS/bootstrap.min.css">
-  <link rel="stylesheet" href="CSS/font-awesome.min.css">
-  <link rel="stylesheet" href="CSS/style.css">
-  <link rel="stylesheet" href="CSS/main.css">
-  <link rel="stylesheet" href="CSS/main-responsive.css">
-  <link rel="stylesheet" href="CSS/all.css">
-  <link rel="stylesheet" href="CSS/bootstrap-colorpalette.css">
-  <link rel="stylesheet" href="CSS/perfect-scrollbar.css">
-  <link rel="stylesheet" href="CSS/theme_light.css" type="text/css" id="skin_color">
-  <link rel="stylesheet" href="CSS/print.css" type="text/css" media="print">
-  <link rel="stylesheet" href="CSS/jquery-ui.css">
-  <link rel="stylesheet" type="text/css" href="CSS/select2.css">
-  <link rel="stylesheet" href="CSS/DT_bootstrap.css">
-  <link rel="stylesheet" href="CSS/datepicker.css">
-  <link rel="stylesheet" href="CSS/bootstrap-modal-bs3patch.css" type="text/css">
-  <link rel="stylesheet" href="CSS/bootstrap-modal.css" type="text/css">
-  <!--[if IE 7]>
-  <![endif]-->
-  <!-- end: MAIN CSS -->
-  <!-- start: CSS REQUIRED FOR THIS PAGE ONLY -->
-  <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
-</head>
 <!-- end: HEAD -->
 <!-- start: BODY -->
 <body class="login example1">
-  {% for load in truck.driver.loads %}
-    {% for location in load.lane.locations %}
       <div class="row-fluid">
         <div class="col-sm-12">
           <div class="panel panel-default">
@@ -152,7 +58,7 @@
                 <p>Use the dropdown to select your current trip status</p>
               <form name="status_update" method="post" class="">
                 <div class="col-sm-8">
-                      {{ form.status(class="form-control", value=location.status) }}
+                      {{ form.status(class="form-control") }}
                       {{ form.location_id(value=location.id, type='hidden') }}
                   </div>
                 <div class="col-sm-4">
@@ -163,67 +69,6 @@
               </form>
             </div>
           </div>
-            <br />
-            <br />
-              <!--<table class="table table-condensed">
-                <thead>
-                  <tr>
-                    <th>Status</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <div class="btn-group">
-                        <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">     Status    <span class="caret"></span>  </a>
-                        <ul class="dropdown-menu">
-                          <li>
-                            <a href="#">In Route</a>
-                          </li>
-                          <li>
-                            <a href="#">Arrived</a>
-                          </li>
-                          <li>
-                            <a href="#">Loaded</a>
-                          </li>
-                          <li>
-                            <a href="#">Unloaded</a>
-                          </li>
-                          <li>
-                            <a href="#">Departed</a>
-                          </li>
-                        </ul>
-                      </div>
-                    </td>
-                    <td>
-                      <button type="submit" class="btn btn-blue next-step btn-block">Update Status<i class="fa fa-arrow-circle-right"></i>
-                      </button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>-->
-           <!-- <p>Status History</p>
-              <table class="table table-condensed table-striped">
-                <thead>
-                  <tr>
-                    <th>Status Date / Time</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Mon Jun 29 2015<br>
-                      08:00:00 CST</td>
-                    <td>In Route</td>
-                  </tr>
-                  <tr>
-                    <td>Mon Jun 29 2015<br>
-                      12:00:00 CST</td>
-                    <td>Loaded</td>
-                  </tr>
-                </tbody>
-              </table>-->
           <h4>Location Details</h4>
           <hr />
             <table class="table table-condensed">
@@ -237,7 +82,7 @@
                 </tr>
               </thead>
               <tbody>
-                {% if location.pickup_details.weight is not none %}
+                {% if location.pickup_details is not none %}
                   <tr>
                     <td>Pick Up</td>
                     <td>{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
@@ -246,7 +91,7 @@
                     <td>{{ location.contact.phone }}</td>
                   </tr>
                 {% endif %}
-                {% if location.delivery_details.weight is not none %}
+                {% if location.delivery_details is not none %}
                   <tr>
                     <td>Drop Off</td>
                     <td>{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
@@ -257,12 +102,32 @@
                 {% endif %}
               </tbody>
             </table>
+          <h4>Status History</h4>
+          <hr />
+                <table class="table table-condensed table-striped">
+                <thead>
+                  <tr>
+                    <th>Status Date / Time</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for status in location.status_history|sort(attribute="created_on") %}
+                  <tr>
+                    <td>{{status.created_on}}</td>
+                    <td>{{status.status}}</td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+                  
+           
+              
           </div>
         </div>
         </div>
       </div>
-    {% endfor %}
-  {% endfor %}
+
 
   <script src="{{ static('backend/plugins/jQuery-lib/2.0.3/jquery.min.js') }}"></script>
       <!--<![endif]-->
