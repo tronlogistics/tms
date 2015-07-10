@@ -2,6 +2,8 @@ from app import db
 from geopy import geocoders 
 from geopy.geocoders import Nominatim
 from app.models import Load, LoadDetail, Lane, Location, Address, Contact
+import urllib
+import urllib2
 
 def LoadFactory(form):
 	#geolocator = Nominatim
@@ -89,9 +91,7 @@ def LaneFactory(locations):
 	return Lane(locations=locations)
 
 
-def LocationFactory(address, pickup_detail, delivery_detail, arrival_date, stop_number, contact, stop_type):
-	#geolocator = Nominatim()
-	#loc = geolocator.geocode(address.postal_code, timeout=10)
+def LocationFactory(address, pickup_detail, delivery_detail, arrival_date, stop_number, contact, stop_type, latitude, longitude):
 	return Location(address=address, 
 					pickup_details = pickup_detail, 
 					delivery_details= delivery_detail,
@@ -99,8 +99,8 @@ def LocationFactory(address, pickup_detail, delivery_detail, arrival_date, stop_
 					stop_number=stop_number,
 					contact=contact,
 					type=stop_type,
-					longitude=0,
-					latitude=0)
+					latitude=latitude,
+					longitude=longitude)
 
 
 def LoadDetailFactory(weight, notes, type):

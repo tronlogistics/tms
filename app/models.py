@@ -198,6 +198,9 @@ class Address(db.Model):
 	latitude = db.Column(db.Float(6))
 	longitude = db.Column(db.Float(6))
 
+	def toString(self):
+		return self.address1 + ", " + self.city + ", " + self.state
+
 class Contact(db.Model):
 	__tablename__ = 'Contact'
 	id = db.Column(db.Integer, primary_key=True)

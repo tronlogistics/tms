@@ -157,13 +157,7 @@ def ping(truck_id):
 @trucks.route('/checkin/<activation_slug>', methods=['GET', 'POST'])
 def check_in(activation_slug):
 	form = LocationStatusForm()
-	if form.validate_on_submit():
-		location = Location.query.get(int(form.location_id.data))
-		status = LocationStatus(status=form.status.data, created_on=datetime.utcnow())
-		location.status_history.append(status)
-		location.status = form.status.data
-		db.session.add(location)
-		db.session.commit()
+
 	s = get_serializer()
 	try:
 		driver_id = s.loads(activation_slug)
@@ -173,6 +167,14 @@ def check_in(activation_slug):
 
 	truck = Driver.query.get_or_404(driver_id).truck
 	location = getNextLocation(truck)
+	if form.validate_on_submit():
+		status = LocationStatus(status=form.status.data, created_on=datetime.utcnow())
+		location.status_history.append(status)
+		location.status = form.status.data
+		if location.status == "Departed":
+			changeStopNumbers(truck)
+		db.session.add(location)
+		db.session.commit()
 	#if location.status_history.count > 0:
 	#	form.status.data = location.status_history[-1].status
 	return render_template('carrier/truck/checkin.html', truck=truck, location=location, form=form)
@@ -272,3 +274,9 @@ def getUpcomingLocations(truck):
 		for location in filter(lambda cur: cur.Status != "Departed", load.lane.locations):
 			locations.append(location)
 	return locations
+
+def changeStopNumbers(truck):
+	for load in truck.driver.loads:
+		for location in load.lane.locations:
+			location.stop_number -= 1
+			db.session.add(location)

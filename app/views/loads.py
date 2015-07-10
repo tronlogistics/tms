@@ -8,6 +8,12 @@ from app.permissions import *
 from app.controllers import LoadFactory, AddressFactory, LocationFactory, LoadDetailFactory, ContactFactory
 #from app.factories
 from sqlalchemy import desc
+from geopy import geocoders 
+from geopy.geocoders import Nominatim
+import urllib
+import urllib2
+import json
+
 
 
 loads = Blueprint('loads', __name__, url_prefix='/loads')
@@ -242,7 +248,8 @@ def view(load_id):
 			carriers = filter((lambda truck: truck.driver is not None
 												and truck.trailer_type == load.trailer_type), 
 												g.user.fleet.trucks)
-		
+		geolocator = Nominatim()
+		location = geolocator.geocode("600 N. Lakeshore 60611")
 		return render_template('load/view.html', status_form=status_form,
 												load=load, 
 												carriers=carriers,
@@ -250,6 +257,7 @@ def view(load_id):
 												is_dispatch=g.user.is_carrier(),
 												title="View Load",
 												active="Loads",
+												location=location,
 												user=g.user)
 	abort(403)
 
@@ -260,14 +268,31 @@ def add_location(load_id):
 	if permission.can():
 		
 		form = LaneLocationForm()
-		form.validate_on_submit()
-		flash(form.errors)
+
 		if form.validate_on_submit():
 			load = Load.query.get(int(load_id))
 			address = AddressFactory(form.address1.data,
 									form.city.data,
 									form.state.data,
 									form.postal_code.data)
+			url = 'https://maps.googleapis.com/maps/api/geocode/json?' + urllib.urlencode({
+					'address': address.toString()
+				}) + "&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg"
+			app.logger.info(url)
+			response = urllib2.urlopen(url)
+			app.logger.info(response)
+			data = response.read()
+			app.logger.info(data)
+			try: js = json.loads(str(data))
+			except: js = None
+			if 'status' not in js or js['status'] != 'OK':
+				app.logger.error("Failed to Retrieve")
+
+
+			latitude = js["results"][0]["geometry"]["location"]["lat"]
+			app.logger.info(latitude)
+			longitude = js["results"][0]["geometry"]["location"]["lng"]
+			app.logger.info(longitude)
 			if(form.pickup_weight.data.strip('\t\n\r') != ""):
 				app.logger.info('creating pickup')
 				pickup_detail = LoadDetailFactory(form.pickup_weight.data, form.pickup_notes.data, "Pickup")
@@ -279,7 +304,7 @@ def add_location(load_id):
 			else:
 				delivery_detail = None
 			contact = ContactFactory(form.contact_name.data, form.contact_phone.data, form.contact_email.data)
-			stop_off = LocationFactory(address, pickup_detail, delivery_detail, form.arrival_date.data, load.lane.locations.count() + 1, contact, form.stop_type.data)
+			stop_off = LocationFactory(address, pickup_detail, delivery_detail, form.arrival_date.data, load.lane.locations.count() + 1, contact, form.stop_type.data, latitude, longitude)
 			load.lane.locations.append(stop_off)
 			db.session.add(load)
 			db.session.commit()

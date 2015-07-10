@@ -8508,3 +8508,522 @@ NotFound: 404: Not Found
 2015-07-01 11:23:28,728 INFO: 2, False [in /Users/Root1/app/app/views/trucks.py:262]
 2015-07-01 11:23:28,728 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:262]
 2015-07-01 11:23:28,728 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:265]
+2015-07-05 18:35:51,114 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-05 18:35:51,560 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-05 18:37:07,199 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-05 18:37:52,522 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-05 18:37:55,007 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-05 18:38:09,758 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-05 18:38:41,752 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-05 18:39:12,649 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-05 18:39:17,245 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-05 18:40:08,491 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-05 18:40:10,619 INFO: Flatiron Building, 175, 5th Avenue, Flatiron, New York, NYC, New York, 10010, United States of America [in /Users/Root1/app/app/views/loads.py:249]
+2015-07-05 18:40:28,370 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-05 18:41:24,728 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-05 18:41:34,487 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-05 18:41:41,116 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-05 18:41:47,971 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-05 18:42:01,716 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-05 18:42:11,397 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 09:44:15,420 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 09:44:15,883 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 09:44:48,117 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:215]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-07-10 09:44:48,648 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:215]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-07-10 09:44:48,657 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:215]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-07-10 09:45:55,828 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 09:49:08,198 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 09:50:30,982 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 09:56:06,277 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 09:58:08,870 INFO: creating pickup [in /Users/Root1/app/app/views/loads.py:277]
+2015-07-10 09:58:30,912 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 09:58:55,762 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 09:59:06,422 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 09:59:57,725 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 09:59:59,736 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=600+N+Lakeshore+Drive%2C+Chicago%2C+Illinois&key=IzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/views/loads.py:280]
+2015-07-10 10:00:38,829 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 10:00:45,235 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=600+N+Lakeshore+Drive%2C+Chicago%2C+Illinois&key=IzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/views/loads.py:280]
+2015-07-10 10:01:19,970 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 10:01:34,689 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=600+N+Lakeshore+Drive%2C+Chicago%2C+Illinois&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/views/loads.py:280]
+2015-07-10 10:02:50,271 INFO: <addinfourl at 4397253912 whose fp = <socket._fileobject object at 0x1061375d0>> [in /Users/Root1/app/app/views/loads.py:282]
+2015-07-10 10:02:50,274 INFO: {
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "600",
+               "short_name" : "600",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "North Lake Shore Drive",
+               "short_name" : "N Lake Shore Dr",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Central",
+               "short_name" : "Central",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Chicago",
+               "short_name" : "Chgo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cook County",
+               "short_name" : "Cook County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Illinois",
+               "short_name" : "IL",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "60611",
+               "short_name" : "60611",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "600 North Lake Shore Drive, Chicago, IL 60611, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 41.8930693,
+               "lng" : -87.61500939999999
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 41.8944182802915,
+                  "lng" : -87.61366041970849
+               },
+               "southwest" : {
+                  "lat" : 41.8917203197085,
+                  "lng" : -87.6163583802915
+               }
+            }
+         },
+         "partial_match" : true,
+         "place_id" : "ChIJobkSklQrDogRnQ9_op_l70c",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "status" : "OK"
+}
+ [in /Users/Root1/app/app/views/loads.py:284]
+2015-07-10 10:02:50,275 INFO: creating pickup [in /Users/Root1/app/app/views/loads.py:286]
+2015-07-10 10:03:16,202 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 10:03:35,951 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 10:08:36,905 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 10:08:37,306 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 10:09:41,287 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=516+W+Briar+Pl%2C+Chicago%2C+IL&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/views/loads.py:280]
+2015-07-10 10:10:56,563 INFO: <addinfourl at 4381248256 whose fp = <socket._fileobject object at 0x1052403d0>> [in /Users/Root1/app/app/views/loads.py:282]
+2015-07-10 10:10:56,571 INFO: {
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "516",
+               "short_name" : "516",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "West Briar Place",
+               "short_name" : "W Briar Pl",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "North Side",
+               "short_name" : "North Side",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Chicago",
+               "short_name" : "Chgo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cook County",
+               "short_name" : "Cook County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Illinois",
+               "short_name" : "IL",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "60657",
+               "short_name" : "60657",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "516 West Briar Place, Chicago, IL 60657, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 41.9389048,
+               "lng" : -87.64264009999999
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 41.9402537802915,
+                  "lng" : -87.6412911197085
+               },
+               "southwest" : {
+                  "lat" : 41.9375558197085,
+                  "lng" : -87.6439890802915
+               }
+            }
+         },
+         "place_id" : "ChIJuasOOKHTD4gRWlf_ozJOsTQ",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "status" : "OK"
+}
+ [in /Users/Root1/app/app/views/loads.py:284]
+2015-07-10 10:12:30,577 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 10:12:42,220 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 10:12:45,200 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=516+W+Briar+Pl%2C+Chicago%2C+IL&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/views/loads.py:281]
+2015-07-10 10:14:00,505 INFO: <addinfourl at 4388570248 whose fp = <socket._fileobject object at 0x105823e50>> [in /Users/Root1/app/app/views/loads.py:283]
+2015-07-10 10:14:00,505 INFO: {
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "516",
+               "short_name" : "516",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "West Briar Place",
+               "short_name" : "W Briar Pl",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "North Side",
+               "short_name" : "North Side",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Chicago",
+               "short_name" : "Chgo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cook County",
+               "short_name" : "Cook County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Illinois",
+               "short_name" : "IL",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "60657",
+               "short_name" : "60657",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "516 West Briar Place, Chicago, IL 60657, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 41.9389048,
+               "lng" : -87.64264009999999
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 41.9402537802915,
+                  "lng" : -87.6412911197085
+               },
+               "southwest" : {
+                  "lat" : 41.9375558197085,
+                  "lng" : -87.6439890802915
+               }
+            }
+         },
+         "place_id" : "ChIJuasOOKHTD4gRWlf_ozJOsTQ",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "status" : "OK"
+}
+ [in /Users/Root1/app/app/views/loads.py:285]
+2015-07-10 10:14:00,507 INFO: 41.9389048 [in /Users/Root1/app/app/views/loads.py:293]
+2015-07-10 10:14:35,456 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 10:14:50,156 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 10:14:53,949 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=516+W+Briar+Pl%2C+Chicago%2C+IL&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/views/loads.py:281]
+2015-07-10 10:16:09,366 INFO: <addinfourl at 4370400320 whose fp = <socket._fileobject object at 0x10475ded0>> [in /Users/Root1/app/app/views/loads.py:283]
+2015-07-10 10:16:09,367 INFO: {
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "516",
+               "short_name" : "516",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "West Briar Place",
+               "short_name" : "W Briar Pl",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "North Side",
+               "short_name" : "North Side",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Chicago",
+               "short_name" : "Chgo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cook County",
+               "short_name" : "Cook County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Illinois",
+               "short_name" : "IL",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "60657",
+               "short_name" : "60657",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "516 West Briar Place, Chicago, IL 60657, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 41.9389048,
+               "lng" : -87.64264009999999
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 41.9402537802915,
+                  "lng" : -87.6412911197085
+               },
+               "southwest" : {
+                  "lat" : 41.9375558197085,
+                  "lng" : -87.6439890802915
+               }
+            }
+         },
+         "place_id" : "ChIJuasOOKHTD4gRWlf_ozJOsTQ",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "status" : "OK"
+}
+ [in /Users/Root1/app/app/views/loads.py:285]
+2015-07-10 10:16:09,368 INFO: 41.9389048 [in /Users/Root1/app/app/views/loads.py:293]
+2015-07-10 10:16:09,368 INFO: -87.6426401 [in /Users/Root1/app/app/views/loads.py:295]
+2015-07-10 10:16:09,368 INFO: creating pickup [in /Users/Root1/app/app/views/loads.py:297]
+2015-07-10 10:19:37,938 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=222+Kimberly+Rd%2C+Barrington%2C+Illinois&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/views/loads.py:281]
+2015-07-10 10:23:23,286 INFO: <addinfourl at 4423481392 whose fp = <socket._fileobject object at 0x107a999d0>> [in /Users/Root1/app/app/views/loads.py:283]
+2015-07-10 10:23:23,291 INFO: {
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "222",
+               "short_name" : "222",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Kimberly Road",
+               "short_name" : "Kimberly Rd",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Barrington",
+               "short_name" : "Barrington",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cuba",
+               "short_name" : "Cuba",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "Lake County",
+               "short_name" : "Lake County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Illinois",
+               "short_name" : "IL",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "60010",
+               "short_name" : "60010",
+               "types" : [ "postal_code" ]
+            },
+            {
+               "long_name" : "2122",
+               "short_name" : "2122",
+               "types" : [ "postal_code_suffix" ]
+            }
+         ],
+         "formatted_address" : "222 Kimberly Road, Barrington, IL 60010, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 42.204579,
+               "lng" : -88.12593
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.2059279802915,
+                  "lng" : -88.1245810197085
+               },
+               "southwest" : {
+                  "lat" : 42.2032300197085,
+                  "lng" : -88.12727898029151
+               }
+            }
+         },
+         "place_id" : "ChIJI7efu8uhD4gRvWlNvblPvok",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "status" : "OK"
+}
+ [in /Users/Root1/app/app/views/loads.py:285]
+2015-07-10 10:23:23,292 INFO: 42.204579 [in /Users/Root1/app/app/views/loads.py:293]
+2015-07-10 10:23:23,292 INFO: -88.12593 [in /Users/Root1/app/app/views/loads.py:295]
+2015-07-10 10:23:23,292 INFO: creating delivery [in /Users/Root1/app/app/views/loads.py:302]
+2015-07-10 10:24:23,501 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 10:24:48,119 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=600+N+Lakeshore+Drive%2C+Chicago%2C+Illinois&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/views/loads.py:281]
+2015-07-10 10:26:03,492 INFO: <addinfourl at 4405570808 whose fp = <socket._fileobject object at 0x1069225d0>> [in /Users/Root1/app/app/views/loads.py:283]
+2015-07-10 10:26:03,493 INFO: {
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "600",
+               "short_name" : "600",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "North Lake Shore Drive",
+               "short_name" : "N Lake Shore Dr",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Central",
+               "short_name" : "Central",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Chicago",
+               "short_name" : "Chgo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cook County",
+               "short_name" : "Cook County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Illinois",
+               "short_name" : "IL",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "60611",
+               "short_name" : "60611",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "600 North Lake Shore Drive, Chicago, IL 60611, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 41.8930693,
+               "lng" : -87.61500939999999
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 41.8944182802915,
+                  "lng" : -87.61366041970849
+               },
+               "southwest" : {
+                  "lat" : 41.8917203197085,
+                  "lng" : -87.6163583802915
+               }
+            }
+         },
+         "partial_match" : true,
+         "place_id" : "ChIJobkSklQrDogRnQ9_op_l70c",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "status" : "OK"
+}
+ [in /Users/Root1/app/app/views/loads.py:285]
+2015-07-10 10:26:03,493 INFO: 41.8930693 [in /Users/Root1/app/app/views/loads.py:293]
+2015-07-10 10:26:03,494 INFO: -87.6150094 [in /Users/Root1/app/app/views/loads.py:295]
+2015-07-10 10:26:03,494 INFO: creating pickup [in /Users/Root1/app/app/views/loads.py:297]
