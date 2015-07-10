@@ -9027,3 +9027,121 @@ NotFound: 404: Not Found
 2015-07-10 10:26:03,493 INFO: 41.8930693 [in /Users/Root1/app/app/views/loads.py:293]
 2015-07-10 10:26:03,494 INFO: -87.6150094 [in /Users/Root1/app/app/views/loads.py:295]
 2015-07-10 10:26:03,494 INFO: creating pickup [in /Users/Root1/app/app/views/loads.py:297]
+2015-07-10 10:50:59,723 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 10:51:00,208 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 10:51:03,268 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:215]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/helpers.py", line 822, in send_static_file
+    cache_timeout=cache_timeout)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/helpers.py", line 614, in send_from_directory
+    raise NotFound()
+NotFound: 404: Not Found
+2015-07-10 10:51:47,648 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:215]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/helpers.py", line 822, in send_static_file
+    cache_timeout=cache_timeout)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/helpers.py", line 614, in send_from_directory
+    raise NotFound()
+NotFound: 404: Not Found
+2015-07-10 12:10:09,262 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:215]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-07-10 12:10:37,667 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:215]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-07-10 12:12:38,413 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 12:14:41,544 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 12:14:41,974 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 12:26:42,795 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 12:26:47,442 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:227]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-07-10 12:27:45,154 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 12:28:12,105 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 12:28:37,948 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 12:29:40,385 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 12:29:47,053 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 12:37:56,357 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 12:49:19,184 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 12:49:52,169 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 12:49:56,784 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 12:50:02,396 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 12:52:58,426 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 12:53:51,761 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 12:55:02,320 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 12:55:44,424 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 12:56:12,313 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 12:56:18,835 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 12:56:18,836 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 13:05:07,506 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 13:05:07,506 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 13:06:49,725 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 13:06:49,725 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 13:56:44,045 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 13:56:44,045 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 13:57:16,749 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 13:57:16,750 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 13:57:56,473 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 13:57:56,473 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 13:58:16,399 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 13:58:16,399 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 13:58:22,839 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 13:58:22,839 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 13:58:36,511 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 13:58:36,511 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 14:00:14,902 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 14:00:14,902 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 14:01:31,512 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 14:01:31,512 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 14:01:49,937 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 14:01:49,937 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 14:02:05,947 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 14:02:05,948 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 14:02:21,570 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 14:02:21,570 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 14:02:58,572 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 14:02:58,572 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 14:03:31,293 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 14:03:31,294 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 14:03:44,110 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 14:03:44,110 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 14:04:25,893 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 14:04:25,893 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 14:05:50,612 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 14:05:50,612 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 14:05:58,461 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 14:05:58,461 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 14:06:23,493 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 14:06:23,494 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 14:06:49,662 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 14:06:49,662 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 14:06:58,035 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 14:06:58,035 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
+2015-07-10 14:07:07,194 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:285]
+2015-07-10 14:07:07,194 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]

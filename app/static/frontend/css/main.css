@@ -622,7 +622,7 @@ ul.social-icons li.vk:hover {
 .navbar-default {
 	background: rgba(255, 255, 255, 0.9);
 	border-color: #E7E7E7;
-	height: 90px;
+	height: 75px;
 	line-height: 90px;
 	min-height: 30px;
 }
@@ -2130,7 +2130,7 @@ div.flexslider {
 }
 /*Revolution*/
 .slide_title {
-	color: #555555;
+	color: #FFFFFF;
 	font-family: 'Open Sans';
 	font-size: 45px;
 	font-weight: 300;

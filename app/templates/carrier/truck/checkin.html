@@ -49,82 +49,89 @@
       <div class="row-fluid">
         <div class="col-sm-12">
           <div class="panel panel-default">
-            <div class="panel-heading">
-              <i class="fa fa-external-link-square"></i>&nbsp;Current Stop | Load #4555456
-            </div>
-            <div class="panel-body">
-              <div class="row">
-                <div class="container">
-                <p>Use the dropdown to select your current trip status</p>
-              <form name="status_update" method="post" class="">
-                <div class="col-sm-8">
-                      {{ form.status(class="form-control") }}
-                  </div>
-                <div class="col-sm-4">
-                  <button type="submit" class="btn btn-blue next-step btn-block">
-                        Update Status</i>
-                      </button>
+              <div class="panel-heading">
+                  <i class="fa fa-external-link-square"></i>&nbsp;Current Stop | Load #4555456
+              </div>
+              <div class="panel-body">
+                  <div class="row">
+                  <div class="col-sm-12">
+                      <p>Use the dropdown to select your current trip status</p>
+                      <form name="status_update" method="post" class="">
+                        <div class="col-sm-8">
+                              {{ form.status(class="form-control") }}
+                          </div>
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-blue next-step btn-block">
+                                Update Status</i>
+                              </button>
+                        </div>
+                      </form>
+                    </div>
                 </div>
-              </form>
-            </div>
-          </div>
-          <h4>Location Details</h4>
-          <hr />
-            <table class="table table-condensed">
-              <thead>
-                <tr>
-                  <th>Location Type</th>
-                  <th>Address</th>
-                  <th>Arrival Date/Time</th>
-                  <th>Receiver Name</th>
-                  <th>Receiver Contact #</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% if location.pickup_details is not none %}
-                  <tr>
-                    <td>Pick Up</td>
-                    <td>{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
-                    <td>{{ location.arrival_date }}</td>
-                    <td>{{ location.contact.name }}</td>
-                    <td>{{ location.contact.phone }}</td>
-                  </tr>
-                {% endif %}
-                {% if location.delivery_details is not none %}
-                  <tr>
-                    <td>Drop Off</td>
-                    <td>{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
-                    <td>{{ location.arrival_date }}</td>
-                    <td>{{ location.contact.name }}</td>
-                    <td>{{ location.contact.phone }}</td>
-                  </tr>
-                {% endif %}
-              </tbody>
-            </table>
-          <h4>Status History</h4>
-          <hr />
-                <table class="table table-condensed table-striped">
-                <thead>
-                  <tr>
-                    <th>Status Date / Time</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for status in location.status_history|sort(attribute="created_on") %}
-                  <tr>
-                    <td>{{status.created_on}}</td>
-                    <td>{{status.status}}</td>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-                  
-           
-              
+                <div class="row">
+                  <div class="col-sm-12">
+                    <h4>Location Details</h4>
+                    <hr />
+                    <table class="table table-condensed">
+                        <thead>
+                          <tr>
+                              <th>Location Type</th>
+                              <th>Address</th>
+                              <th>Arrival Date/Time</th>
+                              <th>Receiver Name</th>
+                              <th>Receiver Contact #</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {% if location.pickup_details is not none %}
+                              <tr>
+                                <td>Pick Up</td>
+                                <td>{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
+                                <td>{{ location.arrival_date }}</td>
+                                <td>{{ location.contact.name }}</td>
+                                <td>{{ location.contact.phone }}</td>
+                              </tr>
+                          {% endif %}
+                          {% if location.delivery_details is not none %}
+                              <tr>
+                                <td>Drop Off</td>
+                                <td>{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
+                                <td>{{ location.arrival_date }}</td>
+                                <td>{{ location.contact.name }}</td>
+                                <td>{{ location.contact.phone }}</td>
+                              </tr>
+                          {% endif %}
+                        </tbody>
+                    </table>
+                  </div>
+                </div>
+                {% if location.status_history.count() == 0 %}
+                  <div class="row">
+                  <div class="col-sm-12">
+                    <h4>Status History</h4>
+                    <hr />
+                    <table class="table table-condensed table-striped">
+                      <thead>
+                          <tr>
+                            <th>Status Date / Time</th>
+                            <th>Status</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          {% for status in location.status_history|sort(attribute="created_on") %}
+                            <tr>
+                              <td>{{ status.created_on }}</td>
+                              <td>{{ status.status }}</td>
+                            </tr>
+                          {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
+              {% endif %}
           </div>
         </div>
-        </div>
+      </div>
       </div>
 
 

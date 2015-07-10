@@ -224,19 +224,10 @@ def view(load_id):
 	permission = ViewLoadPermission(load_id)
 	
 	if permission.can():
-		status_form = StatusForm()
 		#gn = geocoders.GeoNames()
 		#gn.geocode(filter((lambda location: location.is_origin), load.lane.locations)[0].postal_code)
 		load = Load.query.get(int(load_id))
-		status_form.validate()
-		if status_form.validate_on_submit():
-			for status in status_form.location_status:
-				location = Location.query.filter_by(id=status.location_id.data).first_or_404()
-				location.status = status.status.data
 
-			#load.status = status_form.status.data
-			db.session.add(load)
-			db.session.commit()
 		#TODO: filter by applicabale carriers
 		if not g.user.is_carrier():
 			carriers = []
@@ -248,16 +239,14 @@ def view(load_id):
 			carriers = filter((lambda truck: truck.driver is not None
 												and truck.trailer_type == load.trailer_type), 
 												g.user.fleet.trucks)
-		geolocator = Nominatim()
-		location = geolocator.geocode("600 N. Lakeshore 60611")
-		return render_template('load/view.html', status_form=status_form,
+
+		return render_template('load/view.html',
 												load=load, 
 												carriers=carriers,
 												locations = load.lane.locations,
 												is_dispatch=g.user.is_carrier(),
 												title="View Load",
 												active="Loads",
-												location=location,
 												user=g.user)
 	abort(403)
 

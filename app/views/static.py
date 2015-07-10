@@ -32,6 +32,18 @@ def index():
 		flash("We will notify you of our launch.")
 	return render_template('static/coming_soon.html', form=form)
 
+@static.route('/features')
+def features():
+	return render_template('static/features.html')
+
+@static.route('/demo')
+def demo():
+	return render_template('static/request_demo.html')
+
+@static.route('/contact')
+def contact():
+	return render_template('static/contact.html')
+
 @static.route('/marketing')
 def marketing():
 	return render_template('static/index.html')

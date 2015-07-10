@@ -117,21 +117,41 @@ def edit(truck_id):
 def view(truck_id):
 	permission = ViewTruckPermission(truck_id)
 	if permission.can():
-		form = AssignDriverForm()
-		categories = [('0', '<none selected>')] + [(driver.id, driver.get_full_name()) for driver in filter((lambda driver: driver.truck is None), g.user.fleet.drivers)]# + [('-1', 'Create New Driver...')]
-		form.driver.choices = categories
-		truck = Truck.query.get(int(truck_id))
+		form = LocationStatusForm()
+		form = LocationStatusForm()
+
+
+		truck = Truck.query.get_or_404(truck_id)
+		location = getNextLocation(truck)
+		if form.validate_on_submit():
+			status = LocationStatus(status=form.status.data, created_on=datetime.utcnow())
+			location.status_history.append(status)
+			location.status = form.status.data
+			if location.status == "Departed":
+				changeStopNumbers(truck)
+				location = getNextLocation(truck)
+			db.session.add(location)
+			db.session.commit()
+
+
+		#categories = [('0', '<none selected>')] + [(driver.id, driver.get_full_name()) for driver in filter((lambda driver: driver.truck is None), g.user.fleet.drivers)]# + [('-1', 'Create New Driver...')]
+		#form.driver.choices = categories
+		#truck = Truck.query.get(int(truck_id))
 		locations = []
 		for load in truck.driver.loads:
 			for location in load.lane.locations:
 				locations.append(location)
 		return render_template('carrier/truck/view.html', 
 								title="View Truck", 
+								location=location,
 								locations=locations,
 								form=form, 
 								truck=truck, 
 								user=g.user)
 	abort(403)
+
+
+	
 
 
 
@@ -173,6 +193,7 @@ def check_in(activation_slug):
 		location.status = form.status.data
 		if location.status == "Departed":
 			changeStopNumbers(truck)
+			location = getNextLocation(truck)
 		db.session.add(location)
 		db.session.commit()
 	#if location.status_history.count > 0:
