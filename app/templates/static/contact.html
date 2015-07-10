@@ -90,103 +90,26 @@
 		<!-- end: HEADER -->
 		<!-- start: MAIN CONTAINER -->
 		<div class="main-container">
-			<!-- start: REVOLUTION SLIDERS -->
-			<section class="fullwidthbanner-container">
-				<div class="fullwidthabnner">
-					<ul>
-						<!-- start: FIRST SLIDE -->
-						<li data-transition="fade" data-slotamount="7" data-masterspeed="1500" >
-							<img src="{{ static('frontend/images/truckopac30.jpg') }}" gposition="left bottom" align="bottom" data-bgrepeat="no-repeat">
-							<div class="caption lft slide_title slide_item_left"
-							data-x="0"
-							data-y="150"
-							data-speed="400"
-							data-start="1500"
-							data-easing="easeOutExpo">
-								Fleet Management Made Simple
-							</div>
-							<div class="caption lft slide_subtitle slide_item_left"
-							data-x="0"
-							data-y="210"
-							data-speed="400"
-							data-start="2000"
-							data-easing="easeOutExpo">
-								Technology Designed for Small and Mid Sized Carriers.
-							</div>
-							<div class="caption lft slide_desc slide_item_left"
-							data-x="0"
-							data-y="240"
-							data-speed="400"
-							data-start="2500"
-							data-easing="easeOutExpo">
-							</div>
-							<a class="caption lft btn btn-green slide_btn slide_item_left" href="http://themeforest.net/item/clipone-bootstrap-3-responsive-admin-template/5881143?ref=Cliptheme"
-							data-x="0"
-							data-y="320"
-							data-speed="400"
-							data-start="3000"
-							data-easing="easeOutExpo">
-								Learn More!
-							</a>
-							<a class="caption lft btn btn-red slide_btn slide_item_left" href="http://themeforest.net/item/clipone-bootstrap-3-responsive-admin-template/5881143?ref=Cliptheme"
-							data-x="100"
-							data-y="320"
-							data-speed="400"
-							data-start="3000"
-							data-easing="easeOutExpo">
-								Signup for Beta Access
-							</a>
-						</li>
-						<!-- end: FIRST SLIDE -->
-					</ul>
-				</div>
-			</section>
-			<!-- end: REVOLUTION SLIDERS -->
+			
 			<section>
 				<!-- start: CORE BOXES CONTAINER -->
 				<div class="container">
 					<div class="row">
-						<div class="col-sm-4">
-							<div class="core-box">
-								<div class="heading">
-									<i class="clip-mobile circle-icon"></i>
-									<h2>Load Administration</h2>
+						<div class="col-sm-8">
+							<h4>Drop us a note below</h4>
+							<div class="panel panel-default">
+								<form class="form form-inline">
+									<div class="form-group">
+									<label class="col-sm-4 control-label">
+										Name
+										{#{% for error in form.shipper.company_name.errors %}
+								            <br><span style="color: red;">{{ error }}</span>
+								          {% endfor %}#}
+									</label>
+									<div class="col-sm-7">
+										<input type="text"></input>
+									</div>
 								</div>
-								<div class="content">
-									Efficiently run your business with our simple and easy to use load entry system that stores and provides access to all of your past and present load information.
-								</div>
-								<a class="view-more" href="#">
-									View More <i class="fa fa-angle-right"></i>
-								</a>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="core-box">
-								<div class="heading">
-									<i class="clip-clip circle-icon"></i>
-									<h2>Track &amp; Trace</h2>
-								</div>
-								<div class="content">
-									Eliminate the need for countless check calls. Our software automates driver communications and provides realtime tracking of your assets.
-								</div>
-								<a class="view-more" href="#">
-									View More <i class="fa fa-angle-right"></i>
-								</a>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="core-box">
-								<div class="heading">
-									<i class="clip-cogs circle-icon"></i>
-									<h2>Fleet Management</h2>
-								</div>
-								<div class="content">
-									Our dispatch software brings together the management of your trucks, trailers and drivers in one place linking your assets to your business.
-								</div>
-								<a class="view-more" href="#">
-									View More <i class="fa fa-angle-right"></i>
-								</a>
-							</div>
 						</div>
 					</div>
 				</div>

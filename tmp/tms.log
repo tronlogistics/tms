@@ -9147,3 +9147,27 @@ NotFound: 404: Not Found
 2015-07-10 14:07:07,194 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:288]
 2015-07-10 14:25:46,416 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
 2015-07-10 14:25:46,848 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 14:38:13,457 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 14:38:14,934 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-10 15:21:24,868 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:227]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/helpers.py", line 822, in send_static_file
+    cache_timeout=cache_timeout)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/helpers.py", line 614, in send_from_directory
+    raise NotFound()
+NotFound: 404: Not Found
+2015-07-10 15:21:27,530 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:227]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/helpers.py", line 822, in send_static_file
+    cache_timeout=cache_timeout)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/helpers.py", line 614, in send_from_directory
+    raise NotFound()
+NotFound: 404: Not Found
