@@ -90,244 +90,286 @@
 		<!-- end: HEADER -->
 		<!-- start: MAIN CONTAINER -->
 		<div class="main-container">
-			<!-- start: REVOLUTION SLIDERS -->
-			<section class="fullwidthbanner-container">
-				<div class="fullwidthabnner">
-					<ul>
-						<!-- start: FIRST SLIDE -->
-						<li data-transition="fade" data-slotamount="7" data-masterspeed="1500" >
-							<img src="{{ static('frontend/images/truckopac30.jpg') }}" gposition="left bottom" align="bottom" data-bgrepeat="no-repeat">
-							<div class="caption lft slide_title slide_item_left"
-							data-x="0"
-							data-y="150"
-							data-speed="400"
-							data-start="1500"
-							data-easing="easeOutExpo">
-								Fleet Management Made Simple
-							</div>
-							<div class="caption lft slide_subtitle slide_item_left"
-							data-x="0"
-							data-y="210"
-							data-speed="400"
-							data-start="2000"
-							data-easing="easeOutExpo">
-								Technology Designed for Small and Mid Sized Carriers.
-							</div>
-							<div class="caption lft slide_desc slide_item_left"
-							data-x="0"
-							data-y="240"
-							data-speed="400"
-							data-start="2500"
-							data-easing="easeOutExpo">
-							</div>
-							<a class="caption lft btn btn-green slide_btn slide_item_left" href="http://themeforest.net/item/clipone-bootstrap-3-responsive-admin-template/5881143?ref=Cliptheme"
-							data-x="0"
-							data-y="320"
-							data-speed="400"
-							data-start="3000"
-							data-easing="easeOutExpo">
-								Learn More!
-							</a>
-							<a class="caption lft btn btn-red slide_btn slide_item_left" href="http://themeforest.net/item/clipone-bootstrap-3-responsive-admin-template/5881143?ref=Cliptheme"
-							data-x="100"
-							data-y="320"
-							data-speed="400"
-							data-start="3000"
-							data-easing="easeOutExpo">
-								Signup for Beta Access
-							</a>
-						</li>
-						<!-- end: FIRST SLIDE -->
-					</ul>
-				</div>
-			</section>
-			<!-- end: REVOLUTION SLIDERS -->
-			<section>
-				<!-- start: CORE BOXES CONTAINER -->
-				<div class="container">
-					<div class="row">
-						<div class="col-sm-4">
-							<div class="core-box">
-								<div class="heading">
-									<i class="clip-mobile circle-icon"></i>
-									<h2>Load Administration</h2>
-								</div>
-								<div class="content">
-									Efficiently run your business with our simple and easy to use load entry system that stores and provides access to all of your past and present load information.
-								</div>
-								<a class="view-more" href="#">
-									View More <i class="fa fa-angle-right"></i>
-								</a>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="core-box">
-								<div class="heading">
-									<i class="clip-clip circle-icon"></i>
-									<h2>Track &amp; Trace</h2>
-								</div>
-								<div class="content">
-									Eliminate the need for countless check calls. Our software automates driver communications and provides realtime tracking of your assets.
-								</div>
-								<a class="view-more" href="#">
-									View More <i class="fa fa-angle-right"></i>
-								</a>
-							</div>
-						</div>
-						<div class="col-sm-4">
-							<div class="core-box">
-								<div class="heading">
-									<i class="clip-cogs circle-icon"></i>
-									<h2>Fleet Management</h2>
-								</div>
-								<div class="content">
-									Our dispatch software brings together the management of your trucks, trailers and drivers in one place linking your assets to your business.
-								</div>
-								<a class="view-more" href="#">
-									View More <i class="fa fa-angle-right"></i>
-								</a>
-							</div>
-						</div>
+			<!-- start: STYLE SELECTOR BOX -->
+			<div id="style_selector" class="hidden-xs">
+				<div id="style_selector_container">
+					<div class="style-main-title">
+						Style Selector
+					</div>
+					<div class="box-title">
+						Predefined Color Schemes
+					</div>
+					<div class="images icons-color">
+						<a id="blue" href="#"><img class="active" alt="" src="assets/images/blue.png"></a>
+						<a id="purple" href="#"><img alt="" src="assets/images/purple.png"></a>
+						<a id="red" href="#"><img alt="" src="assets/images/red.png"></a>
+						<a id="orange" href="#"><img alt="" src="assets/images/orange.png"></a>
+						<a id="green" href="#"><img alt="" src="assets/images/green.png"></a>
+					</div>
+					<div style="height:25px;line-height:25px; text-align: center">
+						<a class="clear_style" href="#">
+							Clear Styles
+						</a>
+						<a class="save_style" href="#">
+							Save Styles
+						</a>
 					</div>
 				</div>
-				<!-- end: CORE BOXES CONTAINER -->
+				<div class="style-toggle close"></div>
+			</div>
+			<!-- end: STYLE SELECTOR BOX -->
+
+			<section class="page-top">
+				<div class="container">
+					<div class="col-md-4 col-sm-4">
+						<h1>Services</h1>
+					</div>
+					<div class="col-md-8 col-sm-8">
+						<ul class="pull-right breadcrumb">
+							<li>
+								<a href="index.html">
+									Home
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									Pages
+								</a>
+							</li>
+							<li class="active">
+								Services
+							</li>
+						</ul>
+					</div>
+				</div>
 			</section>
-			<!--<section class="wrapper wrapper-grey padding50">
+			<section class="wrapper padding50 animate-group">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12">
-							<h2 class="center">Track &amp; Manage</h2>
-							<hr>
+							<h1 class="center">Increase your performance with our services</h1>
 							<p class="center">
-								See the current &amp; future loads to plan &amp; optimize dispatching operations.
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque rutrum pellentesque imperdiet. Nulla lacinia iaculis nulla non metus. pulvinar. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut eu risus enim, ut pulvinar lectus. Sed hendrerit nibh.
 							</p>
-							<div class="grid-container animate-group" data-animation-interval="100">
-								<div class="col-md-3 col-sm-6">
-									<div class="grid-item animate">
-										<a href="#">
-											<div class="grid-image">
-												<img src="{{ static('frontend/images/image01.jpg') }}" class="img-responsive"/>
-												<span class="image-overlay"> <i class="fa fa-mail-forward circle-icon circle-main-color"></i> </span>
-											</div>
-											<div class="grid-content">
-												4 Columns Portfolio
-											</div>
-										</a>
-									</div>
+							<hr>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="feature-box">
+								<div class="feature-icon animate" data-animation-options='{"animation":"fadeInLeft", "duration":"600"}'>
+									<i class="fa fa-group"></i>
 								</div>
-								<div class="col-md-3 col-sm-6">
-									<div class="grid-item animate">
-										<a href="#">
-											<div class="grid-image">
-												<img src="{{ static('frontend/images/image02.jpg') }}" class="img-responsive"/>
-												<span class="image-overlay"> <i class="fa fa-mail-forward circle-icon circle-main-color"></i> </span>
-											</div>
-											<div class="grid-content">
-												3 Columns Portfolio
-											</div>
-										</a>
-									</div>
-								</div>
-								<div class="col-md-3 col-sm-6">
-									<div class="grid-item animate">
-										<a href="#">
-											<div class="grid-image">
-												<img src="{{ static('frontend/images/image03.jpg') }}" class="img-responsive"/>
-												<span class="image-overlay"> <i class="fa fa-mail-forward circle-icon circle-main-color"></i> </span>
-											</div>
-											<div class="grid-content">
-												2 Columns Portfolio
-											</div>
-										</a>
-									</div>
-								</div>
-								<div class="col-md-3 col-sm-6">
-									<div class="grid-item animate">
-										<a href="#">
-											<div class="grid-image">
-												<img src="{{ static('frontend/images/image04.jpg') }}" class="img-responsive"/>
-												<span class="image-overlay"> <i class="fa fa-mail-forward circle-icon circle-main-color"></i> </span>
-											</div>
-											<div class="grid-content">
-												Single Project
-											</div>
-										</a>
-									</div>
+								<div class="feature-info">
+									<h4>Customer Support</h4>
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipiscing <span class="alternative-font">metus.</span> elit. Quisque rutrum pellentesque imperdiet.
+									</p>
 								</div>
 							</div>
-							<hr>
-							<p class="center">
-								<a href="#">
-									View the Full Portfolio here
-								</a>
-							</p>
+						</div>
+						<div class="col-md-4">
+							<div class="feature-box">
+								<div class="feature-icon animate" data-animation-options='{"animation":"fadeInLeft", "duration":"600"}'>
+									<i class="fa fa-mobile"></i>
+								</div>
+								<div class="feature-info">
+									<h4>Fully Responsive</h4>
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipiscing <span class="alternative-font">metus.</span> elit. Quisque rutrum pellentesque imperdiet.
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="feature-box">
+								<div class="feature-icon animate" data-animation-options='{"animation":"fadeInLeft", "duration":"600"}'>
+									<i class="fa fa-random"></i>
+								</div>
+								<div class="feature-info">
+									<h4>Awesome Sliders</h4>
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipiscing <span class="alternative-font">metus.</span> elit. Quisque rutrum pellentesque imperdiet.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4">
+							<div class="feature-box">
+								<div class="feature-icon animate" data-animation-options='{"animation":"fadeInLeft", "duration":"600"}'>
+									<i class="fa fa-text-width"></i>
+								</div>
+								<div class="feature-info">
+									<h4>Google Fonts</h4>
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipiscing <span class="alternative-font">metus.</span> elit. Quisque rutrum pellentesque imperdiet.
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="feature-box">
+								<div class="feature-icon animate" data-animation-options='{"animation":"fadeInLeft", "duration":"600"}'>
+									<i class="fa fa-check"></i>
+								</div>
+								<div class="feature-info">
+									<h4>Custom Icons</h4>
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipiscing <span class="alternative-font">metus.</span> elit. Quisque rutrum pellentesque imperdiet.
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-4">
+							<div class="feature-box">
+								<div class="feature-icon animate" data-animation-options='{"animation":"fadeInLeft", "duration":"600"}'>
+									<i class="fa fa-file"></i>
+								</div>
+								<div class="feature-info">
+									<h4>HTML5 / CSS3 / JS</h4>
+									<p>
+										Lorem ipsum dolor sit amet, consectetur adipiscing <span class="alternative-font">metus.</span> elit. Quisque rutrum pellentesque imperdiet.
+									</p>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-			</section>-->
-			<!--<section class="wrapper padding50">
+			</section>
+			<section class="wrapper wrapper-grey padding50">
 				<div class="container">
 					<div class="row">
-						<div class="col-sm-6">
-							<h2 style="text-align: right;">Load Planning and Dispatching, redefined</h2>
-							<hr class="fade-left">
-							<p style="text-align: right;">
-								21<super>st</super> century business solutions for carriers who operate 20 or fewer trucks
-							</p>
-							<p style="text-align: right;">
-								It is estimated that 97% of carriers in the United States operate 20 or fewer trucks, but these firms lack dedicated and affordable technology solutions to drive greater business value in the 21<super>st</super> century. The trucking industry grew up with America, but small firms have mssed the wave of technology. Tron Logistics has developed software specifically for this market to fill the gap. Stay in teh know by signing up to our e-mail list.
-							</p>
-							<hr class="fade-left">
-							<a href="#" class="btn btn-default pull-right"><i class="fa fa-info"></i> Learn more...</a>
+						<div class="col-md-6">
+							<!-- BEGIN VIDEO -->
+							<iframe src="http://player.vimeo.com/video/25196368?portrait=0" height="300" style="width:100%; border:0" allowFullScreen></iframe>
+							<!-- END VIDEO -->
 						</div>
-						<div class="col-sm-6">
-							<ul class="icon-list animate-group">
-								<li>
-									<div class="timeline animate" data-animation-options='{"animation":"scaleToBottom", "duration":"300"}'></div>
-									<i class="clip-stack-empty circle-icon circle-teal animate" data-animation-options='{"animation":"flipInY", "duration":"600"}'></i>
-									<div class="icon-list-content">
-										<h4>Decision based by data</h4>
-										<p>
-											Details about the load drive algorithm
-										</p>
-									</div>
-								</li>
-								<li>
-									<div class="timeline animate" data-animation-options='{"animation":"scaleToBottom", "duration":"300", "delay": "300"}'></div>
-									<i class="clip-paperplane circle-icon circle-green animate" data-animation-options='{"animation":"flipInY", "duration":"600"}'></i>
-									<div class="icon-list-content">
-										<h4>Relevancy based on business logic</h4>
-										<p>
-											Proprietary dispatch algorithm provides only drivers &amp; equipment that are capable of moving the current load.
-										</p>
-									</div>
-								</li>
-								<li>
-									<div class="timeline animate" data-animation-options='{"animation":"scaleToBottom", "duration":"300", "delay": "300"}'></div>
-									<i class="clip-droplet circle-icon circle-bricky animate" data-animation-options='{"animation":"flipInY", "duration":"600"}'></i>
-									<div class="icon-list-content">
-										<h4>Assign the right driver</h4>
-										<p>
-											via the correct equipment
-										</p>
-									</div>
-								</li>
-							</ul>
+						<div class="col-md-6">
+							<h3>What Client’s Say</h3>
+							<div class="row">
+								<div class="flexslider">
+									<ul class="slides">
+										<li>
+											<div class="col-md-12">
+												<blockquote class="testimonial">
+													<p>
+														Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit vehicula est, in consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit vehicula est, in consequat.  Donec hendrerit vehicula est, in consequat.  Donec hendrerit vehicula est, in consequat.
+													</p>
+												</blockquote>
+												<div class="testimonial-arrow-down"></div>
+												<div class="testimonial-author">
+													<div class="img-thumbnail img-thumbnail-small">
+														<img src="assets/images/avatar-1.jpg" alt="">
+													</div>
+													<p>
+														<strong>Peter Clark</strong><span>UI Designer - Cliptheme</span>
+													</p>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="col-md-12">
+												<blockquote class="testimonial">
+													<p>
+														Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit vehicula est, in consequat. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+													</p>
+												</blockquote>
+												<div class="testimonial-arrow-down"></div>
+												<div class="testimonial-author">
+													<div class="img-thumbnail img-thumbnail-small">
+														<img src="assets/images/avatar-2.jpg" alt="">
+													</div>
+													<p>
+														<strong>Nicole Bell</strong><span>Content Designer - Cliptheme</span>
+													</p>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-			</section>-->
+			</section>
+			<section class="wrapper padding50">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12">
+							<h1 class="center">Some of Our Works</h1>
+							<hr>
+						</div>
+						<div class="col-md-4">
+							<div class="flexslider" data-plugin-options='{"directionNav":true, "controlNav": false}'>
+								<ul class="slides">
+									<li>
+										<img src="assets/images/image01.jpg" />
+									</li>
+									<li>
+										<img src="assets/images/image02.jpg" />
+									</li>
+									<li>
+										<img src="assets/images/image03.jpg" />
+									</li>
+								</ul>
+							</div>
+							<h4>Top Team</h4>
+							<p>
+								Aenean commodo ligula eget dolor. Aeneane penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis.
+							</p>
+						</div>
+						<div class="col-md-4">
+							<div class="flexslider" data-plugin-options='{"directionNav":true, "controlNav": false}'>
+								<ul class="slides">
+									<li>
+										<img src="assets/images/image04.jpg" />
+									</li>
+									<li>
+										<img src="assets/images/image05.jpg" />
+									</li>
+								</ul>
+							</div>
+							<h4>Top Team</h4>
+							<p>
+								Aenean commodo ligula eget dolor. Aeneane penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis.
+							</p>
+						</div>
+						<div class="col-md-4">
+							<div class="flexslider" data-plugin-options='{"directionNav":true, "controlNav": false}'>
+								<ul class="slides">
+									<li>
+										<img src="assets/images/image06.jpg" />
+									</li>
+									<li>
+										<img src="assets/images/image07.jpg" />
+									</li>
+									<li>
+										<img src="assets/images/image08.jpg" />
+									</li>
+								</ul>
+							</div>
+							<h4>Top Team</h4>
+							<p>
+								Aenean commodo ligula eget dolor. Aeneane penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis.
+							</p>
+						</div>
+					</div>
+				</div>
+			</section>
 		</div>
 		<!-- end: MAIN CONTAINER -->
 		<!-- start: FOOTER -->
 		<footer id="footer">
 			<div class="container">
 				<div class="row">
+					<div class="col-md-2"></div>
 					<div class="col-md-3">
 						<div class="newsletter">
-							<h4>Newsletter</h4>
+							<h4>Mailing List</h4>
 							<p>
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit vehicula est, in consequat.
+								Please sign up to our mailing list to keep updated with new features.
 							</p>
 							<form method="POST" action="#" id="newsletterForm">
 								<div class="input-group">
@@ -340,7 +382,7 @@
 							</form>
 						</div>
 					</div>
-					<div class="col-md-3">
+					<!--<div class="col-md-3">
 						<h4>Latest Tweet</h4>
 						<div class="twitter" id="tweet">
 							<i class="fa fa-twitter"></i> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec hendrerit vehicula est, in consequat.
@@ -348,16 +390,12 @@
 								12 Dec
 							</a>
 						</div>
-					</div>
-					<div class="col-md-4">
+					</div>-->
+					<div class="col-md-2"></div>
+					<div class="col-md-3">
 						<div class="contact-details">
 							<h4>Contact Us</h4>
 							<ul class="contact">
-								<li>
-									<p>
-										<i class="fa fa-map-marker"></i><strong>Address:</strong> 1234 Street Name, City Name, United States
-									</p>
-								</li>
 								<li>
 									<p>
 										<i class="fa fa-phone"></i><strong>Phone:</strong> (123) 456-7890
@@ -366,15 +404,16 @@
 								<li>
 									<p>
 										<i class="fa fa-envelope"></i><strong>Email:</strong>
-										<a href="mailto:mail@example.com">
-											mail@example.com
+										<a href="mailto:contact@tronlogistics.com">
+											contact@tronlogistics.com
 										</a>
 									</p>
 								</li>
 							</ul>
 						</div>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-2"></div>
+					<!--<div class="col-md-2">
 						<h4>Follow Us</h4>
 						<div class="social-icons">
 							<ul>
@@ -395,23 +434,23 @@
 								</li>
 							</ul>
 						</div>
-					</div>
+					</div>-->
 				</div>
 			</div>
 			<div class="footer-copyright">
 				<div class="container">
 					<div class="row">
-						<div class="col-md-1">
+						<div class="col-md-2">
 							<a class="logo" href="index.html">
-								CLIP<i class="clip-clip"></i>ONE
+								<img src="{{ static('frontend/images/wht_logo_25x25_72ppi.png') }}">
 							</a>
 						</div>
-						<div class="col-md-7">
+						<div class="col-md-6">
 							<p>
-								&copy; Copyright 2014 by Clip-One. All Rights Reserved.
+								&copy; Copyright 2015 by Tron Logistics. All Rights Reserved.
 							</p>
 						</div>
-						<div class="col-md-4">
+						<!--<div class="col-md-4">
 							<nav id="sub-menu">
 								<ul>
 									<li>
@@ -431,7 +470,7 @@
 									</li>
 								</ul>
 							</nav>
-						</div>
+						</div>-->
 					</div>
 				</div>
 			</div>

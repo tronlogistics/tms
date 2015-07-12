@@ -21,6 +21,12 @@ class ContactForm(Form):
 	phone = StringField('Phone', validators=[])
 	email = StringField('Email', validators=[])
 
+class ContactUsForm(Form):
+	name = StringField('Name', validators=[DataRequired()])
+	email = StringField('Email', validators=[Email("Please enter a valid e-mail")])
+	subject = StringField('Subject', validators=[DataRequired()])
+	message = TextAreaField('Message', validators=[DataRequired()])
+
 class LaneLocationForm(Form):
 	def __init__(self, *args, **kwargs):
 		kwargs['csrf_enabled'] = False

@@ -2,10 +2,10 @@ from flask import Blueprint, render_template, url_for, redirect, request, flash,
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, mail
-from app.forms import LoginForm, RegisterForm, EmailForm, ResetPasswordForm
+from app.forms import LoginForm, RegisterForm, EmailForm, ResetPasswordForm, ContactUsForm
 from app.models import User, Role, Lead
 from app.permissions import *
-from app.emails import register_account, new_lead, reset_pass, get_serializer
+from app.emails import register_account, new_lead, contact_us, reset_pass, get_serializer
 #from app import stripe, stripe_keys
 
 static = Blueprint('static', __name__, url_prefix='')
@@ -40,9 +40,18 @@ def features():
 def demo():
 	return render_template('static/request_demo.html')
 
-@static.route('/contact')
+@static.route('/contact', methods=['GET', 'POST'])
 def contact():
-	return render_template('static/contact.html')
+	form = ContactUsForm()
+	success = 0
+	error = 0
+	if form.validate_on_submit():
+		contact_us(form)
+		success = 1
+	elif len(form.errors) > 0:
+		flash(form.errors)
+		error = 1
+	return render_template('static/contact.html', form=form, success=success, error=error)
 
 @static.route('/marketing')
 def marketing():

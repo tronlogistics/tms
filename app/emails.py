@@ -68,6 +68,19 @@ def new_lead(email):
 		render_template("emails/new_lead.html", 
 			email=email))
 
+def contact_us(form):
+	app.logger.info("Sending contact us email!")
+
+	send_email(form.subject.data,
+		ADMINS[0],
+		[ADMINS[1], ADMINS[2]],
+		render_template("emails/contact_us.txt", 
+			email=form.email.data,
+			message=form.message.data),
+		render_template("emails/contact_us.html",
+			email=form.email.data, 
+			message=form.message.data))
+
 def ping_driver(driver):
 	app.logger.info("Sending driver check-in email!")
 
