@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, url_for, redirect, request, flash,
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, mail
-from app.forms import LoginForm, RegisterForm, ForgotForm, ResetPasswordForm, ContactUsForm
+from app.forms import LoginForm, RegisterForm, ForgotForm, ResetPasswordForm, ContactUsForm, EmailForm
 from app.models import User, Role, Lead
 from app.permissions import *
 from app.emails import register_account, new_lead, contact_us, reset_pass, get_serializer
@@ -43,7 +43,6 @@ def demo():
 @static.route('/contact', methods=['GET', 'POST'])
 def contact():
 	form = ContactUsForm()
-	signup_form = EmailForm()
 	success = 0
 	contact_error = 0
 	signup_error = 0
@@ -58,7 +57,7 @@ def contact():
 		flash(form.errors)
 		contact_error = 1
 	
-	return render_template('static/contact.html', form=form, signup_form=signup_form, success=success, 
+	return render_template('static/contact.html', form=form, success=success, 
 		contact_error=contact_error,
 		signup_error=signup_error)
 
@@ -160,7 +159,7 @@ def register():
 	if register_form.validate_on_submit():
 		if User.query.filter_by(email=register_form.email.data).first() is not None:
 			flash("This e-mail is already registered.")
-			return render_template('static/login.html?box-register', login_form=LoginForm(), register_form=register_form, forgot_form=EmailForm(), user=g.user)
+			return render_template('static/login.html?box-register', login_form=LoginForm(), register_form=register_form, forgot_form=ForgotForm(), user=g.user)
 		user = User(company_name=register_form.company_name.data,
 					email=register_form.email.data,
 					password=register_form.password.data)
