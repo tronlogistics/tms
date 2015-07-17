@@ -10029,3 +10029,7 @@ NotFound: 404: Not Found
 2015-07-17 10:19:03,539 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
 2015-07-17 10:19:45,230 INFO: Sending contact us email! [in /Users/Root1/app/app/emails.py:72]
 2015-07-17 10:20:41,054 INFO: Sending contact us email! [in /Users/Root1/app/app/emails.py:72]
+2015-07-17 10:30:47,473 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-17 10:30:47,939 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-17 10:32:25,041 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-17 10:33:03,037 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]

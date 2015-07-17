@@ -5,6 +5,9 @@ from wtforms.validators import DataRequired, EqualTo, NumberRange, Email, Length
 class EmailForm(Form):
 	new_email = StringField('Lead Email', validators=[Email("Please enter a valid e-mail")])
 
+class ForgotForm(Form):
+	email = StringField('Lead Email', validators=[Email("Please enter a valid e-mail")])
+
 class StopNumberForm(Form):
 	def __init__(self, *args, **kwargs):
 		kwargs['csrf_enabled'] = False

@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, url_for, redirect, request, flash,
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, mail
-from app.forms import LoginForm, RegisterForm, EmailForm, ResetPasswordForm, ContactUsForm
+from app.forms import LoginForm, RegisterForm, ForgotForm, ResetPasswordForm, ContactUsForm
 from app.models import User, Role, Lead
 from app.permissions import *
 from app.emails import register_account, new_lead, contact_us, reset_pass, get_serializer
@@ -83,7 +83,7 @@ def login():
 		return redirect(url_for('loads.all'))
 	login_form = LoginForm()
 	register_form = RegisterForm()
-	forgot_form = EmailForm()
+	forgot_form = ForgotForm()
 
 	register_form.account_type.data = 'carrier'
 	
