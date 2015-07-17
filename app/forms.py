@@ -24,6 +24,14 @@ class ContactForm(Form):
 	phone = StringField('Phone', validators=[])
 	email = StringField('Email', validators=[])
 
+class DemoForm(Form):
+	full_name = StringField('Name', validators=[DataRequired()])
+	company_name = StringField('Name', validators=[DataRequired()])
+	phone = StringField('Phone Number', validators=[DataRequired()])
+	email = StringField('Email', validators=[Email("Please enter a valid e-mail")])
+	number_trucks = StringField('# of Trucks', validators=[DataRequired()])
+	number_drivers = StringField('# of Drivers', validators=[DataRequired()])
+
 class ContactUsForm(Form):
 	name = StringField('Name', validators=[DataRequired()])
 	email = StringField('Email', validators=[Email("Please enter a valid e-mail")])

@@ -1,0 +1,6 @@
+Name: {{ name}}
+Company: {{ company }}
+Email: {{ email }}
+Phone: {{ phone }}
+# Drivers: {{ number_drivers }}
+# Trucks: {{ number_trucks }}

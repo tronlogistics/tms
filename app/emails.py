@@ -83,6 +83,27 @@ def contact_us(form):
 			email=form.email.data, 
 			message=form.message.data))
 
+def request_demo(form):
+	app.logger.info("Sending request demo email!")
+
+	send_email("Demo Requested",
+		ADMINS[0],
+		[ADMINS[1], ADMINS[2]],
+		render_template("emails/request_demo.txt",
+			name=form.full_name.data, 
+			company=form.company_name.data,
+			email=form.email.data,
+			phone=form.phone.data,
+			number_drivers=form.number_drivers.data,
+			number_trucks=form.number_trucks.data),
+		render_template("emails/request_demo.html",
+			name=form.full_name.data, 
+			company=form.company_name.data,
+			email=form.email.data,
+			phone=form.phone.data,
+			number_drivers=form.number_drivers.data,
+			number_trucks=form.number_trucks.data))
+
 def ping_driver(driver):
 	app.logger.info("Sending driver check-in email!")
 

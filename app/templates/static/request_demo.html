@@ -69,12 +69,12 @@
 									LEARN MORE
 								</a>
 							</li>
-							<li class="">
+							<li class="active">
 								<a class="" href="{{ url_for('.demo') }}">
 									GET A DEMO
 								</a>
 							</li>
-							<li class="active">
+							<li class="">
 								<a class="" href="{{ url_for('.contact') }}">
 									CONTACT US
 								</a>
@@ -93,7 +93,7 @@
 			<section class="page-top">
 				<div class="container">
 					<div class="col-md-4 col-sm-4">
-						<h1>Contact Us</h1>
+						<h1>Request A Demo</h1>
 					</div>
 					<div class="col-md-8 col-sm-8">
 						<ul class="pull-right breadcrumb">
@@ -103,106 +103,99 @@
 								</a>
 							</li>
 							<li class="active">
-								Contact Us
+								Request a Demo
 							</li>
 						</ul>
 					</div>
 				</div>
 			</section>
 
-					{% with messages = get_flashed_messages() %}
-						{% if messages %}
-					    	{% for message in messages %}
-					    		<div class="alert alert-warning" role="alert">{{ message }}</div>
-					    	{% endfor %}
-					  	{% endif %}
-					{% endwith %}
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+			    	{% for message in messages %}
+			    		<div class="alert alert-warning" role="alert">{{ message }}</div>
+			    	{% endfor %}
+			  	{% endif %}
+			{% endwith %}
 			<section class="wrapper padding50">
 				<div class="container">
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-8 col-md-offset-2 text-center">
 							{% if success %}
-							<div id="contactSuccess" class="alert alert-success">
-								<strong>Success!</strong> Your message has been sent to us.
+							<div id="contactSuccess" class="alert alert-success text-left">
+								<strong>Success!</strong> We will be in contact shortly!.
 							</div>
 							{% endif %}
-							{{ contact_error }}
-							{% if contact_error %}
-							<div id="contactError" class="alert alert-danger">
+							{% if error %}
+							<div id="contactError" class="alert alert-danger text-left">
 								<strong>Error!</strong> There was an error sending your message. Try again with all required fields.
 							</div>
 							{% endif %}
-
-							{% if signup_error %}
-							<div id="contactError" class="alert alert-danger">
-								<strong>Error!</strong> You're email address is invalid.
+							<h2>Request a Demo</h2>
+							<hr />
+							<div class="text-left">
+								
+								<form name="demo" action="" role="form" class="form" id="form" method="post">
+									{{ form.hidden_tag() }}
+									<div class="row">
+										<div class="form-group">
+											<div class="col-md-6">
+												<label>
+													Your name <span class="symbol required"></span>
+												</label>
+												{#{{ form.name() }}#}
+												<input type="text" id="full_name" name="full_name" class="form-control" maxlength="100" data-msg-required="Please enter your name." value="">
+											</div>
+											<div class="col-md-6">
+												<label>
+													Your email address <span class="symbol required"></span>
+												</label>
+												<input type="email" id="email" name="email" class="form-control" maxlength="100" data-msg-email="Please enter a valid email address." data-msg-required="Please enter your email address." value="">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<div class="col-md-6">
+												<label>
+													Company Name<span class="symbol required"></span>
+												</label>
+												{#{{ form.name() }}#}
+												<input type="text" id="company_name" name="company_name" class="form-control" maxlength="100" data-msg-required="Please enter your company's name." value="">
+											</div>
+											<div class="col-md-6">
+												<label>
+													Phone Number <span class="symbol required"></span>
+												</label>
+												<input type="text" id="phone" name="phone" class="form-control" maxlength="100" data-msg-required="Please enter your phone number." value="">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<div class="col-md-6">
+												<label>
+													# of Drivers<span class="symbol required"></span>
+												</label>
+												{#{{ form.name() }}#}
+												<input type="text" id="number_drivers" name="number_drivers" class="form-control" maxlength="100" data-msg-required="Please enter how many drivers in your company." value="">
+											</div>
+											<div class="col-md-6">
+												<label>
+													# of Trucks <span class="symbol required"></span>
+												</label>
+												<input type="text" id="number_trucks" name="number_trucks" class="form-control" maxlength="100" data-msg-required="Please enter number of trucks in your comapny" value="">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-12 text-right">
+											<br />
+											<input type="submit" data-loading-text="Loading..." class="btn btn-main-color" value="Request Demo">
+										</div>
+									</div>
+								</form>
 							</div>
-							{% endif %}
-							<h2>Contact Us</h2>
-								<form name="contact" action="" role="form" class="form" id="form" method="post">
-								{{ form.hidden_tag() }}
-								<div class="row">
-									<div class="form-group">
-										<div class="col-md-6">
-											<label>
-												Your name <span class="symbol required"></span>
-											</label>
-											{#{{ form.name() }}#}
-											<input type="text" id="name" name="name" class="form-control" maxlength="100" data-msg-required="Please enter your name." value="">
-										</div>
-										<div class="col-md-6">
-											<label>
-												Your email address <span class="symbol required"></span>
-											</label>
-											<input type="email" id="email" name="email" class="form-control" maxlength="100" data-msg-email="Please enter a valid email address." data-msg-required="Please enter your email address." value="">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="form-group">
-										<div class="col-md-12">
-											<label>
-												Subject
-											</label>
-											<input type="text" id="subject" name="subject" class="form-control" maxlength="100" data-msg-required="Please enter the subject." value="">
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="form-group">
-										<div class="col-md-12">
-											<label>
-												Message <span class="symbol required"></span>
-											</label>
-											<textarea id="message" name="message" class="form-control" rows="10" data-msg-required="Please enter your message." maxlength="5000"></textarea>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-12">
-										<input type="submit" data-loading-text="Loading..." class="btn btn-main-color" value="Send Message">
-									</div>
-								</div>
-							</form>
-						</div>
-						<div class="col-md-6">
-							<h4>Get in touch</h4>
-							<p>
-								Reach out to the Tron Logistics team for any questions you may have.
-							</p>
-							<hr>
-							<h4>Business Hours</h4>
-							<ul class="list-unstyled">
-								<li>
-									<i class="icon icon-time"></i> Monday - Friday 9am to 5pm
-								</li>
-								<li>
-									<i class="icon icon-time"></i> Saturday - Closed
-								</li>
-								<li>
-									<i class="icon icon-time"></i> Sunday - Closed
-								</li>
-							</ul>
 						</div>
 					</div>
 				</div>
