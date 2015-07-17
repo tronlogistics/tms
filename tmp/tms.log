@@ -9990,3 +9990,42 @@ SMTPRecipientsRefused: {u'john@tronlogistics.com': (553, '5.7.1 <john@tronlogist
 2015-07-12 15:01:23,758 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
 2015-07-12 15:01:40,548 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
 2015-07-12 15:02:23,423 INFO: Sending contact us email! [in /Users/Root1/app/app/emails.py:72]
+2015-07-12 15:10:45,930 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 15:10:46,395 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 15:11:05,302 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 15:11:37,292 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 15:12:12,319 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 15:14:11,596 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 15:14:45,614 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 15:15:07,449 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 15:15:56,785 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 15:16:27,789 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 15:16:52,784 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 15:17:03,462 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 19:41:04,116 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 19:41:10,753 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 19:41:28,524 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 19:41:47,296 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 20:01:32,972 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 20:01:45,665 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 20:01:53,302 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 20:02:28,320 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 20:05:05,309 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 20:06:25,976 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 20:07:57,717 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-12 20:08:30,700 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-17 10:05:36,461 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-17 10:05:36,888 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-17 10:06:01,479 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:256]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-07-17 10:18:01,175 INFO: Sending contact us email! [in /Users/Root1/app/app/emails.py:72]
+2015-07-17 10:19:03,539 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-17 10:19:45,230 INFO: Sending contact us email! [in /Users/Root1/app/app/emails.py:72]
+2015-07-17 10:20:41,054 INFO: Sending contact us email! [in /Users/Root1/app/app/emails.py:72]

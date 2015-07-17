@@ -119,13 +119,16 @@
 							data-speed="400"
 							data-start="2500"
 							data-easing="easeOutExpo">
-								Tron Logistics puts technology at the center of your business improving your operational<br /> efficiency and increasing your responsiveness to customers.
+								Tron Logistics puts technology at the center of your business improving your operational<br /> efficiency and increasing your responsiveness to customers.<br />
+								<!--<a class="caption btn btn-green" href="http://themeforest.net/item/clipone-bootstrap-3-responsive-admin-template/5881143?ref=Cliptheme">
+								Learn More!
+							</a>-->
 							</div>
 							<a class="caption lft btn btn-green slide_btn slide_item_left" href="http://themeforest.net/item/clipone-bootstrap-3-responsive-admin-template/5881143?ref=Cliptheme"
 							data-x="0"
 							data-y="320"
 							data-speed="400"
-							data-start="3000"
+							data-start="2500"
 							data-easing="easeOutExpo">
 								Learn More!
 							</a>
@@ -323,9 +326,10 @@
 							<p>
 								Please sign up to our mailing list to keep updated with new features.
 							</p>
-							<form method="POST" action="#" id="newsletterForm">
+							<form method="POST" action="{{ url_for('.add_email') }}" id="newsletterForm">
 								<div class="input-group">
-									<input type="text" id="email" name="email" placeholder="Email Address" class="form-control">
+									{#{{ signup_form.email() }}#}
+									{#<!--<input type="text" id="email" name="email" placeholder="Email Address" class="form-control">-->#}
 									<span class="input-group-btn">
 										<button type="submit" class="btn btn-default">
 											Go!
@@ -393,9 +397,9 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-2">
-							<a class="logo" href="index.html">
+							<!--<a class="logo" href="index.html">
 								<img src="{{ static('frontend/images/wht_logo_25x25_72ppi.png') }}">
-							</a>
+							</a>-->
 						</div>
 						<div class="col-md-6">
 							<p>

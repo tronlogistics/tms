@@ -3,7 +3,7 @@ from wtforms import StringField, FloatField, PasswordField, SelectField, DateFie
 from wtforms.validators import DataRequired, EqualTo, NumberRange, Email, Length
 
 class EmailForm(Form):
-	email = StringField('Email', validators=[Email("Please enter a valid e-mail")])
+	new_email = StringField('Lead Email', validators=[Email("Please enter a valid e-mail")])
 
 class StopNumberForm(Form):
 	def __init__(self, *args, **kwargs):

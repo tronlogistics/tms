@@ -109,6 +109,14 @@
 					</div>
 				</div>
 			</section>
+
+					{% with messages = get_flashed_messages() %}
+						{% if messages %}
+					    	{% for message in messages %}
+					    		<div class="alert alert-warning" role="alert">{{ message }}</div>
+					    	{% endfor %}
+					  	{% endif %}
+					{% endwith %}
 			<section class="wrapper padding50">
 				<div class="container">
 					<div class="row">
@@ -118,9 +126,16 @@
 								<strong>Success!</strong> Your message has been sent to us.
 							</div>
 							{% endif %}
-							{% if error %}
+							{{ contact_error }}
+							{% if contact_error %}
 							<div id="contactError" class="alert alert-danger">
 								<strong>Error!</strong> There was an error sending your message. Try again with all required fields.
+							</div>
+							{% endif %}
+
+							{% if signup_error %}
+							<div id="contactError" class="alert alert-danger">
+								<strong>Error!</strong> You're email address is invalid.
 							</div>
 							{% endif %}
 							<h2>Contact Us</h2>
@@ -205,13 +220,17 @@
 							<p>
 								Please sign up to our mailing list to keep updated with new features.
 							</p>
-							<form method="POST" action="#" id="newsletterForm">
+							<form name="newsletter" id="newsletter" action="" role="form" class="form" id="signup" method="post">
+								{{ signup_form.hidden_tag() }}
 								<div class="input-group">
 									<input type="text" id="email" name="email" placeholder="Email Address" class="form-control">
 									<span class="input-group-btn">
-										<button type="submit" class="btn btn-default">
+										<button type="submit" class="btn btn-default" >
 											Go!
-										</button> </span>
+										</button>
+
+										<input type="submit" class="btn btn-default" form="newsletter" >
+										 </span>
 								</div>
 							</form>
 						</div>
@@ -232,7 +251,7 @@
 							<ul class="contact">
 								<li>
 									<p>
-										<i class="fa fa-phone"></i><strong>Phone:</strong> (123) 456-7890
+										<i class="fa fa-phone"></i><strong>Phone:</strong> (773) 969-6412
 									</p>
 								</li>
 								<li>
@@ -275,9 +294,9 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-2">
-							<a class="logo" href="index.html">
+							<!--<a class="logo" href="index.html">
 								<img src="{{ static('frontend/images/wht_logo_25x25_72ppi.png') }}">
-							</a>
+							</a>-->
 						</div>
 						<div class="col-md-6">
 							<p>

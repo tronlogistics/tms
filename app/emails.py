@@ -74,10 +74,12 @@ def contact_us(form):
 	send_email(form.subject.data,
 		ADMINS[0],
 		[ADMINS[1], ADMINS[2]],
-		render_template("emails/contact_us.txt", 
+		render_template("emails/contact_us.txt",
+			name=form.name.data, 
 			email=form.email.data,
 			message=form.message.data),
 		render_template("emails/contact_us.html",
+			name=form.name.data,
 			email=form.email.data, 
 			message=form.message.data))
 

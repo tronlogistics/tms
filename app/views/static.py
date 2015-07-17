@@ -43,16 +43,36 @@ def demo():
 @static.route('/contact', methods=['GET', 'POST'])
 def contact():
 	form = ContactUsForm()
+	signup_form = EmailForm()
 	success = 0
-	error = 0
+	contact_error = 0
+	signup_error = 0
+	#form.validate_on_submit()
+	#flash(form.is_submitted())
+	#flash(len(form.errors) > 0)
+
 	if form.validate_on_submit():
 		contact_us(form)
 		success = 1
 	elif len(form.errors) > 0:
 		flash(form.errors)
-		error = 1
-	return render_template('static/contact.html', form=form, success=success, error=error)
+		contact_error = 1
+	
+	return render_template('static/contact.html', form=form, signup_form=signup_form, success=success, 
+		contact_error=contact_error,
+		signup_error=signup_error)
 
+@static.route('/join', methods=['POST'])
+def add_email():
+	form = ContactUsForm()
+	if form.validate_on_submit():
+		if not Lead.query.filter_by(email=form.email.data).first():
+			lead = Lead(email=form.email.data)
+			db.session.add(lead)
+			db.session.commit()
+			new_lead(lead.email)
+		flash("Thank you for signing up for our mailing list!")
+	return redirect(request.referrer)
 @static.route('/marketing')
 def marketing():
 	return render_template('static/index.html')

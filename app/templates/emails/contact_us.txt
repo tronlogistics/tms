@@ -1,3 +1,3 @@
-Sent From: {{ email }}
+Sent From: {{ name }} - {{ email }}
 
 {{ message }}
