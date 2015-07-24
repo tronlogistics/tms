@@ -22,15 +22,7 @@ def before_request():
 @static.route('/index', methods=['GET', 'POST'])
 @static.route('/home', methods=['GET', 'POST'])
 def index():
-	form = EmailForm()
-	if form.validate_on_submit():
-		if not Lead.query.filter_by(email=form.email.data).first():
-			lead = Lead(email=form.email.data)
-			db.session.add(lead)
-			db.session.commit()
-			new_lead(lead.email)
-		flash("We will notify you of our launch.")
-	return render_template('static/coming_soon.html', form=form)
+	return render_template('static/index.html')
 
 @static.route('/features')
 def features():
@@ -68,21 +60,6 @@ def contact():
 	return render_template('static/contact.html', form=form, success=success, 
 		contact_error=contact_error,
 		signup_error=signup_error)
-
-@static.route('/join', methods=['POST'])
-def add_email():
-	form = ContactUsForm()
-	if form.validate_on_submit():
-		if not Lead.query.filter_by(email=form.email.data).first():
-			lead = Lead(email=form.email.data)
-			db.session.add(lead)
-			db.session.commit()
-			new_lead(lead.email)
-		flash("Thank you for signing up for our mailing list!")
-	return redirect(request.referrer)
-@static.route('/marketing')
-def marketing():
-	return render_template('static/index.html')
 
 @static.route('/login', methods=['GET', 'POST'])
 def login():
