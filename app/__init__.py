@@ -35,10 +35,10 @@ from .views.fleet import fleet
 from .views.drivers import drivers
 from .views.trucks import trucks
 from .views.static import static
-app.register_blueprint(loads)
-app.register_blueprint(fleet)
-app.register_blueprint(drivers)
-app.register_blueprint(trucks)
+#app.register_blueprint(loads)
+#app.register_blueprint(fleet)
+#app.register_blueprint(drivers)
+#app.register_blueprint(trucks)
 #app.register_blueprint(dashboard)
 app.register_blueprint(static)
 
