@@ -11472,3 +11472,38 @@ Traceback (most recent call last):
 NotFound: 404: Not Found
 2015-07-24 15:52:10,488 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
 2015-07-24 15:52:11,991 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-26 20:44:48,568 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-26 20:44:48,999 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:58]
+2015-07-31 18:28:21,781 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 18:28:22,281 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 18:28:30,437 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:68]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-07-31 18:28:30,617 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:68]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/helpers.py", line 822, in send_static_file
+    cache_timeout=cache_timeout)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/helpers.py", line 614, in send_from_directory
+    raise NotFound()
+NotFound: 404: Not Found
+2015-07-31 18:28:30,781 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:68]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-07-31 18:29:07,438 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 18:29:13,003 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
