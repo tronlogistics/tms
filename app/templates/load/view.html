@@ -142,14 +142,14 @@
 											<td>{{ load.carrier_cost }}</td>
 										</tr>
 			                		{% endif %}
-				                	{% if load.assigned_driver is not none %}
+				                	{% if load.truck is not none %}
 					                    <tr>
 											<td><b>Truck:</b></td>
-											<td><a href="{{ url_for('trucks.view', truck_id=load.assigned_driver.truck.id) }}">{{ load.assigned_driver.truck.name }}</a></td>
+											<td><a href="{{ url_for('trucks.view', truck_id=load.truck.id) }}">{{ load.truck.name }}</a></td>
 										</tr>
 										<tr>
 											<td><b>Driver:</b></td>
-											<td><a href="{{ url_for('drivers.view', driver_id=load.assigned_driver.id) }}">{{ load.assigned_driver.get_full_name() }}</a></td>
+											<td><a href="{{ url_for('drivers.view', driver_id=load.truck.driver.id) }}">{{ load.truck.driver.get_full_name() }}</a></td>
 										</tr>
 					                {% else %}
 					                	<tr>
@@ -162,7 +162,7 @@
 	                	</div>
 	            	</div>
 
-	            	{% if is_dispatch and load.assigned_driver is none %}
+	            	{% if is_dispatch and load.truck is none %}
 						<div class="col-sm-6">
 			        		{#<div class="panel panel-default">
 			        			<div class="panel-heading">
@@ -210,8 +210,8 @@
 				 									{% endif %}
 				 									
 				 									<td>
-				 										{% if is_dispatch and load.assigned_driver is none %}
-			       			 								<a href="{{ url_for('loads.assign', load_id=load.id, assign_id=carrier.id)}}" onclick="return confirm("Assign this carrier to this load?")text" class="btn btn-success btn-mini success">Assign</a>
+				 										{% if is_dispatch and load.truck is none %}
+			       			 								<a href="{{ url_for('loads.assign', load_id=load.id, assign_id=carrier.id)}}" onclick="return confirm("Assign this carrier to this load?")" class="btn btn-success btn-mini success">Assign</a>
 			       			 							{% endif %}
 			                                        </td>
 				 								</tr>

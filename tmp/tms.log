@@ -11507,3 +11507,255 @@ Traceback (most recent call last):
 NotFound: 404: Not Found
 2015-07-31 18:29:07,438 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
 2015-07-31 18:29:13,003 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 19:34:26,848 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 19:34:36,765 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 19:34:37,215 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 19:35:39,572 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 19:35:44,152 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 19:36:19,142 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 19:36:25,540 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 19:37:40,766 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 19:37:49,406 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 19:38:03,119 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 19:38:45,286 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 19:39:03,038 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 19:40:16,525 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 19:46:28,350 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 19:46:45,079 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 19:47:25,458 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 19:47:32,347 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 19:48:08,145 INFO: Sending email to john@tronlogistics.com [in /Users/Root1/app/app/emails.py:24]
+2015-07-31 19:51:50,577 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 19:52:00,079 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 19:52:41,465 INFO: Sending email to john@tronlogistics.com [in /Users/Root1/app/app/emails.py:24]
+2015-07-31 19:52:42,083 INFO: User "john@tronlogistics.com" with role "carrier" created [in /Users/Root1/app/app/views/auth.py:117]
+2015-07-31 19:54:08,918 INFO: User 1 [in /Users/Root1/app/app/views/auth.py:151]
+2015-07-31 19:54:08,929 INFO: User "john@tronlogistics.com" is now activated [in /Users/Root1/app/app/views/auth.py:159]
+2015-07-31 20:01:36,775 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 20:01:42,739 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 20:02:09,731 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 20:02:15,374 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-07-31 20:03:33,481 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-01 14:32:36,297 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-01 14:32:38,831 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-01 14:32:39,318 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-01 14:34:01,088 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-01 14:34:03,643 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-01 14:34:04,100 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-01 14:40:15,529 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-01 14:40:15,994 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-01 17:51:12,931 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-01 17:51:13,408 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-01 17:51:42,296 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-01 17:52:52,780 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 06:53:13,611 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 06:53:51,622 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 06:55:58,972 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 06:56:11,695 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 06:56:35,524 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 06:56:45,177 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 06:57:25,233 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 06:58:18,478 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 07:00:30,011 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:60]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-08-07 07:01:39,939 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 07:02:12,041 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 07:02:20,678 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 07:03:41,976 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 07:03:42,407 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 07:04:00,213 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 07:04:04,170 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:60]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-08-07 07:04:04,229 ERROR: 404: Not Found [in /Users/Root1/app/app/views/static.py:60]
+Traceback (most recent call last):
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/app.py", line 1461, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/helpers.py", line 822, in send_static_file
+    cache_timeout=cache_timeout)
+  File "/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages/flask/helpers.py", line 614, in send_from_directory
+    raise NotFound()
+NotFound: 404: Not Found
+2015-08-07 07:05:03,599 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 07:05:49,685 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 07:06:01,339 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 07:07:23,028 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 07:07:24,874 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=500+Park+Blvd%2C+Itasca%2C+Illinois&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/views/loads.py:168]
+2015-08-07 07:07:30,193 INFO: <addinfourl at 4399312976 whose fp = <socket._fileobject object at 0x10613e4d0>> [in /Users/Root1/app/app/views/loads.py:170]
+2015-08-07 07:07:30,211 INFO: {
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "500",
+               "short_name" : "500",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "Park Boulevard",
+               "short_name" : "Park Blvd",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Itasca",
+               "short_name" : "Itasca",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Addison",
+               "short_name" : "Addison",
+               "types" : [ "administrative_area_level_3", "political" ]
+            },
+            {
+               "long_name" : "DuPage County",
+               "short_name" : "Dupage County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Illinois",
+               "short_name" : "IL",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "60143",
+               "short_name" : "60143",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "500 Park Boulevard, Itasca, IL 60143, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 41.98590799999999,
+               "lng" : -88.01738
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 41.98725698029149,
+                  "lng" : -88.01603101970849
+               },
+               "southwest" : {
+                  "lat" : 41.98455901970849,
+                  "lng" : -88.01872898029151
+               }
+            }
+         },
+         "place_id" : "ChIJN6r7uQauD4gRpF2HPWwKM44",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "status" : "OK"
+}
+ [in /Users/Root1/app/app/views/loads.py:172]
+2015-08-07 07:07:30,213 INFO: 41.985908 [in /Users/Root1/app/app/views/loads.py:180]
+2015-08-07 07:07:30,213 INFO: -88.01738 [in /Users/Root1/app/app/views/loads.py:182]
+2015-08-07 07:07:30,213 INFO: creating pickup [in /Users/Root1/app/app/views/loads.py:184]
+2015-08-07 07:08:13,108 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=600+N+Lakeshore+Dr%2C+Chicago%2C+Illinoise&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/views/loads.py:168]
+2015-08-07 07:08:18,007 INFO: <addinfourl at 4417879792 whose fp = <socket._fileobject object at 0x1074d9bd0>> [in /Users/Root1/app/app/views/loads.py:170]
+2015-08-07 07:08:18,014 INFO: {
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "600",
+               "short_name" : "600",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "North Lake Shore Drive",
+               "short_name" : "N Lake Shore Dr",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Central",
+               "short_name" : "Central",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Chicago",
+               "short_name" : "Chgo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cook County",
+               "short_name" : "Cook County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Illinois",
+               "short_name" : "IL",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "60611",
+               "short_name" : "60611",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "600 North Lake Shore Drive, Chicago, IL 60611, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 41.8930693,
+               "lng" : -87.61500939999999
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 41.8944182802915,
+                  "lng" : -87.61366041970849
+               },
+               "southwest" : {
+                  "lat" : 41.8917203197085,
+                  "lng" : -87.6163583802915
+               }
+            }
+         },
+         "partial_match" : true,
+         "place_id" : "ChIJobkSklQrDogRnQ9_op_l70c",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "status" : "OK"
+}
+ [in /Users/Root1/app/app/views/loads.py:172]
+2015-08-07 07:08:18,015 INFO: 41.8930693 [in /Users/Root1/app/app/views/loads.py:180]
+2015-08-07 07:08:18,015 INFO: -87.6150094 [in /Users/Root1/app/app/views/loads.py:182]
+2015-08-07 07:08:18,015 INFO: creating delivery [in /Users/Root1/app/app/views/loads.py:189]
+2015-08-07 07:08:26,273 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:312]
+2015-08-07 07:08:26,273 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:315]
+2015-08-07 07:09:25,322 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:312]
+2015-08-07 07:09:25,322 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:315]
+2015-08-07 07:10:25,205 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 07:10:25,634 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 07:13:09,483 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 07:13:43,496 INFO: 2, False [in /Users/Root1/app/app/views/trucks.py:313]
+2015-08-07 07:13:43,496 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:313]
+2015-08-07 07:13:43,496 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:316]
+2015-08-07 07:14:28,015 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-07 07:14:32,528 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:313]
+2015-08-07 07:14:32,528 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:316]

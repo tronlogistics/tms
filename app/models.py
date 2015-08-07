@@ -123,8 +123,8 @@ class Load(db.Model):
 	lane = db.relationship('Lane', uselist=False, backref='load')
 
 	#assignments
-	driver_id = db.Column(db.Integer, db.ForeignKey('Driver.id'))
-	assigned_driver = db.relationship('Driver', backref='loads')
+	truck_id = db.Column(db.Integer, db.ForeignKey('Truck.id'))
+	truck = db.relationship('Truck', backref='loads')
 	
 	
 	def __repr__(self):
@@ -229,7 +229,6 @@ class Truck(db.Model):
 	id = db.Column(db.Integer, primary_key = True)
 	user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
 	fleet_id = db.Column(db.Integer, ForeignKey('Fleet.id'))
-	driver_id = db.Column(db.Integer, db.ForeignKey('Driver.id'))
 	name = db.Column(db.String(100))
 	latitude = db.Column(db.Float(6))
 	longitude = db.Column(db.Float(6))
@@ -241,19 +240,21 @@ class Truck(db.Model):
 	dim_height = db.Column(db.String(10))
 	dim_width = db.Column(db.String(10))
 	tracker = db.relationship("LongLat", lazy='dynamic')
+	driver = db.relationship('Driver', uselist=False, backref='truck')
 
 class Driver(db.Model):
 	__tablename__ = 'Driver'
 	id = db.Column(db.Integer, primary_key = True)
 	fleet_id = db.Column(db.Integer, ForeignKey('Fleet.id'))
 	user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
+	truck_id = db.Column(db.Integer, db.ForeignKey('Truck.id'))
 	first_name = db.Column(db.String(30))
 	last_name = db.Column(db.String(30))
 	email = db.Column(db.String(255))
 	phone_area_code = db.Column(db.String(3))
 	phone_prefix = db.Column(db.String(3))
 	phone_line_number = db.Column(db.String(4))
-	truck = db.relationship('Truck', uselist=False, backref='driver')
+	
 
 	def get_phone_number(self):
 		return '1 (' + str(self.phone_area_code) + ')-' + str(self.phone_prefix) +'-' + str(self.phone_line_number)

@@ -80,9 +80,9 @@ app.jinja_env.globals['f_static'] = (
 
 
 
-from app import views, models
+#from app import models
 
-from models import User, Load
+#from models import User, Load
 #admin = Admin(app, name='Tron Logistics')
 #admin.add_view(ModelView(User, db.session))
 #admin.add_view(ModelView(Load, db.session))

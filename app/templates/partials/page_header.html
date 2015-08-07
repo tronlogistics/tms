@@ -23,8 +23,8 @@
 													Add Location <i class="fa fa-plus"></i>
 												</a>
 												
-												{% if load.assigned_driver is not none %}
-													<a href="javascript:ping_driver({{ load.assigned_driver.truck.id }});" class="new-modal btn btn-green">Ping Driver</a>
+												{% if load.truck is not none %}
+													<a href="javascript:ping_driver({{ load.truck.driver.truck.id }});" class="new-modal btn btn-green">Ping Driver</a>
 												{% endif %}
 											{% endif %}
 										{% endif %}
@@ -36,6 +36,7 @@
 												<label for="submit" class="btn btn-primary">Submit</label>
 											{% endif %}
 											<a href="{{ url_for('trucks.edit', truck_id=truck.id) }}" class="btn btn-primary">Edit</a>
+											<a href="{{ url_for('trucks.route', truck_id=truck.id) }}" class="btn btn-primary">Edit Route</a>
 										{% endif %}
 										{% if driver is defined %}
 											{% if edit %}

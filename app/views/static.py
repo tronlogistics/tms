@@ -89,8 +89,9 @@ def on_identity_loaded(sender, identity):
 			identity.provides.add(DeleteLoadNeed(unicode(load.id)))
 			identity.provides.add(ViewLoadNeed(unicode(load.id)))
 			identity.provides.add(AssignLoadNeed(unicode(load.id)))
-			if load.assigned_driver is not None:
-				identity.provides.add(ViewDriverNeed(unicode(load.assigned_driver.id)))
+			if load.truck is not None:
+				identity.provides.add(ViewDriverNeed(unicode(load.truck.id)))
+				identity.provides.add(ViewDriverNeed(unicode(load.truck.driver.id)))
 
 	if hasattr(current_user, 'assigned_loads'):
 		for load in current_user.assigned_loads:
@@ -102,6 +103,7 @@ def on_identity_loaded(sender, identity):
 			identity.provides.add(EditTruckNeed(unicode(truck.id)))
 			identity.provides.add(DeleteTruckNeed(unicode(truck.id)))
 			identity.provides.add(ViewTruckNeed(unicode(truck.id)))
+			identity.provides.add(RouteTruckNeed(unicode(truck.id)))
 
 		for driver in current_user.fleet.drivers:
 			identity.provides.add(EditDriverNeed(unicode(driver.id)))

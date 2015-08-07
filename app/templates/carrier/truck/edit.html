@@ -96,7 +96,7 @@
      	</div>
 	</div>
 
-<div class="row">
+	<div class="row">
 		<div class="col-sm-12">
 			<div class="panel panel-default">
 	    		<div class="panel-heading">
@@ -161,10 +161,8 @@ $(document).ready(function(e){
 		    .closest('tr') // Get the closest tr parent element
 		    .prevAll() // Find all sibling elements in front of it
 		    .length + 1; // Get their count
-		alert(rowIndex);
 		$( ".location_order" ).each(function( index ) {
 		  	$(this).find('.stop-number').val(index + 1);
-		  	alert($(this).find('.stop-number').val());
 		});
     });
 });

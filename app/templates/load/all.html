@@ -37,10 +37,10 @@
                                     <td></td>
                                 {% endif %}
                                 <td>
-                                    {% if load.assigned_driver is none %}
+                                    {% if load.truck is none %}
                                         Unassigned
                                     {% else %}
-                                        <a href="{{ url_for('drivers.view', driver_id=load.assigned_driver.id) }}">{{ load.assigned_driver.get_full_name() }}
+                                        <a href="{{ url_for('drivers.view', driver_id=load.truck.driver.id) }}">{{ load.truck.driver.get_full_name() }}
                                     {% endif %}
                                 </td>
                                 <td>{{ load.status }}</td>

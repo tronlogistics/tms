@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, url_for, redirect, request, flash,
 from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, mail
-from app.forms import DriverForm, TruckForm, AssignDriverForm, LocationStatusForm
+from app.forms import DriverForm, TruckForm, AssignDriverForm, LocationStatusForm, RouteForm
 from app.models import Load, Driver, Truck, LongLat, Location, LocationStatus
 from app.permissions import *
 from app.emails import ping_driver, get_serializer
@@ -72,8 +72,6 @@ def edit(truck_id):
 	if permission.can():
 		form = TruckForm()
 		truck = Truck.query.get(int(truck_id))
-		flash(form.validate_on_submit())
-		flash(form.errors)
 		if form.validate_on_submit():
 			truck.name = form.name.data
 			for locationData in form.locations:
@@ -98,7 +96,7 @@ def edit(truck_id):
 			form.dim_width.data = truck.dim_width
 
 		locations = []
-		for load in truck.driver.loads:
+		for load in truck.loads:
 			for location in load.lane.locations:
 				locations.append(location)
 
@@ -118,9 +116,6 @@ def view(truck_id):
 	permission = ViewTruckPermission(truck_id)
 	if permission.can():
 		form = LocationStatusForm()
-		form = LocationStatusForm()
-
-
 		truck = Truck.query.get_or_404(truck_id)
 		location = getNextLocation(truck)
 		if form.validate_on_submit():
@@ -138,7 +133,7 @@ def view(truck_id):
 		#form.driver.choices = categories
 		#truck = Truck.query.get(int(truck_id))
 		locations = []
-		for load in truck.driver.loads:
+		for load in truck.loads:
 			for location in load.lane.locations:
 				locations.append(location)
 		return render_template('carrier/truck/view.html', 
@@ -218,6 +213,39 @@ def store_location(truck_id):
 	except Exception as e:
 		return jsonify({'message': '%s' % e })
 
+@trucks.route('/route/<truck_id>', methods=['GET', 'POST'])
+@login_required
+def route(truck_id):
+	permission = RouteTruckPermission(truck_id)
+	if permission.can():
+		form = RouteForm()
+		truck = Truck.query.get_or_404(truck_id)
+		if form.validate_on_submit():
+			for locationData in form.locations:
+				location = Location.query.get(int(locationData.location_id.data))
+				location.stop_number = int(locationData.stop_number.data)
+				db.session.add(location)
+			db.session.add(location)
+			db.session.commit()
+			return redirect(url_for('.view', truck_id=truck.id))
+
+		#categories = [('0', '<none selected>')] + [(driver.id, driver.get_full_name()) for driver in filter((lambda driver: driver.truck is None), g.user.fleet.drivers)]# + [('-1', 'Create New Driver...')]
+		#form.driver.choices = categories
+		#truck = Truck.query.get(int(truck_id))
+		locations = []
+		for load in truck.loads:
+			for location in load.lane.locations:
+				locations.append(location)
+		return render_template('carrier/truck/route.html', 
+								title="Route Truck", 
+								locations=locations,
+								form=form,  
+								active="Trucks",
+								user=g.user,
+								truck=truck,
+								edit=True)
+	abort(403)
+
 ##########
 #  MISC  #
 ##########
@@ -280,7 +308,7 @@ def on_identity_changed(sender, identity):
 ###########################
 
 def getNextLocation(truck):
-	for load in truck.driver.loads:
+	for load in truck.loads:
 		for location in load.lane.locations:
 			app.logger.info("%s, %s" % (location.stop_number, int(location.stop_number) == 1))
 

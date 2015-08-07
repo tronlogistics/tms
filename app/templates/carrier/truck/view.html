@@ -3,191 +3,191 @@
 {% block content %}
 
 	<div class="row-fluid">
-		<div class="col-sm-6">
-    		<div class="panel panel-default">
-        		<div class="panel-heading">
-            		Map
-        		</div>
-        		<div class="panel-body">
-                	<div id="map-canvas" style="height: 400px; margin: 0; padding: 0;"></div>
-            	</div>
-        	</div>
-     	</div>
-
-     	<div class="col-sm-6">
-        	<div class="panel panel-default">
-            	<div class="panel-heading">
-              		<i class="fa fa-external-link-square"></i>&nbsp;Current Stop | Load #4555456
-            	</div>
-            	<div class="panel-body">
-              		<div class="row">
-            			<div class="col-sm-12">
-                			<p>Use the dropdown to select your current trip status</p>
-	              			<form name="status_update" method="post" class="">
-	                			<div class="col-sm-8">
-	                      			{{ form.status(class="form-control") }}
-	                  			</div>
-	                			<div class="col-sm-4">
-	                  				<button type="submit" class="btn btn-blue next-step btn-block">
-	                        			Update Status</i>
-	                      			</button>
-	                			</div>
-	              			</form>
-	              		</div>
-	          		</div>
-	          		<div class="row">
-          				<div class="col-sm-12">
-	          				<h4>Location Details</h4>
-	          				<hr />
-	            			<table class="table table-condensed">
-	              				<thead>
-	                				<tr>
-	                  					<th>Location Type</th>
-	                  					<th>Address</th>
-	                  					<th>Arrival Date/Time</th>
-	                  					<th>Receiver Name</th>
-	                  					<th>Receiver Contact #</th>
-	                				</tr>
-	              				</thead>
-	              				<tbody>
-	                				{% if location.pickup_details is not none %}
-	                  					<tr>
-						                    <td>Pick Up</td>
-						                    <td>{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
-						                    <td>{{ location.arrival_date }}</td>
-						                    <td>{{ location.contact.name }}</td>
-						                    <td>{{ location.contact.phone }}</td>
-	                  					</tr>
-	                				{% endif %}
-	                				{% if location.delivery_details is not none %}
-	                  					<tr>
-						                    <td>Drop Off</td>
-						                    <td>{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
-						                    <td>{{ location.arrival_date }}</td>
-						                    <td>{{ location.contact.name }}</td>
-						                    <td>{{ location.contact.phone }}</td>
-	                  					</tr>
-	                				{% endif %}
-	              				</tbody>
-	            			</table>
-		            	</div>
+		{% if truck.loads|length > 0 %}
+			<div class="col-sm-6">
+	    		<div class="panel panel-default">
+	        		<div class="panel-heading">
+	            		Map
+	        		</div>
+	        		<div class="panel-body">
+	        			{% if truck.tracker.count() > 0 %}
+	                		<div id="map-canvas" style="height: 400px; margin: 0; padding: 0;"></div>
+	                	{% else %}
+	                		<p>Unable to locate truck</p>
+	                	{% endif %}
 	            	</div>
-	            	{% if location.status_history.count() == 0 %}
-		            	<div class="row">
-		        			<div class="col-sm-12">
-		      					<h4>Status History</h4>
-		      					<hr />
-		        				<table class="table table-condensed table-striped">
-		        					<thead>
-		          						<tr>
-		            						<th>Status Date / Time</th>
-		            						<th>Status</th>
-		          						</tr>
-		        					</thead>
-		        					<tbody>
-		          						{% for status in location.status_history|sort(attribute="created_on") %}
-		          							<tr>
-		            							<td>{{ status.created_on }}</td>
-		            							<td>{{ status.status }}</td>
-		          							</tr>
-		          						{% endfor %}
-		        					</tbody>
-		      					</table>
-		      				</div>
-		    			</div>
-        			{% endif %}
-    			</div>
-    		</div>
-    	</div>
+	        	</div>
+	     	</div>
+
+	     	<div class="col-sm-6">
+	        	<div class="panel panel-default">
+	            	<div class="panel-heading">
+	              		<i class="fa fa-external-link-square"></i>&nbsp;Current Stop | Load #4555456
+	            	</div>
+	            	<div class="panel-body">
+	              		<div class="row">
+	            			<div class="col-sm-12">
+	                			<p>Use the dropdown to select your current trip status</p>
+		              			<form name="status_update" method="post" class="">
+		                			<div class="col-sm-8">
+		                      			{{ form.status(class="form-control") }}
+		                  			</div>
+		                			<div class="col-sm-4">
+		                  				<button type="submit" class="btn btn-blue next-step btn-block">
+		                        			Update Status</i>
+		                      			</button>
+		                			</div>
+		              			</form>
+		              		</div>
+		          		</div>
+		          		<div class="row">
+	          				<div class="col-sm-12">
+		          				<h4>Location Details</h4>
+		          				<hr />
+		            			<table class="table table-condensed">
+		              				<thead>
+		                				<tr>
+		                  					<th>Location Type</th>
+		                  					<th>Address</th>
+		                  					<th>Arrival Date/Time</th>
+		                  					<th>Receiver Name</th>
+		                  					<th>Receiver Contact #</th>
+		                				</tr>
+		              				</thead>
+		              				<tbody>
+		                				{% if location.pickup_details is not none %}
+		                  					<tr>
+							                    <td>Pick Up</td>
+							                    <td>{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
+							                    <td>{{ location.arrival_date }}</td>
+							                    <td>{{ location.contact.name }}</td>
+							                    <td>{{ location.contact.phone }}</td>
+		                  					</tr>
+		                				{% endif %}
+		                				{% if location.delivery_details is not none %}
+		                  					<tr>
+							                    <td>Drop Off</td>
+							                    <td>{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
+							                    <td>{{ location.arrival_date }}</td>
+							                    <td>{{ location.contact.name }}</td>
+							                    <td>{{ location.contact.phone }}</td>
+		                  					</tr>
+		                				{% endif %}
+		              				</tbody>
+		            			</table>
+			            	</div>
+		            	</div>
+		            	{% if location.status_history.count() == 0 %}
+			            	<div class="row">
+			        			<div class="col-sm-12">
+			      					<h4>Status History</h4>
+			      					<hr />
+			        				<table class="table table-condensed table-striped">
+			        					<thead>
+			          						<tr>
+			            						<th>Status Date / Time</th>
+			            						<th>Status</th>
+			          						</tr>
+			        					</thead>
+			        					<tbody>
+			          						{% for status in location.status_history|sort(attribute="created_on") %}
+			          							<tr>
+			            							<td>{{ status.created_on }}</td>
+			            							<td>{{ status.status }}</td>
+			          							</tr>
+			          						{% endfor %}
+			        					</tbody>
+			      					</table>
+			      				</div>
+			    			</div>
+	        			{% endif %}
+	    			</div>
+	    		</div>
+	    	</div>
+	    {% else %}
+	    	<div class="col-sm-12">
+	    		<div class="panel panel-default">
+	        		<div class="panel-heading">
+	            		Map
+	        		</div>
+	        		<div class="panel-body">
+	                	{% if truck.tracker.count() > 0 %}
+	                		<div id="map-canvas" style="height: 400px; margin: 0; padding: 0;"></div>
+	                	{% else %}
+	                		<p>Unable to locate truck</p>
+	                	{% endif %}
+	            	</div>
+	        	</div>
+	     	</div>
+	     {% endif %}
     </div>
 
 	<div class="row-fluid">
-		<div class="col-sm-12">
-			<div class="col-sm-6">
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<i class="fa fa-external-link-square"></i>
-						Truck
-					</div>
-					<table id="truck" class="table table-condensed">
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<i class="fa fa-external-link-square"></i>
+					Truck
+				</div>
+				<table id="truck" class="table table-condensed">
+					<tbody>
+						<tr>
+							<td><b>Name:</b></td>
+							<td>{{ truck.name }}
+						</tr>
+						<tr>
+							<td><b>Trailer Type:</b></td>
+							<td>{{ truck.trailer_type }}
+						</tr>
+						<tr>
+							<td><b>Max Weight:</b></td>
+							<td>{{ truck.max_weight }}
+						</tr>
+						<tr>
+							<td><b>Length:</b></td>
+							<td>{{ truck.dim_length }}
+						</tr>
+						<tr>
+							<td><b>Width:</b></td>
+							<td>{{ truck.dim_width }}
+						</tr>
+						<tr>
+							<td><b>Height:</b></td>
+							<td>{{ truck.dim_height }}
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+	    		<div class="panel-heading">
+	        		<i class="fa fa-external-link-square"></i>
+	        		Driver 
+	    		</div>
+		    	
+	    		{% if truck.driver is not none %}
+	        		<table id="driver" class="table table-condensed">
 						<tbody>
 							<tr>
 								<td><b>Name:</b></td>
-								<td>{{ truck.name }}
+								<td>{{ truck.driver.get_full_name() }}
 							</tr>
 							<tr>
-								<td><b>Trailer Type:</b></td>
-								<td>{{ truck.trailer_type }}
+								<td><b>Phone:</b></td>
+								<td>{{ truck.driver.get_phone_number() }}
 							</tr>
 							<tr>
-								<td><b>Max Weight:</b></td>
-								<td>{{ truck.max_weight }}
-							</tr>
-							<tr>
-								<td><b>Length:</b></td>
-								<td>{{ truck.dim_length }}
-							</tr>
-							<tr>
-								<td><b>Width:</b></td>
-								<td>{{ truck.dim_width }}
-							</tr>
-							<tr>
-								<td><b>Height:</b></td>
-								<td>{{ truck.dim_height }}
+								<td><b>Email:</b></td>
+								<td>{{ truck.driver.email }}</td>
 							</tr>
 						</tbody>
 					</table>
-				</div>
-			</div>
-			<div class="col-sm-6">
-				<div class="panel panel-default">
-		    		<div class="panel-heading">
-		        		<i class="fa fa-external-link-square"></i>
-		        		Driver 
-		    		</div>
-			    	
-		    		{% if truck.driver is not none %}
-		        		<table id="driver" class="table table-condensed">
-							<tbody>
-								<tr>
-									<td><b>Name:</b></td>
-									<td>{{ truck.driver.get_full_name() }}
-								</tr>
-								<tr>
-									<td><b>Phone:</b></td>
-									<td>{{ truck.driver.get_phone_number() }}
-								</tr>
-								<tr>
-									<td><b>Email:</b></td>
-									<td>{{ truck.driver.email }}</td>
-								</tr>
-							</tbody>
-						</table>
-		        	{% else %}
-		        		<div class="panel-body">
-			        		<form name="assign" action="{{ url_for('fleet.assign') }}" method="post" class="form-horizontal">
-			            		{{ form.hidden_tag() }}
-			    
-			        			<div class="form-group">
-									<label class="col-sm-3 control-label" for="driver">
-										Assign Driver
-									</label>
-									<div class="col-sm-9">
-										{{ form.truck(value=truck.id, type='hidden') }}
-			                            {{ form.driver(class="form-control")}}
-									</div>
-								</div>
-			                	<div class="form-group">
-									<div class="col-sm-3 col-sm-offset-9">
-										<button type="submit" class="btn btn-blue next-step btn-block">
-											Submit <i class="fa fa-arrow-circle-right"></i>
-										</button>
-									</div>
-								</div>
-			            	</form> 
-			            </div>
-		        	{% endif %}
-				</div>
+	        	{% else %}
+	        		<div class="panel-body">
+		        		<p>No Driver Assigned</p>
+		            </div>
+	        	{% endif %}
 			</div>
 		</div>
 	</div>

@@ -1,6 +1,6 @@
 Dear {{ user.company_name }},
 
-Please confim your e-mail by clicking here: {{ url_for('static.activate_user', activation_slug=activation_slug, _external=True) }}
+Please confim your e-mail by clicking here: {{ url_for('auth.activate_user', activation_slug=activation_slug, _external=True) }}
 
 Regards,
 

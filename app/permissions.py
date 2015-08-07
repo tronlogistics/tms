@@ -38,6 +38,7 @@ TruckNeed = namedtuple('truck', ['method', 'value'])
 EditTruckNeed = partial(TruckNeed, 'edit')
 DeleteTruckNeed = partial(TruckNeed, 'delete')
 ViewTruckNeed = partial(TruckNeed, 'view')
+RouteTruckNeed = partial(TruckNeed, 'route')
 
 class EditTruckPermission(Permission):
 	def __init__(self, truck_id):
@@ -53,6 +54,11 @@ class ViewTruckPermission(Permission):
 	def __init__(self, truck_id):
 		need = ViewTruckNeed(unicode(truck_id))
 		super(ViewTruckPermission, self).__init__(need)
+
+class RouteTruckPermission(Permission):
+	def __init__(self, truck_id):
+		need = RouteTruckNeed(unicode(truck_id))
+		super(RouteTruckPermission, self).__init__(need)
 
 DriverNeed = namedtuple('driver', ['method', 'value'])
 EditDriverNeed = partial(DriverNeed, 'edit')

@@ -13,8 +13,12 @@ class StopNumberForm(Form):
 		kwargs['csrf_enabled'] = False
 		Form.__init__(self, *args, **kwargs)
 
+	location_id = HiddenField("Location", validators=[])
 	stop_number = HiddenField("Stop #", validators=[])
 
+class RouteForm(Form):
+	locations = FieldList(FormField(StopNumberForm), validators=[])
+	
 class ContactForm(Form):
 	def __init__(self, *args, **kwargs):
 		kwargs['csrf_enabled'] = False
