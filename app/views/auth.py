@@ -44,7 +44,7 @@ def login():
 				# Tell Flask-Principal the user has logged in
 				identity_changed.send(current_app._get_current_object(),
 										identity=Identity(user.email))
-				return redirect(url_for("loads.all"))
+				return redirect(url_for("fleet.view"))
 			else:
 				flash("Wrong username/password")
 				return render_template('auth/login.html', login_form=login_form, register_form=register_form, forgot_form=forgot_form, user=g.user)

@@ -11759,3 +11759,86 @@ NotFound: 404: Not Found
 2015-08-07 07:14:28,015 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
 2015-08-07 07:14:32,528 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:313]
 2015-08-07 07:14:32,528 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:316]
+2015-08-10 17:49:29,121 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-10 17:49:29,565 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-10 17:49:44,353 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-10 17:50:38,188 INFO: 2, False [in /Users/Root1/app/app/views/trucks.py:313]
+2015-08-10 17:50:38,188 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:313]
+2015-08-10 17:50:38,189 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:316]
+2015-08-10 17:54:27,203 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-10 18:15:23,684 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=600+N+Lakeshore+Dr%2C+Chicago%2C+IL&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/views/loads.py:168]
+2015-08-10 18:15:24,099 INFO: <addinfourl at 4403412216 whose fp = <socket._fileobject object at 0x107892050>> [in /Users/Root1/app/app/views/loads.py:170]
+2015-08-10 18:15:24,099 INFO: {
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "600",
+               "short_name" : "600",
+               "types" : [ "street_number" ]
+            },
+            {
+               "long_name" : "North Lake Shore Drive",
+               "short_name" : "N Lake Shore Dr",
+               "types" : [ "route" ]
+            },
+            {
+               "long_name" : "Central",
+               "short_name" : "Central",
+               "types" : [ "neighborhood", "political" ]
+            },
+            {
+               "long_name" : "Chicago",
+               "short_name" : "Chgo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cook County",
+               "short_name" : "Cook County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Illinois",
+               "short_name" : "IL",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            },
+            {
+               "long_name" : "60611",
+               "short_name" : "60611",
+               "types" : [ "postal_code" ]
+            }
+         ],
+         "formatted_address" : "600 North Lake Shore Drive, Chicago, IL 60611, USA",
+         "geometry" : {
+            "location" : {
+               "lat" : 41.8930693,
+               "lng" : -87.61500939999999
+            },
+            "location_type" : "ROOFTOP",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 41.8944182802915,
+                  "lng" : -87.61366041970849
+               },
+               "southwest" : {
+                  "lat" : 41.8917203197085,
+                  "lng" : -87.6163583802915
+               }
+            }
+         },
+         "partial_match" : true,
+         "place_id" : "ChIJobkSklQrDogRnQ9_op_l70c",
+         "types" : [ "street_address" ]
+      }
+   ],
+   "status" : "OK"
+}
+ [in /Users/Root1/app/app/views/loads.py:172]
+2015-08-10 18:15:24,101 INFO: 41.8930693 [in /Users/Root1/app/app/views/loads.py:180]
+2015-08-10 18:15:24,102 INFO: -87.6150094 [in /Users/Root1/app/app/views/loads.py:182]
+2015-08-10 18:15:24,102 INFO: creating pickup [in /Users/Root1/app/app/views/loads.py:184]

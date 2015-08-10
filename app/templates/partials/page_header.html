@@ -16,16 +16,18 @@
 														<i class="fa fa-circle-arrow-left"></i> Cancel
 													</a>
 													<label for="submit" class="btn btn-primary">Submit</label>
+												{% else %}
+													<a href="{{ url_for('loads.edit', load_id=load.id) }}" class="btn btn-primary">Edit</a>
+													<a href="{{ url_for('.add_location', load_id=load.id) }}" class="new-modal btn btn-green">
+														Add Location <i class="fa fa-plus"></i>
+													</a>
+													
+													{% if load.truck is not none %}
+														<a href="javascript:ping_driver({{ load.truck.driver.truck.id }});" class="new-modal btn btn-green">Ping Driver</a>
+													{% endif %}
 												{% endif %}
 
-												<a href="{{ url_for('loads.edit', load_id=load.id) }}" class="btn btn-primary">Edit</a>
-												<a href="{{ url_for('.add_location', load_id=load.id) }}" class="new-modal btn btn-green">
-													Add Location <i class="fa fa-plus"></i>
-												</a>
 												
-												{% if load.truck is not none %}
-													<a href="javascript:ping_driver({{ load.truck.driver.truck.id }});" class="new-modal btn btn-green">Ping Driver</a>
-												{% endif %}
 											{% endif %}
 										{% endif %}
 										{% if truck is defined %}
@@ -34,9 +36,10 @@
 													<i class="fa fa-circle-arrow-left"></i> Cancel
 												</a>
 												<label for="submit" class="btn btn-primary">Submit</label>
+											{% else %}
+												<a href="{{ url_for('trucks.edit', truck_id=truck.id) }}" class="btn btn-primary">Edit</a>
+												<a href="{{ url_for('trucks.route', truck_id=truck.id) }}" class="btn btn-primary">Edit Route</a>
 											{% endif %}
-											<a href="{{ url_for('trucks.edit', truck_id=truck.id) }}" class="btn btn-primary">Edit</a>
-											<a href="{{ url_for('trucks.route', truck_id=truck.id) }}" class="btn btn-primary">Edit Route</a>
 										{% endif %}
 										{% if driver is defined %}
 											{% if edit %}
@@ -44,8 +47,9 @@
 													<i class="fa fa-circle-arrow-left"></i> Cancel
 												</a>
 												<label for="submit" class="btn btn-primary">Submit</label>
+											{% else %}
+												<a href="{{ url_for('drivers.edit', driver_id=driver.id) }}" class="btn btn-primary">Edit</a>
 											{% endif %}
-											<a href="{{ url_for('drivers.edit', driver_id=driver.id) }}" class="btn btn-primary">Edit</a>
 										{% endif %}
 									</div>
 								</div>
