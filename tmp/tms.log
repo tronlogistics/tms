@@ -11842,3 +11842,7 @@ NotFound: 404: Not Found
 2015-08-10 18:15:24,101 INFO: 41.8930693 [in /Users/Root1/app/app/views/loads.py:180]
 2015-08-10 18:15:24,102 INFO: -87.6150094 [in /Users/Root1/app/app/views/loads.py:182]
 2015-08-10 18:15:24,102 INFO: creating pickup [in /Users/Root1/app/app/views/loads.py:184]
+2015-08-23 12:06:05,747 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-23 12:06:06,209 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-23 12:06:30,718 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-08-23 12:06:31,190 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
