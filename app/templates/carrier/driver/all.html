@@ -1,31 +1,6 @@
 {% extends "layout.html" %}
 
 {% block content %}
-
-    {#<div class="row-fluid">
-            <div class="btn-toolbar">
-                Actions: &nbsp;&nbsp;<a href="{{ url_for('drivers.create') }}" class="btn btn-primary">New Driver</a>
-            </div>
-    </div>#}
-
-{#    <div class="panel panel-default">
-        <div class="panel-heading">
-            <i class="clip-pie"></i>
-            All Drivers
-            <div class="panel-tools">
-                <a class="btn btn-xs btn-link panel-collapse collapses" href="#">
-                </a>
-                <a class="btn btn-xs btn-link panel-config" href="#panel-config" data-toggle="modal">
-                    <i class="fa fa-wrench"></i>
-                </a>
-                <a class="btn btn-xs btn-link panel-refresh" href="#">
-                    <i class="fa fa-refresh"></i>
-                </a>
-                <a class="btn btn-xs btn-link panel-close" href="#">
-                    <i class="fa fa-times"></i>
-                </a>
-            </div>
-        </div>#}
             <div class="table-responsive">
                 <table class="table table-bordered table-hover table-striped table-condensed" id="sample-table-1">
                     <thead>
@@ -61,8 +36,5 @@
                     </tbody>
                 </table>
             </div>
-
-
-    {% include "partials/main_javascripts.html" %}
 
     {% endblock %}

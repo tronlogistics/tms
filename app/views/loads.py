@@ -193,6 +193,8 @@ def add_location(load_id):
 			contact = ContactFactory(form.contact_name.data, form.contact_phone.data, form.contact_email.data)
 			stop_off = LocationFactory(address, pickup_detail, delivery_detail, form.arrival_date.data, load.lane.locations.count() + 1, contact, form.stop_type.data, latitude, longitude)
 			load.lane.locations.append(stop_off)
+
+
 			db.session.add(load)
 			db.session.commit()
 			return redirect(url_for('.view', load_id=load.id))

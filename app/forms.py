@@ -128,9 +128,10 @@ class DriverForm(Form):
 	first_name = StringField('First Name', validators=[DataRequired()])
 	last_name = StringField('Last Name', validators=[DataRequired()])
 	email = StringField('Email', validators=[Email("Please enter a valid e-mail")])
-	phone_area_code = StringField('Area Code', validators=[DataRequired()])
-	phone_prefix = StringField('Prefix', validators=[DataRequired()])
-	phone_line_number = StringField('Line Number', validators=[DataRequired()])
+	phone_number = StringField('Phone', validators=[DataRequired()])
+	#phone_area_code = StringField('Area Code', validators=[DataRequired()])
+	#phone_prefix = StringField('Prefix', validators=[DataRequired()])
+	#phone_line_number = StringField('Line Number', validators=[DataRequired()])
 
 class LoginForm(Form):
 	email = StringField('email', validators=[DataRequired()])
