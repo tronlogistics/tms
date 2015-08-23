@@ -40,7 +40,7 @@ def login():
 				user.authenticated = True
 				db.session.add(user)
 				db.session.commit()
-				login_user(user, remember=True)
+				login_user(user, remember=False)
 				# Tell Flask-Principal the user has logged in
 				identity_changed.send(current_app._get_current_object(),
 										identity=Identity(user.email))
