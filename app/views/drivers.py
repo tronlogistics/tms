@@ -68,28 +68,8 @@ def create():
 		if form.validate_on_submit():
 			driver = Driver(first_name=form.first_name.data, 
 						last_name=form.last_name.data,
-						email=form.email.data)
-
-			driver.phone_area_code = str(form.phone_area_code.data)
-			if len(driver.phone_area_code) < 3:
-				prepend_value = ""
-				for x in range(0, 3 - len(driver.phone_area_code)):
-					prepend_value += "0"
-				driver.phone_area_code = prepend_value + driver.phone_area_code
-			
-			driver.phone_prefix = str(form.phone_prefix.data)
-			if len(driver.phone_prefix) < 3:
-				prepend_value = ""
-				for x in range(0, 3 - len(driver.phone_prefix)):
-					prepend_value += "0"
-				driver.phone_prefix = prepend_value + driver.phone_prefix
-			
-			driver.phone_line_number = str(form.phone_line_number.data)
-			if len(driver.phone_line_number) < 4:
-				prepend_value = ""
-				for x in range(0, 4 - len(driver.phone_line_number)):
-					prepend_value += "0"
-				driver.phone_line_number = prepend_value + driver.phone_line_number
+						email=form.email.data,
+						phone=form.phone_number.data)
 
 			db.session.add(driver)
 			g.user.fleet.drivers.append(driver)
@@ -114,27 +94,7 @@ def edit(driver_id):
 			driver.first_name = form.first_name.data
 			driver.last_name = form.last_name.data
 			driver.email = form.email.data
-
-			driver.phone_area_code = str(form.phone_area_code.data)
-			if len(driver.phone_area_code) < 3:
-				prepend_value = ""
-				for x in range(0, 3 - len(driver.phone_area_code)):
-					prepend_value += "0"
-				driver.phone_area_code = prepend_value + driver.phone_area_code
-			
-			driver.phone_prefix = str(form.phone_prefix.data)
-			if len(driver.phone_prefix) < 3:
-				prepend_value = ""
-				for x in range(0, 3 - len(driver.phone_prefix)):
-					prepend_value += "0"
-				driver.phone_prefix = prepend_value + driver.phone_prefix
-			
-			driver.phone_line_number = str(form.phone_line_number.data)
-			if len(driver.phone_line_number) < 4:
-				prepend_value = ""
-				for x in range(0, 4 - len(driver.phone_line_number)):
-					prepend_value += "0"
-				driver.phone_line_number = prepend_value + driver.phone_line_number
+			driver.phone = form.phone_number.data
 
 			db.session.add(driver)
 			db.session.commit()
@@ -143,6 +103,7 @@ def edit(driver_id):
 			form.first_name.data = driver.first_name 
 			form.last_name.data = driver.last_name
 			form.email.data = driver.email
+			form.phone_number.data = driver.phone
 			#form.phone_area_code.data = driver.phone_area_code
 			#form.phone_prefix.data = driver.phone_prefix 
 			#form.phone_line_number.data = driver.phone_line_number
