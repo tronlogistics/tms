@@ -251,10 +251,10 @@ class Driver(db.Model):
 	first_name = db.Column(db.String(30))
 	last_name = db.Column(db.String(30))
 	email = db.Column(db.String(255))
-	phone = db.Column(db.String(11))
+	phone = db.Column(db.String(14))
 
 	def get_phone_number(self):
-		return '(' + str(self.phone_area_code)[:3] + ')-' + str(self.phone_prefix)[4:6] +'-' + str(self.phone_line_number)[7:]
+		return str(self.phone)
 
 	def get_full_name(self):
 		return self.first_name + ' ' + self.last_name
