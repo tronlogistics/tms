@@ -60,7 +60,7 @@ def remove(driver_id):
 #							#
 #############################
 
-@drivers.route('/drivers/create', methods=['GET', 'POST'])
+@drivers.route('/create', methods=['GET', 'POST'])
 @login_required
 def create():
 	if g.user.is_carrier():
@@ -103,7 +103,7 @@ def create():
     							user=g.user)
 	abort(403)
 
-@drivers.route('/drivers/edit/<driver_id>', methods=['GET', 'POST'])
+@drivers.route('/edit/<driver_id>', methods=['GET', 'POST'])
 @login_required
 def edit(driver_id):
 	permission = EditDriverPermission(driver_id)
@@ -143,9 +143,9 @@ def edit(driver_id):
 			form.first_name.data = driver.first_name 
 			form.last_name.data = driver.last_name
 			form.email.data = driver.email
-			form.phone_area_code.data = driver.phone_area_code
-			form.phone_prefix.data = driver.phone_prefix 
-			form.phone_line_number.data = driver.phone_line_number
+			#form.phone_area_code.data = driver.phone_area_code
+			#form.phone_prefix.data = driver.phone_prefix 
+			#form.phone_line_number.data = driver.phone_line_number
 		return render_template('carrier/driver/edit.html', 
 								title="Edit Driver", 
 								form=form, 
@@ -155,7 +155,7 @@ def edit(driver_id):
 								edit=True)
 	abort(403)
 
-@drivers.route('/drivers/view/<driver_id>', methods=['GET', 'POST'])
+@drivers.route('/view/<driver_id>', methods=['GET', 'POST'])
 @login_required
 def view(driver_id):
 	permission = ViewDriverPermission(driver_id)
@@ -170,7 +170,7 @@ def view(driver_id):
 
 
 
-@drivers.route('/drivers/delete/<driver_id>', methods=['GET', 'POST'])
+@drivers.route('/delete/<driver_id>', methods=['GET', 'POST'])
 @login_required
 def delete(driver_id):
 	permission = DeleteTruckPermission(driver_id)

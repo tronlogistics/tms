@@ -2,79 +2,30 @@
 {% block body %}
 
 
-{% if user.is_authenticated() and user.password is not none %}
-	{% include "partials/navbar.html" %}
-	<!-- start: MAIN CONTAINER -->
-		<div class="main-container">
-			{% include "partials/sidebar.html" %}
-			<!-- start: PAGE -->
-			<div class="main-content">
-				<div class="container">
-					{% include "partials/page_header.html" %}
+	{% if user.is_authenticated() and user.password is not none %}
+		{% include "partials/navbar.html" %}
+		<!-- start: MAIN CONTAINER -->
+			<div class="main-container">
+				{% include "partials/sidebar.html" %}
+				<!-- start: PAGE -->
+				<div class="main-content">
+					<div class="container">
+						{% include "partials/page_header.html" %}
 
-					{% with messages = get_flashed_messages() %}
-						{% if messages %}
-					    	{% for message in messages %}
-					    		<div class="alert alert-warning" role="alert">{{ message }}</div>
-					    	{% endfor %}
-					  	{% endif %}
-					{% endwith %}
-					{% block content %}{% endblock %}
+						{% with messages = get_flashed_messages() %}
+							{% if messages %}
+						    	{% for message in messages %}
+						    		<div class="alert alert-warning" role="alert">{{ message }}</div>
+						    	{% endfor %}
+						  	{% endif %}
+						{% endwith %}
+						{% block content %}{% endblock %}
+					</div>
 				</div>
 			</div>
-		</div>
-{% else %}
-	{% block login %}{% endblock %}
-{% endif %}
+	{% else %}
+		{% block login %}{% endblock %}
+	{% endif %}
 
-
-
-
-		{#<!-- start: MAIN JAVASCRIPTS -->
-		<!--[if lt IE 9]>
-		<script src="{{ static('backend/plugins/respond.min.js') }}"></script>
-		<script src="{{ static('backend/plugins/excanvas.min.js') }}"></script>
-		<script type="text/javascript" src="{{ static('backend/plugins/jQuery-lib/1.10.2/jquery.min.js') }}"></script>
-		<![endif]-->
-		<!--[if gte IE 9]><!-->
-		<script src="{{ static('backend/plugins/jQuery-lib/2.0.3/jquery.min.js') }}"></script>
-		<!--<![endif]-->
-		<script src="{{ static('backend/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js') }}"></script>
-		<script src="{{ static('backend/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
-		<script src="{{ static('backend/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js') }}"></script>
-		<script src="{{ static('backend/plugins/blockUI/jquery.blockUI.js') }}"></script>
-		<script src="{{ static('backend/plugins/iCheck/jquery.icheck.min.js') }}"></script>
-		<script src="{{ static('backend/plugins/perfect-scrollbar/src/jquery.mousewheel.js') }}"></script>
-		<script src="{{ static('backend/plugins/perfect-scrollbar/src/perfect-scrollbar.js') }}"></script>
-		<script src="{{ static('backend/plugins/less/less-1.5.0.min.js') }}"></script>
-		<script src="{{ static('backend/plugins/jquery-cookie/jquery.cookie.js') }}"></script>
-		<script src="{{ static('backend/plugins/bootstrap-colorpalette/js/bootstrap-colorpalette.js') }}"></script>
-		<script src="{{ static('backend/js/main.js') }}"></script>#}
-		<!-- end: MAIN JAVASCRIPTS -->
-		<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
-		<script src="{{ static('backend/plugins/flot/jquery.flot.js') }}"></script>
-		<script src="{{ static('backend/plugins/flot/jquery.flot.pie.js') }}"></script>
-		<script src="{{ static('backend/plugins/flot/jquery.flot.resize.min.js') }}"></script>
-		<script src="{{ static('backend/plugins/jquery.sparkline/jquery.sparkline.js') }}"></script>
-		<script src="{{ static('backend/plugins/jquery-easy-pie-chart/jquery.easy-pie-chart.js') }}"></script>
-		<script src="{{ static('backend/plugins/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js') }}"></script>
-		<script src="{{ static('backend/plugins/fullcalendar/fullcalendar/fullcalendar.js') }}"></script>
-		<script src="{{ static('backend/js/index.js') }}"></script>
-		<script type="text/javascript" src="{{ static('backend/plugins/jquery-mockjax/jquery.mockjax.js') }}"></script>
-		<script type="text/javascript" src="{{ static('backend/plugins/select2/select2.min.js') }}"></script>
-		<script type="text/javascript" src="{{ static('backend/plugins/DataTables/media/js/jquery.dataTables.min.js') }}"></script>
-		<script src="{{ static('backend/js/table-data.js') }}"></script>
-		<!--<script src="{{ static('backend/js/form-elements.js') }}"></script>-->
-
-        <script>
-            jQuery(document).ready(function() {
-                Main.init();
-                //FormElements.init();
-                FormWizard.init();
-                TableData.init();
-                UIModals.init();
-            });
-        </script>
-		<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 
 {% endblock %}

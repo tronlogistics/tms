@@ -48,20 +48,11 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-sm-3 control-label" for="origin_address1">
-							Phone Number<span class="symbol required"></span>
+						<label class="col-sm-3 control-label">
+							Phone <small class="text-warning">(999) 999-9999</small>
 						</label>
-						{% for error in form.phone_area_code.errors %}
-					            <br><span style="color: red;">{{ error }}</span>
-					          {% endfor %}
-					          {% for error in form.phone_prefix.errors %}
-					            <br><span style="color: red;">{{ error }}</span>
-					          {% endfor %}
-					          {% for error in form.phone_line_number.errors %}
-					            <br><span style="color: red;">{{ error }}</span>
-					          {% endfor %}
 						<div class="col-sm-9">
-							+1 ({{ form.phone_area_code(size=3, class='input-mini') }})-{{ form.phone_prefix(size=3, class='input-mini') }}-{{ form.phone_line_number(size=4, class='input-mini') }}
+							{{ form.phone_number(class='input-mask-phone form-control') }}
 						</div>
 					</div>
 					<hr>
@@ -82,7 +73,5 @@
      	</div>
 	</div>
 </form>
-
-{% include "partials/main_javascripts.html" %}
 
 {% endblock %}

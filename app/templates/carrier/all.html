@@ -52,10 +52,8 @@
                                             <input type="submit" class="btn btn-success success" value="Assign Driver" />
                                             </form>
                                         {% else %}
-                                            <button type="button" onclick="location.href='{{ url_for('fleet.remove', driver_id=truck.driver.id)}}'" class="btn btn-warning">Remove Driver</button>
+                                            <button type="button" onclick="location.href='{{ url_for('fleet.remove', driver_id=truck.driver.id)}}'" class="btn btn-error">Remove Driver</button>
                                         {% endif %}
-                                        <button type="button" onclick="location.href='{{ url_for('trucks.edit', truck_id=truck.id)}}'" class="btn btn-info">Edit</button>
-                                        <button type="button" onclick="location.href='{{ url_for('trucks.delete', truck_id=truck.id)}}'" class="btn btn-danger">Delete</button>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -78,7 +76,6 @@
                             <tr>
                                 <th>Name</th>
                                 <th>Phone</th>
-                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -86,10 +83,6 @@
                                 <tr>
                                     <td><a href="{{ url_for('drivers.view', driver_id=driver.id) }}">{{ driver.first_name }} {{ driver.last_name }}</a></td>
                                     <td>{{ driver.get_phone_number() }}</td>
-                                    <td>
-                                        <button type="button" onclick="location.href='{{ url_for('drivers.edit', driver_id=driver.id)}}'" class="btn btn-info">Edit</button>
-                                        <button type="button" onclick="location.href='{{ url_for('drivers.delete', driver_id=driver.id)}}'" class="btn btn-danger">Delete</button>
-                                    </td>
                                 </tr>
                             {% endfor %}
                         </tbody>
@@ -99,5 +92,4 @@
         </div>
     </div>
 </div>
-{% include "partials/main_javascripts.html" %}
             {% endblock %}

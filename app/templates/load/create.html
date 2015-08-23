@@ -29,11 +29,11 @@
 									<label class="col-sm-4 control-label">
 										Phone
 										{% for error in form.shipper.phone.errors %}
-					            <br><span style="color: red;">{{ error }}</span>
-					          {% endfor %}
+								            <br><span style="color: red;">{{ error }}</span>
+								          {% endfor %}
 									</label>
 									<div class="col-sm-7">
-										{{ form.shipper.phone(class="form-control", placeholder="Phone") }}
+										{{ form.shipper.phone(class="form-control input-mask-phone", placeholder="Phone") }}
 									</div>
 								</div>
 								<div class="form-group">
@@ -63,8 +63,8 @@
 									<label class="col-sm-4 control-label">
 										Company Name
 										{% for error in form.broker.company_name.errors %}
-					            <br><span style="color: red;">{{ error }}</span>
-					          {% endfor %}
+								            <br><span style="color: red;">{{ error }}</span>
+								          {% endfor %}
 									</label>
 									<div class="col-sm-7">
 										{{ form.broker.company_name(class="form-control", placeholder="Company Name") }}
@@ -78,7 +78,7 @@
 					          {% endfor %}
 									</label>
 									<div class="col-sm-7">
-										{{ form.broker.phone(class="form-control", placeholder="Phone") }}
+										{{ form.broker.phone(class="form-control input-mask-phone", placeholder="Phone") }}
 									</div>
 								</div>
 								<div class="form-group">
