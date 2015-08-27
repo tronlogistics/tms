@@ -249,6 +249,12 @@ def route(truck_id):
 ##########
 #  MISC  #
 ##########
+
+@app.errorhandler(401)
+def not_found_error(error):
+	flash("You must sign in to view this page")
+	return redirect(url_for('auth.login'))
+	
 @app.errorhandler(404)
 def not_found_error(error):
 	app.logger.exception(error)

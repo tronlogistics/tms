@@ -363,6 +363,11 @@ def complete(load_id):
 		return redirect(url_for('.view', load_id = load.id))
 	abort(403)
 
+@app.errorhandler(401)
+def not_found_error(error):
+	flash("You must sign in to view this page")
+	return redirect(url_for('auth.login'))
+
 @app.errorhandler(404)
 def not_found_error(error):
 	app.logger.exception(error)

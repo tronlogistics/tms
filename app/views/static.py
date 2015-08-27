@@ -53,7 +53,10 @@ def contact():
 		contact_error=contact_error,
 		signup_error=signup_error)
 
-
+@app.errorhandler(401)
+def not_found_error(error):
+	flash("You must sign in to view this page")
+	return redirect(url_for('auth.login'))
 
 @app.errorhandler(404)
 def not_found_error(error):

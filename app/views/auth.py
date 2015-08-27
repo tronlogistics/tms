@@ -100,8 +100,8 @@ def register():
 	register_form.account_type.data = 'carrier'
 	if register_form.validate_on_submit():
 		if User.query.filter_by(email=register_form.email.data).first() is not None:
-			flash("This e-mail is already registered.")
-			return render_template('auth/login.html?box-register', login_form=LoginForm(), register_form=register_form, forgot_form=ForgotForm(), user=g.user)
+			flash("This e-mail is already registerd. Please sign in!")
+			return redirect(url_for('.login'))
 		user = User(company_name=register_form.company_name.data,
 					email=register_form.email.data,
 					password=register_form.password.data)
@@ -191,3 +191,8 @@ def change_password():
 	if form.validate_on_submit():
 		g.user.password = form.password.data
 		return redirect(url_for('load.all'))
+
+@app.errorhandler(401)
+def not_found_error(error):
+	flash("You must sign in to view this page")
+	return redirect(url_for('auth.login'))
