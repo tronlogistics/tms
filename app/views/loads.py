@@ -165,11 +165,8 @@ def add_location(load_id):
 			url = 'https://maps.googleapis.com/maps/api/geocode/json?' + urllib.urlencode({
 					'address': address.toString()
 				}) + "&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg"
-			app.logger.info(url)
 			response = urllib2.urlopen(url)
-			app.logger.info(response)
 			data = response.read()
-			app.logger.info(data)
 			try: js = json.loads(str(data))
 			except: js = None
 			if 'status' not in js or js['status'] != 'OK':

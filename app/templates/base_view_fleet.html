@@ -53,42 +53,24 @@
 
             function initialize() {
 
+                var myLatlng = new google.maps.LatLng( 39.8282, -98.5795);
+                var mapOptions = {
+                    center: myLatlng,
+                    zoom: 7
+                };
+                var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-                {% for longlat in truck.tracker %}
-                    var myLatlng = new google.maps.LatLng( {{longlat.latitude}}, {{longlat.longitude}});
-                    {% if loop.index == 1 %}
-                        var mapOptions = {
-                            center: myLatlng,
-                            zoom: 7
-                        };
-                        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-                    {% endif %}
-
-                    var myLatlng = new google.maps.LatLng( {{longlat.latitude}}, {{longlat.longitude}});
-
+                {% for truck in trucks %}
+                    var myLatlng = new google.maps.LatLng( {{location.latitude}}, {{location.longitude}});
+                    
                     var marker = new google.maps.Marker({
                         position: myLatlng,
                         map: map,
-                        title: '{{ loop.index }}'
+                        title: '{{ truck.name }}'
                     });
                 {% endfor %}
 
-                {% for load in truck.driver.loads %}
-                    {% for location in load.lane.locations %}
-                        var myLatlng = new google.maps.LatLng( {{location.latitude}}, {{location.longitude}});
-                        
-                        var marker = new google.maps.Marker({
-                            position: myLatlng,
-                            map: map,
-                            title: '{{ location.stop_number }}'
-                        });
-
-
-                    {% endfor %}
-                {% endfor %}
-
             }
-
 
             google.maps.event.addDomListener(window, 'load', initialize);
 

@@ -24,7 +24,7 @@
 				    			{% for location in locations|sort(attribute='stop_number') %}
 					        		<tr class="location_order">
 					        			<td>
-					        				<a href="javascript:void()" class="up">Up</a>/<a href="javascript:void()" class="down">Down</a>
+					        				<a href="javascript:void()" class="up"><span class="glyphicon glyphicon-circle-arrow-up"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="javascript:void()" class="down"><span class="glyphicon glyphicon-circle-arrow-down"></span></a>
 
 					        				<input type="hidden" id="locations-{{ loop.index }}-location_id" name="locations-{{ loop.index }}-location_id" class="form-control location-id" value="{{ location.id }}">
 
@@ -46,9 +46,6 @@
 							</button>
 </form>
 	   
-
-				
-{% include "partials/main_javascripts.html" %}
 
 <script>
 $(document).ready(function(e){
