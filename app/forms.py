@@ -58,7 +58,7 @@ class LaneLocationForm(Form):
 	postal_code = StringField("Zip Code", validators =[])
 	stop_number = HiddenField("Stop #", validators=[])
 	retired = HiddenField("Retired", validators=[])
-	arrival_date = DateField("Date", validators=[], format='%m-%d-%Y')
+	arrival_date = DateField("Date", validators=[], format='%m/%d/%Y')
 	arrival_Time = StringField("Time", validators=[])
 	pickup_weight = StringField("Pickup Weight", validators=[])
 	pickup_notes = TextAreaField('Description', validators=[])
