@@ -52,12 +52,27 @@
 
 
             function initialize() {
+
+                var styles = [{
+                    stylers: [
+                      { lightness: 75 }
+                    ]
+                }];
+
+                  // Create a new StyledMapType object, passing it the array of styles,
+                  // as well as the name to be displayed on the map type control.
+                var styledMap = new google.maps.StyledMapType(styles, {name: "Styled Map"});
+                // Stores all markers
+                var allMarkers = [];
                 {% for location in load.lane.locations %}
                     var myLatlng = new google.maps.LatLng( {{location.latitude}}, {{location.longitude}});
                     {% if loop.index == 1 %}
                         var mapOptions = {
                             center: myLatlng,
-                            zoom: 7
+                            zoom: 7,
+                            mapTypeControlOptions: {
+                              mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+                            }
                         };
                         var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
                     {% endif %}
@@ -66,6 +81,7 @@
                         map: map,
                         title: '{{ location.stop_number }}'
                     });
+                    allMarkers.push(marker);
 
 
                 {% endfor %}
@@ -78,7 +94,41 @@
                         map: map,
                         title: '{{ loop.index }}'
                     });
+                    allMarkers.push(marker);
                 {% endfor %}
+
+                if(allMarkers.length == 0) {
+                    var myLatlng = new google.maps.LatLng( 39.8282, -98.5795);
+                    var mapOptions = {
+                        center: myLatlng,
+                        zoom: 3,
+                        disableDefaultUI: true,
+                        draggable: false,
+                        scrollwheel: false,
+                        panControl: false,
+                        mapTypeControlOptions: {
+                          mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+                        }
+                    };
+
+
+                    var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+
+                    //Associate the styled map with the MapTypeId and set it to display.
+                  map.mapTypes.set('map_style', styledMap);
+                  map.setMapTypeId('map_style');
+
+                  var myTitle = document.createElement('h3');
+                    myTitle.style.color = 'black';
+                    myTitle.innerHTML = 'No location information to show';
+                    var myTextDiv = document.createElement('div');
+                    //myTextDiv.style.background = "grey";
+                    myTextDiv.style.padding = "10px"
+                    myTextDiv.appendChild(myTitle);
+
+                    map.controls[google.maps.ControlPosition.CENTER].push(myTextDiv);
+                }
             }
 
 

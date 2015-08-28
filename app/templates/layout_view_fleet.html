@@ -1,4 +1,4 @@
-{% extends "base_view_truck.html" %}
+{% extends "base_view_fleet.html" %}
 {% block body %}
 
 
@@ -27,33 +27,5 @@
 	{% block login %}{% endblock %}
 {% endif %}
 
-
-	
-		<!-- end: MAIN JAVASCRIPTS -->
-		<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
-		<script src="{{ static('backend/plugins/flot/jquery.flot.js') }}"></script>
-		<script src="{{ static('backend/plugins/flot/jquery.flot.pie.js') }}"></script>
-		<script src="{{ static('backend/plugins/flot/jquery.flot.resize.min.js') }}"></script>
-		<script src="{{ static('backend/plugins/jquery.sparkline/jquery.sparkline.js') }}"></script>
-		<script src="{{ static('backend/plugins/jquery-easy-pie-chart/jquery.easy-pie-chart.js') }}"></script>
-		<script src="{{ static('backend/plugins/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js') }}"></script>
-		<script src="{{ static('backend/plugins/fullcalendar/fullcalendar/fullcalendar.js') }}"></script>
-		<script src="{{ static('backend/js/index.js') }}"></script>
-		<script type="text/javascript" src="{{ static('backend/plugins/jquery-mockjax/jquery.mockjax.js') }}"></script>
-		<script type="text/javascript" src="{{ static('backend/plugins/select2/select2.min.js') }}"></script>
-		<script type="text/javascript" src="{{ static('backend/plugins/DataTables/media/js/jquery.dataTables.min.js') }}"></script>
-		<script src="{{ static('backend/js/table-data.js') }}"></script>
-		<!--<script src="{{ static('backend/js/form-elements.js') }}"></script>-->
-
-        <script>
-            jQuery(document).ready(function() {
-                Main.init();
-                //FormElements.init();
-                FormWizard.init();
-                TableData.init();
-                UIModals.init();
-            });
-        </script>
-		<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 
 {% endblock %}

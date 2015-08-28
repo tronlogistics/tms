@@ -3,22 +3,17 @@
 {% block content %}
 
 	<div class="row-fluid">
-		{% if truck.loads|length > 0 %}
+		{% if truck.loads|length > 0 and location is not none %}
 			<div class="col-sm-6">
 	    		<div class="panel panel-default">
 	        		<div class="panel-heading">
 	            		Map
 	        		</div>
 	        		<div class="panel-body">
-	        			{% if truck.tracker.count() > 0 %}
-	                		<div id="map-canvas" style="height: 400px; margin: 0; padding: 0;"></div>
-	                	{% else %}
-	                		<p>Unable to locate truck</p>
-	                	{% endif %}
+                		<div id="map-canvas" style="height: 400px; margin: 0; padding: 0;"></div>
 	            	</div>
 	        	</div>
 	     	</div>
-
 	     	<div class="col-sm-6">
 	        	<div class="panel panel-default">
 	            	<div class="panel-heading">
@@ -111,11 +106,7 @@
 	            		Map
 	        		</div>
 	        		<div class="panel-body">
-	                	{% if truck.tracker.count() > 0 %}
-	                		<div id="map-canvas" style="height: 400px; margin: 0; padding: 0;"></div>
-	                	{% else %}
-	                		<p>Unable to locate truck</p>
-	                	{% endif %}
+                		<div id="map-canvas" style="height: 400px; margin: 0; padding: 0;"></div>
 	            	</div>
 	        	</div>
 	     	</div>

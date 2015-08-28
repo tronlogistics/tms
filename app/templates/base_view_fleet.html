@@ -52,23 +52,76 @@
 
 
             function initialize() {
+                var styles = [{
+                    stylers: [
+                      { lightness: 75 }
+                    ]
+                }];
 
+                  // Create a new StyledMapType object, passing it the array of styles,
+                  // as well as the name to be displayed on the map type control.
+                var styledMap = new google.maps.StyledMapType(styles, {name: "Styled Map"});
                 var myLatlng = new google.maps.LatLng( 39.8282, -98.5795);
+                
                 var mapOptions = {
                     center: myLatlng,
-                    zoom: 7
+                    zoom: 3,
+                    mapTypeControlOptions: {
+                      mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+                    }
                 };
-                var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-                {% for truck in trucks %}
-                    var myLatlng = new google.maps.LatLng( {{location.latitude}}, {{location.longitude}});
+                var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+                // Stores all markers
+                var allMarkers = [];
+                {% for truck in fleet.trucks %}
+                    {% for longlat in truck.tracker %}
+                        {% if loop.last %}
+
+                            var myLatlng = new google.maps.LatLng( {{ longlat.latitude }}, {{ longlat.longitude }} );
                     
-                    var marker = new google.maps.Marker({
-                        position: myLatlng,
-                        map: map,
-                        title: '{{ truck.name }}'
-                    });
+                            var marker = new google.maps.Marker({
+                                position: myLatlng,
+                                map: map,
+                                title: '{{ truck.name }}'
+                            });
+                            allMarkers.push(marker)
+                        {% endif %}
+
+                    {% endfor %}
                 {% endfor %}
+
+                if(allMarkers.length == 0) {
+                    mapOptions = {
+                        center: myLatlng,
+                        zoom: 4,
+                        disableDefaultUI: true,
+                        draggable: false,
+                        scrollwheel: false,
+                        panControl: false,
+                        mapTypeControlOptions: {
+                          mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
+                        }
+                    };
+                    
+
+                    map.setOptions(mapOptions);
+
+
+                    //Associate the styled map with the MapTypeId and set it to display.
+                  map.mapTypes.set('map_style', styledMap);
+                  map.setMapTypeId('map_style');
+
+                  var myTitle = document.createElement('h3');
+                    myTitle.style.color = 'black';
+                    myTitle.innerHTML = 'No location information to show';
+                    var myTextDiv = document.createElement('div');
+                    //myTextDiv.style.background = "grey";
+                    myTextDiv.style.padding = "10px"
+                    myTextDiv.appendChild(myTitle);
+
+                    map.controls[google.maps.ControlPosition.CENTER].push(myTextDiv);
+                }
 
             }
 
