@@ -165,8 +165,6 @@ def reset_password(activation_slug):
 	form = ResetPasswordForm()
 
 	if form.validate_on_submit():
-		flash(g.user.email)
-		flash(form.password.data)
 		g.user.set_password(form.password.data)
 		g.user.authenticated = True
 		db.session.add(g.user)
@@ -198,3 +196,20 @@ def change_password():
 def not_found_error(error):
 	flash("You must sign in to view this page")
 	return redirect(url_for('auth.login'))
+
+@app.errorhandler(403)
+def forbidden_error(error):
+	app.logger.exception(error)
+	return render_template('404.html', user=g.user), 403
+
+@app.errorhandler(404)
+def not_found_error(error):
+	app.logger.exception(error)
+	return render_template('404.html', user=g.user), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+	print error
+	app.logger.exception(error)
+	db.session.rollback()
+	return render_template('500.html', user=g.user), 500

@@ -58,6 +58,11 @@ def not_found_error(error):
 	flash("You must sign in to view this page")
 	return redirect(url_for('auth.login'))
 
+@app.errorhandler(403)
+def forbidden_error(error):
+	app.logger.exception(error)
+	return render_template('404.html', user=g.user), 403
+
 @app.errorhandler(404)
 def not_found_error(error):
 	app.logger.exception(error)
@@ -67,7 +72,7 @@ def not_found_error(error):
 def internal_error(error):
 	app.logger.exception(error)
 	db.session.rollback()
-	return render_template('static/500.html', user=current_user, error=error), 500
+	return render_template('static/500.html', user=current_user), 500
 
 @identity_loaded.connect_via(app)
 def on_identity_loaded(sender, identity):
