@@ -165,12 +165,14 @@ def reset_password(activation_slug):
 	form = ResetPasswordForm()
 
 	if form.validate_on_submit():
-		g.user.password = form.password.data
+		flash(g.user.email)
+		flash(form.password.data)
+		g.user.set_password(form.password.data)
 		g.user.authenticated = True
 		db.session.add(g.user)
 		db.session.commit()
-		login_user(g.user, remember=True)
-		return redirect(url_for('loads.all'))
+		flash("Your password has been updated.")
+		return redirect(url_for('fleet.view'))
 	else:
 		s = get_serializer()
 		try:
@@ -179,7 +181,7 @@ def reset_password(activation_slug):
 			abort(404)
 
 		user = User.query.get_or_404(user_id)
-		login_user(user, remember=True)
+		login_user(user, remember=False)
 		app.logger.info("User \"%s\"'s password is now reset" % user.email)
 		flash('Your password has been reset. Please create a new password.')
 
