@@ -185,7 +185,7 @@ def reset_password(activation_slug):
 
 		return render_template('auth/reset_password.html', form=form, user=user)
 
-@auth.route('/reset', methods=['POST'])
+@auth.route('/reset', methods=['POST', 'GET'])
 def change_password():
 	form = ResetPasswordForm()
 	if form.validate_on_submit():
