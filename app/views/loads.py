@@ -195,7 +195,6 @@ def add_location(load_id):
 			db.session.add(load)
 			db.session.commit()
 			return redirect(url_for('.view', load_id=load.id))
-		flash(form.errors)
 		return render_template('load/location/create.html', 
 								title="Add Location", 
 								form=form, 

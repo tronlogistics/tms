@@ -76,24 +76,29 @@
 			        	<div class="row">
 			        		<div class="col-sm-12">
 			        			<h4>Status History</h4>
-	    						{% if location.status_history.count() > 0 %}
-			        				<table class="table table-bordered table-condensed table-striped">
-			        					<thead>
-			          						<tr>
-			            						<th>Status Date / Time</th>
-			            						<th>Status</th>
-			          						</tr>
-			        					</thead>
-			        					<tbody>
+	    						
+		        				<table class="table table-bordered table-condensed table-striped">
+		        					<thead>
+		          						<tr>
+		            						<th>Status Date / Time</th>
+		            						<th>Status</th>
+		          						</tr>
+		        					</thead>
+		        					<tbody>
+		        						{% if location.status_history.count() > 0 %}
 			          						{% for status in location.status_history|sort(attribute="created_on") %}
 			          							<tr>
 			            							<td>{{ status.created_on }}</td>
 			            							<td>{{ status.status }}</td>
 			          							</tr>
 			          						{% endfor %}
-			        					</tbody>
-			      					</table>
-        						{% endif %}
+			          					{% else %}
+			          						<tr>
+			          							<td colspan="2">No history to show</td>
+			          						</tr>
+			          					{% endif %}
+		        					</tbody>
+		      					</table>
         					</div>
         				</div>
 	    			</div>
