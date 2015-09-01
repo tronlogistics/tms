@@ -35,49 +35,49 @@
 		              			</form>
 		              		</div>
 		          		</div>
+		          		<hr />
 		          		<div class="row">
-	          				<div class="col-sm-12">
-		          				<h4>Location Details</h4>
-		          				<hr />
-		            			<table class="table table-condensed">
-		              				<thead>
-		                				<tr>
-		                  					<th>Location Type</th>
-		                  					<th>Address</th>
-		                  					<th>Arrival Date/Time</th>
-		                  					<th>Receiver Name</th>
-		                  					<th>Receiver Contact #</th>
-		                				</tr>
-		              				</thead>
-		              				<tbody>
-		                				{% if location.pickup_details is not none %}
-		                  					<tr>
+		          			<div class="col-sm-12">
+				          		<h4>Location Details</h4>
+				    			<table class="table table-condensed">
+			          				<thead>
+			            				<tr>
+			              					<th>Location Type</th>
+			              					<th>Address</th>
+			              					<th>Arrival Date/Time</th>
+			              					<th>Receiver Name</th>
+			              					<th>Receiver Contact #</th>
+			            				</tr>
+			          				</thead>
+			          				<tbody>
+			            				{% if location.pickup_details is not none %}
+			              					<tr>
 							                    <td>Pick Up</td>
 							                    <td>{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
 							                    <td>{{ location.arrival_date }}</td>
 							                    <td>{{ location.contact.name }}</td>
 							                    <td>{{ location.contact.phone }}</td>
-		                  					</tr>
-		                				{% endif %}
-		                				{% if location.delivery_details is not none %}
-		                  					<tr>
+			              					</tr>
+			            				{% endif %}
+			            				{% if location.delivery_details is not none %}
+			              					<tr>
 							                    <td>Drop Off</td>
 							                    <td>{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
 							                    <td>{{ location.arrival_date }}</td>
 							                    <td>{{ location.contact.name }}</td>
 							                    <td>{{ location.contact.phone }}</td>
-		                  					</tr>
-		                				{% endif %}
-		              				</tbody>
-		            			</table>
-			            	</div>
-		            	</div>
-		            	{% if location.status_history.count() == 0 %}
-			            	<div class="row">
-			        			<div class="col-sm-12">
-			      					<h4>Status History</h4>
-			      					<hr />
-			        				<table class="table table-condensed table-striped">
+			              					</tr>
+			            				{% endif %}
+			          				</tbody>
+			        			</table>
+			        		</div>
+			        	</div>
+			        	<hr />
+			        	<div class="row">
+			        		<div class="col-sm-12">
+			        			<h4>Status History</h4>
+	    						{% if location.status_history.count() > 0 %}
+			        				<table class="table table-bordered table-condensed table-striped">
 			        					<thead>
 			          						<tr>
 			            						<th>Status Date / Time</th>
@@ -93,9 +93,9 @@
 			          						{% endfor %}
 			        					</tbody>
 			      					</table>
-			      				</div>
-			    			</div>
-	        			{% endif %}
+        						{% endif %}
+        					</div>
+        				</div>
 	    			</div>
 	    		</div>
 	    	</div>

@@ -127,6 +127,8 @@ def view(truck_id):
 				location = getNextLocation(truck)
 			db.session.add(location)
 			db.session.commit()
+		else:
+			flash(form.errors)
 
 
 		#categories = [('0', '<none selected>')] + [(driver.id, driver.get_full_name()) for driver in filter((lambda driver: driver.truck is None), g.user.fleet.drivers)]# + [('-1', 'Create New Driver...')]
@@ -335,7 +337,7 @@ def getUpcomingLocations(truck):
 	return locations
 
 def changeStopNumbers(truck):
-	for load in truck.driver.loads:
+	for load in truck.loads:
 		for location in load.lane.locations:
 			location.stop_number -= 1
 			db.session.add(location)

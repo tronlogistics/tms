@@ -156,7 +156,7 @@ class Location(db.Model):
 	contact_id = db.Column(db.Integer, db.ForeignKey('Contact.id'))
 	contact = relationship("Contact")
 
-	stop_number = db.Column(db.String(10))
+	stop_number = db.Column(db.Integer)
 	arrival_date = db.Column(db.Date)
 
 	type = db.Column(db.String(10))
