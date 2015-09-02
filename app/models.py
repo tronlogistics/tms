@@ -165,7 +165,7 @@ class Location(db.Model):
 	longitude = db.Column(db.Float(6))
 
 	def __repr__(self):
-		return '%s, %s' % (self.city, self.state)
+		return '%s, %s' % (self.address.city, self.address.state)
 
 class LocationStatus(db.Model):
 	__tablename__ = 'LocationStatus'

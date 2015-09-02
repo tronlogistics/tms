@@ -118,15 +118,25 @@ def view(truck_id):
 		form = LocationStatusForm()
 		truck = Truck.query.get_or_404(truck_id)
 		location = getNextLocation(truck)
+		flash(location)
 		if form.validate_on_submit():
+			flash('hi1')
 			status = LocationStatus(status=form.status.data, created_on=datetime.utcnow())
+			flash('hi2')
 			location.status_history.append(status)
+			flash('hi3')
 			location.status = form.status.data
+			flash('hi4')
 			if location.status == "Departed":
 				changeStopNumbers(truck)
 				location = getNextLocation(truck)
+			flash('hi5')
+			db.session.add(status)
+			flash('hi6')
 			db.session.add(location)
+			flash('hi7')
 			db.session.commit()
+			flash('hi8')
 		else:
 			flash(form.errors)
 
@@ -136,8 +146,8 @@ def view(truck_id):
 		#truck = Truck.query.get(int(truck_id))
 		locations = []
 		for load in truck.loads:
-			for location in load.lane.locations:
-				locations.append(location)
+			for load_location in load.lane.locations:
+				locations.append(load_location)
 		return render_template('carrier/truck/view.html', 
 								title="View Truck", 
 								location=location,

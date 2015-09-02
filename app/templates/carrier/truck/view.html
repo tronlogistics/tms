@@ -38,7 +38,7 @@
 		          		<hr />
 		          		<div class="row">
 		          			<div class="col-sm-12">
-				          		<h4>Location Details</h4>
+				          		<h4>Location Details {{ location }}</h4>
 				    			<table class="table table-condensed">
 			          				<thead>
 			            				<tr>
@@ -80,7 +80,7 @@
 		        				<table class="table table-bordered table-condensed table-striped">
 		        					<thead>
 		          						<tr>
-		            						<th>Status Date / Time</th>
+		            						<th>Status Date / Time {{location.status_history.count() }} </th>
 		            						<th>Status</th>
 		          						</tr>
 		        					</thead>
