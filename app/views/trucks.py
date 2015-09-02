@@ -118,27 +118,19 @@ def view(truck_id):
 		form = LocationStatusForm()
 		truck = Truck.query.get_or_404(truck_id)
 		location = getNextLocation(truck)
-		flash(location)
 		if form.validate_on_submit():
-			flash('hi1')
 			status = LocationStatus(status=form.status.data, created_on=datetime.utcnow())
-			flash('hi2')
 			location.status_history.append(status)
-			flash('hi3')
 			location.status = form.status.data
-			flash('hi4')
 			if location.status == "Departed":
 				changeStopNumbers(truck)
 				location = getNextLocation(truck)
-			flash('hi5')
+				flash("A new location has been set for the truck")
 			db.session.add(status)
-			flash('hi6')
 			db.session.add(location)
-			flash('hi7')
 			db.session.commit()
-			flash('hi8')
 		else:
-			flash(form.errors)
+			flash("There was an error updating the location status")
 
 
 		#categories = [('0', '<none selected>')] + [(driver.id, driver.get_full_name()) for driver in filter((lambda driver: driver.truck is None), g.user.fleet.drivers)]# + [('-1', 'Create New Driver...')]
