@@ -138,7 +138,8 @@ def view(truck_id):
 		#truck = Truck.query.get(int(truck_id))
 		locations = []
 		for load in truck.loads:
-			for load_location in load.lane.locations:
+			for load_location in filter((lambda load_location: load_location.stop_number > 0 ), 
+												load.lane.locations):
 				locations.append(load_location)
 		return render_template('carrier/truck/view.html', 
 								title="View Truck", 
@@ -238,8 +239,9 @@ def route(truck_id):
 		#truck = Truck.query.get(int(truck_id))
 		locations = []
 		for load in truck.loads:
-			for location in load.lane.locations:
-				locations.append(location)
+			for load_location in filter((lambda load_location: load_location.stop_number > 0 ), 
+												load.lane.locations):
+				locations.append(load_location)
 		return render_template('carrier/truck/route.html', 
 								title="Route Truck", 
 								locations=locations,
