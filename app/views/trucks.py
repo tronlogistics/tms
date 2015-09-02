@@ -250,6 +250,22 @@ def route(truck_id):
 								edit=True)
 	abort(403)
 
+@trucks.route('view/<truck_id>/assign', methods=['GET', 'POST'])
+@login_required
+def assign():
+	form = AssignDriverForm()
+	categories = [(driver.id, driver.get_full_name()) for driver in filter((lambda driver: driver.truck is None), g.user.fleet.drivers)]
+	form.driver.choices = categories
+	if form.validate_on_submit():
+		truck = Truck.query.get(int(truck_id))
+		driver = Driver.query.get(int(form.driver.data))
+		driver.truck = truck
+		form.driver.data = ('0', '<none selected>')
+		db.session.add(driver)
+		db.session.add(truck)
+		db.session.commit()
+	return redirect(url_for('fleet.view'))
+
 ##########
 #  MISC  #
 ##########
