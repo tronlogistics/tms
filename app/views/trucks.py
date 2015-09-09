@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, url_for, redirect, request, flash,
 from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, mail
-from app.forms import DriverForm, TruckForm, AssignDriverForm, LocationStatusForm, RouteForm
+from app.forms import DriverForm, TruckForm, AssignDriverForm, LocationStatusForm, RouteForm, AssignDriverForm
 from app.models import Load, Driver, Truck, LongLat, Location, LocationStatus
 from app.permissions import *
 from app.emails import ping_driver, get_serializer
@@ -116,6 +116,7 @@ def view(truck_id):
 	permission = ViewTruckPermission(truck_id)
 	if permission.can():
 		form = LocationStatusForm()
+		assin_form = AssignDriverForm()
 		truck = Truck.query.get_or_404(truck_id)
 		location = getNextLocation(truck)
 		if form.validate_on_submit():
@@ -146,6 +147,7 @@ def view(truck_id):
 								location=location,
 								locations=locations,
 								form=form, 
+								assign_form=assign_form,
 								truck=truck, 
 								user=g.user)
 	abort(403)
@@ -245,7 +247,8 @@ def route(truck_id):
 		return render_template('carrier/truck/route.html', 
 								title="Route Truck", 
 								locations=locations,
-								form=form,  
+								form=form,
+
 								active="Trucks",
 								user=g.user,
 								truck=truck,
@@ -273,25 +276,25 @@ def assign():
 ##########
 
 @app.errorhandler(401)
-def not_authorized_error(error):
+def not_found_error(error):
 	flash("You must sign in to view this page")
 	return redirect(url_for('auth.login'))
 
 @app.errorhandler(403)
 def forbidden_error(error):
 	app.logger.exception(error)
-	return render_template('404.html', user=g.user), 403
-	
+	return render_template('static/404.html'), 403
+
 @app.errorhandler(404)
 def not_found_error(error):
 	app.logger.exception(error)
-	return render_template('404.html', user=g.user), 404
+	return render_template('static/404.html'), 404
 
 @app.errorhandler(500)
 def internal_error(error):
 	app.logger.exception(error)
 	db.session.rollback()
-	return render_template('500.html', user=g.user), 500
+	return render_template('static/500.html'), 500
 
 @identity_changed.connect
 def on_identity_changed(sender, identity):
