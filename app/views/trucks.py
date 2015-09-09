@@ -116,7 +116,9 @@ def view(truck_id):
 	permission = ViewTruckPermission(truck_id)
 	if permission.can():
 		form = LocationStatusForm()
-		assin_form = AssignDriverForm()
+		assign_form = AssignDriverForm()
+		categories = [('0', '<none selected>')] + [(driver.id, driver.get_full_name()) for driver in filter((lambda driver: driver.truck is None), g.user.fleet.drivers)]
+		assign_form.driver.choices = categories
 		truck = Truck.query.get_or_404(truck_id)
 		location = getNextLocation(truck)
 		if form.validate_on_submit():
@@ -130,7 +132,7 @@ def view(truck_id):
 			db.session.add(status)
 			db.session.add(location)
 			db.session.commit()
-		else:
+		elif form.is_submitted():
 			flash("There was an error updating the location status")
 
 
@@ -255,21 +257,22 @@ def route(truck_id):
 								edit=True)
 	abort(403)
 
-@trucks.route('view/<truck_id>/assign', methods=['GET', 'POST'])
+@trucks.route('/view/<truck_id>/assign', methods=['GET', 'POST'])
 @login_required
-def assign():
+def assign(truck_id):
 	form = AssignDriverForm()
 	categories = [(driver.id, driver.get_full_name()) for driver in filter((lambda driver: driver.truck is None), g.user.fleet.drivers)]
 	form.driver.choices = categories
+	truck = Truck.query.get(int(truck_id))
 	if form.validate_on_submit():
-		truck = Truck.query.get(int(truck_id))
 		driver = Driver.query.get(int(form.driver.data))
-		driver.truck = truck
-		form.driver.data = ('0', '<none selected>')
+		truck.driver = driver
 		db.session.add(driver)
 		db.session.add(truck)
 		db.session.commit()
-	return redirect(url_for('fleet.view'))
+	else:
+		flash("There was an error assigning that driver")
+	return redirect(url_for('.view', truck_id=truck.id))
 
 ##########
 #  MISC  #

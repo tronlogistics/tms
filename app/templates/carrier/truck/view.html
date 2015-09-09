@@ -185,7 +185,17 @@
 					</table>
 	        	{% else %}
 	        		<div class="panel-body">
-		        		<p>No Driver Assigned</p>
+		        		<form name="assign_driver" id="assign_driver" action="{{ url_for('.assign', truck_id=truck.id) }}" method="post" class="">
+		        				{{ assign_form.hidden_tag() }}
+		                			<div class="col-sm-8">
+		                      			{{ assign_form.driver(class="form-control") }}
+		                  			</div>
+		                			<div class="col-sm-4">
+		                  				<button type="submit" for="assign_driver" class="btn btn-blue next-step btn-block">
+		                        			Assign Driver</i>
+		                      			</button>
+		                			</div>
+		              			</form>
 		            </div>
 	        	{% endif %}
 			</div>
