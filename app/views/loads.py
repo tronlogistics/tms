@@ -138,7 +138,7 @@ def view(load_id):
 												and truck.trailer_type == load.trailer_type), 
 												g.user.fleet.trucks)
 
-		return render_template('load/view.html',
+		return render_template('load/view2.html',
 												load=load, 
 												carriers=carriers,
 												locations = load.lane.locations,

@@ -12600,3 +12600,116 @@ NotFound: 404: Not Found
 2015-09-09 09:14:46,939 INFO: 0, False [in /Users/Root1/app/app/views/trucks.py:351]
 2015-09-09 09:14:46,940 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:351]
 2015-09-09 09:14:46,940 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:354]
+2015-09-14 15:00:51,785 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-09-14 15:00:52,335 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-09-14 15:08:37,561 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-09-14 15:43:00,966 ERROR: 404: Not Found [in /Users/Root1/app/app/views/auth.py:207]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-09-14 15:43:01,010 ERROR: 404: Not Found [in /Users/Root1/app/app/views/auth.py:207]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-09-14 15:43:01,037 ERROR: 404: Not Found [in /Users/Root1/app/app/views/auth.py:207]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-09-14 15:43:02,440 ERROR: 404: Not Found [in /Users/Root1/app/app/views/auth.py:207]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-09-14 15:43:02,482 ERROR: 404: Not Found [in /Users/Root1/app/app/views/auth.py:207]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-09-14 15:43:02,518 ERROR: 404: Not Found [in /Users/Root1/app/app/views/auth.py:207]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-09-14 15:43:04,434 ERROR: 404: Not Found [in /Users/Root1/app/app/views/auth.py:207]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-09-14 15:43:04,459 ERROR: 404: Not Found [in /Users/Root1/app/app/views/auth.py:207]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-09-14 15:43:04,483 ERROR: 404: Not Found [in /Users/Root1/app/app/views/auth.py:207]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-09-14 15:43:05,416 ERROR: 404: Not Found [in /Users/Root1/app/app/views/auth.py:207]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-09-14 15:43:05,440 ERROR: 404: Not Found [in /Users/Root1/app/app/views/auth.py:207]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-09-14 15:43:05,465 ERROR: 404: Not Found [in /Users/Root1/app/app/views/auth.py:207]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1475, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1453, in dispatch_request
+    self.raise_routing_exception(req)
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1436, in raise_routing_exception
+    raise request.routing_exception
+NotFound: 404: Not Found
+2015-09-14 15:45:35,191 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-09-14 15:45:35,756 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]

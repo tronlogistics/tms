@@ -7,7 +7,7 @@ var FormWizard = function() {
 			selected : 0,
 			keyNavigation : false,
 			onLeaveStep : leaveAStepCallback,
-			onShowStep : onShowStep,
+			onShowStep : onShowStep
 		});
 		var numberOfSteps = 0;
 		animateBar();
