@@ -12,7 +12,7 @@ def send_async_email(app, msg):
 		with app.app_context():
 			mail.send(msg)
 	except Exception, e:
-		app.logger.exception(e)
+		app.logger.info(e)
 
 def send_email(subject, sender, recipients, text_body, html_body):
     msg = Message(subject, sender=sender, recipients=recipients)
@@ -47,7 +47,7 @@ def reset_pass(user):
 	try:
 		user_id = s.loads(activation_slug)
 	except BadSignature:
-		app.logger.exception(error)
+		app.logger.info(error)
 		abort(404)
 	send_email("Password Reset",
 		ADMINS[0],
@@ -114,7 +114,7 @@ def ping_driver(driver):
 	try:
 		driver_id = s.loads(activation_slug)
 	except BadSignature:
-		app.logger.exception(error)
+		app.logger.info(error)
 		abort(404)
 
 	send_email("Please Check In",

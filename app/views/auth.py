@@ -21,7 +21,7 @@ def before_request():
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
 	if g.user.is_authenticated():
-		return redirect(url_for('loads.all'))
+		return redirect(url_for('fleet.view'))
 	login_form = LoginForm()
 	register_form = RegisterForm()
 	forgot_form = ForgotForm()
@@ -193,22 +193,22 @@ def change_password():
 		return redirect(url_for('load.all'))
 
 @app.errorhandler(401)
-def not_found_error(error):
+def no_access_error(error):
 	flash("You must sign in to view this page")
 	return redirect(url_for('auth.login'))
 
 @app.errorhandler(403)
 def forbidden_error(error):
-	app.logger.exception(error)
+	app.logger.info(error)
 	return render_template('static/404.html'), 403
 
 @app.errorhandler(404)
 def not_found_error(error):
-	app.logger.exception(error)
+	app.logger.info(error)
 	return render_template('static/404.html'), 404
 
 @app.errorhandler(500)
 def internal_error(error):
-	app.logger.exception(error)
+	app.logger.info(error)
 	db.session.rollback()
-	return render_template('static/500.html'), 500
+	return render_template('static/500.html', error=error), 500
