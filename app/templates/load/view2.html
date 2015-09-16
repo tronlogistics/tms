@@ -81,11 +81,10 @@
 								</div>
 							</div>-->
 							<!-- RETAIN COMMENTS! --IMPORTANT! -->
-							<ol class="progtrckr" data-progtrckr-steps="6">
-								{% if location.status_history[-1].status == "In Transit" %}
-								    <li class="progtrckr-done">In Transit</li><!--
+							<ol class="progtrckr" data-progtrckr-steps="5">
+								{% if location.status_history[-1].status == "en Route" %}
+								    <li class="progtrckr-done">En Route</li><!--
 								 --><li class="progtrckr-todo">Arrived</li><!--
-								 --><li class="progtrckr-todo">Waiting</li><!--
 								 --><li class="progtrckr-todo">
 								 		{% if location.type == "Pickup" or location.type == "Both" %}
 								 			Loading
@@ -102,28 +101,8 @@
 								 	</li><!--
 								 --><li class="progtrckr-todo">Departed</li>
 								 {% elif location.status_history[-1].status == "Arrived" %}
-								 	<li class="progtrckr-done">In Transit</li><!--
+								 	<li class="progtrckr-done">En Route</li><!--
 								 --><li class="progtrckr-done">Arrived</li><!--
-								 --><li class="progtrckr-todo">Waiting</li><!--
-								 --><li class="progtrckr-todo">
-								 		{% if location.type == "Pickup" or location.type == "Both" %}
-								 			Loading
-								 		{% else %}
-								 			Unloading
-								 		{% endif %}
-								 	</li><!--
-								 --><li class="progtrckr-todo">
-								 		{% if location.type == "Pickup" or location.type == "Both" %}
-								 			Loaded
-								 		{% else %}
-								 			Unloaded
-								 		{% endif %}
-								 	</li><!--
-								 --><li class="progtrckr-todo">Waiting</li>
-								 {% elif location.status_history[-1].status == "Waiting" %}
-								 	<li class="progtrckr-done">In Transit</li><!--
-								 --><li class="progtrckr-done">Arrived</li><!--
-								 --><li class="progtrckr-done">Waiting</li><!--
 								 --><li class="progtrckr-todo">
 								 		{% if location.type == "Pickup" or location.type == "Both" %}
 								 			Loading
@@ -140,9 +119,8 @@
 								 	</li><!--
 								 --><li class="progtrckr-todo">Departed</li>
 								 {% elif location.status_history[-1].status == "Loading" %}
-								 	<li class="progtrckr-done">In Transit</li><!--
+								 	<li class="progtrckr-done">En Route</li><!--
 								 --><li class="progtrckr-done">Arrived</li><!--
-								 --><li class="progtrckr-done">Waiting</li><!--
 								 --><li class="progtrckr-done">
 								 		{% if location.type == "Pickup" or location.type == "Both" %}
 								 			Loading
@@ -159,9 +137,8 @@
 								 	</li><!--
 								 --><li class="progtrckr-todo">Departed</li>
 								 {% elif location.status_history[-1].status == "Loaded/Unloaded" %}
-								 	<li class="progtrckr-done">In Transit</li><!--
+								 	<li class="progtrckr-done">En Route</li><!--
 								 --><li class="progtrckr-done">Arrived</li><!--
-								 --><li class="progtrckr-done">Waiting</li><!--
 								 --><li class="progtrckr-done">
 								 		{% if location.type == "Pickup" or location.type == "Both" %}
 								 			Loading
@@ -178,9 +155,8 @@
 								 	</li><!--
 								 --><li class="progtrckr-todo">Departed</li>
 								 {% elif location.status_history[-1].status == "Departed" %}
-								 	<li class="progtrckr-done">In Transit</li><!--
+								 	<li class="progtrckr-done">En Route</li><!--
 								 --><li class="progtrckr-done">Arrived</li><!--
-								 --><li class="progtrckr-done">Waiting</li><!--
 								 --><li class="progtrckr-done">
 								 		{% if location.type == "Pickup" or location.type == "Both" %}
 								 			Loading
@@ -197,9 +173,8 @@
 								 	</li><!--
 								 --><li class="progtrckr-done">Departed</li>
 								 {% else %}
-								 	<li class="progtrckr-todo">In Transit</li><!--
+								 	<li class="progtrckr-todo">En Route</li><!--
 								 --><li class="progtrckr-todo">Arrived</li><!--
-								 --><li class="progtrckr-todo">Waiting</li><!--
 								 --><li class="progtrckr-todo">
 								 		{% if location.type == "Pickup" or location.type == "Both" %}
 								 			Loading

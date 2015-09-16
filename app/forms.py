@@ -175,10 +175,9 @@ class LocationStatusForm(Form):
 		Form.__init__(self, *args, **kwargs)
 
 	location_id = HiddenField("Location ID", validators=[])
-	status = SelectField('Load Status:', choices = [('In Transit', 'In Transit'),
-													('Arrived', 'Pending Arrival'),
-													('Waiting', 'Pending Arrival'),
-													('Loading', 'Arrived'),
+	status = SelectField('Load Status:', choices = [('En Route', 'En Route'),
+													('Arrived', 'Arrived'),
+													('Loading/Unloading', 'Loading/Unloading'),
 													('Loaded/Unloaded', 'Loaded/Unloaded'),
 													('Departed', 'Departed')], 
 													validators = [])

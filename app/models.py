@@ -130,6 +130,34 @@ class Load(db.Model):
 	def __repr__(self):
 		return '<User %r>' % (self.name)
 
+	def getStatus(self):
+		if self.status == "Completed":
+			return "Completed"
+		elif self.status == "Invoiced":
+			return "Invoiced"
+
+		numLocations = self.lane.locations.count()
+		numDeparted = len(filter((lambda location: location.status_history[-1].status == "Departed"), self.lane.locations))
+		
+		if numLocations == numDeparted:
+			return "Delivered"
+		elif (self.lane.locations[-1].status_history[-1].status == "Arrived" or
+				self.lane.locations[-1].status_history[-1].status == "Loading/Unloading" or
+				self.lane.locations[-1].status_history[-1].status == "Loaded/Unloaded"):
+			return "At Destination"
+		elif numDeparted > 0 and numDeparted < numLocations:
+			return "In Transit"
+		elif (self.lane.locations[0].status_history[-1].status == "Arrived" or
+				self.lane.locations[0].status_history[-1].status == "Loading/Unloading" or
+				self.lane.locations[0].status_history[-1].status == "Loaded/Unloaded"):
+			return "At Origin"
+		elif self.lane.locations[0].status_history[-1].status == "En Route":
+			return "En Route"
+		elif self.truck is not None:
+			return "Assigned"
+		else:
+			return "Unnasigned"
+
 class Lane(db.Model):
 	__tablename__ = 'Lane'
 	id = db.Column(db.Integer, primary_key=True)

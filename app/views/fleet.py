@@ -43,6 +43,13 @@ def view():
 							form=form, 
 							title="View Fleet",
 							active="Fleet",
+							unnasigned=len(filter((lambda load: load.getStatus() == "Unnasigned"), g.user.loads)),
+							at_origin=len(filter((lambda load: load.getStatus() == "At Origin"), g.user.loads)),
+							in_transit=len(filter((lambda load: load.getStatus() == "In Transit"), g.user.loads)),
+							at_destination=len(filter((lambda load: load.getStatus() == "At Destination"), g.user.loads)),
+							delivered=len(filter((lambda load: load.getStatus() == "Delivered"), g.user.loads)),
+							invoiced=len(filter((lambda load: load.getStatus() == "Invoiced"), g.user.loads)),
+							loads=g.user.loads,
 							user=g.user)
 
 @fleet.route('/assign', methods=['GET', 'POST'])
