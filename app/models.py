@@ -134,7 +134,6 @@ class Load(db.Model):
 		if self.status == "Completed" or self.status == "Invoiced":
 			return self.status
 
-		status = "Draft"
 		numLocations = self.lane.locations.count()
 
 		if numLocations < 2:
@@ -142,8 +141,10 @@ class Load(db.Model):
 		elif self.truck is None:
 			status = "Unnassigned"
 		else:
-			for idx, location in self.lane.locations:
-				if idx == 0 and location.status_history.count() > 0:
+			status = "Assigned"
+			indx = 0
+			for location in self.lane.locations:
+				if indx == 0 and location.status_history.count() > 0:
 					if (location.status_history[-1].status == "N/a" or
 						location.status_history[-1].status == "En Route"):
 						status = "En Route"
@@ -152,12 +153,13 @@ class Load(db.Model):
 						status = "At Origin"
 					elif location.status_history[-1].status == "Departed":
 						status = "In Transit"
-				elif idx == numLocations - 1 and location.status_history.count() > 0:
+				elif indx == numLocations - 1 and location.status_history.count() > 0:
 					if location.status_history[-1].status == "Arrived":
 						status = "At Destination"
 					elif (location.status_history[-1].status == "Departed" or
 							location.status_history[-1].status == "Loaded/Unloaded"):
 						status = "Delivered"
+				indx += 1
 
 		self.status = status
 		return self.status

@@ -140,7 +140,10 @@ def view(load_id):
 		sorted_locations = sorted(filter((lambda location: location.stop_number > 0), 
 												load.lane.locations), key=lambda location: location.stop_number, reverse=False)
 		if len(sorted_locations) == 0:
-			current_location = load.lane.locations[-1]
+			if load.lane.locations.count() == 0:
+				current_location = None
+			else:
+				current_location = load.lane.locations[-1]
 		else:
 			current_location = sorted_locations[0]
 		return render_template('load/view2.html',
