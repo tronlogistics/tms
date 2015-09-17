@@ -21,12 +21,6 @@ def before_request():
 @fleet.route('/', methods=['GET', 'POST'])
 @login_required
 def view():
-	form = AssignDriverForm()	
-	categories = [('0', '<none selected>')] + [(driver.id, driver.get_full_name()) for driver in filter((lambda driver: driver.truck is None), g.user.fleet.drivers)]# + [('-1', 'Create New Driver...')]
-	form.driver.choices = categories
-	#if form.driver.data == -1:
-	#		session['truck'] = int(form.truck.data)
-	#		return redirect(url_for('carrier.create_driver'))
 
 	if form.validate_on_submit():
 		truck = Truck.query.get(int(form.truck.data))
@@ -40,7 +34,6 @@ def view():
 	categories = [('0', '<none selected>')] + [(driver.id, driver.get_full_name()) for driver in filter((lambda driver: driver.truck is None), g.user.fleet.drivers)]# + [('-1', 'Create New Driver...')]
 	return render_template('carrier/all.html', 
 							fleet=g.user.fleet, 
-							form=form, 
 							title="View Fleet",
 							active="Fleet",
 							unnasigned=len(filter((lambda load: load.getStatus() == "Unnasigned"), g.user.loads)),
@@ -104,7 +97,7 @@ def internal_error(error):
 	print error
 	app.logger.info(error)
 	db.session.rollback()
-	return render_template('static/500.html'), 500
+	return render_template('static/500.html', error), 500
 
 @identity_changed.connect
 def on_identity_changed(sender, identity):
