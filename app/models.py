@@ -152,7 +152,7 @@ class Load(db.Model):
 					elif location.status_history[-1].status == "Departed":
 						status = "In Transit"
 				elif idx == numLocations - 1 and location.status_history.count() > 0:
-					if (location.status_history[-1].status == "Arrived":
+					if location.status_history[-1].status == "Arrived":
 						status = "At Destination"
 					elif (location.status_history[-1].status == "Departed" or
 							location.status_history[-1].status == "Loaded/Unloaded"):
