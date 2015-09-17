@@ -141,7 +141,7 @@ class Load(db.Model):
 			status = "Missing Origin/Destination"
 		elif self.truck is None:
 			status = "Unnassigned"
-		elif self.Truck is not None:
+		elif self.truck is not None:
 			status = "En Route"
 		else:
 			for idx, location in load.lane.locations:
