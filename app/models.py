@@ -142,7 +142,7 @@ class Load(db.Model):
 		elif self.truck is None:
 			status = "Unnassigned"
 		else:
-			for idx, location in load.lane.locations:
+			for idx, location in self.lane.locations:
 				if idx == 0 and location.status_history.count() > 0:
 					if (location.status_history[-1].status == "N/a" or
 						location.status_history[-1].status == "En Route"):
