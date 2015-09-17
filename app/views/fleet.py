@@ -21,17 +21,6 @@ def before_request():
 @fleet.route('/', methods=['GET', 'POST'])
 @login_required
 def view():
-
-	if form.validate_on_submit():
-		truck = Truck.query.get(int(form.truck.data))
-		driver = Driver.query.get(int(form.driver.data))
-		driver.truck = truck
-		form.driver.data = ('0', '<none selected>')
-		db.session.add(driver)
-		db.session.add(truck)
-		db.session.commit()
-
-	categories = [('0', '<none selected>')] + [(driver.id, driver.get_full_name()) for driver in filter((lambda driver: driver.truck is None), g.user.fleet.drivers)]# + [('-1', 'Create New Driver...')]
 	return render_template('carrier/all.html', 
 							fleet=g.user.fleet, 
 							title="View Fleet",
