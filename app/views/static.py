@@ -70,6 +70,7 @@ def not_found_error(error):
 
 @app.errorhandler(500)
 def internal_error(error):
+	print "%s" % error
 	app.logger.info(error)
 	db.session.rollback()
 	return render_template('static/500.html'), 500
