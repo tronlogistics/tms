@@ -319,10 +319,44 @@
 	</div>
 </div>
 <div class="row">
-	<div class="col-sm-12">
+	<div class="col-sm-6">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				Load Details
+			</div>
+			<div class="panel-body">
+	    		<table class="table table-condensed table-hover">
+					<thead>
+						<tr>
+							<th colspan="2">Details</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><b>Type:</b></td>
+							<td>{{ load.load_type }}</td>
+						</tr>
+						<tr>
+							<td><b>Required Trailer:</b></td>
+							<td>{{ load.trailer_type }}</td>
+						</tr>
+						<tr>
+							<td><b>Total Miles:</b></td>
+							<td>{{ load.total_miles }}</td>
+						</tr>
+						<tr>
+							<td><b>Price:</b></td>
+							<td>${{ load.price }}</td>
+						</tr>
+					</tbody>
+				</table>
+	    	</div>
+	    </div>
+	</div>
+	<div class="col-sm-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Contact Details
 			</div>
 			<div class="panel-body">
 				<div class="row">
@@ -343,10 +377,6 @@
 									<tr>
 										<td><b>Driver:</b></td>
 										<td><a href="{{ url_for('drivers.view', driver_id=load.truck.driver.id) }}">{{ load.truck.driver.get_full_name() }}</a></td>
-									</tr>
-									<tr>
-										<td><b>Amount:</b></td>
-										<td>{{ load.price }}</td>
 									</tr>
 								</tbody>
 							</table>

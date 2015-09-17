@@ -12757,3 +12757,8 @@ NotFound: 404: Not Found
 2015-09-16 15:09:06,503 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
 2015-09-16 15:09:32,452 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
 2015-09-17 08:11:41,189 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-09-17 10:31:29,404 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-09-17 10:31:29,895 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-09-17 10:39:38,671 INFO: 0, False [in /Users/Root1/app/app/views/trucks.py:351]
+2015-09-17 10:39:38,671 INFO: 1, True [in /Users/Root1/app/app/views/trucks.py:351]
+2015-09-17 10:39:38,671 INFO: returning 1 [in /Users/Root1/app/app/views/trucks.py:354]
