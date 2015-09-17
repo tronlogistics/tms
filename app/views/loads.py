@@ -400,7 +400,7 @@ def internal_error(error):
 	print "%s" % error
 	app.logger.info(error)
 	db.session.rollback()
-	return render_template('static/500.html'), 500
+	return render_template('static/500.html', error=error), 500
 
 @identity_changed.connect_via(app)
 def on_identity_changed(sender, identity):
