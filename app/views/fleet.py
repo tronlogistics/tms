@@ -21,16 +21,30 @@ def before_request():
 @fleet.route('/', methods=['GET', 'POST'])
 @login_required
 def view():
+	if g.user.loads.count() == 0:
+		unnasigned=0
+		at_origin=0
+		in_transit=0
+		at_destination=0
+		delivered=0
+		invoiced=0
+	else:
+		unnasigned=len(filter((lambda load: load.getStatus() == "Unnasigned"), g.user.loads))
+		at_origin=len(filter((lambda load: load.getStatus() == "At Origin"), g.user.loads))
+		in_transit=len(filter((lambda load: load.getStatus() == "In Transit"), g.user.loads))
+		at_destination=len(filter((lambda load: load.getStatus() == "At Destination"), g.user.loads))
+		delivered=len(filter((lambda load: load.getStatus() == "Delivered"), g.user.loads))
+		invoiced=len(filter((lambda load: load.getStatus() == "Invoiced"), g.user.loads))
 	return render_template('carrier/all.html', 
 							fleet=g.user.fleet, 
 							title="View Fleet",
 							active="Fleet",
-							unnasigned=len(filter((lambda load: load.getStatus() == "Unnasigned"), g.user.loads)),
-							at_origin=len(filter((lambda load: load.getStatus() == "At Origin"), g.user.loads)),
-							in_transit=len(filter((lambda load: load.getStatus() == "In Transit"), g.user.loads)),
-							at_destination=len(filter((lambda load: load.getStatus() == "At Destination"), g.user.loads)),
-							delivered=len(filter((lambda load: load.getStatus() == "Delivered"), g.user.loads)),
-							invoiced=len(filter((lambda load: load.getStatus() == "Invoiced"), g.user.loads)),
+							unnasigned=unnasigned,
+							at_origin=at_origin,
+							in_transit=in_transit,
+							at_destination=at_destination,
+							delivered=delivered,
+							invoiced=invoiced,
 							loads=g.user.loads,
 							user=g.user)
 
