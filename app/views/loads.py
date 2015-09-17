@@ -145,6 +145,8 @@ def view(load_id):
 												is_dispatch=g.user.is_carrier(),
 												title="View Load",
 												active="Loads",
+												current_location=sorted(filter((lambda location: location.stop_number > 0), 
+												load.lane.locations), key=lambda location: location.stop_number, reverse=False)[0],
 												user=g.user)
 	abort(403)
 

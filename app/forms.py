@@ -177,7 +177,6 @@ class LocationStatusForm(Form):
 	location_id = HiddenField("Location ID", validators=[])
 	status = SelectField('Load Status:', choices = [('En Route', 'En Route'),
 													('Arrived', 'Arrived'),
-													('Loading/Unloading', 'Loading/Unloading'),
 													('Loaded/Unloaded', 'Loaded/Unloaded'),
 													('Departed', 'Departed')], 
 													validators = [])

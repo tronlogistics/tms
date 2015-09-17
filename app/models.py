@@ -140,23 +140,28 @@ class Load(db.Model):
 		numDeparted = len(filter((lambda location: location.status_history[-1].status == "Departed"), self.lane.locations))
 		
 		if numLocations == numDeparted:
+			self.status = "Delivered"
 			return "Delivered"
 		elif (self.lane.locations[-1].status_history[-1].status == "Arrived" or
-				self.lane.locations[-1].status_history[-1].status == "Loading/Unloading" or
 				self.lane.locations[-1].status_history[-1].status == "Loaded/Unloaded"):
+			self.status = "At Destination"
 			return "At Destination"
 		elif numDeparted > 0 and numDeparted < numLocations:
+			self.status = "In Transit"
 			return "In Transit"
 		elif (self.lane.locations[0].status_history[-1].status == "Arrived" or
-				self.lane.locations[0].status_history[-1].status == "Loading/Unloading" or
 				self.lane.locations[0].status_history[-1].status == "Loaded/Unloaded"):
+			self.status = "At Origin"
 			return "At Origin"
 		elif self.lane.locations[0].status_history[-1].status == "En Route":
+			self.status = "En Route"
 			return "En Route"
 		elif self.truck is not None:
+			self.status = "Assigned"
 			return "Assigned"
 		else:
-			return "Unnasigned"
+			self.status = "Unnassigned"
+			return "Unassigned"
 
 class Lane(db.Model):
 	__tablename__ = 'Lane'

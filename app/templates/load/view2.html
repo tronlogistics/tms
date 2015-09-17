@@ -4,94 +4,34 @@
 
 <div class="row">
 	<div class="col-sm-6">
-		<div class="panel-group" id="accordion">
-			{% for location in load.lane.locations %}
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h4 class="panel-title">
-						{% if location.status_history[-1].status != "Departed" %}
-							<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ loop.index }}">
-						{% else %}
-							<a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ loop.index }}">
-						{% endif %}
-							<i class="icon-arrow"></i>
-							{{ location.address.address1 }}, {{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }} 
-						</a></h4>
-					</div>
-					{% if location.status_history[-1].status != "Departed" %}
-					<div id="collapse{{ loop.index }}" class="panel-collapse collapse in">
+		<div class="tabbable tabs-left">
+			<ul id="locationTab" class="nav nav-tabs tab-green">
+				{% for location in load.lane.locations %}
+					{% if current_location.id == location.id %}
+						<li class="active">
+							<a href="#tab{{ loop.index }}" data-toggle="tab">
+								<i class="pink fa fa-dashboard"></i>{{ location.type }}
+							</a>
+						</li>
 					{% else %}
-					<div id="collapse{{ loop.index }}" class="panel-collapse collapse">
+						<li class="">
+							<a href="#tab{{ loop.index }}" data-toggle="tab">
+								<i class="pink fa fa-check"></i>{{ location.type }}
+							</a>
+						</li>
 					{% endif %}
-						<div class="panel-body">
-							<!--<div id="wizard" class="swMain">
-								<ul>
-									<li>
-										<a href="#step-1">
-											<div class="stepNumber">
-												1
-											</div>
-											<span class="stepDesc"> Step 1
-												<br />
-												<small>Step 1 description</small> </span>
-										</a>
-									</li>
-									<li>
-										<a href="#step-2">
-											<div class="stepNumber">
-												2
-											</div>
-											<span class="stepDesc"> Step 2
-												<br />
-												<small>Step 2 description</small> </span>
-										</a>
-									</li>
-									<li>
-										<a href="#step-3">
-											<div class="stepNumber">
-												3
-											</div>
-											<span class="stepDesc"> Step 3
-												<br />
-												<small>Step 3 description</small> </span>
-										</a>
-									</li>
-									<li>
-										<a href="#step-4">
-											<div class="stepNumber">
-												4
-											</div>
-											<span class="stepDesc"> Step 4
-												<br />
-												<small>Step 4 description</small> </span>
-										</a>
-									</li>
-								</ul>
-								<div id="step-1">
-									
-								</div>
-								<div id="step-2">
-									
-								</div>
-								<div id="step-3">
-									
-								</div>
-								<div id="step-4">
-								
-								</div>
-							</div>-->
+
+				{% endfor %}
+			</ul>
+			<div class="tab-content">
+				{% for location in load.lane.locations %}
+					{% if current_location.id == location.id %}
+						<div class="tab-pane active" id="tab{{ loop.index }}">
 							<!-- RETAIN COMMENTS! --IMPORTANT! -->
-							<ol class="progtrckr" data-progtrckr-steps="5">
+							<ol class="progtrckr" data-progtrckr-steps="4">
 								{% if location.status_history[-1].status == "en Route" %}
 								    <li class="progtrckr-done">En Route</li><!--
 								 --><li class="progtrckr-todo">Arrived</li><!--
-								 --><li class="progtrckr-todo">
-								 		{% if location.type == "Pickup" or location.type == "Both" %}
-								 			Loading
-								 		{% else %}
-								 			Unloading
-								 		{% endif %}
-								 	</li><!--
 								 --><li class="progtrckr-todo">
 								 		{% if location.type == "Pickup" or location.type == "Both" %}
 								 			Loaded
@@ -105,13 +45,6 @@
 								 --><li class="progtrckr-done">Arrived</li><!--
 								 --><li class="progtrckr-todo">
 								 		{% if location.type == "Pickup" or location.type == "Both" %}
-								 			Loading
-								 		{% else %}
-								 			Unloading
-								 		{% endif %}
-								 	</li><!--
-								 --><li class="progtrckr-todo">
-								 		{% if location.type == "Pickup" or location.type == "Both" %}
 								 			Loaded
 								 		{% else %}
 								 			Unloaded
@@ -121,13 +54,6 @@
 								 {% elif location.status_history[-1].status == "Loading" %}
 								 	<li class="progtrckr-done">En Route</li><!--
 								 --><li class="progtrckr-done">Arrived</li><!--
-								 --><li class="progtrckr-done">
-								 		{% if location.type == "Pickup" or location.type == "Both" %}
-								 			Loading
-								 		{% else %}
-								 			Unloading
-								 		{% endif %}
-								 	</li><!--
 								 --><li class="progtrckr-todo">
 								 		{% if location.type == "Pickup" or location.type == "Both" %}
 								 			Loaded
@@ -141,13 +67,6 @@
 								 --><li class="progtrckr-done">Arrived</li><!--
 								 --><li class="progtrckr-done">
 								 		{% if location.type == "Pickup" or location.type == "Both" %}
-								 			Loading
-								 		{% else %}
-								 			Unloading
-								 		{% endif %}
-								 	</li><!--
-								 --><li class="progtrckr-done">
-								 		{% if location.type == "Pickup" or location.type == "Both" %}
 								 			Loaded
 								 		{% else %}
 								 			Unloaded
@@ -159,13 +78,6 @@
 								 --><li class="progtrckr-done">Arrived</li><!--
 								 --><li class="progtrckr-done">
 								 		{% if location.type == "Pickup" or location.type == "Both" %}
-								 			Loading
-								 		{% else %}
-								 			Unloading
-								 		{% endif %}
-								 	</li><!--
-								 --><li class="progtrckr-done">
-								 		{% if location.type == "Pickup" or location.type == "Both" %}
 								 			Loaded
 								 		{% else %}
 								 			Unloaded
@@ -175,13 +87,6 @@
 								 {% else %}
 								 	<li class="progtrckr-todo">En Route</li><!--
 								 --><li class="progtrckr-todo">Arrived</li><!--
-								 --><li class="progtrckr-todo">
-								 		{% if location.type == "Pickup" or location.type == "Both" %}
-								 			Loading
-								 		{% else %}
-								 			Unloading
-								 		{% endif %}
-								 	</li><!--
 								 --><li class="progtrckr-todo">
 								 		{% if location.type == "Pickup" or location.type == "Both" %}
 								 			Loaded
@@ -257,12 +162,149 @@
 									</tr>
 								</tbody>
 							</table>
-
-
 						</div>
-					</div>
-				</div>
-			{% endfor %}
+					{% else %}
+						<div class="tab-pane" id="tab{{ loop.index }}">
+							<!-- RETAIN COMMENTS! --IMPORTANT! -->
+							<ol class="progtrckr" data-progtrckr-steps="4">
+								{% if location.status_history[-1].status == "en Route" %}
+								    <li class="progtrckr-done">En Route</li><!--
+								 --><li class="progtrckr-todo">Arrived</li><!--
+								 --><li class="progtrckr-todo">
+								 		{% if location.type == "Pickup" or location.type == "Both" %}
+								 			Loaded
+								 		{% else %}
+								 			Unloaded
+								 		{% endif %}
+								 	</li><!--
+								 --><li class="progtrckr-todo">Departed</li>
+								 {% elif location.status_history[-1].status == "Arrived" %}
+								 	<li class="progtrckr-done">En Route</li><!--
+								 --><li class="progtrckr-done">Arrived</li><!--
+								 --><li class="progtrckr-todo">
+								 		{% if location.type == "Pickup" or location.type == "Both" %}
+								 			Loaded
+								 		{% else %}
+								 			Unloaded
+								 		{% endif %}
+								 	</li><!--
+								 --><li class="progtrckr-todo">Departed</li>
+								 {% elif location.status_history[-1].status == "Loading" %}
+								 	<li class="progtrckr-done">En Route</li><!--
+								 --><li class="progtrckr-done">Arrived</li><!--
+								 --><li class="progtrckr-todo">
+								 		{% if location.type == "Pickup" or location.type == "Both" %}
+								 			Loaded
+								 		{% else %}
+								 			Unloaded
+								 		{% endif %}
+								 	</li><!--
+								 --><li class="progtrckr-todo">Departed</li>
+								 {% elif location.status_history[-1].status == "Loaded/Unloaded" %}
+								 	<li class="progtrckr-done">En Route</li><!--
+								 --><li class="progtrckr-done">Arrived</li><!--
+								 --><li class="progtrckr-done">
+								 		{% if location.type == "Pickup" or location.type == "Both" %}
+								 			Loaded
+								 		{% else %}
+								 			Unloaded
+								 		{% endif %}
+								 	</li><!--
+								 --><li class="progtrckr-todo">Departed</li>
+								 {% elif location.status_history[-1].status == "Departed" %}
+								 	<li class="progtrckr-done">En Route</li><!--
+								 --><li class="progtrckr-done">Arrived</li><!--
+								 --><li class="progtrckr-done">
+								 		{% if location.type == "Pickup" or location.type == "Both" %}
+								 			Loaded
+								 		{% else %}
+								 			Unloaded
+								 		{% endif %}
+								 	</li><!--
+								 --><li class="progtrckr-done">Departed</li>
+								 {% else %}
+								 	<li class="progtrckr-todo">En Route</li><!--
+								 --><li class="progtrckr-todo">Arrived</li><!--
+								 --><li class="progtrckr-todo">
+								 		{% if location.type == "Pickup" or location.type == "Both" %}
+								 			Loaded
+								 		{% else %}
+								 			Unloaded
+								 		{% endif %}
+								 	</li><!--
+								 --><li class="progtrckr-todo">Departed</li>
+								 {% endif %}
+							</ol>
+							<hr />
+							<table class="table table-condensed table-hover">
+								<thead>
+									<tr>
+										<th colspan="2">Location Details</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Status</td>
+										<td>{{ location.status_history[-1].status }}</td>
+									</tr>
+									<tr>
+										<td>Arrival Date</td>
+										<td>{{ location.arrival_date }}</td>
+									</tr>
+									<tr>
+										<td>Type</td>
+										<td>{{ location.type }}</td>
+									</tr>
+									
+									{% if location.type == "Pickup" %}
+									<tr>
+										<td class="col-sm-6">Pickup Weight</td>
+										<td class="col-sm-6">{{ location.pickup_details.weight }}</td>
+									</tr>
+									<tr>
+										<td>Notes</td>
+										<td>{{ location.pickup_details.notes }}</td>
+									</tr>
+									{% else %}
+									<tr>
+										<td class="col-sm-6">Delivery Weight</td>
+										<td class="col-sm-6">{{ location.delivery_details.weight }}</td>
+									</tr>
+									<tr>
+										<td>Notes</td>
+										<td>{{ location.delivery_details.notes }}</td>
+									</tr>
+									{% endif %}
+
+								</tbody>
+							</table>
+
+							<table class="table table-condensed table-hover">
+								<thead>
+									<tr>
+										<th colspan="2">Location Contact</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>Name</td>
+										<td>{{ location.contact.name }}</td>
+									</tr>
+									<tr>
+										<td>Phone Number</td>
+										<td>{{ location.contact.phone }}</td>
+									</tr>
+									<tr>
+										<td>Email</td>
+										<td>{{ location.contact.email }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					{% endif %}
+
+				{% endfor %}
+			</div>
 		</div>
 	</div>
 	<div class="col-sm-6">
@@ -273,56 +315,6 @@
     		<div class="panel-body">
             	<div id="map-canvas" style="height: 400px; margin: 0; padding: 0;"></div>
             </div>
-        	<table class="table table-striped table-hover table-condensed" id="sample-table-1">
-                <thead>
-                    <tr>
-                        <th>Stop #</th>
-                        <th>Address</th>
-                        <th>Arrival Date</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                        <!--<th>Status</th>-->
-                    </tr>
-                </thead>
-                <tbody>
-                	{% if load.lane.locations.count() < 1 %}
-                		<tr>
-                			<td colspan="5" class="text-center">No Location Information Saved</td>
-                		</tr>
-                	{% else %}
-                    	{% for location in locations|sort(attribute="stop_number") %}
-                            <tr>
-                            	<!--<td><a href="#responsive-{{ loop.index }}" data-toggle="modal">View</a></td>-->
-                            	<td>{{ loop.index }}</td>
-                            	<td>{{ location.address.address1 }}<br />{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
-                            	<td>{{ location.arrival_date }}</td>
-                            	<td>{{ location.status }}</td>
-                            	<td><a href="{{ url_for('.edit_location', load_id=load.id, location_id=location.id) }}">Edit</a>&nbsp;&nbsp;&nbsp;<a href="{{ url_for('.delete_location', load_id=load.id, location_id=location.id) }}">Delete</a>
-                            	<!--<td>
-                            		<input type="hidden" id="location_status-{{ loop.index }}-location_id" name="location_status-{{ loop.index }}-location_id" class="form-control" value="{{ location.id }}">
-
-                            		<select id="location_status-{{ loop.index }}-status" name="location_status-{{ loop.index }}-status" class="form-control location-type" value="">
-                            			{% if location.status is none %}
-											<option value="Pending Arrival">Pending Arrival</option>
-										{% else %}
-											<option value="{{ location.status }}">{{ location.status }}</option>
-										{% endif %}
-										{% if location.status != "Arrived" %}
-											<option value="Arrived">Arrived</option>
-										{% endif %}
-										{% if location.status != "Loaded" %}
-											<option value="Loaded">Loaded</option>
-										{% endif %}
-										{% if location.status != "Departed" %}
-											<option value="Departed">Departed</option>
-										{% endif %}
-									</select>
-								</td>-->
-                            </tr>
-                        {% endfor %}
-                    {% endif %}
-                </tbody>
-            </table>
     	</div>
 	</div>
 </div>
