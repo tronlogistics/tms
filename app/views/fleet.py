@@ -121,12 +121,18 @@ def on_identity_changed(sender, identity):
 
 	# Assuming the User model has a list of posts the user
 	# has authored, add the needs to the identity
-	if hasattr(current_user, 'brokered_loads'):
-		for load in current_user.brokered_loads:
+	if hasattr(current_user, 'loads'):
+		for load in current_user.loads:
 			identity.provides.add(EditLoadNeed(unicode(load.id)))
 			identity.provides.add(DeleteLoadNeed(unicode(load.id)))
 			identity.provides.add(ViewLoadNeed(unicode(load.id)))
 			identity.provides.add(AssignLoadNeed(unicode(load.id)))
+			identity.provides.add(InvoiceLoadNeed(unicode(load.id)))
+			identity.provides.add(CompleteLoadNeed(unicode(load.id)))
+			if load.truck is not None:
+				identity.provides.add(ViewDriverNeed(unicode(load.truck.id)))
+				if load.truck.driver is not None:
+					identity.provides.add(ViewDriverNeed(unicode(load.truck.driver.id)))
 
 	if hasattr(current_user, 'assigned_loads'):
 		for load in current_user.assigned_loads:

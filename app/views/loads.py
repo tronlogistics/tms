@@ -137,7 +137,12 @@ def view(load_id):
 			carriers = filter((lambda truck: truck.driver is not None
 												and truck.trailer_type == load.trailer_type), 
 												g.user.fleet.trucks)
-
+		sorted_locations = sorted(filter((lambda location: location.stop_number > 0), 
+												load.lane.locations), key=lambda location: location.stop_number, reverse=False)
+		if len(sorted_locations) == 0:
+			current_location = load.lane.locations[-1]
+		else:
+			current_location = sorted_locations[0]
 		return render_template('load/view2.html',
 												load=load, 
 												carriers=carriers,
@@ -145,8 +150,7 @@ def view(load_id):
 												is_dispatch=g.user.is_carrier(),
 												title="View Load",
 												active="Loads",
-												current_location=sorted(filter((lambda location: location.stop_number > 0), 
-												load.lane.locations), key=lambda location: location.stop_number, reverse=False)[0],
+												current_location=current_location,
 												user=g.user)
 	abort(403)
 
@@ -346,6 +350,21 @@ def assign(load_id, assign_id):
 		return redirect(url_for('.view', load_id = load.id))
 	abort(403)
 
+@loads.route('/<load_id>/invoice', methods=['POST', 'GET'])
+@login_required
+def invoice(load_id):
+	permission = InvoiceLoadPermission(load_id)
+	if permission.can():
+		load = Load.query.get(int(load_id))
+		load.truck.is_available = True
+		load.status = "Invoiced"
+		db.session.add(load)
+		db.session.add(load.truck)
+		db.session.commit()
+
+		return redirect(url_for('.all', load_id = load.id))
+	abort(403)
+
 @loads.route('/<load_id>/complete', methods=['POST', 'GET'])
 @login_required
 def complete(load_id):
@@ -353,7 +372,7 @@ def complete(load_id):
 	if permission.can():
 		load = Load.query.get(int(load_id))
 		load.truck.is_available = True
-		load.status = "Load Complete"
+		load.status = "Completed"
 		db.session.add(load)
 		db.session.add(load.truck)
 		db.session.commit()
@@ -404,6 +423,8 @@ def on_identity_changed(sender, identity):
 			identity.provides.add(DeleteLoadNeed(unicode(load.id)))
 			identity.provides.add(ViewLoadNeed(unicode(load.id)))
 			identity.provides.add(AssignLoadNeed(unicode(load.id)))
+			identity.provides.add(InvoiceLoadNeed(unicode(load.id)))
+			identity.provides.add(CompleteLoadNeed(unicode(load.id)))
 
 	if hasattr(current_user, 'assigned_loads'):
 		for load in current_user.assigned_loads:

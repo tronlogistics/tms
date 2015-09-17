@@ -97,6 +97,8 @@ def on_identity_loaded(sender, identity):
 			identity.provides.add(DeleteLoadNeed(unicode(load.id)))
 			identity.provides.add(ViewLoadNeed(unicode(load.id)))
 			identity.provides.add(AssignLoadNeed(unicode(load.id)))
+			identity.provides.add(InvoiceLoadNeed(unicode(load.id)))
+			identity.provides.add(CompleteLoadNeed(unicode(load.id)))
 			if load.truck is not None:
 				identity.provides.add(ViewDriverNeed(unicode(load.truck.id)))
 				if load.truck.driver is not None:

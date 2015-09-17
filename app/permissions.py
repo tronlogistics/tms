@@ -7,7 +7,8 @@ EditLoadNeed = partial(LoadNeed, 'edit')
 DeleteLoadNeed = partial(LoadNeed, 'delete')
 ViewLoadNeed = partial(LoadNeed, 'view')
 AssignLoadNeed = partial(LoadNeed, 'assign')
-CompleteLoadNeed = partial(LoadNeed, 'assign')
+InvoiceLoadNeed = partial(LoadNeed, 'invoice')
+CompleteLoadNeed = partial(LoadNeed, 'complete')
 
 class EditLoadPermission(Permission):
 	def __init__(self, load_id):
@@ -28,6 +29,11 @@ class AssignLoadPermission(Permission):
 	def __init__(self, load_id):
 		need = AssignLoadNeed(unicode(load_id))
 		super(AssignLoadPermission, self).__init__(need)
+
+class InvoiceLoadPermission(Permission):
+	def __init__(self, load_id):
+		need = InvoiceLoadNeed(unicode(load_id))
+		super(InvoiceLoadPermission, self).__init__(need)
 
 class CompleteLoadPermission(Permission):
 	def __init__(self, load_id):

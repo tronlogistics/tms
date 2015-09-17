@@ -45,10 +45,12 @@
                                 </td>
                                 <td>{{ load.getStatus() }}</td>
                                 <td>
-                                    {% if load.status == "Assigned" %}
-                                        <a href="{{ url_for('loads.complete', load_id=load.id)}}" class="btn btn-primary btn-mini ">Complete</a>
+                                    {% if load.getStatus() == "Invoiced" %}
+                                        <a href="{{ url_for('loads.complete', load_id=load.id) }}" class="btn btn-primary btn-mini ">Complete</a>
+                                    {% elif load.getStatus() == "Delivered" %}
+                                        <a href="{{ url_for('loads.invoice', load_id=load.id) }}" class="btn btn-primary btn-mini ">Invoiced</a>
                                     {% endif %}
-                                    {% if load.status != "Load Complete" %}
+                                    {% if load.getStatus != "Complete" and load.getStatus() != "Invoiced" %}
                                         <a href="{{ url_for('loads.edit', load_id=load.id)}}" class="btn btn-primary btn-mini">Edit</a>
                                     
                                         <a href="{{ url_for('loads.delete', load_id=load.id)}}" class="btn btn-danger btn-mini delete" onclick="return confirm('Are you sure you want to delete this?')">Delete</a>

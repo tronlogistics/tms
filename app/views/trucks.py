@@ -125,12 +125,17 @@ def view(truck_id):
 			status = LocationStatus(status=form.status.data, created_on=datetime.utcnow())
 			location.status_history.append(status)
 			location.status = form.status.data
+			db.session.add(status)
+			db.session.add(location)
+			
 			if location.status == "Departed":
 				changeStopNumbers(truck)
 				location = getNextLocation(truck)
-				flash("A new location has been set for the truck")
-			db.session.add(status)
-			db.session.add(location)
+				if location is None:
+					flash("Truck is now idle. Assign a load to this truck")
+				else:
+					flash("A new location has been set for the truck")
+			db.session.add(truck)
 			db.session.commit()
 		elif form.is_submitted():
 			flash("There was an error updating the location status")
@@ -315,12 +320,18 @@ def on_identity_changed(sender, identity):
 
 	# Assuming the User model has a list of posts the user
 	# has authored, add the needs to the identity
-	if hasattr(current_user, 'brokered_loads'):
-		for load in current_user.brokered_loads:
+	if hasattr(current_user, 'loads'):
+		for load in current_user.loads:
 			identity.provides.add(EditLoadNeed(unicode(load.id)))
 			identity.provides.add(DeleteLoadNeed(unicode(load.id)))
 			identity.provides.add(ViewLoadNeed(unicode(load.id)))
 			identity.provides.add(AssignLoadNeed(unicode(load.id)))
+			identity.provides.add(InvoiceLoadNeed(unicode(load.id)))
+			identity.provides.add(CompleteLoadNeed(unicode(load.id)))
+			if load.truck is not None:
+				identity.provides.add(ViewDriverNeed(unicode(load.truck.id)))
+				if load.truck.driver is not None:
+					identity.provides.add(ViewDriverNeed(unicode(load.truck.driver.id)))
 
 	if hasattr(current_user, 'assigned_loads'):
 		for load in current_user.assigned_loads:
