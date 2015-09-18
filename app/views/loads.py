@@ -147,7 +147,7 @@ def view(load_id):
 				current_location = load.lane.locations[-1]
 		else:
 			current_location = sorted_locations[0]
-		return render_template('load/view2.html',
+		return render_template('load/view.html',
 												load=load, 
 												carriers=carriers,
 												locations = load.lane.locations,
