@@ -125,10 +125,6 @@ class Load(db.Model):
 	#assignments
 	truck_id = db.Column(db.Integer, db.ForeignKey('Truck.id'))
 	truck = db.relationship('Truck', backref='loads')
-	
-	
-	def __repr__(self):
-		return '<User %r>' % (self.name)
 
 	def setStatus(self, status):
 		if status == "Completed" or status == "Invoiced":

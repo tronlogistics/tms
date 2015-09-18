@@ -32,3 +32,9 @@ Werkzeug==0.9.6
 WTForms==2.0.1
 psycopg2==2.4.4
 Flask-Excel==0.0.3
+httplib2==0.9
+pyexcel==0.1.7
+pyexcel-io==0.0.6
+pyexcel-webio==0.0.3
+texttable==0.8.3
+wheel==0.24.0
