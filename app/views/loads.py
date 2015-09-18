@@ -384,6 +384,30 @@ def complete(load_id):
 		return redirect(url_for('.view', load_id = load.id))
 	abort(403)
 
+@loads.route('/<load_id>/driver', methods=['GET'])
+@login_required
+def assign_driver(load_id):
+	load = Load.query.get(int(load_id))
+	#TODO: filter by applicabale carriers
+	if not g.user.is_carrier():
+		carriers = []
+		for carrier in User.query.all():
+			if filter((lambda role: role.name == 'carrier'), carrier.roles):
+				carriers.append(carrier)
+
+	else:
+		carriers = filter((lambda truck: truck.driver is not None
+											and truck.trailer_type == load.trailer_type), 
+											g.user.fleet.trucks)
+
+	return render_template('load/assign_driver.html', 
+							load=load, 
+							carriers=carriers, 
+							user=g.user,
+							active="Loads",
+							title="Assign Driver")
+	abort(403)
+
 @app.errorhandler(401)
 def not_found_error(error):
 	flash("You must sign in to view this page")

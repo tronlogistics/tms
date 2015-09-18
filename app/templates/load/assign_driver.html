@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped table-condensed" id="sample-table-1">
+        <thead>
+            <tr>
+                <th>Truck</th>
+                <th>Driver</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+			{% if carriers|length == 0 %}
+			<tr>
+				<td colspan="3">There are no trucks available for this load</td>
+			</tr>
+			{% else %}
+				{% for carrier in carriers %}
+				<tr class="odd gradeX">
+					<td><a href="{{ url_for('trucks.view', truck_id=carrier.id) }}">{{ carrier.name }}</a></td>
+					<td>
+							{% if carrier.driver is none %}
+								Unassigned
+							{% else %}
+								<a href="{{ url_for('drivers.view', driver_id=carrier.driver.id) }}">{{ carrier.driver.get_full_name() }}</a>
+							{% endif %}
+					</td>
+					
+					<td>
+						<a href="{{ url_for('loads.assign', load_id=load.id, assign_id=carrier.id)}}" onclick="return confirm("Assign this carrier to this load?")" class="btn btn-success btn-mini success">Assign</a>
+                	</td>
+				</tr>
+				{% endfor %}
+			{% endif %}
+		</tbody>
+    </table>
+</div>
+
+{% endblock %}
+

@@ -21,6 +21,10 @@
 													<a href="{{ url_for('.add_location', load_id=load.id) }}" class="new-modal btn btn-green">
 														Add Location <i class="fa fa-plus"></i>
 													</a>
+
+													<a href="{{ url_for('.assign_driver', load_id=load.id) }}" class="new-modal btn btn-green">
+														Assign Driver <i class="fa fa-plus"></i>
+													</a>
 													
 													{% if load.truck is not none %}
 														<a href="javascript:ping_driver({{ load.truck.driver.truck.id }});" class="new-modal btn btn-green">Ping Driver</a>
