@@ -10,7 +10,7 @@
 						{% if current_location.id == location.id %}
 							<li class="active">
 								<a href="#tab{{ loop.index }}" data-toggle="tab">
-									{% if load.getStatus() == "Completed" %}
+									{% if load.status == "Completed" %}
 										<i class="pink fa fa-check"></i>{{ location.type }}
 									{% else %}
 										<i class="pink fa fa-dashboard"></i>{{ location.type }}
