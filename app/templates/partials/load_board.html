@@ -28,7 +28,7 @@
                                         <a href="{{ url_for('drivers.view', driver_id=load.truck.driver.id) }}">{{ load.truck.driver.get_full_name() }}
                                     {% endif %}
                                 </td>
-                                <td>{{ load.getStatus() }}</td>
+                                <td>{{ load.status }}</td>
                                 <td>
                                     {% if load.status == "Assigned" %}
                                         <a href="{{ url_for('loads.complete', load_id=load.id)}}" class="btn btn-primary btn-mini ">Complete</a>

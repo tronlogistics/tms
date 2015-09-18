@@ -130,9 +130,9 @@ class Load(db.Model):
 	def __repr__(self):
 		return '<User %r>' % (self.name)
 
-	def getStatus(self):
-		if self.status == "Completed" or self.status == "Invoiced":
-			return self.status
+	def setStatus(self, status):
+		if status == "Completed" or status == "Invoiced":
+			self.status = status
 
 		numLocations = self.lane.locations.count()
 
@@ -162,7 +162,40 @@ class Load(db.Model):
 				indx += 1
 
 		self.status = status
-		return self.status
+
+	#def getStatus(self):
+	#	if self.status == "Completed" or self.status == "Invoiced":
+	#		return self.status
+#
+#		numLocations = self.lane.locations.count()
+#
+#		if numLocations < 2:
+#			status = "Missing Origin/Destination"
+#		elif self.truck is None:
+#			status = "Unnassigned"
+#		else:
+#			status = "Assigned"
+#			indx = 0
+#			for location in self.lane.locations:
+#				if indx == 0 and location.status_history.count() > 0:
+#					if (location.status_history[-1].status == "N/a" or
+#						location.status_history[-1].status == "En Route"):
+#						status = "En Route"
+#					if (location.status_history[-1].status == "Arrived" or
+#						location.status_history[-1].status == "Loaded/Unloaded"):
+#						status = "At Origin"
+#					elif location.status_history[-1].status == "Departed":
+#						status = "In Transit"
+#				elif indx == numLocations - 1 and location.status_history.count() > 0:
+#					if location.status_history[-1].status == "Arrived":
+#						status = "At Destination"
+#					elif (location.status_history[-1].status == "Departed" or
+#							location.status_history[-1].status == "Loaded/Unloaded"):
+#						status = "Delivered"
+#				indx += 1
+#
+#		self.status = status
+#		return self.status
 
 class Lane(db.Model):
 	__tablename__ = 'Lane'

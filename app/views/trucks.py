@@ -131,14 +131,17 @@ def view(truck_id):
 			if location.status == "Departed":
 				changeStopNumbers(truck)
 				location = getNextLocation(truck)
-				status = locationStatus(status="En Route", created_on=datetime.utcnow())
-				location.status_history.append(status)
-				location.staus = "En Route"
-				db.session.add(location)
+				#status = locationStatus(status="En Route", created_on=datetime.utcnow())
+				#location.status_history.append(status)
+				#location.staus = "En Route"
+				#db.session.add(location)
 				if location is None:
 					flash("Truck is now idle. Assign a load to this truck")
 				else:
 					flash("A new location has been set for the truck")
+			for load in truck.loads:
+				load.setStatus(None)
+				db.session.add(load)
 			db.session.add(truck)
 			db.session.commit()
 		elif form.is_submitted():
