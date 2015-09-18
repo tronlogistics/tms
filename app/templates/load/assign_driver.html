@@ -29,7 +29,11 @@
 					</td>
 					
 					<td>
-						<a href="{{ url_for('loads.assign', load_id=load.id, assign_id=carrier.id)}}" onclick="return confirm("Assign this carrier to this load?")" class="btn btn-success btn-mini success">Assign</a>
+						{% if load.truck.id == carrier.id %}
+							<a href="{{ url_for('loads.unassign', load_id=load.id, unassign_id=carrier.id)}}" onclick="return confirm("Assign this carrier to this load?")" class="btn btn-danger btn-mini danger">Unassign</a>
+						{% else %}
+							<a href="{{ url_for('loads.assign', load_id=load.id, assign_id=carrier.id)}}" onclick="return confirm("Assign this carrier to this load?")" class="btn btn-success btn-mini success">Assign</a>
+						{% endif %}
                 	</td>
 				</tr>
 				{% endfor %}

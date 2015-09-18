@@ -337,6 +337,7 @@ def delete(load_id):
 	abort(403)  # HTTP Forbidden
 
 
+
 @loads.route('/<load_id>/assign/<assign_id>', methods=['POST', 'GET'])
 @login_required
 def assign(load_id, assign_id):
@@ -347,7 +348,25 @@ def assign(load_id, assign_id):
 		#the load is assigned
 		truck = Truck.query.get(assign_id)
 		load.truck = truck
-		load.status = "Assigned"
+		load.setStatus("")
+		db.session.add(truck)
+		db.session.add(load)
+		db.session.commit()
+		return redirect(url_for('.view', load_id = load.id))
+	abort(403)
+
+@loads.route('/<load_id>/unassign/<unassign_id>', methods=['POST', 'GET'])
+@login_required
+def unassign(load_id, unassign_id):
+	permission = AssignLoadPermission(load_id)
+	if permission.can():
+		load = Load.query.get(int(load_id))
+		#If current user is a carrier: remove all other currently assigned carriers and indicate 
+		#the load is assigned
+		truck = Truck.query.get(unassign_id)
+		if truck.id == load.truck.id:
+			load.truck = None
+			load.setStatus("")
 		db.session.add(truck)
 		db.session.add(load)
 		db.session.commit()
@@ -405,6 +424,7 @@ def assign_driver(load_id):
 							carriers=carriers, 
 							user=g.user,
 							active="Loads",
+							hide=True,
 							title="Assign Driver")
 	abort(403)
 
