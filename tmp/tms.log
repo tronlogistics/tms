@@ -13039,3 +13039,5 @@ NotFound: 404: Not Found
 2015-09-20 15:44:54,180 INFO: User 2 [in /Users/Root1/app/app/views/auth.py:153]
 2015-09-20 15:44:54,187 INFO: User "john@tronlogistics.com" is now activated [in /Users/Root1/app/app/views/auth.py:161]
 2015-09-20 15:45:27,999 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-09-20 15:51:05,367 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-09-20 15:51:05,923 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]

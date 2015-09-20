@@ -73,7 +73,8 @@ def create():
 						phone=form.phone_number.data,
 						driver_type=form.driver_type.data)
 			db.session.add(driver)
-			if form.has_account.data == "True":
+			driver_user = User.query.filter_by(username='peter').first()
+			if form.has_account.data == "True" and driver_user is not None:
 				user = User(company_name=g.user.company_name,
 					email=driver.email,
 					password="")
@@ -86,7 +87,8 @@ def create():
 
 				register_account(user)
 				flash("A registration e-mail has been sent to %s" % driver.email)
-
+			elif form.has_account.data == "True": 
+				flash("This driver already has an account")
 			g.user.fleet.drivers.append(driver)
 			db.session.add(g.user)
 			db.session.commit()
