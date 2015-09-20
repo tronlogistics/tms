@@ -315,7 +315,7 @@ class Driver(db.Model):
 	first_name = db.Column(db.String(30))
 	last_name = db.Column(db.String(30))
 	driver_type = db.Column(db.String(30))
-	email = db.Column(db.String(255), unique=True, nullable=True, index=True)
+	email = db.Column(db.String(255), nullable=True, index=True)
 	phone = db.Column(db.String(14))
 	linked_account = db.Column(db.Boolean(), nullable=True, server_default='0')
 
