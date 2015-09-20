@@ -132,6 +132,13 @@
 
                     map.controls[google.maps.ControlPosition.CENTER].push(myTextDiv);
                 }
+                else if(allMarkers.length > 1) {
+                    var bounds = new google.maps.LatLngBounds();
+                    for(i=0; i < allMarkers.length; i++) {
+                        bounds.extend(allMarkers[i].getPosition())
+                    }
+                    map.fitBounds(bounds)
+                }
             }
 
 
