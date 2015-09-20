@@ -12925,3 +12925,7 @@ NotFound: 404: Not Found
 2015-09-18 17:24:57,502 INFO: -2, False [in /Users/Root1/app/app/views/trucks.py:370]
 2015-09-18 17:24:57,503 INFO: -1, False [in /Users/Root1/app/app/views/trucks.py:370]
 2015-09-18 17:24:57,504 INFO: 0, False [in /Users/Root1/app/app/views/trucks.py:370]
+2015-09-20 13:29:21,925 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-09-20 13:29:22,465 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:60]
+2015-09-20 13:37:45,516 INFO: 403: Forbidden [in /Users/Root1/app/app/views/auth.py:202]
+2015-09-20 13:37:45,650 INFO: 404: Not Found [in /Users/Root1/app/app/views/auth.py:207]

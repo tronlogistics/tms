@@ -1,0 +1,318 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   '-g',
+1 verbose cli   'generator-flask-heroku' ]
+2 info using npm@2.7.1
+3 info using node@v0.10.29
+4 silly cache add args [ 'generator-flask-heroku', null ]
+5 verbose cache add spec generator-flask-heroku
+6 silly cache add parsed spec { raw: 'generator-flask-heroku',
+6 silly cache add   scope: null,
+6 silly cache add   name: 'generator-flask-heroku',
+6 silly cache add   rawSpec: '',
+6 silly cache add   spec: '*',
+6 silly cache add   type: 'range' }
+7 verbose addNamed generator-flask-heroku@*
+8 silly addNamed semver.valid null
+9 silly addNamed semver.validRange *
+10 silly addNameRange { name: 'generator-flask-heroku', range: '*', hasData: false }
+11 silly mapToRegistry name generator-flask-heroku
+12 silly mapToRegistry using default registry
+13 silly mapToRegistry registry https://registry.npmjs.org/
+14 silly mapToRegistry uri https://registry.npmjs.org/generator-flask-heroku
+15 verbose addNameRange registry:https://registry.npmjs.org/generator-flask-heroku not in flight; fetching
+16 verbose request uri https://registry.npmjs.org/generator-flask-heroku
+17 verbose request no auth needed
+18 info attempt registry request try #1 at 11:09:05
+19 verbose request id 85b2f5c57dde2e1d
+20 http request GET https://registry.npmjs.org/generator-flask-heroku
+21 http 200 https://registry.npmjs.org/generator-flask-heroku
+22 silly get cb [ 200,
+22 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+22 silly get     etag: '"D4FYEQ6SCT2ZG7Z6FA34NFD1V"',
+22 silly get     'content-type': 'application/json',
+22 silly get     'cache-control': 'max-age=60',
+22 silly get     'content-length': '16035',
+22 silly get     'accept-ranges': 'bytes',
+22 silly get     date: 'Sun, 20 Sep 2015 16:09:05 GMT',
+22 silly get     via: '1.1 varnish',
+22 silly get     age: '0',
+22 silly get     connection: 'keep-alive',
+22 silly get     'x-served-by': 'cache-dfw1834-DFW',
+22 silly get     'x-cache': 'MISS',
+22 silly get     'x-cache-hits': '0',
+22 silly get     'x-timer': 'S1442765345.304057,VS0,VE141',
+22 silly get     vary: 'Accept' } ]
+23 verbose get saving generator-flask-heroku to /Users/Root1/.npm/registry.npmjs.org/generator-flask-heroku/.cache.json
+24 silly addNameRange number 2 { name: 'generator-flask-heroku', range: '*', hasData: true }
+25 silly addNameRange versions [ 'generator-flask-heroku',
+25 silly addNameRange   [ '1.0.0',
+25 silly addNameRange     '1.0.1',
+25 silly addNameRange     '1.0.2',
+25 silly addNameRange     '1.0.3',
+25 silly addNameRange     '1.0.4',
+25 silly addNameRange     '1.0.5',
+25 silly addNameRange     '1.0.5-a',
+25 silly addNameRange     '1.0.5-b',
+25 silly addNameRange     '1.0.6',
+25 silly addNameRange     '0.0.6' ] ]
+26 verbose addNamed generator-flask-heroku@0.0.6
+27 silly addNamed semver.valid 0.0.6
+28 silly addNamed semver.validRange 0.0.6
+29 silly mapToRegistry name generator-flask-heroku
+30 silly mapToRegistry using default registry
+31 silly mapToRegistry registry https://registry.npmjs.org/
+32 silly mapToRegistry uri https://registry.npmjs.org/generator-flask-heroku
+33 verbose addRemoteTarball https://registry.npmjs.org/generator-flask-heroku/-/generator-flask-heroku-0.0.6.tgz not in flight; adding
+34 verbose addRemoteTarball [ 'https://registry.npmjs.org/generator-flask-heroku/-/generator-flask-heroku-0.0.6.tgz',
+34 verbose addRemoteTarball   'c203e382349a21f0a0e15ac03d852dcaeadcea47' ]
+35 info retry fetch attempt 1 at 11:09:05
+36 info attempt registry request try #1 at 11:09:05
+37 http fetch GET https://registry.npmjs.org/generator-flask-heroku/-/generator-flask-heroku-0.0.6.tgz
+38 http fetch 200 https://registry.npmjs.org/generator-flask-heroku/-/generator-flask-heroku-0.0.6.tgz
+39 silly fetchAndShaCheck shasum c203e382349a21f0a0e15ac03d852dcaeadcea47
+40 verbose addTmpTarball /var/folders/rr/rcy_xvmn2sd4qqbcmt7ytr6w0000gn/T/npm-51853-65ff801e/registry.npmjs.org/generator-flask-heroku/-/generator-flask-heroku-0.0.6.tgz not in flight; adding
+41 verbose addTmpTarball already have metadata; skipping unpack for generator-flask-heroku@0.0.6
+42 silly cache afterAdd generator-flask-heroku@0.0.6
+43 verbose afterAdd /Users/Root1/.npm/generator-flask-heroku/0.0.6/package/package.json not in flight; writing
+44 verbose afterAdd /Users/Root1/.npm/generator-flask-heroku/0.0.6/package/package.json written
+45 silly install resolved [ { name: 'generator-flask-heroku',
+45 silly install resolved     version: '0.0.6',
+45 silly install resolved     description: 'Yeoman generator for Flask project to be deployed to Heroku',
+45 silly install resolved     homepage: 'https://github.com/arudmin/generator-flask-heroku',
+45 silly install resolved     author:
+45 silly install resolved      { name: 'Vladimir Zhelyabovskiy',
+45 silly install resolved        email: 'spb-vladimir@yandex.com',
+45 silly install resolved        url: 'https://github.com/arudmin/' },
+45 silly install resolved     repository:
+45 silly install resolved      { type: 'git',
+45 silly install resolved        url: 'https://github.com/arudmin/generator-flask-heroku.git' },
+45 silly install resolved     bugs:
+45 silly install resolved      { url: 'https://github.com/arudmin/generator-flask-heroku/issues',
+45 silly install resolved        email: 'spb-vladimir@yandex.com' },
+45 silly install resolved     dependencies: { 'yeoman-generator': '>=0.13.4' },
+45 silly install resolved     peerDependencies: { yo: '>=1.0.4' },
+45 silly install resolved     engines: { node: '>=0.8.0', npm: '>=1.2.10' },
+45 silly install resolved     keywords:
+45 silly install resolved      [ 'yeoman',
+45 silly install resolved        'yeoman-generator',
+45 silly install resolved        'flask-generator',
+45 silly install resolved        'python',
+45 silly install resolved        'heroku',
+45 silly install resolved        'dokku',
+45 silly install resolved        'flask',
+45 silly install resolved        'yo',
+45 silly install resolved        'frameworks',
+45 silly install resolved        'micro frameworks',
+45 silly install resolved        'generator',
+45 silly install resolved        'cli',
+45 silly install resolved        'tool',
+45 silly install resolved        'development' ],
+45 silly install resolved     gitHead: '40adc3f67ef0f0f62c82a9fc324900e29cf99bc7',
+45 silly install resolved     _id: 'generator-flask-heroku@0.0.6',
+45 silly install resolved     scripts: {},
+45 silly install resolved     _shasum: 'c203e382349a21f0a0e15ac03d852dcaeadcea47',
+45 silly install resolved     _from: 'generator-flask-heroku@*',
+45 silly install resolved     _npmVersion: '2.1.6',
+45 silly install resolved     _nodeVersion: '0.10.33',
+45 silly install resolved     _npmUser: { name: 'arudmin', email: 'spb-vladimir@yandex.com' },
+45 silly install resolved     maintainers: [ [Object] ],
+45 silly install resolved     dist:
+45 silly install resolved      { shasum: 'c203e382349a21f0a0e15ac03d852dcaeadcea47',
+45 silly install resolved        tarball: 'http://registry.npmjs.org/generator-flask-heroku/-/generator-flask-heroku-0.0.6.tgz' },
+45 silly install resolved     directories: {},
+45 silly install resolved     _resolved: 'https://registry.npmjs.org/generator-flask-heroku/-/generator-flask-heroku-0.0.6.tgz' } ]
+46 info install generator-flask-heroku@0.0.6 into /usr/local/lib
+47 info installOne generator-flask-heroku@0.0.6
+48 verbose installOne of generator-flask-heroku to /usr/local/lib not in flight; installing
+49 verbose lock using /Users/Root1/.npm/_locks/generator-flask-heroku-14c66c5986fd9a1c.lock for /usr/local/lib/node_modules/generator-flask-heroku
+50 silly install write writing generator-flask-heroku 0.0.6 to /usr/local/lib/node_modules/generator-flask-heroku
+51 silly cache addNamed cb generator-flask-heroku@0.0.6
+52 verbose unbuild lib/node_modules/generator-flask-heroku
+53 verbose gentlyRm vacuuming /usr/local/lib/node_modules/generator-flask-heroku
+54 verbose tar unpack /Users/Root1/.npm/generator-flask-heroku/0.0.6/package.tgz
+55 verbose tar unpacking to /usr/local/lib/node_modules/generator-flask-heroku
+56 verbose gentlyRm vacuuming /usr/local/lib/node_modules/generator-flask-heroku
+57 silly gunzTarPerm modes [ '755', '644' ]
+58 silly gunzTarPerm extractEntry package.json
+59 silly gunzTarPerm extractEntry .npmignore
+60 silly gunzTarPerm extractEntry README.md
+61 silly gunzTarPerm extractEntry LICENSE
+62 silly gunzTarPerm extractEntry .jshintrc
+63 silly gunzTarPerm extractEntry app/index.js
+64 silly gunzTarPerm extractEntry app/USAGE
+65 silly gunzTarPerm extractEntry app/templates/Gruntfile.js
+66 silly gunzTarPerm extractEntry app/templates/jquery-2.1.0.min.js
+67 silly gunzTarPerm extractEntry app/templates/server.js
+68 silly gunzTarPerm extractEntry app/templates/bootstrap.css
+69 silly gunzTarPerm extractEntry app/templates/freeze.py
+70 silly gunzTarPerm extractEntry app/templates/gitattributes
+71 silly gunzTarPerm extractEntry app/templates/gitignore
+72 silly gunzTarPerm extractEntry app/templates/glyphicons-halflings-white.png
+73 silly gunzTarPerm extractEntry app/templates/glyphicons-halflings.png
+74 silly gunzTarPerm extractEntry app/templates/Procfile
+75 silly gunzTarPerm extractEntry app/templates/init.py
+76 silly gunzTarPerm extractEntry app/templates/views.py
+77 silly gunzTarPerm extractEntry app/templates/main.css
+78 silly gunzTarPerm extractEntry app/templates/requirements.txt
+79 silly gunzTarPerm extractEntry app/templates/_base.html
+80 silly gunzTarPerm extractEntry app/templates/server.py
+81 silly gunzTarPerm extractEntry app/templates/server_tests.py
+82 silly gunzTarPerm extractEntry app/templates/index.html
+83 info preinstall generator-flask-heroku@0.0.6
+84 silly prepareForInstallMany adding yeoman-generator@>=0.13.4 from generator-flask-heroku dependencies
+85 silly prepareForInstallMany adding yo@>=1.0.4 from generator-flask-heroku peerDependencies
+86 warn peerDependencies The peer dependency yo@>=1.0.4 included from generator-flask-heroku will no
+87 warn peerDependencies longer be automatically installed to fulfill the peerDependency
+88 warn peerDependencies in npm 3+. Your application will need to depend on it explicitly.
+89 silly cache add args [ 'yeoman-generator@>=0.13.4', null ]
+90 verbose cache add spec yeoman-generator@>=0.13.4
+91 silly cache add parsed spec { raw: 'yeoman-generator@>=0.13.4',
+91 silly cache add   scope: null,
+91 silly cache add   name: 'yeoman-generator',
+91 silly cache add   rawSpec: '>=0.13.4',
+91 silly cache add   spec: '>=0.13.4',
+91 silly cache add   type: 'range' }
+92 verbose addNamed yeoman-generator@>=0.13.4
+93 silly addNamed semver.valid null
+94 silly addNamed semver.validRange >=0.13.4
+95 silly addNameRange { name: 'yeoman-generator', range: '>=0.13.4', hasData: false }
+96 silly mapToRegistry name yeoman-generator
+97 silly mapToRegistry using default registry
+98 silly mapToRegistry registry https://registry.npmjs.org/
+99 silly mapToRegistry uri https://registry.npmjs.org/yeoman-generator
+100 verbose addNameRange registry:https://registry.npmjs.org/yeoman-generator not in flight; fetching
+101 verbose request uri https://registry.npmjs.org/yeoman-generator
+102 verbose request no auth needed
+103 info attempt registry request try #1 at 11:09:06
+104 verbose etag "173-8efca8c77d64215984122ce9c3ad7538"
+105 http request GET https://registry.npmjs.org/yeoman-generator
+106 http 200 https://registry.npmjs.org/yeoman-generator
+107 silly get cb [ 200,
+107 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+107 silly get     etag: '"7UPHQXN6KQ7YQTUVVLR8FFPB6"',
+107 silly get     'content-type': 'application/json',
+107 silly get     'cache-control': 'max-age=60',
+107 silly get     'content-length': '133205',
+107 silly get     'accept-ranges': 'bytes',
+107 silly get     date: 'Sun, 20 Sep 2015 16:09:06 GMT',
+107 silly get     via: '1.1 varnish',
+107 silly get     age: '0',
+107 silly get     connection: 'keep-alive',
+107 silly get     'x-served-by': 'cache-dfw1831-DFW',
+107 silly get     'x-cache': 'HIT',
+107 silly get     'x-cache-hits': '1',
+107 silly get     'x-timer': 'S1442765346.458171,VS0,VE47',
+107 silly get     vary: 'Accept' } ]
+108 verbose get saving yeoman-generator to /Users/Root1/.npm/registry.npmjs.org/yeoman-generator/.cache.json
+109 silly addNameRange number 2 { name: 'yeoman-generator', range: '>=0.13.4', hasData: true }
+110 silly addNameRange versions [ 'yeoman-generator',
+110 silly addNameRange   [ '0.10.0',
+110 silly addNameRange     '0.10.1',
+110 silly addNameRange     '0.10.2',
+110 silly addNameRange     '0.10.3',
+110 silly addNameRange     '0.10.4',
+110 silly addNameRange     '0.10.5',
+110 silly addNameRange     '0.11.0',
+110 silly addNameRange     '0.11.1',
+110 silly addNameRange     '0.11.2',
+110 silly addNameRange     '0.11.3',
+110 silly addNameRange     '0.11.4',
+110 silly addNameRange     '0.12.0',
+110 silly addNameRange     '0.12.1',
+110 silly addNameRange     '0.12.2',
+110 silly addNameRange     '0.12.3',
+110 silly addNameRange     '0.13.0',
+110 silly addNameRange     '0.13.1',
+110 silly addNameRange     '0.13.2',
+110 silly addNameRange     '0.13.3',
+110 silly addNameRange     '0.13.4',
+110 silly addNameRange     '0.14.0-rc.1',
+110 silly addNameRange     '0.14.0-rc.2',
+110 silly addNameRange     '0.14.0',
+110 silly addNameRange     '0.14.1',
+110 silly addNameRange     '0.14.2',
+110 silly addNameRange     '0.15.0-pre.1',
+110 silly addNameRange     '0.15.0-pre.2',
+110 silly addNameRange     '0.15.0-pre.3',
+110 silly addNameRange     '0.15.0',
+110 silly addNameRange     '0.16.0',
+110 silly addNameRange     '0.17.0-pre.1',
+110 silly addNameRange     '0.17.0-pre.2',
+110 silly addNameRange     '0.17.0-pre.3',
+110 silly addNameRange     '0.17.0-pre.4',
+110 silly addNameRange     '0.17.0',
+110 silly addNameRange     '0.17.1',
+110 silly addNameRange     '0.17.2',
+110 silly addNameRange     '0.17.3',
+110 silly addNameRange     '0.17.4',
+110 silly addNameRange     '0.17.5',
+110 silly addNameRange     '0.17.6',
+110 silly addNameRange     '0.17.7',
+110 silly addNameRange     '0.18.0-pre.1',
+110 silly addNameRange     '0.18.0-pre.2',
+110 silly addNameRange     '0.18.0-pre.3',
+110 silly addNameRange     '0.18.0',
+110 silly addNameRange     '0.18.1',
+110 silly addNameRange     '0.18.2',
+110 silly addNameRange     '0.18.3',
+110 silly addNameRange     '0.18.4',
+110 silly addNameRange     '0.18.5',
+110 silly addNameRange     '0.18.6',
+110 silly addNameRange     '0.18.7',
+110 silly addNameRange     '0.18.8',
+110 silly addNameRange     '0.18.9',
+110 silly addNameRange     '0.18.10',
+110 silly addNameRange     '0.19.0',
+110 silly addNameRange     '0.19.1',
+110 silly addNameRange     '0.19.2',
+110 silly addNameRange     '0.20.0',
+110 silly addNameRange     '0.20.1',
+110 silly addNameRange     '0.20.2',
+110 silly addNameRange     '0.20.3' ] ]
+111 verbose addNamed yeoman-generator@0.20.3
+112 silly addNamed semver.valid 0.20.3
+113 silly addNamed semver.validRange 0.20.3
+114 silly mapToRegistry name yeoman-generator
+115 silly mapToRegistry using default registry
+116 silly mapToRegistry registry https://registry.npmjs.org/
+117 silly mapToRegistry uri https://registry.npmjs.org/yeoman-generator
+118 verbose addRemoteTarball https://registry.npmjs.org/yeoman-generator/-/yeoman-generator-0.20.3.tgz not in flight; adding
+119 verbose addRemoteTarball [ 'https://registry.npmjs.org/yeoman-generator/-/yeoman-generator-0.20.3.tgz',
+119 verbose addRemoteTarball   '7e6dc068ca50f79160fed1a2469ed0e79528b671' ]
+120 info retry fetch attempt 1 at 11:09:06
+121 info attempt registry request try #1 at 11:09:06
+122 http fetch GET https://registry.npmjs.org/yeoman-generator/-/yeoman-generator-0.20.3.tgz
+123 http fetch 200 https://registry.npmjs.org/yeoman-generator/-/yeoman-generator-0.20.3.tgz
+124 silly fetchAndShaCheck shasum 7e6dc068ca50f79160fed1a2469ed0e79528b671
+125 verbose addTmpTarball /var/folders/rr/rcy_xvmn2sd4qqbcmt7ytr6w0000gn/T/npm-51853-65ff801e/registry.npmjs.org/yeoman-generator/-/yeoman-generator-0.20.3.tgz not in flight; adding
+126 verbose addTmpTarball already have metadata; skipping unpack for yeoman-generator@0.20.3
+127 verbose about to build /usr/local/lib/node_modules/generator-flask-heroku
+128 verbose unlock done using /Users/Root1/.npm/_locks/generator-flask-heroku-14c66c5986fd9a1c.lock for /usr/local/lib/node_modules/generator-flask-heroku
+129 verbose stack Error: EACCES, mkdir '/Users/Root1/.npm/yeoman-generator/0.20.3'
+130 verbose cwd /Users/Root1/app
+131 error Darwin 14.5.0
+132 error argv "node" "/usr/local/bin/npm" "install" "-g" "generator-flask-heroku"
+133 error node v0.10.29
+134 error npm  v2.7.1
+135 error path /Users/Root1/.npm/yeoman-generator/0.20.3
+136 error code EACCES
+137 error errno 3
+138 error Error: EACCES, mkdir '/Users/Root1/.npm/yeoman-generator/0.20.3'
+138 error  { [Error: EACCES, mkdir '/Users/Root1/.npm/yeoman-generator/0.20.3']
+138 error   errno: 3,
+138 error   code: 'EACCES',
+138 error   path: '/Users/Root1/.npm/yeoman-generator/0.20.3',
+138 error   parent: 'generator-flask-heroku' }
+139 error Please try running this command again as root/Administrator.
+140 verbose exit [ 3, true ]
+141 verbose unbuild lib/node_modules/generator-flask-heroku
+142 info preuninstall generator-flask-heroku@0.0.6
+143 info uninstall generator-flask-heroku@0.0.6
+144 verbose unbuild rmStuff generator-flask-heroku@0.0.6 from /usr/local/lib/node_modules
+145 info postuninstall generator-flask-heroku@0.0.6
+146 verbose gentlyRm vacuuming /usr/local/lib/node_modules/generator-flask-heroku
+147 silly gentlyRm purging /usr/local/lib/node_modules/generator-flask-heroku
+148 silly gentlyRm quitting because other entries in /usr/local/lib/node_modules
