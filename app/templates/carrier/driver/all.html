@@ -6,6 +6,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Type</th>
                             <th>Email</th>
                             <th>Phone Number</th>
                             <th>Truck</th>
@@ -16,6 +17,7 @@
                         {% for driver in drivers %}
                             <tr>
                                 <td>{{ driver.get_full_name() }}</td>
+                                <td>{{ driver.driver_type }}</td>
                                 <td>{{ driver.email }}</td>
                                 <td>{{ driver.get_phone_number() }}</td>
                                 <td>

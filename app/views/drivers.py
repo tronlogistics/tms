@@ -3,8 +3,9 @@ from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app
 from app.forms import DriverForm, TruckForm, AssignDriverForm
-from app.models import Load, Driver, Truck
+from app.models import Load, Driver, Truck, User, Role
 from app.permissions import *
+from app.emails import register_account
 
 drivers = Blueprint('drivers', __name__, url_prefix='/drivers')
 
@@ -69,9 +70,23 @@ def create():
 			driver = Driver(first_name=form.first_name.data, 
 						last_name=form.last_name.data,
 						email=form.email.data,
-						phone=form.phone_number.data)
-
+						phone=form.phone_number.data,
+						driver_type=form.driver_type.data)
 			db.session.add(driver)
+			if form.has_account.data == "True":
+				user = User(company_name=g.user.company_name,
+					email=driver.email,
+					password="")
+				
+				role = Role(name="Driver")
+				db.session.add(role)
+				user.roles.append(role)
+				db.session.add(user)
+				db.session.commit()
+
+				register_account(user)
+				flash("A registration e-mail has been sent to %s" % driver.email)
+
 			g.user.fleet.drivers.append(driver)
 			db.session.add(g.user)
 			db.session.commit()
@@ -95,6 +110,7 @@ def edit(driver_id):
 			driver.last_name = form.last_name.data
 			driver.email = form.email.data
 			driver.phone = form.phone_number.data
+			driver.driver_type = form.driver_type.data
 
 			db.session.add(driver)
 			db.session.commit()
@@ -104,6 +120,7 @@ def edit(driver_id):
 			form.last_name.data = driver.last_name
 			form.email.data = driver.email
 			form.phone_number.data = driver.phone
+			form.driver_type.data = driver.driver_type
 			#form.phone_area_code.data = driver.phone_area_code
 			#form.phone_prefix.data = driver.phone_prefix 
 			#form.phone_line_number.data = driver.phone_line_number

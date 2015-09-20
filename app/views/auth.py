@@ -146,8 +146,10 @@ def charge():
 @auth.route('/activate/<activation_slug>')
 def activate_user(activation_slug):
     s = get_serializer()
+    app.logger.info("User")
     try:
     	user_id = s.loads(activation_slug)
+    	print "%s" % user_id
     	app.logger.info("User %s" % user_id)
     except BadSignature:
     	abort(404)
@@ -157,8 +159,12 @@ def activate_user(activation_slug):
     db.session.add(user)
     db.session.commit()
     app.logger.info("User \"%s\" is now activated" % user.email)
-    flash('Your account is now activated. Please log in.')
-    return redirect(url_for('.login'))
+    if user.password == "":
+    	flash('Please set your password')
+    	return redirect(url_for('.set_password', user_id=user_id))
+    else:
+    	flash('Your account is now activated. Please log in.')
+    	return redirect(url_for('.login'))
 
 @auth.route('/reset/<activation_slug>', methods=['GET', 'POST'])
 def reset_password(activation_slug):
@@ -184,6 +190,23 @@ def reset_password(activation_slug):
 		flash('Your password has been reset. Please create a new password.')
 
 		return render_template('auth/reset_password.html', form=form, user=user)
+
+@auth.route('/<user_id>/set_password', methods=['GET', 'POST'])
+def set_password(user_id):
+	form = ResetPasswordForm()
+	if form.validate_on_submit():
+		user = User.query.get_or_404(user_id)
+		user.set_password(form.password.data)
+		user.authenticated = True
+		db.session.add(user)
+		db.session.commit()
+		login_user(user, remember=False)
+		flash("Your password has been set.")
+		return redirect(url_for('fleet.view'))
+	else:
+
+
+		return render_template('auth/create_password.html', form=form, user_id=user_id)
 
 @auth.route('/reset', methods=['POST', 'GET'])
 def change_password():

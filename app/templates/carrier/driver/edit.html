@@ -15,6 +15,18 @@
 				<div class="panel-body">
 					<div class="form-group">
 						<label class="col-sm-3 control-label" for="origin_address1">
+							Driver Type<span class="symbol required"></span>
+
+					          {% for error in form.first_name.errors %}
+					            <br><span style="color: red;">{{ error }}</span>
+					          {% endfor %}
+						</label>
+						<div class="col-sm-9">
+							{{ form.driver_type(class="form-control") }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
 							First Name<span class="symbol required"></span>
 
 					          {% for error in form.first_name.errors %}

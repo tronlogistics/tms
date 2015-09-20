@@ -1,5 +1,5 @@
 from flask.ext.wtf import Form
-from wtforms import StringField, FloatField, PasswordField, SelectField, DateField, BooleanField, IntegerField, HiddenField, FormField, FieldList, TextAreaField
+from wtforms import StringField, FloatField, PasswordField, SelectField, DateField, BooleanField, IntegerField, HiddenField, FormField, FieldList, TextAreaField, RadioField
 from wtforms.validators import DataRequired, EqualTo, NumberRange, Email, Length
 
 class EmailForm(Form):
@@ -127,11 +127,13 @@ class TruckForm(Form):
 class DriverForm(Form):
 	first_name = StringField('First Name', validators=[DataRequired()])
 	last_name = StringField('Last Name', validators=[DataRequired()])
-	email = StringField('Email', validators=[Email("Please enter a valid e-mail")])
+	email = StringField('Email', validators=[Email("Please enter a valid e-mail"),DataRequired()])
 	phone_number = StringField('Phone', validators=[DataRequired()])
-	#phone_area_code = StringField('Area Code', validators=[DataRequired()])
-	#phone_prefix = StringField('Prefix', validators=[DataRequired()])
-	#phone_line_number = StringField('Line Number', validators=[DataRequired()])
+	driver_type = SelectField('Driver Type', choices = [('','<none selected>'),
+															('Company Driver', 'Company Driver'), 
+															('Owner Operator', 'Owner Operator')], 
+															validators = [DataRequired()])
+	has_account = RadioField('Has Account', choices=[('True','Yes'),('False','No')])
 
 class LoginForm(Form):
 	email = StringField('email', validators=[DataRequired()])

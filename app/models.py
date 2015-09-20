@@ -57,7 +57,8 @@ class User(db.Model):
 	def __init__(self, email, company_name, password):
 		self.email = email
 		self.company_name = company_name
-		self.set_password(password)
+		if password != "":
+			self.set_password(password)
 		self.fleet = Fleet()
 
 	def is_carrier(self):
@@ -313,8 +314,10 @@ class Driver(db.Model):
 	truck_id = db.Column(db.Integer, db.ForeignKey('Truck.id'))
 	first_name = db.Column(db.String(30))
 	last_name = db.Column(db.String(30))
-	email = db.Column(db.String(255))
+	driver_type = db.Column(db.String(30))
+	email = db.Column(db.String(255), unique=True, nullable=True, index=True)
 	phone = db.Column(db.String(14))
+	linked_account = db.Column(db.Boolean(), nullable=True, server_default='0')
 
 	def get_phone_number(self):
 		return str(self.phone)
