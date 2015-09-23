@@ -35,11 +35,11 @@ def create_user():
 					password="")
 		user.roles.append(role)
 		user.company = g.user.company
-		register_account(user)
 		db.session.add(user)
 		db.session.add(role)
-		db.session.add(company)
+		db.session.add(g.user.company)
 		db.session.commit()
+		register_account(user)
 		return redirect(url_for('.view', load_id = load.id))
 	return render_template('org/user/create.html', active="Company", title="Create User", form=form)
 
