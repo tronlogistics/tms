@@ -53,6 +53,7 @@ class Company(db.Model):
 		self.address=address
 		self.company_type=company_type
 		self.fleet = Fleet()
+		self.user = []
 
 	def is_carrier(self):
 		return self.company_type == "carrier"

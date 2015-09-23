@@ -105,8 +105,7 @@ def register():
 							postal_code=register_form.postal_code.data)
 		company = Company(name=register_form.company_name.data,
 							address=address,
-							company_type=register_form.account_type.data,
-							users=[])
+							company_type=register_form.account_type.data)
 		user = User(name=register_form.name.data,
 					email=register_form.email.data,
 					password=register_form.password.data)
