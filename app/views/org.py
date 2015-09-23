@@ -32,7 +32,8 @@ def create_user():
 		role = Role.query.filter_by(code=form.role.data).first()
 		user = User(name=form.name.data,
 					email=form.email.data,
-					roles=[role])
+					password="")
+		user.roles.append(role)
 		user.company = g.user.company
 		register_account(user)
 		db.session.add(user)
