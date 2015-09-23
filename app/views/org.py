@@ -30,8 +30,8 @@ def create_user():
 	form = CreateUserForm()
 	if form.validate_on_submit():
 		role = Role.query.filter_by(code=form.role.data).first()
-		user = User(name=register_form.company_name.data,
-					email=register_form.email.data,
+		user = User(name=form.name.data,
+					email=form.email.data,
 					roles=[role])
 		user.company = g.user.company
 		register_account(user)
@@ -39,6 +39,7 @@ def create_user():
 		db.session.add(role)
 		db.session.add(company)
 		db.session.commit()
+		return redirect(url_for('.view', load_id = load.id))
 	return render_template('org/user/create.html', active="Company", title="Create User", form=form)
 
 @org.route('/<user_id>/edit', methods=['GET', 'POST'])
