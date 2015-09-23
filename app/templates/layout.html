@@ -2,7 +2,7 @@
 {% block body %}
 
 
-	{% if user.is_authenticated() and user.password is not none %}
+	{% if g.user.is_authenticated() and g.user.password is not none %}
 		{% include "partials/navbar.html" %}
 		<!-- start: MAIN CONTAINER -->
 			<div class="main-container">

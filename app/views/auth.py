@@ -3,7 +3,7 @@ from flask.ext.login import login_user, logout_user, current_user, login_require
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, mail
 from app.forms import LoginForm, RegisterForm, ForgotForm, ResetPasswordForm, ContactUsForm, EmailForm, DemoForm
-from app.models import User, Role, Lead
+from app.models import User, Role, Lead, Address, Company
 from app.permissions import *
 from app.emails import register_account, new_lead, contact_us, reset_pass, get_serializer, request_demo
 #from app import stripe, stripe_keys
@@ -25,8 +25,6 @@ def login():
 	login_form = LoginForm()
 	register_form = RegisterForm()
 	forgot_form = ForgotForm()
-
-	register_form.account_type.data = 'carrier'
 	
 	if login_form.validate_on_submit():
 
@@ -97,21 +95,31 @@ def logout():
 @auth.route('/register', methods=['GET', 'POST'])
 def register():
 	register_form = RegisterForm()
-	register_form.account_type.data = 'carrier'
 	if register_form.validate_on_submit():
 		if User.query.filter_by(email=register_form.email.data).first() is not None:
 			flash("This e-mail is already registerd. Please sign in!")
 			return redirect(url_for('.login'))
-		user = User(company_name=register_form.company_name.data,
+		address = Address(address1=register_form.address.data,
+							city=register_form.city.data,
+							state=register_form.state.data,
+							postal_code=register_form.postal_code.data)
+		company = Company(name=register_form.company_name.data,
+							address=address,
+							company_type=register_form.account_type.data,
+							users=[])
+		user = User(name=register_form.name.data,
 					email=register_form.email.data,
 					password=register_form.password.data)
-		db.session.add(user)
-		role = Role(name=register_form.account_type.data)
-		db.session.add(role)
+		role = Role.query.filter_by(code='company_admin').first()
 		user.roles.append(role)
+		company.users.append(user)
+		db.session.add(address)
+		db.session.add(company)
 		db.session.add(user)
+		db.session.add(role)
 		db.session.commit()
-		
+
+
 		register_account(user)
 		flash("A registration e-mail has been sent to %s" % register_form.email.data)
 		app.logger.info("User \"%s\" with role \"%s\" created" % (user.email, user.roles[0].name))

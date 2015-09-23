@@ -133,6 +133,9 @@ var Login = function () {
                     minlength: 2,
                     required: true
                 },
+                account_type: {
+                    required: true
+                },
                 city: {
                     minlength: 2,
                     required: true

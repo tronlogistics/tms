@@ -23,7 +23,7 @@ def before_request():
 @login_required
 def all():
 	return render_template('carrier/driver/all.html', 
-							drivers=g.user.fleet.drivers, 
+							drivers=g.user.company.fleet.drivers, 
 							title="All Drivers",
 							active="Drivers",
 							user=g.user)
@@ -32,7 +32,7 @@ def all():
 @login_required
 def assign():
 	form = AssignDriverForm()
-	categories = [(driver.id, driver.get_full_name()) for driver in filter((lambda driver: driver.truck is None), g.user.fleet.drivers)]
+	categories = [(driver.id, driver.get_full_name()) for driver in filter((lambda driver: driver.truck is None), g.user.company.fleet.drivers)]
 	form.driver.choices = categories
 	if form.validate_on_submit():
 		truck = Truck.query.get(int(form.truck.data))
@@ -64,33 +64,45 @@ def remove(driver_id):
 @drivers.route('/create', methods=['GET', 'POST'])
 @login_required
 def create():
-	if g.user.is_carrier():
+	if g.user.company.is_carrier():
 		form = DriverForm()
 		if form.validate_on_submit():
-			driver = Driver(first_name=form.first_name.data, 
-						last_name=form.last_name.data,
-						email=form.email.data,
-						phone=form.phone_number.data,
-						driver_type=form.driver_type.data)
-			db.session.add(driver)
-			driver_user = User.query.filter_by(username='peter').first()
-			if form.has_account.data == "True" and driver_user is not None:
-				user = User(company_name=g.user.company_name,
-					email=driver.email,
-					password="")
-				
-				role = Role(name="Driver")
-				db.session.add(role)
+			driver_user = User.query.filter_by(email=form.email.data).first()
+
+			if driver_user is not None:
+				flash("This driver already has an account")
+				driver = Driver(first_name=form.first_name.data, 
+							last_name=form.last_name.data,
+							email=form.email.data,
+							phone=form.phone_number.data,
+							driver_type=form.driver_type.data,
+							linked_account=True)
+				db.session.add(driver)
+			else:
+				driver = Driver(first_name=form.first_name.data, 
+							last_name=form.last_name.data,
+							email=form.email.data,
+							phone=form.phone_number.data,
+							driver_type=form.driver_type.data,
+							linked_account=False)
+				db.session.add(driver)
+			
+			if form.has_account.data == True and driver_user is None:
+				user = User(name=driver.first_name + " " + driver.last_name,
+							email=driver.email,
+							password="")
+				role = Role.query.filter_by(code='driver').first()
 				user.roles.append(role)
+				g.user.company.users.append(user)
+				db.session.add(g.user.company)
 				db.session.add(user)
-				db.session.commit()
+				#db.session.commit()
 
 				register_account(user)
 				flash("A registration e-mail has been sent to %s" % driver.email)
-			elif form.has_account.data == "True": 
-				flash("This driver already has an account")
-			g.user.fleet.drivers.append(driver)
-			db.session.add(g.user)
+
+			g.user.company.fleet.drivers.append(driver)
+			db.session.add(g.user.company)
 			db.session.commit()
 			return redirect(url_for('.all'))
 		return render_template('carrier/driver/create.html',
@@ -113,6 +125,23 @@ def edit(driver_id):
 			driver.email = form.email.data
 			driver.phone = form.phone_number.data
 			driver.driver_type = form.driver_type.data
+			driver.driver_type = form.driver_type.data
+
+			if driver.linked_account == True:
+				driver_user = User.query.filter_by(email=driver.email).first()
+				if driver_user is None:
+					user = User(name=driver.first_name + " " + driver.last_name,
+							email=driver.email,
+							password="")
+					role = Role.query.filter_by(code='driver').first()
+					user.roles.append(role)
+					g.user.company.users.append(user)
+					db.session.add(g.user.company)
+					db.session.add(user)
+					#db.session.commit()
+
+					#register_account(user)
+					flash("A registration e-mail has been sent to %s" % driver.email)
 
 			db.session.add(driver)
 			db.session.commit()
@@ -123,6 +152,11 @@ def edit(driver_id):
 			form.email.data = driver.email
 			form.phone_number.data = driver.phone
 			form.driver_type.data = driver.driver_type
+			driver_user = User.query.filter_by(email=driver.email).first()
+			if driver_user is not None:
+				form.has_account.data = True
+			else: 
+				form.has_account.data = False
 			#form.phone_area_code.data = driver.phone_area_code
 			#form.phone_prefix.data = driver.phone_prefix 
 			#form.phone_line_number.data = driver.phone_line_number
@@ -206,30 +240,32 @@ def on_identity_changed(sender, identity):
 	# Assuming the User model has a list of posts the user
 	# has authored, add the needs to the identity
 	if hasattr(current_user, 'loads'):
-		for load in current_user.loads:
-			identity.provides.add(EditLoadNeed(unicode(load.id)))
-			identity.provides.add(DeleteLoadNeed(unicode(load.id)))
+		for load in current_user.company.loads:
 			identity.provides.add(ViewLoadNeed(unicode(load.id)))
-			identity.provides.add(AssignLoadNeed(unicode(load.id)))
-			identity.provides.add(InvoiceLoadNeed(unicode(load.id)))
-			identity.provides.add(CompleteLoadNeed(unicode(load.id)))
+			if len(filter((lambda user: user.id == load.created_by.id), g.user.company.users)) > 0:
+				identity.provides.add(EditLoadNeed(unicode(load.id)))
+				identity.provides.add(DeleteLoadNeed(unicode(load.id)))
+			if g.user.company.is_carrier():
+				identity.provides.add(AssignLoadNeed(unicode(load.id)))
+				identity.provides.add(InvoiceLoadNeed(unicode(load.id)))
+				identity.provides.add(CompleteLoadNeed(unicode(load.id)))
 			if load.truck is not None:
-				identity.provides.add(ViewDriverNeed(unicode(load.truck.id)))
+				identity.provides.add(ViewTruckNeed(unicode(load.truck.id)))
 				if load.truck.driver is not None:
 					identity.provides.add(ViewDriverNeed(unicode(load.truck.driver.id)))
 
-	if hasattr(current_user, 'assigned_loads'):
-		for load in current_user.assigned_loads:
-			identity.provides.add(ViewLoadNeed(unicode(load.id)))
-			identity.provides.add(AssignLoadNeed(unicode(load.id)))
+	#if hasattr(current_user, 'assigned_loads'):
+	#	for load in current_user.assigned_loads:
+	#		identity.provides.add(ViewLoadNeed(unicode(load.id)))
+	#		identity.provides.add(AssignLoadNeed(unicode(load.id)))
 
 	if hasattr(current_user, 'fleet'):
-		for truck in current_user.fleet.trucks:
+		for truck in current_user.compnay.fleet.trucks:
 			identity.provides.add(EditTruckNeed(unicode(truck.id)))
 			identity.provides.add(DeleteTruckNeed(unicode(truck.id)))
 			identity.provides.add(ViewTruckNeed(unicode(truck.id)))
 
-		for driver in current_user.fleet.drivers:
+		for driver in current_user.compnay.fleet.drivers:
 			identity.provides.add(EditDriverNeed(unicode(driver.id)))
 			identity.provides.add(DeleteDriverNeed(unicode(driver.id)))
 			identity.provides.add(ViewDriverNeed(unicode(driver.id)))

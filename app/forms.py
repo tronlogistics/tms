@@ -133,7 +133,7 @@ class DriverForm(Form):
 															('Company Driver', 'Company Driver'), 
 															('Owner Operator', 'Owner Operator')], 
 															validators = [DataRequired()])
-	has_account = RadioField('Has Account', choices=[('True','Yes'),('False','No')])
+	has_account = BooleanField('Has Account', validators=[])
 
 class LoginForm(Form):
 	email = StringField('email', validators=[DataRequired()])
@@ -159,7 +159,7 @@ class RegisterForm(Form):
 		EqualTo('confirm', message='Passwords must match')
 		])
 	confirm = PasswordField('Repeat Password')
-	account_type = SelectField('Account Type', choices = [('','<none selected>'),('broker', 'Broker'), ('carrier', 'Carrier')], validators = [DataRequired()])
+	account_type = SelectField('Account Type', choices = [('','<none selected>'),('broker', 'Broker/Shiper'), ('carrier', 'Carrier')], validators = [DataRequired()])
 	#subscription_tier = SelectField('Account Tier', choices = [('','<none selected>'),('0000', 'BETA Access (Free!)'),('0000', 'Silver ($30/month)'),('0000', 'Gold ($40/month)')], validators = [DataRequired()])
 
 class BidForm(Form):
@@ -188,3 +188,10 @@ class LocationStatusForm(Form):
 class StatusForm(Form):
 	location_status = FieldList(FormField(LocationStatusForm), validators=[])
 
+class CreateUserForm(Form):
+	name = StringField('Name', validators=[DataRequired()])
+	email = StringField('Email', validators=[Email("Please enter a valid e-mail")])
+	role = SelectField('Location Type', coerce=str, choices = [('','<none selected>'),
+														('Driver', 'Driver'), 
+														('Other', 'Other')], 
+														validators = [DataRequired()])

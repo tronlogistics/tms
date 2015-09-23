@@ -80,20 +80,26 @@ def on_identity_loaded(sender, identity):
 	# Set the identity user object
 	identity.user = current_user
 
+	#if current_user.is_company_admin():
+	#	identity.provides.add(ViewCompanyPermission(unicode(current_user.company.id)))
+	#	for user in current_user.company.users:
+	#		identity.provides.add(EditUserNeed(unicode(user.id)))
 	# Add the UserNeed to the identity
-	if hasattr(current_user, 'id'):
-		identity.provides.add(UserNeed(current_user.id))
+	#if hasattr(current_user, 'id'):
+	#	identity.provides.add(UserNeed(current_user.id))
 
 	# Assuming the User model has a list of roles, update the
 	# identity with the roles that the user provides
 	if hasattr(current_user, 'roles'):
 		for role in current_user.roles:
 			identity.provides.add(RoleNeed(role.name))
+			if role.code == "company_admin":
+				identity.provides.add(ViewCompanyNeed(unicode(current_user.company.id)))
+				identity.provides.add(EditCompanyNeed(unicode(current_user.company.id)))
 
-	# Assuming the User model has a list of posts the user
-	# has authored, add the needs to the identity
-	if hasattr(current_user, 'loads'):
-		for load in current_user.loads:
+
+	if hasattr(current_user, 'company'):
+		for load in current_user.company.loads:
 			identity.provides.add(EditLoadNeed(unicode(load.id)))
 			identity.provides.add(DeleteLoadNeed(unicode(load.id)))
 			identity.provides.add(ViewLoadNeed(unicode(load.id)))
@@ -105,19 +111,13 @@ def on_identity_loaded(sender, identity):
 				if load.truck.driver is not None:
 					identity.provides.add(ViewDriverNeed(unicode(load.truck.driver.id)))
 
-	if hasattr(current_user, 'assigned_loads'):
-		for load in current_user.assigned_loads:
-			identity.provides.add(ViewLoadNeed(unicode(load.id)))
-			identity.provides.add(AssignLoadNeed(unicode(load.id)))
-
-	if hasattr(current_user, 'fleet'):
-		for truck in current_user.fleet.trucks:
+		for truck in current_user.company.fleet.trucks:
 			identity.provides.add(EditTruckNeed(unicode(truck.id)))
 			identity.provides.add(DeleteTruckNeed(unicode(truck.id)))
 			identity.provides.add(ViewTruckNeed(unicode(truck.id)))
 			identity.provides.add(RouteTruckNeed(unicode(truck.id)))
 
-		for driver in current_user.fleet.drivers:
+		for driver in current_user.company.fleet.drivers:
 			identity.provides.add(EditDriverNeed(unicode(driver.id)))
 			identity.provides.add(DeleteDriverNeed(unicode(driver.id)))
 			identity.provides.add(ViewDriverNeed(unicode(driver.id)))
@@ -126,6 +126,7 @@ def on_identity_loaded(sender, identity):
 		for bid in current_user.offered_bids:
 			identity.provides.add(ViewLoadNeed(unicode(bid.load.id)))
 			identity.provides.add(AssignLoadNeed(unicode(bid.load.id)))
+
 
 
 

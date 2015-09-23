@@ -85,3 +85,17 @@ class ViewDriverPermission(Permission):
 	def __init__(self, truck_id):
 		need = ViewDriverNeed(unicode(truck_id))
 		super(ViewDriverPermission, self).__init__(need)
+
+CompanyNeed = namedtuple('company', ['method', 'value'])
+EditCompanyNeed = partial(CompanyNeed, 'edit')
+ViewCompanyNeed = partial(CompanyNeed, 'view')
+
+class EditCompanyPermission(Permission):
+	def __init__(self, company_id):
+		need = EditCompanyNeed(unicode(company_id))
+		super(EditCompanyPermission, self).__init__(need)
+
+class ViewCompanyPermission(Permission):
+	def __init__(self, company_id):
+		need = ViewCompanyNeed(unicode(company_id))
+		super(ViewCompanyPermission, self).__init__(need)

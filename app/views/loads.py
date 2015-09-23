@@ -33,15 +33,15 @@ def create():
 	form = LoadForm()
 	if form.validate_on_submit():
 		load = LoadFactory(form)
-		g.user.loads.append(load)
+		load.created_by = g.user
+		g.user.company.loads.append(load)
 		if g.user.is_carrier:
 			load.status="Pending Truck Assignment"
-			load.carrier=g.user
 			load.carrier_cost=form.price.data
 		else:
 			load.status="Unassigned"
 		db.session.add(load)
-		db.session.add(g.user)
+		db.session.add(g.user.company)
 		db.session.commit()
 		return redirect(url_for('.view', load_id=load.id))
 	return render_template('load/create.html',
@@ -320,7 +320,7 @@ def all():
 	#	return render_template('load/all.html', loads=loads)
 	#else:
 	return render_template('load/all.html', 
-							loads=g.user.loads, 
+							loads=g.user.company.loads, 
 							user=g.user, 
 							active="Loads",
 							title="All Loads")
@@ -408,7 +408,7 @@ def complete(load_id):
 def assign_driver(load_id):
 	load = Load.query.get(int(load_id))
 	#TODO: filter by applicabale carriers
-	if not g.user.is_carrier():
+	if not g.user.company.is_carrier():
 		carriers = []
 		for carrier in User.query.all():
 			if filter((lambda role: role.name == 'carrier'), carrier.roles):
@@ -417,7 +417,7 @@ def assign_driver(load_id):
 	else:
 		carriers = filter((lambda truck: truck.driver is not None
 											and truck.trailer_type == load.trailer_type), 
-											g.user.fleet.trucks)
+											g.user.company.fleet.trucks)
 
 	return render_template('load/assign_driver.html', 
 							load=load, 

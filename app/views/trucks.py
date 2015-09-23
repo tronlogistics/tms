@@ -32,7 +32,7 @@ def before_request():
 @login_required
 def all():
 	return render_template("carrier/truck/all.html", 
-							trucks=g.user.fleet.trucks, 
+							trucks=g.user.company.fleet.trucks, 
 							user=g.user,
 							active="Trucks",
 							title="All Trucks")
@@ -40,7 +40,7 @@ def all():
 @trucks.route('/create', methods=['GET', 'POST'])
 @login_required
 def create():
-	if g.user.is_carrier():
+	if g.user.company.is_carrier():
 		form = TruckForm()
 		if form.validate_on_submit():
 			truck = Truck(name=form.name.data, 
@@ -52,8 +52,8 @@ def create():
 						is_available=True,
 						tracker = [])
 			db.session.add(truck)
-			g.user.fleet.trucks.append(truck)
-			db.session.add(g.user)
+			g.user.company.fleet.trucks.append(truck)
+			db.session.add(g.user.company)
 			db.session.commit()
 			return redirect(url_for('.view', truck_id=truck.id))
 		return render_template('carrier/truck/create.html',
@@ -117,7 +117,7 @@ def view(truck_id):
 	if permission.can():
 		form = LocationStatusForm()
 		assign_form = AssignDriverForm()
-		categories = [('0', '<none selected>')] + [(driver.id, driver.get_full_name()) for driver in filter((lambda driver: driver.truck is None), g.user.fleet.drivers)]
+		categories = [('0', '<none selected>')] + [(driver.id, driver.get_full_name()) for driver in filter((lambda driver: driver.truck is None), g.user.company.fleet.drivers)]
 		assign_form.driver.choices = categories
 		truck = Truck.query.get_or_404(truck_id)
 		location = getNextLocation(truck)
@@ -273,7 +273,7 @@ def route(truck_id):
 @login_required
 def assign(truck_id):
 	form = AssignDriverForm()
-	categories = [(driver.id, driver.get_full_name()) for driver in filter((lambda driver: driver.truck is None), g.user.fleet.drivers)]
+	categories = [(driver.id, driver.get_full_name()) for driver in filter((lambda driver: driver.truck is None), g.user.company.fleet.drivers)]
 	form.driver.choices = categories
 	truck = Truck.query.get(int(truck_id))
 	if form.validate_on_submit():
@@ -329,30 +329,32 @@ def on_identity_changed(sender, identity):
 	# Assuming the User model has a list of posts the user
 	# has authored, add the needs to the identity
 	if hasattr(current_user, 'loads'):
-		for load in current_user.loads:
-			identity.provides.add(EditLoadNeed(unicode(load.id)))
-			identity.provides.add(DeleteLoadNeed(unicode(load.id)))
+		for load in current_user.company.loads:
 			identity.provides.add(ViewLoadNeed(unicode(load.id)))
-			identity.provides.add(AssignLoadNeed(unicode(load.id)))
-			identity.provides.add(InvoiceLoadNeed(unicode(load.id)))
-			identity.provides.add(CompleteLoadNeed(unicode(load.id)))
+			if len(filter((lambda user: user.id == load.created_by.id), g.user.company.users)) > 0:
+				identity.provides.add(EditLoadNeed(unicode(load.id)))
+				identity.provides.add(DeleteLoadNeed(unicode(load.id)))
+			if g.user.company.is_carrier():
+				identity.provides.add(AssignLoadNeed(unicode(load.id)))
+				identity.provides.add(InvoiceLoadNeed(unicode(load.id)))
+				identity.provides.add(CompleteLoadNeed(unicode(load.id)))
 			if load.truck is not None:
-				identity.provides.add(ViewDriverNeed(unicode(load.truck.id)))
+				identity.provides.add(ViewTruckNeed(unicode(load.truck.id)))
 				if load.truck.driver is not None:
 					identity.provides.add(ViewDriverNeed(unicode(load.truck.driver.id)))
 
-	if hasattr(current_user, 'assigned_loads'):
-		for load in current_user.assigned_loads:
-			identity.provides.add(ViewLoadNeed(unicode(load.id)))
-			identity.provides.add(AssignLoadNeed(unicode(load.id)))
+	#if hasattr(current_user, 'assigned_loads'):
+	#	for load in current_user.assigned_loads:
+	#		identity.provides.add(ViewLoadNeed(unicode(load.id)))
+	#		identity.provides.add(AssignLoadNeed(unicode(load.id)))
 
 	if hasattr(current_user, 'fleet'):
-		for truck in current_user.fleet.trucks:
+		for truck in current_user.compnay.fleet.trucks:
 			identity.provides.add(EditTruckNeed(unicode(truck.id)))
 			identity.provides.add(DeleteTruckNeed(unicode(truck.id)))
 			identity.provides.add(ViewTruckNeed(unicode(truck.id)))
 
-		for driver in current_user.fleet.drivers:
+		for driver in current_user.compnay.fleet.drivers:
 			identity.provides.add(EditDriverNeed(unicode(driver.id)))
 			identity.provides.add(DeleteDriverNeed(unicode(driver.id)))
 			identity.provides.add(ViewDriverNeed(unicode(driver.id)))

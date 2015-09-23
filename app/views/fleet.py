@@ -21,22 +21,22 @@ def before_request():
 @fleet.route('/', methods=['GET', 'POST'])
 @login_required
 def view():
-	#if g.user.loads.count() == 0:
-	unnasigned=0
-	at_origin=0
-	in_transit=0
-	at_destination=0
-	delivered=0
-	invoiced=0
-	#else:
-	#	unnasigned=len(filter((lambda load: load.getStatus() == "Unnasigned"), g.user.loads))
-	#	at_origin=len(filter((lambda load: load.getStatus() == "At Origin"), g.user.loads))
-	#	in_transit=len(filter((lambda load: load.getStatus() == "In Transit"), g.user.loads))
-	#	at_destination=len(filter((lambda load: load.getStatus() == "At Destination"), g.user.loads))
-	#	delivered=len(filter((lambda load: load.getStatus() == "Delivered"), g.user.loads))
-	#	invoiced=len(filter((lambda load: load.getStatus() == "Invoiced"), g.user.loads))
+	if len(g.user.company.loads) == 0:
+		unnasigned=0
+		at_origin=0
+		in_transit=0
+		at_destination=0
+		delivered=0
+		invoiced=0
+	else:
+		unnasigned=len(filter((lambda load: load.status == "Unnasigned"), g.user.company.loads))
+		at_origin=len(filter((lambda load: load.status == "At Origin"), g.user.company.loads))
+		in_transit=len(filter((lambda load: load.status == "In Transit"), g.user.company.loads))
+		at_destination=len(filter((lambda load: load.status == "At Destination"), g.user.company.loads))
+		delivered=len(filter((lambda load: load.status == "Delivered"), g.user.company.loads))
+		invoiced=len(filter((lambda load: load.status == "Invoiced"), g.user.company.loads))
 	return render_template('carrier/all.html', 
-							fleet=g.user.fleet, 
+							fleet=g.user.company.fleet, 
 							title="View Fleet",
 							active="Fleet",
 							unnasigned=unnasigned,
@@ -45,14 +45,14 @@ def view():
 							at_destination=at_destination,
 							delivered=delivered,
 							invoiced=invoiced,
-							loads=g.user.loads,
+							loads=g.user.company.loads,
 							user=g.user)
 
 @fleet.route('/assign', methods=['GET', 'POST'])
 @login_required
 def assign():
 	form = AssignDriverForm()
-	categories = [(driver.id, driver.get_full_name()) for driver in filter((lambda driver: driver.truck is None), g.user.fleet.drivers)]
+	categories = [(driver.id, driver.get_full_name()) for driver in filter((lambda driver: driver.truck is None), g.user.company.fleet.drivers)]
 	form.driver.choices = categories
 	if form.validate_on_submit():
 		truck = Truck.query.get(int(form.truck.data))
@@ -119,30 +119,32 @@ def on_identity_changed(sender, identity):
 	# Assuming the User model has a list of posts the user
 	# has authored, add the needs to the identity
 	if hasattr(current_user, 'loads'):
-		for load in current_user.loads:
-			identity.provides.add(EditLoadNeed(unicode(load.id)))
-			identity.provides.add(DeleteLoadNeed(unicode(load.id)))
+		for load in current_user.company.loads:
 			identity.provides.add(ViewLoadNeed(unicode(load.id)))
-			identity.provides.add(AssignLoadNeed(unicode(load.id)))
-			identity.provides.add(InvoiceLoadNeed(unicode(load.id)))
-			identity.provides.add(CompleteLoadNeed(unicode(load.id)))
+			if len(filter((lambda user: user.id == load.created_by.id), g.user.company.users)) > 0:
+				identity.provides.add(EditLoadNeed(unicode(load.id)))
+				identity.provides.add(DeleteLoadNeed(unicode(load.id)))
+			if g.user.company.is_carrier():
+				identity.provides.add(AssignLoadNeed(unicode(load.id)))
+				identity.provides.add(InvoiceLoadNeed(unicode(load.id)))
+				identity.provides.add(CompleteLoadNeed(unicode(load.id)))
 			if load.truck is not None:
-				identity.provides.add(ViewDriverNeed(unicode(load.truck.id)))
+				identity.provides.add(ViewTruckNeed(unicode(load.truck.id)))
 				if load.truck.driver is not None:
 					identity.provides.add(ViewDriverNeed(unicode(load.truck.driver.id)))
 
-	if hasattr(current_user, 'assigned_loads'):
-		for load in current_user.assigned_loads:
-			identity.provides.add(ViewLoadNeed(unicode(load.id)))
-			identity.provides.add(AssignLoadNeed(unicode(load.id)))
+	#if hasattr(current_user, 'assigned_loads'):
+	#	for load in current_user.assigned_loads:
+	#		identity.provides.add(ViewLoadNeed(unicode(load.id)))
+	#		identity.provides.add(AssignLoadNeed(unicode(load.id)))
 
 	if hasattr(current_user, 'fleet'):
-		for truck in current_user.fleet.trucks:
+		for truck in current_user.compnay.fleet.trucks:
 			identity.provides.add(EditTruckNeed(unicode(truck.id)))
 			identity.provides.add(DeleteTruckNeed(unicode(truck.id)))
 			identity.provides.add(ViewTruckNeed(unicode(truck.id)))
 
-		for driver in current_user.fleet.drivers:
+		for driver in current_user.compnay.fleet.drivers:
 			identity.provides.add(EditDriverNeed(unicode(driver.id)))
 			identity.provides.add(DeleteDriverNeed(unicode(driver.id)))
 			identity.provides.add(ViewDriverNeed(unicode(driver.id)))

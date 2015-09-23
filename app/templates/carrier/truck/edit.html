@@ -96,45 +96,6 @@
      	</div>
 	</div>
 
-	<div class="row">
-		<div class="col-sm-12">
-			<div class="panel panel-default">
-	    		<div class="panel-heading">
-	        		<i class="fa fa-external-link-square"></i>
-	        		Stop Offs 
-	    		</div>
-		    	<div class="panel-body">
-		    		<table class="table table-condensed">
-		    			<thead>
-		    				<tr>
-		    					<th>Up/Down</th>
-	                            <th>Address</th>
-	                            <th>Arrival Date</th>
-	                            <!--<th>Status</th>-->
-	                        </tr>
-	                    </thead>
-	                    <tbody>
-				    			{% for location in locations|sort(attribute='stop_number') %}
-					        		<tr class="location_order">
-					        			<td>
-					        				<a href="javascript:void()" class="up">Up</a>/<a href="javascript:void()" class="down">Down</a>
-
-					        				<input type="hidden" id="locations-{{ loop.index }}-location_id" name="locations-{{ loop.index }}-location_id" class="form-control location-id" value="{{ location.id }}">
-
-					        				<input type="text" id="locations-{{ loop.index }}-stop_number" name="locations-{{ loop.index }}-stop_number" class="form-control stop-number" value="{{ loop.index }}">
-
-					        			</td>
-		                            	<td>{{ location.address.address1 }}<br />{{ location.address.city }}, {{ location.address.state }} {{ location.address.postal_code }}</td>
-		                            	<td>{{ location.arrival_date }}</td>
-		                            </tr>
-								{% endfor %}
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	</div>
-
 </form>
 
 <script>

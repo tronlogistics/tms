@@ -5,9 +5,19 @@ from sqlalchemy import create_engine, Column, Integer, String, Date, ForeignKey,
 from sqlalchemy.orm import scoped_session, sessionmaker, backref, relationship
 from datetime import datetime
 
-User_to_User = db.Table('user_to_user', db.metadata,
+User_to_Role = db.Table('user_to_user', db.metadata,
+	db.Column('user_id', db.Integer, db.ForeignKey('User.id'), primary_key=True),
+	db.Column('role_id', db.Integer, db.ForeignKey('Role.id'), primary_key=True)
+)
+
+User_to_User = db.Table('user_to_role', db.metadata,
 	db.Column('left_user_id', db.Integer, db.ForeignKey('User.id'), primary_key=True),
 	db.Column('right_user_id', db.Integer, db.ForeignKey('User.id'), primary_key=True)
+)
+
+Company_to_Load = db.Table('company_to_load', db.metadata,
+	db.Column('company_id', db.Integer, db.ForeignKey('Company.id'), primary_key=True),
+	db.Column('load_id', db.Integer, db.ForeignKey('Load.id'), primary_key=True)
 )
 
 #assigned_Users = db.Table('assigned_Users', db.metadata,
@@ -25,9 +35,33 @@ class Lead(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
 	email = db.Column(db.String(255), nullable=False, unique=True, index=True)
 
+class Company(db.Model):
+	__tablename__ = 'Company'
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(100), nullable=False, server_default='')
+	address = db.relationship("Address", uselist=False)
+	users = db.relationship("User", backref="company")
+	company_type = db.Column(db.String(100), nullable=False, server_default='')
+
+	loads = db.relationship("Load",
+                    secondary=Company_to_Load)#,
+	
+	fleet = db.relationship('Fleet', uselist=False, backref='company')
+
+	def __init__(self, name, address, company_type):
+		self.name = name
+		self.address=address
+		self.company_type=company_type
+		self.fleet = Fleet()
+
+	def is_carrier(self):
+		return self.company_type == "carrier"
+
 class User(db.Model):
 	__tablename__ = 'User'
 	id = db.Column(db.Integer, primary_key=True)
+
+	company_id = db.Column(db.Integer, db.ForeignKey('Company.id'))
 	# User authentication information
 	#Username = db.Column(db.String(50), nullable=False, unique=True)
 	password = db.Column(db.String(255), nullable=False, server_default='')
@@ -39,27 +73,27 @@ class User(db.Model):
 
 	# User information
 	authenticated = db.Column(db.Boolean(), nullable=False, server_default='0')
-	company_name = db.Column(db.String(100), nullable=False, server_default='')
+	name = db.Column(db.String(100), nullable=False, server_default='')
 
-	loads = db.relationship('Load', backref='created_by', lazy='dynamic', foreign_keys='Load.user_id')
 	
-	fleet = db.relationship('Fleet', uselist=False, backref='carrier')
 	#contacts = db.relationship('User',
 	#				secondary=User_to_User,
 	#				primaryjoin=id==User_to_User.c.left_user_id,
 	#				secondaryjoin=id==User_to_User.c.right_user_id,
 	#				backref='contacted_by'
     #)
-	roles = db.relationship('Role')
+	roles = db.relationship("Role",
+                    secondary=User_to_Role)#,
+                    #primaryjoin=id==User_to_Role.c.left_user_id,
+					#secondaryjoin=id==User_to_User.c.right_user_id,)
 	customer_id = db.Column(db.Integer)
 
 
-	def __init__(self, email, company_name, password):
+	def __init__(self, email, name, password):
 		self.email = email
-		self.company_name = company_name
+		self.name = name
 		if password != "":
 			self.set_password(password)
-		self.fleet = Fleet()
 
 	def is_carrier(self):
 		return len(filter((lambda role: role.name == 'carrier'), self.roles)) == 1
@@ -91,6 +125,12 @@ class User(db.Model):
 	def is_confirmed(self):
 		return self.confirmed_at is not None
 
+	def is_company_admin(self):
+		return len(filter((lambda role: role.code == 'company_admin'), self.roles)) > 0
+
+	def is_admin(self):
+		return len(filter((lambda role: role.code == 'admin'), self.roles)) > 0
+
 	def __repr__(self):
 		return '<User %r>' % (self.company_name)
 
@@ -98,7 +138,6 @@ class Load(db.Model):
 	__tablename__ = 'Load'
 	id = db.Column(db.Integer, primary_key=True)
 	#referencing classes
-	user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
 
 	broker_id = db.Column(db.Integer, db.ForeignKey('Contact.id'))
 	shipper_id = db.Column(db.Integer, db.ForeignKey('Contact.id'))
@@ -126,6 +165,9 @@ class Load(db.Model):
 	#assignments
 	truck_id = db.Column(db.Integer, db.ForeignKey('Truck.id'))
 	truck = db.relationship('Truck', backref='loads')
+
+	user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
+	created_by = db.relationship("User")
 
 	def setStatus(self, status):
 		if status == "Completed" or status == "Invoiced":
@@ -254,6 +296,7 @@ class Address(db.Model):
 	__tablename__ = 'Address'
 	id = db.Column(db.Integer, primary_key=True)
 	location_id = db.Column(db.Integer, db.ForeignKey('Location.id'))
+	company_id = db.Column(db.Integer, ForeignKey('Company.id'))
 	address1 = db.Column(db.String(100))
 	address2 = db.Column(db.String(100))
 	city = db.Column(db.String(100))
@@ -283,9 +326,13 @@ class Contact(db.Model):
 class Fleet(db.Model):
 	__tablename__ = 'Fleet'
 	id = db.Column(db.Integer, primary_key=True)
-	user_id = db.Column(db.Integer, ForeignKey('User.id'))
+	company_id = db.Column(db.Integer, db.ForeignKey('Company.id'))
 	trucks = db.relationship('Truck', backref='Fleet', lazy='dynamic')
 	drivers = db.relationship('Driver', backref='Fleet', lazy='dynamic')
+
+	def __init__(self):
+		self.trucks = []
+		self.drivers = []
 
 
 class Truck(db.Model):
@@ -315,7 +362,7 @@ class Driver(db.Model):
 	first_name = db.Column(db.String(30))
 	last_name = db.Column(db.String(30))
 	driver_type = db.Column(db.String(30))
-	email = db.Column(db.String(255), nullable=True, index=True)
+	email = db.Column(db.String(255), nullable=True)
 	phone = db.Column(db.String(14))
 	linked_account = db.Column(db.Boolean(), nullable=True, server_default='0')
 
@@ -329,7 +376,10 @@ class Role(db.Model):
 	__tablename__ = 'Role'
 	id = db.Column(db.Integer, primary_key=True)
 	name = db.Column(db.String(100))
-	user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
+	code = db.Column(db.String(100))
+
+	def __repr__(self):
+		return '%s' % (self.name)
 
 class LongLat(db.Model):
 	__tablename__ = 'LongLat'

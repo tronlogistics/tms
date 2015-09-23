@@ -74,6 +74,14 @@
                                 </li>
                             </ul>
                         </li>
+                        {% if g.user.is_company_admin() %}
+                            <li {% if active == "Company" %}class="active open" {% endif%}>
+                                <a href="{{ url_for('org.view') }}"><i class="clip-home"></i>
+                                    <span class="title"> Company Admin </span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+                        {% endif %}
                         <li>
                             <a href="{{ url_for('auth.logout') }}"><i class="fa fa-external-link-square"></i>
                                 <span class="title"> Logout </span>
