@@ -29,7 +29,7 @@ def view():
 def create_user():
 	form = CreateUserForm()
 	if form.validate_on_submit():
-		role = Role(name=form.role.data)
+		role = Role.query.filter_by(code=form.role.data).first()
 		user = User(name=register_form.company_name.data,
 					email=register_form.email.data,
 					roles=[role])
@@ -39,8 +39,6 @@ def create_user():
 		db.session.add(role)
 		db.session.add(company)
 		db.session.commit()
-	else:
-		flash(form.errors)
 	return render_template('org/user/create.html', active="Company", title="Create User", form=form)
 
 @org.route('/<user_id>/edit', methods=['GET', 'POST'])
