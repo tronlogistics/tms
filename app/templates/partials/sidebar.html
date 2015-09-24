@@ -28,9 +28,16 @@
                                 </li>
                                 <li>
                                     <a href="{{ url_for('loads.all') }}">
-                                        <span class="title"> Load Board </span>
+                                        <span class="title"> My Loads </span>
                                     </a>
                                 </li>
+                                {% if g.user.company.is_carrier() %}
+                                    <li>
+                                        <a href="{{ url_for('loads.board') }}">
+                                            <span class="title"> Load Board </span>
+                                        </a>
+                                    </li>
+                                {% endif %}
                                {#<li>
                                     <a href="{{ url_for('loads.export') }}">
                                         <span class="title"> Export Loads </span>

@@ -44,7 +44,8 @@ class Company(db.Model):
 	company_type = db.Column(db.String(100), nullable=False, server_default='')
 
 	loads = db.relationship("Load",
-                    secondary=Company_to_Load)#,
+                    secondary=Company_to_Load,
+                    backref="assigned_companies")#,
 	
 	fleet = db.relationship('Fleet', uselist=False, backref='company')
 
@@ -85,13 +86,12 @@ class User(db.Model):
 	#				backref='contacted_by'
     #)
 	roles = db.relationship("Role",
-                    secondary=User_to_Role)#,
-                    #primaryjoin=id==User_to_Role.c.left_user_id,
-					#secondaryjoin=id==User_to_User.c.right_user_id,)
+                    secondary=User_to_Role)
+
 	customer_id = db.Column(db.Integer)
 
-	driver_id = Column(db.Integer, db.ForeignKey('Driver.id'))
-
+	#driver_id = Column(db.Integer, db.ForeignKey('Driver.id'))
+	#driver_account = db.relationship("User", uselist=False)
 
 	def __init__(self, email, name, password):
 		self.email = email
@@ -155,8 +155,8 @@ class Load(db.Model):
 	total_miles = db.Column(db.Integer) 
 	#purchase_order = db.Column(db.String(20))
 	#over_dimensional = db.Column(db.Boolean)
-	carrier_cost = db.Column(db.String(150))
-	price = db.Column(db.String(150))
+	carrier_invoice = db.Column(db.String(150))
+	broker_invoice = db.Column(db.String(150))
 	description = db.Column(db.String(250))
 	comments = db.Column(db.String(500))
 
@@ -173,6 +173,8 @@ class Load(db.Model):
 	user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
 	created_by = db.relationship("User")
 
+	bids = db.relationship("Bid", backref="load")
+
 	def setStatus(self, status):
 		if status == "Completed" or status == "Invoiced":
 			self.status = status
@@ -181,6 +183,10 @@ class Load(db.Model):
 
 		if numLocations < 2:
 			status = "Missing Origin/Destination"
+		elif (not self.created_by.company.is_carrier) and len(filter((lambda bid: bid.accepted), self.bids)) < 1:
+			status = "Pending Carrier Assignment"
+		elif (not self.created_by.company.is_carrier) and len(filter((lambda bid: bid.accepted), self.bids)) == 1:
+			status = "Carrier Assigned"
 		elif self.truck is None:
 			status = "Unnassigned"
 		else:
@@ -368,7 +374,9 @@ class Driver(db.Model):
 	driver_type = db.Column(db.String(30))
 	email = db.Column(db.String(255), nullable=True)
 	phone = db.Column(db.String(14))
-	driver_account = db.relationship("User", uselist=False)
+	user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
+	driver_account = db.relationship("User", backref="driver_instances")
+	
 
 	def get_phone_number(self):
 		return str(self.phone)
@@ -392,4 +400,13 @@ class LongLat(db.Model):
 	longitude = db.Column(db.Float(6))
 
 	truck_id = db.Column(db.Integer, db.ForeignKey('Truck.id'))
+	load_id = db.Column(db.Integer, db.ForeignKey('Load.id'))
+
+class Bid(db.Model):
+	__tablename__ = "Bid"
+	id = db.Column(db.Integer, primary_key = True)
+	accepted = db.Column(db.Boolean)
+	value = db.Column(db.String(150))
+	user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
+	created_by = db.relationship("User", backref="bids")
 	load_id = db.Column(db.Integer, db.ForeignKey('Load.id'))

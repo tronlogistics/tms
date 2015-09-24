@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+    <div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped table-condensed" id="sample-table-1">
+        <thead>
+            <tr>
+                <th>Company</th>
+                <th>Invoice Amount</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for bid in bids %}
+                <tr>
+                    <td>{{ bid.created_by.company.name }}</td>
+                    <td>{{ bid.value }}</td>
+                    <td><a href="{{ url_for('loads.accept_bid', load_id=load.id, bid_id=bid.id) }}" class="btn btn-primary btn-mini" onclick="return confirm('Are you sure you want to accept this bid?')">Accept</a>
+                                
+                        <a href="{{ url_for('loads.reject_bid', load_id=load.id, bid_id=bid.id) }}" class="btn btn-danger btn-mini delete" onclick="return confirm('Are you sure you want to reject this bid?')">Reject</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+            {% endblock %}

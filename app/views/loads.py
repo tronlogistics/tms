@@ -3,9 +3,10 @@ from flask.ext import excel
 from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, SQLAlchemy
-from app.forms import LoadForm, StatusForm, LaneLocationForm, LocationStatusForm
-from app.models import Load, LoadDetail, Lane, Location, Truck, User, Driver, Contact
+from app.forms import LoadForm, StatusForm, LaneLocationForm, LocationStatusForm, BidForm
+from app.models import Load, LoadDetail, Lane, Location, Truck, User, Driver, Contact, Bid
 from app.permissions import *
+from app.emails import bid_accepted
 from ..controllers import LoadService, factory
 from app.controllers.LoadService import *
 from sqlalchemy import desc
@@ -36,10 +37,10 @@ def create():
 		load.created_by = g.user
 		g.user.company.loads.append(load)
 		if g.user.is_carrier:
-			load.status="Pending Truck Assignment"
+			load.setStatus("")
 			load.carrier_cost=form.price.data
 		else:
-			load.status="Unassigned"
+			load.setStatus()
 		db.session.add(load)
 		db.session.add(g.user.company)
 		db.session.commit()
@@ -60,7 +61,7 @@ def edit(load_id):
 			load.load_type = form.load_type.data
 			load.trailer_type = form.trailer_type.data
 			load.total_miles = form.total_miles.data
-			load.price = form.price.data
+			load.carrier_invoice = form.price.data
 			load.description = form.description.data
 			
 			broker = Contact.query.filter_by(name=form.broker.company_name.data, 
@@ -92,7 +93,7 @@ def edit(load_id):
 			form.total_miles.data = load.total_miles
 			form.trailer_type.data = load.trailer_type
 			form.total_miles.data = load.total_miles
-			form.price.data = load.price
+			form.price.data = load.carrier_invoice
 			form.description.data = load.description
 			form.locations = []
 			form.broker.company_name.data = load.broker.name
@@ -101,9 +102,6 @@ def edit(load_id):
 			form.shipper.company_name.data = load.shipper.name
 			form.shipper.phone.data = load.shipper.phone
 			form.shipper.email.data = load.shipper.email
-			
-			
-			form.price.data = load.price
 
 		return render_template('load/edit.html', 
 								title="Edit Load", 
@@ -319,11 +317,44 @@ def all():
 	#	loads.append(g.user.brokered_loads)
 	#	return render_template('load/all.html', loads=loads)
 	#else:
+	loads = []
+
 	return render_template('load/all.html', 
 							loads=g.user.company.loads, 
 							user=g.user, 
 							active="Loads",
 							title="All Loads")
+
+@loads.route('/board')
+@login_required
+def board():
+	#loads = Load.query.all()
+	#return render_template('load/all.html', loads=loads)
+	
+	#TODO: if user is a broker - return all loads the broker created
+	#return render_template('load/all.html', loads=g.user.loads)
+	#TODO: if the user is a carrier - return all loads that have one of their
+	#fleet memebers assigned
+	#if g.user.is_carrier():
+	#	loads = []
+	#	for load in Load.query.all():
+	#		if load.status == "Assigned" and load.carrier == g.user:
+	#			loads.append(load)
+	#		else:
+	#			for bid in load.bids:
+	#				if bid.offered_to == g.user:
+	#					loads.append(load)
+	#	loads.append(g.user.brokered_loads)
+	#	return render_template('load/all.html', loads=loads)
+	#else:
+	all_loads = Load.query.all()
+	brokered_loads = filter((lambda load: not load.created_by.company.is_carrier() and len(load.assigned_companies) < 2 and load.status == "Pending Carrier Assignment"), 
+											all_loads)
+	return render_template('load/all.html', 
+							loads=brokered_loads, 
+							user=g.user, 
+							active="Loads",
+							title="Load Board")
 
 @loads.route('/<load_id>/delete', methods=['POST', 'GET'])
 @login_required
@@ -427,6 +458,69 @@ def assign_driver(load_id):
 							hide=True,
 							title="Assign Driver")
 	abort(403)
+
+@loads.route('/<load_id>/bids/create', methods=['GET', 'POST'])
+@login_required
+def create_bid(load_id):
+	load = Load.query.get(int(load_id))
+	form = BidForm()
+	if form.validate_on_submit():
+		bid = Bid(value=form.value.data, created_by=g.user)
+		load.bids.append(bid)
+		db.session.add(bid)
+		db.session.add(load)
+		db.session.commit()
+		return redirect(url_for('.board'))
+	else:
+		return render_template('load/bid/create.html', 
+							form=form,
+							load=load, 
+							user=g.user,
+							active="Loads",
+							hide=True,
+							title="Create Bid")
+
+@loads.route('/<load_id>/bids/<bid_id>/accept', methods=['GET', 'POST'])
+@login_required
+def accept_bid(load_id, bid_id):
+	load = Load.query.get(int(load_id))
+	bid = Bid.query.get(int(bid_id))
+	bid.created_by.company.loads.append(bid.load)
+	bid.accepted = True
+	load.setStatus()
+	db.session.add(load)
+	db.session.add(bid)
+	db.session.add(bid.created_by.company)
+	db.session.commit()
+
+	bid_accepted(bid.created_by, load)
+
+	return redirect(url_for('.all'))
+
+@loads.route('/<load_id>/bids/<bid_id>/reject', methods=['GET', 'POST'])
+@login_required
+def reject_bid(load_id, bid_id):
+	bid = Bid.query.get(int(bid_id))
+	bid.accepted = False
+	db.session.add(bid)
+	db.session.commit()
+
+	## SEND EMAIL THAT BID HAS BEEN REJECTED
+
+
+	return redirect(url_for('.board'))
+
+@loads.route('/<load_id>/bids/all', methods=['GET', 'POST'])
+@login_required
+def view_bids(load_id):
+	load = Load.query.get(int(load_id))
+	return render_template('load/bid/view_all.html', 
+							load=load, 
+							bids=load.bids,
+							user=g.user,
+							active="Loads",
+							hide=True,
+							title="View Bids")
 
 @app.errorhandler(401)
 def not_found_error(error):

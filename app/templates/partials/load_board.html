@@ -30,15 +30,25 @@
                     </td>
                     <td>{{ load.status }}</td>
                     <td>
-                        {% if load.status == "Invoiced" %}
-                            <a href="{{ url_for('loads.complete', load_id=load.id) }}" class="btn btn-primary btn-mini ">Complete</a>
-                        {% elif load.status == "Delivered" %}
-                            <a href="{{ url_for('loads.invoice', load_id=load.id) }}" class="btn btn-primary btn-mini ">Invoiced</a>
-                        {% endif %}
-                        {% if load.getStatus != "Complete" and load.status != "Invoiced" %}
-                            <a href="{{ url_for('loads.edit', load_id=load.id)}}" class="btn btn-primary btn-mini">Edit</a>
-                        
-                            <a href="{{ url_for('loads.delete', load_id=load.id)}}" class="btn btn-danger btn-mini delete" onclick="return confirm('Are you sure you want to delete this?')">Delete</a>
+                        {% if load.created_by.id != g.user.company.id and load.status == "Pending Carrier Assignment" %}
+                            <a href="{{ url_for('loads.create_bid', load_id=load.id) }}" class="btn btn-primary btn-mini ">Create Bid</a>
+                        {% else %}
+                            {% if g.user.company.is_carrier() %}
+                                {% if load.status == "Invoiced" %}
+                                    <a href="{{ url_for('loads.complete', load_id=load.id) }}" class="btn btn-primary btn-mini ">Complete</a>
+                                {% elif load.status == "Delivered" %}
+                                    <a href="{{ url_for('loads.invoice', load_id=load.id) }}" class="btn btn-primary btn-mini ">Invoiced</a>
+                                {% endif %}
+                                {% if load.getStatus != "Complete" and load.status != "Invoiced" %}
+                                    <a href="{{ url_for('loads.edit', load_id=load.id)}}" class="btn btn-primary btn-mini">Edit</a>
+                                
+                                    <a href="{{ url_for('loads.delete', load_id=load.id)}}" class="btn btn-danger btn-mini delete" onclick="return confirm('Are you sure you want to delete this?')">Delete</a>
+                                {% endif %}
+                            {% else %}
+                                {% if load.status == "Pending Carrier Assignment" %}
+                                    <a href="{{ url_for('loads.view_bids', load_id=load.id) }}" class="btn btn-primary btn-mini ">View Bids <span class="badge">{{ load.bids|count }}</span></a>
+                                {% endif %}
+                            {% endif %}
                         {% endif %}
                     </td>
                 </tr>

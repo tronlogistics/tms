@@ -115,6 +115,19 @@ def ping_driver(driver):
 		render_template("emails/ping.html", 
 			driver=driver))
 
+def bid_accepted(user, load):
+	app.logger.info("Sending bid acceptance email!")
+
+	send_email("Bid has been accepted",
+		ADMINS[0],
+		[user.email],
+		render_template("emails/accepted_bid.txt", 
+			user=user,
+			load=load),
+		render_template("emails/accepted_bid.html", 
+			user=user,
+			load=load))
+
 def get_serializer(secret_key=None):
     if secret_key is None:
         secret_key = app.secret_key

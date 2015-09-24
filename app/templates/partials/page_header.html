@@ -18,10 +18,12 @@
 													<label for="submit" class="btn btn-primary">Submit</label>
 												{% else %}
 													{% if not hide %}
-														<a href="{{ url_for('loads.edit', load_id=load.id) }}" class="btn btn-primary">Edit</a>
-														<a href="{{ url_for('.add_location', load_id=load.id) }}" class="new-modal btn btn-green">
+														{% if load.created_by.company == g.user.company %}
+															<a href="{{ url_for('loads.edit', load_id=load.id) }}" class="btn btn-primary">Edit</a>
+															<a href="{{ url_for('.add_location', load_id=load.id) }}" class="new-modal btn btn-green">
 															Add Location <i class="fa fa-plus"></i>
-														</a>
+															</a>
+														{% endif %}
 
 														{% if load.truck is not none %}
 															<a href="{{ url_for('.assign_driver', load_id=load.id) }}" class="new-modal btn btn-danger">

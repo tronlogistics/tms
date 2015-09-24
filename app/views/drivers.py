@@ -74,7 +74,7 @@ def create():
 							phone=form.phone_number.data,
 							driver_type=form.driver_type.data,
 							driver_account=None)
-			if driver_user is not None:
+			if driver_user is not None and form.has_account.data == True:
 				flash("Driver & Driver's account have been synced")
 				driver.driver_account=driver_user
 				db.session.add(driver)

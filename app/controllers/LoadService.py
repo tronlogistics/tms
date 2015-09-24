@@ -56,7 +56,7 @@ def LoadFactory(form):
 	load = Load(broker=broker,
 				shipper=shipper,
 				name=form.name.data, 
-				price=form.price.data, 
+				broker_invoice=form.price.data, 
 				description=form.description.data,
 				trailer_type=form.trailer_type.data,
 				load_type=form.load_type.data,

@@ -1,0 +1,7 @@
+Dear {{ user.name }},
+
+Your bid on load {{ load.id}} has been accepted. Please visit your load board to see the new load assignment
+
+Regards,
+
+TronMS Team
