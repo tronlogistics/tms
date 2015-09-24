@@ -42,7 +42,10 @@ def login():
 				# Tell Flask-Principal the user has logged in
 				identity_changed.send(current_app._get_current_object(),
 										identity=Identity(user.email))
-				return redirect(url_for("fleet.view"))
+				if len(user.roles) == 1 and user.roles[0].code == 'driver':
+					return redirect(url_for('trucks.check_in'))
+				else:
+					return redirect(url_for('fleet.view'))
 			else:
 				flash("Wrong username/password")
 				return render_template('auth/login.html', login_form=login_form, register_form=register_form, forgot_form=forgot_form, user=g.user)
@@ -209,7 +212,10 @@ def set_password(user_id):
 		db.session.commit()
 		login_user(user, remember=False)
 		flash("Your password has been set.")
-		return redirect(url_for('fleet.view'))
+		if len(user.roles) == 1 and user.roles[0].code == 'driver':
+			return redirect(url_for('trucks.check_in'))
+		else:
+			return redirect(url_for('fleet.view'))
 	else:
 
 

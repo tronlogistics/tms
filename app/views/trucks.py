@@ -190,18 +190,12 @@ def ping(truck_id):
 	ping_driver(truck.driver)
 	return jsonify({'message': 'Pinged ' + truck.driver.get_full_name()})
 
-@trucks.route('/checkin/<activation_slug>', methods=['GET', 'POST'])
-def check_in(activation_slug):
+@trucks.route('/checkin', methods=['GET', 'POST'])
+def check_in():
 	form = LocationStatusForm()
-
-	s = get_serializer()
-	try:
-		driver_id = s.loads(activation_slug)
-		app.logger.info("Truck %s" % driver_id)
-	except BadSignature:
+	truck = Driver.query.filter_by(email=g.user.email).first().truck
+	if truck is None:
 		abort(404)
-
-	truck = Driver.query.get_or_404(driver_id).truck
 	location = getNextLocation(truck)
 	if form.validate_on_submit():
 		status = LocationStatus(status=form.status.data, created_on=datetime.utcnow())

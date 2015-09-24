@@ -46,8 +46,11 @@
 <!-- end: HEAD -->
 <!-- start: BODY -->
 <body class="login example1">
-    <div class="row-fluid">
-      <div class="col-sm-6">
+  <div class="container">
+    <div class="row">&nbsp;</div>
+    <div class="row">
+      <div class="col-sm-12">
+          {% if location is not none %}
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <i class="fa fa-external-link-square"></i>&nbsp;Current Stop | Load #4555456
@@ -131,8 +134,24 @@
                 </div>
             </div>
           </div>
+          {% else %}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <i class="fa fa-external-link-square"></i>&nbsp;Current Stop | N/a
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                      <div class="col-sm-12">
+                          <p>Your truck is now idle. Please contact dispatch for a new load.</p>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+          {% endif %}
         </div>
     </div>
+  </div>
 
 
   <script src="{{ static('backend/plugins/jQuery-lib/2.0.3/jquery.min.js') }}"></script>
