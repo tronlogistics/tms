@@ -40,8 +40,24 @@ def create_user():
 		db.session.add(g.user.company)
 		db.session.commit()
 		register_account(user)
-		return redirect(url_for('.view', load_id = load.id))
+		return redirect(url_for('.view'))
 	return render_template('org/user/create.html', active="Company", title="Create User", form=form)
+
+@org.route('<user_id>/enable', methods=['GET', 'POST'])
+def enable_user(user_id):
+	user = User.query.filter_by(id=user_id).first_or_404()
+	user.disabled = False
+	db.session.add(user)
+	db.session.commit()
+	return redirect(url_for('.view'))
+
+@org.route('<user_id>/disable', methods=['GET', 'POST'])
+def disable_user(user_id):
+	user = User.query.filter_by(id=user_id).first_or_404()
+	user.disabled = True
+	db.session.add(user)
+	db.session.commit()
+	return redirect(url_for('.view'))
 
 @org.route('/<user_id>/edit', methods=['GET', 'POST'])
 def edit_user(user_id):

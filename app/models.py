@@ -76,6 +76,7 @@ class User(db.Model):
 	authenticated = db.Column(db.Boolean(), nullable=False, server_default='0')
 	name = db.Column(db.String(100), nullable=False, server_default='')
 
+	disabled = db.Column(db.Boolean)
 	
 	#contacts = db.relationship('User',
 	#				secondary=User_to_User,

@@ -30,9 +30,9 @@ def login():
 
 		user = User.query.filter_by(email=login_form.email.data).first()
 		if user is not None:
-			#if not user.is_confirmed():
-			#	flash("You must confirm your e-mail prior to logging in. To confirm your e-mail, click the activation link provided to %s" % user.email )
-			#	return render_template('auth/login.html', login_form=login_form, register_form=register_form, forgot_form=forgot_form, user=g.user)
+			if not user.is_confirmed():
+				flash("You must confirm your e-mail prior to logging in. To confirm your e-mail, click the activation link provided to %s" % user.email )
+				return render_template('auth/login.html', login_form=login_form, register_form=register_form, forgot_form=forgot_form, user=g.user)
 
 			if user.check_password(login_form.password.data):
 				user.authenticated = True

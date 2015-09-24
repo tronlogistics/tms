@@ -15,6 +15,7 @@
 					<tr>
 						<th>Full Name</th>
 						<th class="hidden-xs">Email</th>
+						<th class="hidden-xs">Account Status</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -23,34 +24,46 @@
 						<tr>
 							<td>{{ user.name }}</td>
 							<td class="hidden-xs">
-							<a href="#" rel="nofollow" target="_blank">
+								<a href="#" rel="nofollow" target="_blank">
 								{{ user.email }}
-							</a></td>
+								</a>
+							</td>
+							<td>
+								{% if user.is_confirmed() and not user.disabled %}
+									Activated
+								{% elif user.is_confirmed() and user.disabled %}
+									Disabled
+								{% else %}
+									Pending Activation
+								{% endif %}
+							</td>
 							<td class="center">
-							<div>
 								<div class="btn-group">
 									<a class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown" href="#">
 										<i class="fa fa-cog"></i> <span class="caret"></span>
 									</a>
 									<ul role="menu" class="dropdown-menu pull-right">
-										<li role="presentation">
+										{#<li role="presentation">
 											<a role="menuitem" tabindex="-1" href="{{ url_for('.edit_user', user_id=user.id) }}">
 												<i class="fa fa-edit"></i> Edit
 											</a>
-										</li>
-										<li role="presentation">
-											<a role="menuitem" tabindex="-1" href="#">
-												<i class="fa fa-share"></i> Share
-											</a>
-										</li>
-										<li role="presentation">
-											<a role="menuitem" tabindex="-1" href="#">
-												<i class="fa fa-times"></i> Remove
-											</a>
-										</li>
+										</li>#}
+										{% if not user.disabled %}
+											<li role="presentation">
+												<a role="menuitem" tabindex="-1" href="{{ url_for('.disable_user', user_id=user.id) }}">
+													<i class="fa fa-share"></i> Disable User
+												</a>
+											</li>
+										{% else %}
+											<li role="presentation">
+												<a role="menuitem" tabindex="-1" href="{{ url_for('.enable_user', user_id=user.id) }}">
+													<i class="fa fa-share"></i> Activate User
+												</a>
+											</li>
+										{% endif %}
 									</ul>
 								</div>
-							</div></td>
+							</td>
 						</tr>
 					{% endfor %}
 				</tbody>
