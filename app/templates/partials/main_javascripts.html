@@ -7,7 +7,7 @@
 <!--[if gte IE 9]><!-->
 
 <!--<![endif]-->
-<script src="{{ static('backend/plugins/jquery-ui/jquery-ui-1.10.2.custom.min.js') }}"></script>
+<script src="{{ static('backend/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 <script src="{{ static('backend/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
 <script src="{{ static('backend/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js') }}"></script>
 <script src="{{ static('backend/plugins/blockUI/jquery.blockUI.js') }}"></script>
@@ -44,7 +44,7 @@
 	jQuery(document).ready(function() {
 		Main.init();
 		{% if form is defined %}
-		FormElements.init();
+			FormElements.init();
 			$('.input-mask-phone').mask("(999) 999-9999");
 		{% endif %}
 	});

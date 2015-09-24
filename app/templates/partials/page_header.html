@@ -33,8 +33,26 @@
 															</a>
 														{% endif %}
 															{% if load.truck is not none %}
-															<a href="javascript:ping_driver({{ load.truck.driver.truck.id }});" class="new-modal btn btn-green">Ping Driver</a>
-														{% endif %}
+																{% if load.truck.driver.driver_account is not none %}
+																	{% if load.truck.driver.driver_account.disabled == False %}
+																		<a href="javascript:ping_driver({{ load.truck.driver.truck.id }});" class="new-modal btn btn-green">Ping Driver</a>
+																	{% else %}
+																		<span data-toggle="tooltip" data-placement="right" title="Activate driver account to ping driver">
+																			<a href="javascript:ping_driver({{ load.truck.driver.truck.id }});" class="new-modal btn btn-green" disabled="disabled">Ping Driver</a>
+																		</span>
+																	{% endif %}
+																{% else %}
+																	<span data-toggle="tooltip" data-placement="right" title="Create a driver account to ping driver"> 
+																		<a href="javascript:ping_driver({{ load.truck.driver.truck.id }});" class="new-modal btn btn-green" disabled="disabled">Ping Driver</a>
+																	</span>
+																{% endif %}
+																	<script type="text/javascript">
+																		$(function () {
+																		  $('[data-toggle="tooltip"]').tooltip()
+																		})
+																	</script>
+															{% endif %}
+
 													{% endif %}
 													
 													

@@ -68,32 +68,29 @@ def create():
 		form = DriverForm()
 		if form.validate_on_submit():
 			driver_user = User.query.filter_by(email=form.email.data).first()
-
+			driver = Driver(first_name=form.first_name.data, 
+							last_name=form.last_name.data,
+							email=form.email.data,
+							phone=form.phone_number.data,
+							driver_type=form.driver_type.data,
+							driver_account=None)
 			if driver_user is not None:
-				flash("This driver already has an account")
-				driver = Driver(first_name=form.first_name.data, 
-							last_name=form.last_name.data,
-							email=form.email.data,
-							phone=form.phone_number.data,
-							driver_type=form.driver_type.data,
-							linked_account=True)
+				flash("Driver & Driver's account have been synced")
+				driver.driver_account=driver_user
 				db.session.add(driver)
-			else:
-				driver = Driver(first_name=form.first_name.data, 
-							last_name=form.last_name.data,
-							email=form.email.data,
-							phone=form.phone_number.data,
-							driver_type=form.driver_type.data,
-							linked_account=False)
-				db.session.add(driver)
+
+			db.session.add(driver)
 			
 			if form.has_account.data == True and driver_user is None:
+
 				user = User(name=driver.first_name + " " + driver.last_name,
 							email=driver.email,
 							password="")
 				role = Role.query.filter_by(code='driver').first()
 				user.roles.append(role)
 				g.user.company.users.append(user)
+				driver.driver_account=user
+				db.session.add(driver)
 				db.session.add(g.user.company)
 				db.session.add(user)
 				#db.session.commit()
@@ -127,21 +124,27 @@ def edit(driver_id):
 			driver.driver_type = form.driver_type.data
 			driver.driver_type = form.driver_type.data
 
-			if driver.linked_account == True:
-				driver_user = User.query.filter_by(email=driver.email).first()
-				if driver_user is None:
+			if form.has_account.data == True and driver.driver_account is None:
+				driver_user = User.query.filter_by(email=form.email.data).first()
+				if driver_user is not None:
+					flash("Driver & Driver's account have been synced")
+					driver.driver_account=driver_user
+				else:
 					user = User(name=driver.first_name + " " + driver.last_name,
-							email=driver.email,
-							password="")
+								email=driver.email,
+								password="")
 					role = Role.query.filter_by(code='driver').first()
 					user.roles.append(role)
 					g.user.company.users.append(user)
+					driver.driver_account=user
+					db.session.add(driver)
 					db.session.add(g.user.company)
 					db.session.add(user)
 					#db.session.commit()
 
-					#register_account(user)
+					register_account(user)
 					flash("A registration e-mail has been sent to %s" % driver.email)
+
 
 			db.session.add(driver)
 			db.session.commit()

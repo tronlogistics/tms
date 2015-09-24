@@ -90,6 +90,8 @@ class User(db.Model):
 					#secondaryjoin=id==User_to_User.c.right_user_id,)
 	customer_id = db.Column(db.Integer)
 
+	driver_id = Column(db.Integer, db.ForeignKey('Driver.id'))
+
 
 	def __init__(self, email, name, password):
 		self.email = email
@@ -359,14 +361,14 @@ class Driver(db.Model):
 	__tablename__ = 'Driver'
 	id = db.Column(db.Integer, primary_key = True)
 	fleet_id = db.Column(db.Integer, ForeignKey('Fleet.id'))
-	user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
+	#user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
 	truck_id = db.Column(db.Integer, db.ForeignKey('Truck.id'))
 	first_name = db.Column(db.String(30))
 	last_name = db.Column(db.String(30))
 	driver_type = db.Column(db.String(30))
 	email = db.Column(db.String(255), nullable=True)
 	phone = db.Column(db.String(14))
-	linked_account = db.Column(db.Boolean(), nullable=True, server_default='0')
+	driver_account = db.relationship("User", uselist=False)
 
 	def get_phone_number(self):
 		return str(self.phone)
