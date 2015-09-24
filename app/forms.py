@@ -192,6 +192,6 @@ class CreateUserForm(Form):
 	name = StringField('Name', validators=[DataRequired()])
 	email = StringField('Email', validators=[Email("Please enter a valid e-mail")])
 	role = SelectField('Location Type', coerce=str, choices = [('','<none selected>'),
-														('Driver', 'Driver'), 
+														('driver', 'Driver'), 
 														('company_admin', 'Company Admin')], 
 														validators = [DataRequired()])
