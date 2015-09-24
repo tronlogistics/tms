@@ -34,7 +34,7 @@ def login():
 				flash("You must confirm your e-mail prior to logging in. To confirm your e-mail, click the activation link provided to %s" % user.email )
 				return render_template('auth/login.html', login_form=login_form, register_form=register_form, forgot_form=forgot_form, user=g.user)
 
-			if user.check_password(login_form.password.data):
+			if user.check_password(login_form.password.data) and not user.disabled:
 				user.authenticated = True
 				db.session.add(user)
 				db.session.commit()
@@ -46,6 +46,9 @@ def login():
 					return redirect(url_for('trucks.check_in'))
 				else:
 					return redirect(url_for('fleet.view'))
+			elif user.disabled:
+				flash("Your account has been disabled. Please contact your organization for more information.")
+				return render_template('auth/login.html', login_form=login_form, register_form=register_form, forgot_form=forgot_form, user=g.user)
 			else:
 				flash("Wrong username/password")
 				return render_template('auth/login.html', login_form=login_form, register_form=register_form, forgot_form=forgot_form, user=g.user)
