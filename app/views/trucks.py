@@ -191,6 +191,7 @@ def ping(truck_id):
 	return jsonify({'message': 'Pinged ' + truck.driver.get_full_name()})
 
 @trucks.route('/checkin', methods=['GET', 'POST'])
+@login_required
 def check_in():
 	form = LocationStatusForm()
 	truck = Driver.query.filter_by(email=g.user.email).first().truck
