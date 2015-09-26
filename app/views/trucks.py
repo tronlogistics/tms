@@ -213,21 +213,26 @@ def check_in():
 
 @trucks.route('/storelocation/<truck_id>', methods=['POST'])
 def store_location(truck_id):
-	try: 
+	try:
+		print "test 1"
 		truck = Truck.query.get(int(truck_id))
 		longlat = LongLat(latitude=request.form['lat'],
 							longitude=request.form['long'])
+		print "test 2"
 		truck.tracker.append(longlat)
 		for load in filter((lambda l: l.status != "Load Complete"), truck.loads):
 			load.tracker.append(longlat)
+			print "test 3"
 		if truck.tracker.count() > 10: 
 			db.session.delete(truck.tracker.first())
+			print "test 4"
 		db.session.add(truck)
 		db.session.add(load)
 		db.session.commit()
-		return jsonify({'message': 'Thank you for checking in!')
+		print "test 5"
+		return jsonify({'message': 'Thank you for checking in! at %s, %s' % (longlat.latitude, longlat.longitude)})
 	except Exception as e:
-		return jsonify({'message': 'There was an error checking in.' })
+		return jsonify({'message': '%s' % e })
 
 @trucks.route('/route/<truck_id>', methods=['GET', 'POST'])
 @login_required
