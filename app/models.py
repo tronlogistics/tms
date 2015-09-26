@@ -340,6 +340,8 @@ class Contact(db.Model):
 	shipped_loads = db.relationship('Load', backref='shipper', lazy='dynamic', foreign_keys='Load.shipper_id')
 	__mapper_args__ = {'polymorphic_on': contact_type}
 
+	def __repr__(self):
+		return '%s' % (self.name)
 	
 
 
