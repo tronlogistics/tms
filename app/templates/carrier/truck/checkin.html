@@ -172,11 +172,13 @@
       function locate() {
         if(navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
-                  alert(position.coords.longitude)
+                  alert(position.coords.longitude);
                   $.post('./storelocation/{{ truck.id }}', {
                   long: position.coords.longitude,
                   lat: position.coords.latitude
-              }).done(function(translated) {
+                  }
+                  alert('hi');
+                  ).done(function(translated) {
                 $('#message').text(translated['message']);
                   $('#message').show();
               }).fail(function(translated) {
