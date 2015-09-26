@@ -175,7 +175,6 @@ def activate_user(activation_slug):
     db.session.commit()
     app.logger.info("User \"%s\" is now activated" % user.email)
     if user.password == "":
-    	flash('Please set your password')
     	return redirect(url_for('.set_password', user_id=user_id))
     else:
     	flash('Your account is now activated. Please log in.')
