@@ -125,7 +125,8 @@ class TruckForm(Form):
 	locations = FieldList(FormField(StopNumberForm), validators=[])
 
 class DriverForm(Form):
-	name = StringField('Name', validators=[DataRequired()])
+	first_name = StringField('Name', validators=[DataRequired()])
+	last_name = StringField('Name', validators=[DataRequired()])
 	email = StringField('Email', validators=[Email("Please enter a valid e-mail"),DataRequired()])
 	phone_number = StringField('Phone', validators=[DataRequired()])
 	driver_type = SelectField('Driver Type', choices = [('','<none selected>'),
