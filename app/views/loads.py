@@ -58,6 +58,7 @@ def edit(load_id):
 		load = Load.query.get(int(load_id))
 		form = LoadForm()
 		if form.validate_on_submit():
+			load.name = form.name.data
 			load.load_type = form.load_type.data
 			load.trailer_type = form.trailer_type.data
 			load.total_miles = form.total_miles.data
@@ -89,6 +90,7 @@ def edit(load_id):
 		
 			return redirect(url_for('.view', load_id=load.id))
 		else:
+			form.name.data = load.name
 			form.load_type.data = load.load_type
 			form.total_miles.data = load.total_miles
 			form.trailer_type.data = load.trailer_type

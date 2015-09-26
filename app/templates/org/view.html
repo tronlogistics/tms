@@ -31,7 +31,7 @@
 							<td>
 								{% if user.is_confirmed() and not user.disabled %}
 									Activated
-								{% elif user.is_confirmed() and user.disabled %}
+								{% elif user.is_confirmed() or user.disabled %}
 									Disabled
 								{% else %}
 									Pending Activation

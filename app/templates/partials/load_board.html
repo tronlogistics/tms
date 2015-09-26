@@ -2,7 +2,7 @@
     <table class="table table-bordered table-hover table-striped table-condensed" id="sample-table-1">
         <thead>
             <tr>
-                <th>Load ID</th>
+                <th>Load #</th>
                 <th>Origin</th>
                 <th>Destination</th>
                 <th>Driver</th>
@@ -13,7 +13,7 @@
         <tbody>
             {% for load in loads %}
                 <tr>
-                    <td><a href="{{ url_for('loads.view', load_id=load.id) }}">{{ load.id }}</a></td>
+                    <td><a href="{{ url_for('loads.view', load_id=load.id) }}">{{ load.name }}</a></td>
                     {% if load.lane.locations.count() > 0 %}
                         <td>{{ load.lane.locations[0].address.city }}, {{ load.lane.locations[0].address.state }} {{ load.lane.locations[0].address.postal_code }}</td>
                         <td>{{ load.lane.locations[-1].address.city }}, {{ load.lane.locations[-1].address.state }} {{ load.lane.locations[-1].address.postal_code }}</td>

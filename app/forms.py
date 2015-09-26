@@ -72,7 +72,7 @@ class LaneLocationForm(Form):
 	contact_phone_line_number = StringField('Line Number', validators=[])
 
 class LoadForm(Form):
-	name = StringField('Name', validators=[])
+	name = StringField('Name', validators=[DataRequired()])
 	trailer_type = SelectField('Trailer Type', choices = [('','<none selected>'),
 															('Auto Carrier', 'Auto Carrier'), 
 															('Conestoga', 'Conestoga'),
