@@ -489,7 +489,7 @@ def accept_bid(load_id, bid_id):
 	bid = Bid.query.get(int(bid_id))
 	bid.created_by.company.loads.append(bid.load)
 	bid.accepted = True
-	load.setStatus()
+	load.setStatus("")
 	db.session.add(load)
 	db.session.add(bid)
 	db.session.add(bid.created_by.company)
