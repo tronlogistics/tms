@@ -1,6 +1,6 @@
-Dear {{ user.name }},
+Dear {{ user.first_name }} {{ user.last_name }},
 
-Your bid on load {{ load.id}} has been accepted. Please visit your load board to see the new load assignment
+Your bid on load {{ load.name }} has been accepted. Please visit your load board to see the new load assignment.
 
 Regards,
 
