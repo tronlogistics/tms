@@ -15,14 +15,38 @@
 				<div class="panel-body">
 					<div class="form-group">
 						<label class="col-sm-3 control-label" for="origin_address1">
-							Name<span class="symbol required"></span>
+							First Name<span class="symbol required"></span>
 
-					          {% for error in form.name.errors %}
+					          {% for error in form.first_name.errors %}
 					            <br><span style="color: red;">{{ error }}</span>
 					          {% endfor %}
 						</label>
 						<div class="col-sm-9">
-							{{ form.name(class="form-control") }}
+							{{ form.first_name(class="form-control") }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Last Name<span class="symbol required"></span>
+
+					          {% for error in form.last_name.errors %}
+					            <br><span style="color: red;">{{ error }}</span>
+					          {% endfor %}
+						</label>
+						<div class="col-sm-9">
+							{{ form.last_name(class="form-control") }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-sm-3 control-label" for="origin_address1">
+							Phone Number<span class="symbol required"></span>
+
+					          {% for error in form.phone_number.errors %}
+					            <br><span style="color: red;">{{ error }}</span>
+					          {% endfor %}
+						</label>
+						<div class="col-sm-9">
+							{{ form.phone_number(class="form-control input-mask-phone") }}
 						</div>
 					</div>
 					<div class="form-group">

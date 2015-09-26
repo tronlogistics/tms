@@ -1,4 +1,4 @@
-<p>Dear {{ user.company_name }},</p>
+<p>Dear {{ user.first_name }} {{ user.last_name }},</p>
 <p>Please confim your e-mail by clicking <a href="{{ url_for('auth.activate_user', activation_slug=activation_slug, _external=True) }}">here</a>.</p>
 <p>Regards,</p>
 <p>TronMS Team</p>

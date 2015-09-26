@@ -125,8 +125,7 @@ class TruckForm(Form):
 	locations = FieldList(FormField(StopNumberForm), validators=[])
 
 class DriverForm(Form):
-	first_name = StringField('First Name', validators=[DataRequired()])
-	last_name = StringField('Last Name', validators=[DataRequired()])
+	name = StringField('Name', validators=[DataRequired()])
 	email = StringField('Email', validators=[Email("Please enter a valid e-mail"),DataRequired()])
 	phone_number = StringField('Phone', validators=[DataRequired()])
 	driver_type = SelectField('Driver Type', choices = [('','<none selected>'),
@@ -148,12 +147,14 @@ class ResetPasswordForm(Form):
 
 class RegisterForm(Form):
 	company_name = StringField('Company Name', validators=[DataRequired()])
-	name = StringField('Name', validators=[DataRequired()])
+	first_name = StringField('Name', validators=[DataRequired()])
+	last_name = StringField('Name', validators=[DataRequired()])
 	address = StringField('Address', validators=[])
 	city = StringField('City', validators=[])
 	state = StringField('State', validators=[])
 	postal_code = StringField('Zip Code', validators=[])
 	email = StringField('Email', validators=[DataRequired()])
+	phone_number = StringField('Phone', validators=[DataRequired()])
 	password = PasswordField('New Password', [
 		DataRequired(),
 		EqualTo('confirm', message='Passwords must match')
@@ -189,8 +190,10 @@ class StatusForm(Form):
 	location_status = FieldList(FormField(LocationStatusForm), validators=[])
 
 class CreateUserForm(Form):
-	name = StringField('Name', validators=[DataRequired()])
+	first_name = StringField('First Name', validators=[DataRequired()])
+	last_name = StringField('First Name', validators=[DataRequired()])
 	email = StringField('Email', validators=[Email("Please enter a valid e-mail")])
+	phone_number = StringField('Phone Number', validators=[DataRequired()])
 	role = SelectField('Location Type', coerce=str, choices = [('','<none selected>'),
 														('driver', 'Driver'), 
 														('company_admin', 'Company Admin')], 

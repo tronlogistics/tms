@@ -112,7 +112,9 @@ def register():
 		company = Company(name=register_form.company_name.data,
 							address=address,
 							company_type=register_form.account_type.data)
-		user = User(name=register_form.name.data,
+		user = User(first_name=register_form.first_name.data,
+					last_name=register_form.last_name.data,
+					phone=register_form.phone_number.data,
 					email=register_form.email.data,
 					password=register_form.password.data)
 		role = Role.query.filter_by(code='company_admin').first()

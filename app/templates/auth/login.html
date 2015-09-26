@@ -107,7 +107,13 @@
 					</div>
 					<fieldset>
 						<div class="form-group">
-							{{ register_form.name(class="form-control", placeholder="Full Name") }}
+							{{ register_form.first_name(class="form-control", placeholder="First Name") }}
+						</div>
+						<div class="form-group">
+							{{ register_form.last_name(class="form-control", placeholder="Last Name") }}
+						</div>
+						<div class="form-group">
+							{{ register_form.phone_number(class="form-control input-mask-phone", placeholder="Phone Number") }}
 						</div>
 						<div class="form-group">
 							{{ register_form.company_name(class="form-control", placeholder="Company Name") }}
@@ -196,11 +202,13 @@
 		<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 		<script src="{{ static('backend/plugins/jquery-validation/dist/jquery.validate.min.js') }}"></script>
 		<script src="{{ static('backend/js/login.js') }}"></script>
+		<script src="{{ static('backend/plugins/jquery.maskedinput/src/jquery.maskedinput.js') }}"></script>
 		<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 		<script>
 			jQuery(document).ready(function() {
 				Main.init();
 				Login.init();
+				$('.input-mask-phone').mask("(999) 999-9999");
 			});
 		</script>
 

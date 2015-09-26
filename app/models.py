@@ -75,7 +75,9 @@ class User(db.Model):
 
 	# User information
 	authenticated = db.Column(db.Boolean(), nullable=False, server_default='0')
-	name = db.Column(db.String(100), nullable=False, server_default='')
+	first_name = db.Column(db.String(100), nullable=False, server_default='')
+	last_name = db.Column(db.String(100), nullable=False, server_default='')
+	phone = db.Column(db.String(30))
 
 	disabled = db.Column(db.Boolean)
 	
@@ -93,9 +95,11 @@ class User(db.Model):
 	#driver_id = Column(db.Integer, db.ForeignKey('Driver.id'))
 	#driver_account = db.relationship("User", uselist=False)
 
-	def __init__(self, email, name, password):
+	def __init__(self, email, first_name, last_name, phone, password):
 		self.email = email
-		self.name = name
+		self.first_name = first_name
+		self.last_name = last_name
+		self.phone = phone
 		if password != "":
 			self.set_password(password)
 

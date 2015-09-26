@@ -3,7 +3,7 @@ from flask.ext.login import login_user, logout_user, current_user, login_require
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, mail
 from app.forms import CreateUserForm
-from app.models import User, Role, Lead, Address, Company
+from app.models import User, Role, Lead, Address, Company, Driver
 from app.permissions import *
 from app.emails import register_account, new_lead, contact_us, reset_pass, get_serializer, request_demo
 #from app import stripe, stripe_keys
@@ -30,11 +30,35 @@ def create_user():
 	form = CreateUserForm()
 	if form.validate_on_submit():
 		role = Role.query.filter_by(code=form.role.data).first()
-		user = User(name=form.name.data,
+		user = User(first_name=form.first_name.data,
+					last_name=form.last_name.data,
+					phone=form.phone_number.data,
 					email=form.email.data,
 					password="")
 		user.roles.append(role)
 		user.company = g.user.company
+		if role.code == "driver":
+			driver = Driver.query.filter_by(email=form.email.data).first()
+			if driver is None:
+				driver = Driver(first_name=form.first_name.data, 
+							last_name=form.last_name.data,
+							email=form.email.data,
+							phone=form.phone_number.data,
+							driver_type="Company Driver",
+							driver_account=user)
+				g.user.company.fleet.drivers.append(driver)
+				flash("Driver created and added to your fleet")
+			elif len(filter((lambda my_driver: my_driver.id == driver.id), g.user.fleet.drivers)) == 0:
+				driver = Driver(first_name=form.first_name.data, 
+							last_name=form.last_name.data,
+							email=form.email.data,
+							phone=form.phone_number.data,
+							driver_type="Company Driver",
+							driver_account=user)
+				g.user.company.fleet.drivers.append(driver)
+				flash("Driver created and added to your fleet")
+			else:
+				flash("Driver & Driver account have been synced")
 		db.session.add(user)
 		db.session.add(role)
 		db.session.add(g.user.company)
