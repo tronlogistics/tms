@@ -220,7 +220,7 @@ def store_location(truck_id):
 							longitude=request.form['long'])
 		print "test 2"
 		truck.tracker.append(longlat)
-		for load in filter((lambda l: l.status != "Load Complete"), truck.driver.loads):
+		for load in filter((lambda l: l.status != "Load Complete"), truck.loads):
 			load.tracker.append(longlat)
 			print "test 3"
 		if truck.tracker.count() > 10: 
