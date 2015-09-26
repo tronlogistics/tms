@@ -30,7 +30,7 @@
                     </td>
                     <td>{{ load.status }}</td>
                     <td class="center">
-                        {% if load.created_by.id != g.user.company.id and load.status == "Pending Carrier Assignment" %}
+                        {% if load.created_by.company.id != g.user.company.id and load.status == "Pending Carrier Assignment" %}
                             <a href="{{ url_for('loads.create_bid', load_id=load.id) }}" class="btn btn-primary btn-mini ">Create Bid</a>
                         {% elif not g.user.company.is_carrier() %}
                             {% if load.status == "Pending Carrier Assignment" %}
