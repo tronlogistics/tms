@@ -172,22 +172,20 @@
       function locate() {
         if(navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
-                  alert(position.coords.longitude);
-                  $.post('./storelocation/{{ truck.id }}', {
-                  long: position.coords.longitude,
-                  lat: position.coords.latitude
-                  }
-                  alert('hi');
-                  ).done(function(translated) {
-                $('#message').text(translated['message']);
-                  $('#message').show();
-              }).fail(function(translated) {
-                alert(translated)
-                  $('#error').show();
-              });
-              }, function() {
-                handleNoGeolocation(true);
-              });
+            alert(position.coords.longitude);
+            $.post('./storelocation/{{ truck.id }}', {
+              long: position.coords.longitude,
+              lat: position.coords.latitude
+            }).done(function(translated) {
+            $('#message').text(translated['message']);
+              $('#message').show();
+            }).fail(function(translated) {
+              alert(translated['message'])
+                $('#error').show();
+            });
+          }, function() {
+            handleNoGeolocation(true);
+          });
             
         }
         else {
