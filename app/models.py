@@ -49,6 +49,9 @@ class Company(db.Model):
 	
 	fleet = db.relationship('Fleet', uselist=False, backref='company')
 
+	def __repr__(self):
+		return '%s' % (self.name)
+
 	def __init__(self, name, address, company_type):
 		self.name = name
 		self.address=address
@@ -140,7 +143,7 @@ class User(db.Model):
 		return len(filter((lambda role: role.code == 'admin'), self.roles)) > 0
 
 	def __repr__(self):
-		return '<User %r>' % (self.company_name)
+		return '%s %s' % (self.first_name, self.last_name)
 
 class Load(db.Model):
 	__tablename__ = 'Load'
@@ -293,6 +296,9 @@ class LocationStatus(db.Model):
 	location_id = db.Column(db.Integer, db.ForeignKey('Location.id'))
 	status = db.Column(db.String(20))
 	created_on = db.Column(db.DateTime, server_default=db.func.now())
+
+	def __repr__(self):
+		return '%s' % (self.status)
 
 class LoadDetail(db.Model):
 	__tablename__ = 'LoadDetail'
