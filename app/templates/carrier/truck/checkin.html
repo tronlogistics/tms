@@ -177,7 +177,7 @@
               long: position.coords.longitude,
               lat: position.coords.latitude
             }).done(function(translated) {
-              alert('success');
+              alert(translated['message']);
             $('#message').text(translated['message']);
               $('#message').show();
             }).fail(function(translated) {
