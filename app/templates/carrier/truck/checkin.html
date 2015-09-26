@@ -173,7 +173,7 @@
         if(navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
                   alert(position.coords.longitude)
-                  $.post('../storelocation/{{ truck.id }}', {
+                  $.post('./storelocation/{{ truck.id }}', {
                   long: position.coords.longitude,
                   lat: position.coords.latitude
               }).done(function(translated) {
