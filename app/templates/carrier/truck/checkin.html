@@ -172,6 +172,7 @@
       function locate() {
         if(navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
+                  alert(position.coords.longitude)
                   $.post('../storelocation/{{ truck.id }}', {
                   long: position.coords.longitude,
                   lat: position.coords.latitude
@@ -179,7 +180,7 @@
                 $('#message').text(translated['message']);
                   $('#message').show();
               }).fail(function(translated) {
-                alert(translated['message'])
+                alert(translated)
                   $('#error').show();
               });
               }, function() {
