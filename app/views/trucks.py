@@ -213,7 +213,7 @@ def check_in():
 
 @trucks.route('/storelocation/<truck_id>', methods=['POST'])
 def store_location(truck_id):
-	try:
+	try: 
 		truck = Truck.query.get(int(truck_id))
 		longlat = LongLat(latitude=request.form['lat'],
 							longitude=request.form['long'])
