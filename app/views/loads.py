@@ -3,7 +3,7 @@ from flask.ext import excel
 from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, SQLAlchemy
-from app.forms import LoadForm, StatusForm, LaneLocationForm, LocationStatusForm, BidForm, PostLoadForm
+from app.forms import LoadForm, StatusForm, LaneLocationForm, LocationStatusForm, BidForm, PostLoadForm, AcceptBidForm
 from app.models import Load, LoadDetail, Lane, Location, Truck, User, Driver, Contact, Bid
 from app.permissions import *
 from app.emails import bid_accepted
@@ -523,17 +523,34 @@ def create_bid(load_id):
 def accept_bid(load_id, bid_id):
 	load = Load.query.get(int(load_id))
 	bid = Bid.query.get(int(bid_id))
-	bid.created_by.company.loads.append(bid.load)
-	bid.accepted = True
-	load.setStatus("")
-	db.session.add(load)
-	db.session.add(bid)
-	db.session.add(bid.created_by.company)
-	db.session.commit()
-
-	bid_accepted(bid.created_by, load)
-
-	return redirect(url_for('.all'))
+	form = AcceptBidForm()
+	if form.validate_on_submit():
+		bid.created_by.company.loads.append(bid.load)
+		bid.accepted = True
+		load.setStatus("")
+		db.session.add(load)
+		db.session.add(bid)
+		db.session.add(bid.created_by.company)
+		db.session.commit()
+		bid_accepted(bid.created_by, load)
+		return redirect(url_for('.all'))
+	else:
+		for location in load.lane.locations:
+			loc_form = LaneLocationForm()
+			loc_form.stop_type = location.type
+			loc_form.address1 = location.address.address1
+			loc_form.city = location.address.city
+			loc_form.state = location.address.state
+			loc_form.postal_code = location.address.postal_code
+			loc_form.arrival_date = location.arrival_date.strftime("%m-%d-%Y")
+			form.locations.append_entry(loc_form)
+		return render_template('load/accept_bid.html', 
+							form=form,
+							load=load, 
+							user=g.user,
+							active="Loads",
+							hide=True,
+							title="Accept Bid")
 
 @loads.route('/<load_id>/bids/<bid_id>/reject', methods=['GET', 'POST'])
 @login_required

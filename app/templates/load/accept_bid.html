@@ -7,55 +7,132 @@
 		<!-- start: PAGE CONTENT -->
 		
 		<div class="col-sm-12">
-			{% for location in load.lane %}
+			{% for location in form.locations %}
 				<div class="row">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<i class="fa fa-external-link-square"></i>
-							Location #{{ loop.index }} - {{ location.type }}
+							Location #{{ loop.index }} - {{ location.stop_type.data }}
 						</div>
 						<div class="panel-body">
 							<div class="form-horizontal">
-								<div class="col-sm-12">
-									<div class="form-group">
-										<label class="col-sm-3 control-label">
-											Address <span class="symbol required"></span>
-										</label>
-										<div class="col-sm-7">
-											{{ form.address1(class="form-control") }}
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="form-group">
+											<label class="col-sm-3 control-label">
+												Address <span class="symbol required"></span>
+											</label>
+											<div class="col-sm-7">
+												{{ location.address1(class="form-control") }}
+											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-3 control-label">
-											City <span class="symbol required"></span>
-										</label>
-										<div class="col-sm-7">
-											{{ form.city(class="form-control", placeholder="City") }}
+										<div class="form-group">
+											<label class="col-sm-3 control-label">
+												City <span class="symbol required"></span>
+											</label>
+											<div class="col-sm-7">
+												{{ location.city(class="form-control", placeholder="City") }}
+											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-3 control-label">
-											State <span class="symbol required"></span>
-										</label>
-										<div class="col-sm-7">
-											{{ form.state(class="form-control", placeholder="State") }}
+										<div class="form-group">
+											<label class="col-sm-3 control-label">
+												State <span class="symbol required"></span>
+											</label>
+											<div class="col-sm-7">
+												{{ location.state(class="form-control", placeholder="State") }}
+											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-3 control-label">
-											Zip Code <span class="symbol required"></span>
-										</label>
-										<div class="col-sm-7">
-											{{ form.postal_code(class="form-control", placeholder="Zip Code") }}
+										<div class="form-group">
+											<label class="col-sm-3 control-label">
+												Zip Code <span class="symbol required"></span>
+											</label>
+											<div class="col-sm-7">
+												{{ location.postal_code(class="form-control", placeholder="Zip Code") }}
+											</div>
 										</div>
-									</div>
-									<div class="form-group">
-										<label class="col-sm-3 control-label">
-											Arrival Date <span class="symbol required"></span>
-										</label>
-										<div class="col-sm-7">
+										<div class="form-group">
+											<label class="col-sm-3 control-label">
+												Arrival Date <span class="symbol required"></span>
+											</label>
+											<div class="col-sm-7">
 
-											<input type="text" id="arrival_date" name="arrival_date" data-date-format="mm/dd/yyyy" data-date-viewmode="years" class="form-control date-picker" value="">
+												<input type="text" id="locations-{{ loop.index - 1}}-arrival_date" name="locations-{{ loop.index - 1}}-arrival_date" data-date-format="dd-mm-yyyy" data-date-viewmode="years" class="form-control date-picker" value="{{ location.arrival_date.data }}">
+											</div>
+										</div>
+									</div>
+								</div>
+								<hr />
+								<div class="row">
+									<div class="col-sm-3">
+										<h3>BOL's</h3>
+									</div>
+									<div class="col-sm-9">
+										<button class="btn btn-primary add_field_button" id="{{ loop.index - 1 }}">Add BOL</button>
+									</div>
+								</div>
+								<div id="wrapper-{{ loop.index - 1 }}">
+									<div class="row bol-{{ loop.index - 1 }}-info">
+
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													BOL # <span class="symbol required"></span>
+												</label>
+												<div class="col-sm-7">
+													<input type="text" id="locations-{{ loop.index }}-BOLs-0-bol_number" name="locations-{{ loop.index }}-BOLs-0-bol_number" class="form-control" value="">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													# Units <span class="symbol required"></span>
+												</label>
+												<div class="col-sm-7">
+													<input type="text" id="locations-{{ loop.index }}-BOLs-0-bol_number" name="locations-{{ loop.index }}-BOLs-0-bol_number" class="form-control" value="">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													Weight <span class="symbol required"></span>
+												</label>
+												<div class="col-sm-7">
+													<input type="text" id="locations-{{ loop.index }}-BOLs-0-bol_number" name="locations-{{ loop.index }}-BOLs-0-bol_number" class="form-control" value="">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													Commodity Type <span class="symbol required"></span>
+												</label>
+												<div class="col-sm-7">
+													<input type="text" id="locations-{{ loop.index }}-BOLs-0-bol_number" name="locations-{{ loop.index }}-BOLs-0-bol_number" class="form-control" value="">
+												</div>
+											</div>
+											
+										</div>
+										<div class="col-sm-6">
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													Length <span class="symbol required"></span>
+												</label>
+												<div class="col-sm-7">
+													<input type="text" id="locations-{{ loop.index }}-BOLs-0-bol_number" name="locations-{{ loop.index }}-BOLs-0-bol_number" class="form-control" value="">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													Width <span class="symbol required"></span>
+												</label>
+												<div class="col-sm-7">
+													<input type="text" id="locations-{{ loop.index }}-BOLs-0-bol_number" name="locations-{{ loop.index }}-BOLs-0-bol_number" class="form-control" value="">
+												</div>
+											</div>
+											<div class="form-group">
+												<label class="col-sm-3 control-label">
+													Height <span class="symbol required"></span>
+												</label>
+												<div class="col-sm-7">
+													<input type="text" id="locations-{{ loop.index }}-BOLs-0-bol_number" name="locations-{{ loop.index }}-BOLs-0-bol_number" class="form-control" value="">
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -85,6 +162,9 @@
 </form>
 
 <script src="{{ static('backend/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
+<script type="text/javascript" src="{{ static('backend/plugins/DataTables/media/js/jquery.dataTables.min.js') }}"></script>
+		<script type="text/javascript" src="{{ static('backend/plugins/DataTables/media/js/DT_bootstrap.js') }}"></script>
+		<script src="{{ static('backend/js/table-data2.js') }}"></script>
 		<script>
 		$( document ).on( "focus", "input.date-picker", function() {
 				$('.date-picker').datepicker({
@@ -93,29 +173,72 @@
 						minDate: 0
 			        });
 			});
+		    $(".add_field_button").click(function(e){ //on add input button click
+		        e.preventDefault();
+		        var curID = $(".bol-"+e.target.id+"-info").length;
+		        $('#wrapper-'+e.target.id).append('<hr \/><div class=\"row bol-0-info\">'+
+													'<div class=\"col-sm-6\">' +
+													'	<div class=\"form-group\">' +
+													'		<label class=\"col-sm-3 control-label\">' +
+													'			BOL # <span class=\"symbol required\"><\/span>' +
+													'		<\/label>' +
+													'		<div class=\"col-sm-7\">' +
+													'			<input type=\"text\" id=\"locations-0-BOLs-1-bol_number\" name=\"locations-0-BOLs-1-bol_number\" class=\"form-control\" value=\"\">' +
+													'		<\/div>' +
+													'	<\/div>' +
+													'	<div class=\"form-group\">' +
+													'		<label class=\"col-sm-3 control-label\">' +
+													'			# Units <span class=\"symbol required\"><\/span>' +
+													'		<\/label>' +
+													'		<div class=\"col-sm-7\">' +
+													'			<input type=\"text\" id=\"locations-0-BOLs-1-bol_number\" name=\"locations-0-BOLs-1-bol_number\" class=\"form-control\" value=\"\">' +
+													'		<\/div>' +
+													'	<\/div>' +
+													'	<div class=\"form-group\">' +
+													'		<label class=\"col-sm-3 control-label\">' +
+													'			Weight <span class=\"symbol required\"><\/span>' +
+													'		<\/label>' +
+													'		<div class=\"col-sm-7\">' +
+													'			<input type=\"text\" id=\"locations-0-BOLs-1-bol_number\" name=\"locations-0-BOLs-1-bol_number\" class=\"form-control\" value=\"\">' +
+													'		<\/div>' +
+													'	<\/div>' +
+													'	<div class=\"form-group\">' +
+													'		<label class=\"col-sm-3 control-label\">' +
+													'			Commodity Type <span class=\"symbol required\"><\/span>' +
+													'		<\/label>' +
+													'		<div class=\"col-sm-7\">' +
+													'			<input type=\"text\" id=\"locations-0-BOLs-1-bol_number\" name=\"locations-0-BOLs-1-bol_number\" class=\"form-control\" value=\"\">' +
+													'		<\/div>' +
+													'	<\/div>	' +
+													'<\/div>' +
+													'<div class=\"col-sm-6\">' +
+													'	<div class=\"form-group\">' +
+													'		<label class=\"col-sm-3 control-label\">' +
+													'			Length <span class=\"symbol required\"><\/span>' +
+													'		<\/label>' +
+													'		<div class=\"col-sm-7\">' +
+													'			<input type=\"text\" id=\"locations-0-BOLs-1-bol_number\" name=\"locations-0-BOLs-1-bol_number\" class=\"form-control\" value=\"\">' +
+													'		<\/div>' +
+													'	<\/div>' +
+													'	<div class=\"form-group\">' +
+													'		<label class=\"col-sm-3 control-label\">' +
+													'			Width <span class=\"symbol required\"><\/span>' +
+													'		<\/label>' +
+													'		<div class=\"col-sm-7\">' +
+													'			<input type=\"text\" id=\"locations-0-BOLs-1-bol_number\" name=\"locations-0-BOLs-1-bol_number\" class=\"form-control\" value=\"\">' +
+													'		<\/div>' +
+													'	<\/div>' +
+													'	<div class=\"form-group\">' +
+													'		<label class=\"col-sm-3 control-label\">' +
+													'			Height <span class=\"symbol required\"><\/span>' +
+													'		<\/label>' +
+													'		<div class=\"col-sm-7\">' +
+													'			<input type=\"text\" id=\"locations-0-BOLs-1-bol_number\" name=\"locations-0-BOLs-1-bol_number\" class=\"form-control\" value=\"\">' +
+													'		<\/div>' +
+													'	<\/div>' +
+													'<\/div>' +
+													'<\/div>');
+		        });
 
-		$( document).on("change", ".location-type", function() {
-				if ($(this).val() == "Pickup") {
-					$('#pickup').css("display", "");
-					$('#delivery').css("display", "none");
-					$('#delivery_weight').val("");
-					$('#delivery_notes').val("");
-				} else if ($(this).val() == "Drop Off") {
-					$('#pickup').css("display", "none");
-					$('#pickup_weight').val("");
-					$('#pickup_notes').val("");
-					$('#delivery').css("display", "");
-				} else if ($(this).val() == "Both") {
-					$('#pickup').css("display", "");
-					$('#delivery').css("display", "");
-				} else {
-					$('#pickup').css("display", "none");
-					$('#pickup_weight').val("");
-					$('#pickup_notes').val("");
-					$('#delivery').css("display", "none");
-					$('#delivery_weight').val("");
-					$('#delivery_notes').val("");
-				}
-			});
 		</script>
 				{% endblock %}
