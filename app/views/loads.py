@@ -165,7 +165,11 @@ def view(load_id):
 				current_location = load.lane.locations[-1]
 		else:
 			current_location = sorted_locations[0]
-		return render_template('load/view.html',
+		print g.user.company.is_carrier()
+		print len(load.assigned_companies)
+		if g.user.company.is_carrier() and len(load.assigned_companies) < 2:
+			print "Hidden"
+			return render_template('load/view_hidden.html',
 												load=load, 
 												carriers=carriers,
 												locations = load.lane.locations,
@@ -174,6 +178,17 @@ def view(load_id):
 												active="Loads",
 												current_location=current_location,
 												user=g.user)
+		else:
+			return render_template('load/view.html',
+												load=load, 
+												carriers=carriers,
+												locations = load.lane.locations,
+												is_dispatch=g.user.is_carrier(),
+												title="View Load",
+												active="Loads",
+												current_location=current_location,
+												user=g.user)
+
 	abort(403)
 
 @loads.route('/<load_id>/location', methods=['POST', 'GET'])

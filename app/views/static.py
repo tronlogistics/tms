@@ -3,7 +3,7 @@ from flask.ext.login import login_user, logout_user, current_user, login_require
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, mail
 from app.forms import LoginForm, RegisterForm, ForgotForm, ResetPasswordForm, ContactUsForm, EmailForm, DemoForm
-from app.models import User, Role, Lead
+from app.models import User, Role, Lead, Load
 from app.permissions import *
 from app.emails import register_account, new_lead, contact_us, reset_pass, get_serializer, request_demo
 #from app import stripe, stripe_keys
@@ -126,6 +126,12 @@ def on_identity_loaded(sender, identity):
 		for bid in current_user.offered_bids:
 			identity.provides.add(ViewLoadNeed(unicode(bid.load.id)))
 			identity.provides.add(AssignLoadNeed(unicode(bid.load.id)))
+
+	loads = Load.query.all()
+
+	for load in filter((lambda load: not load.created_by.company.is_carrier() and len(load.assigned_companies) < 2 and load.status == "Pending Carrier Assignment"), 
+											loads):
+		identity.provides.add(ViewLoadNeed(unicode(load.id)))
 
 
 

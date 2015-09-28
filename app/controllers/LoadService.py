@@ -16,6 +16,7 @@ def PostLoadFactory(form, user):
 				name=form.name.data, 
 				broker_invoice=0, 
 				description="",
+				over_dimensional=form.over_dimensional.data,
 				trailer_type=form.trailer_type.data,
 				load_type=form.load_type.data,
 				total_miles=form.total_miles.data,

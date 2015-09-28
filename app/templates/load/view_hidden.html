@@ -1,0 +1,359 @@
+{% extends "layout_map.html" %}
+
+{% block content %}
+{% if locations.count() > 0 %}
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="tabbable tabs-left">
+				<ul id="locationTab" class="nav nav-tabs tab-green">
+					{% for location in load.lane.locations %}
+						{% if current_location.id == location.id %}
+							<li class="active">
+								<a href="#tab{{ loop.index }}" data-toggle="tab">
+									{% if location.status_history.count() > 0 %}
+										{% if location.status_history[-1].status == "Departed" %}
+											<i class="pink fa fa-check"></i>{{ location.type }}
+										{% else %}
+											<i class="pink fa fa-truck"></i>{{ location.type }}
+										{% endif %}
+									{% else %}
+										<i class="pink fa fa-truck"></i>{{ location.type }}
+									{% endif %}
+								</a>
+							</li>
+						{% else %}
+							<li class="">
+								<a href="#tab{{ loop.index }}" data-toggle="tab">
+									{% if location.status_history.count() > 0 %}
+										{% if location.status_history[-1].status == "Departed" %}
+											<i class="pink fa fa-check"></i>{{ location.type }}
+										{% else %}
+											<i class="pink fa fa-truck"></i>{{ location.type }}
+										{% endif %}
+									{% else %}
+										<i class="pink fa fa-truck"></i>{{ location.type }}
+									{% endif %}
+								</a>
+							</li>
+						{% endif %}
+
+					{% endfor %}
+				</ul>
+				<div class="tab-content">
+					{% for location in load.lane.locations %}
+						{% if current_location.id == location.id %}
+							<div class="tab-pane active" id="tab{{ loop.index }}">
+								<!-- RETAIN COMMENTS! --IMPORTANT! -->
+								<ol class="progtrckr" data-progtrckr-steps="4">
+									{% if location.status_history.count() == 0 %}
+										<li class="progtrckr-todo">En Route</li><!--
+									 --><li class="progtrckr-todo">Arrived</li><!--
+									 --><li class="progtrckr-todo">
+									 		{% if location.type == "Pickup" or location.type == "Both" %}
+									 			Loaded
+									 		{% else %}
+									 			Unloaded
+									 		{% endif %}
+									 	</li><!--
+									 --><li class="progtrckr-todo">Departed</li>
+									{% else %}
+										{% if location.status_history[-1].status == "En Route" %}
+										    <li class="progtrckr-done">En Route</li><!--
+										 --><li class="progtrckr-todo">Arrived</li><!--
+										 --><li class="progtrckr-todo">
+										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 			Loaded
+										 		{% else %}
+										 			Unloaded
+										 		{% endif %}
+										 	</li><!--
+										 --><li class="progtrckr-todo">Departed</li>
+										 {% elif location.status_history[-1].status == "Arrived" %}
+										 	<li class="progtrckr-done">En Route</li><!--
+										 --><li class="progtrckr-done">Arrived</li><!--
+										 --><li class="progtrckr-todo">
+										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 			Loaded
+										 		{% else %}
+										 			Unloaded
+										 		{% endif %}
+										 	</li><!--
+										 --><li class="progtrckr-todo">Departed</li>
+										 {% elif location.status_history[-1].status == "Loading" %}
+										 	<li class="progtrckr-done">En Route</li><!--
+										 --><li class="progtrckr-done">Arrived</li><!--
+										 --><li class="progtrckr-todo">
+										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 			Loaded
+										 		{% else %}
+										 			Unloaded
+										 		{% endif %}
+										 	</li><!--
+										 --><li class="progtrckr-todo">Departed</li>
+										 {% elif location.status_history[-1].status == "Loaded/Unloaded" %}
+										 	<li class="progtrckr-done">En Route</li><!--
+										 --><li class="progtrckr-done">Arrived</li><!--
+										 --><li class="progtrckr-done">
+										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 			Loaded
+										 		{% else %}
+										 			Unloaded
+										 		{% endif %}
+										 	</li><!--
+										 --><li class="progtrckr-todo">Departed</li>
+										 {% elif location.status_history[-1].status == "Departed" %}
+										 	<li class="progtrckr-done">En Route</li><!--
+										 --><li class="progtrckr-done">Arrived</li><!--
+										 --><li class="progtrckr-done">
+										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 			Loaded
+										 		{% else %}
+										 			Unloaded
+										 		{% endif %}
+										 	</li><!--
+										 --><li class="progtrckr-done">Departed</li>
+										 {% endif %}
+									{% endif %}
+								</ol>
+								<hr />
+								<table class="table table-condensed table-hover">
+									<thead>
+										<tr>
+											<th colspan="2">Location Details</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Status</td>
+											<td>
+												{% if location.status_history.count() > 0 %}
+													{{ location.status_history[-1].status }}
+												{% else %}
+													N/a
+												{% endif %}
+											</td>
+										</tr>
+										<tr>
+											<td>Arrival Date</td>
+											<td>{{ location.arrival_date }}</td>
+										</tr>
+										<tr>
+											<td>Type</td>
+											<td>{{ location.type }}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						{% else %}
+							<div class="tab-pane" id="tab{{ loop.index }}">
+								<!-- RETAIN COMMENTS! --IMPORTANT! -->
+								<ol class="progtrckr" data-progtrckr-steps="4">
+									{% if location.status_history.count() == 0 %}
+										<li class="progtrckr-todo">En Route</li><!--
+									 --><li class="progtrckr-todo">Arrived</li><!--
+									 --><li class="progtrckr-todo">
+									 		{% if location.type == "Pickup" or location.type == "Both" %}
+									 			Loaded
+									 		{% else %}
+									 			Unloaded
+									 		{% endif %}
+									 	</li><!--
+									 --><li class="progtrckr-todo">Departed</li>
+									{% else %}
+										{% if location.status_history[-1].status == "En Route" %}
+										    <li class="progtrckr-done">En Route</li><!--
+										 --><li class="progtrckr-todo">Arrived</li><!--
+										 --><li class="progtrckr-todo">
+										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 			Loaded
+										 		{% else %}
+										 			Unloaded
+										 		{% endif %}
+										 	</li><!--
+										 --><li class="progtrckr-todo">Departed</li>
+										 {% elif location.status_history[-1].status == "Arrived" %}
+										 	<li class="progtrckr-done">En Route</li><!--
+										 --><li class="progtrckr-done">Arrived</li><!--
+										 --><li class="progtrckr-todo">
+										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 			Loaded
+										 		{% else %}
+										 			Unloaded
+										 		{% endif %}
+										 	</li><!--
+										 --><li class="progtrckr-todo">Departed</li>
+										 {% elif location.status_history[-1].status == "Loading" %}
+										 	<li class="progtrckr-done">En Route</li><!--
+										 --><li class="progtrckr-done">Arrived</li><!--
+										 --><li class="progtrckr-todo">
+										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 			Loaded
+										 		{% else %}
+										 			Unloaded
+										 		{% endif %}
+										 	</li><!--
+										 --><li class="progtrckr-todo">Departed</li>
+										 {% elif location.status_history[-1].status == "Loaded/Unloaded" %}
+										 	<li class="progtrckr-done">En Route</li><!--
+										 --><li class="progtrckr-done">Arrived</li><!--
+										 --><li class="progtrckr-done">
+										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 			Loaded
+										 		{% else %}
+										 			Unloaded
+										 		{% endif %}
+										 	</li><!--
+										 --><li class="progtrckr-todo">Departed</li>
+										 {% elif location.status_history[-1].status == "Departed" %}
+										 	<li class="progtrckr-done">En Route</li><!--
+										 --><li class="progtrckr-done">Arrived</li><!--
+										 --><li class="progtrckr-done">
+										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 			Loaded
+										 		{% else %}
+										 			Unloaded
+										 		{% endif %}
+										 	</li><!--
+										 --><li class="progtrckr-done">Departed</li>
+										 {% endif %}
+									{% endif %}
+								</ol>
+								<hr />
+								<table class="table table-condensed table-hover">
+									<thead>
+										<tr>
+											<th colspan="2">Location Details</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>Status</td>
+											<td>
+												{% if location.status_history.count() > 0 %}
+													{{ location.status_history[-1].status }}
+												{% else %}
+													N/a
+												{% endif %}
+											</td>
+										</tr>
+										<tr>
+											<td>Arrival Date</td>
+											<td>{{ location.arrival_date }}</td>
+										</tr>
+										<tr>
+											<td>Type</td>
+											<td>{{ location.type }}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						{% endif %}
+
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="panel panel-default">
+
+	    		<div class="panel-body">
+	            	<div id="map-canvas" style="height: 400px; margin: 0; padding: 0;"></div>
+	            </div>
+	    	</div>
+		</div>
+	</div>
+{% else %}
+	<div class="row">
+		<div class="col-sm-12">
+			<div class="panel panel-default">
+	    		<div class="panel-body">
+	            	<div id="map-canvas" style="height: 400px; margin: 0; padding: 0;"></div>
+	            </div>
+	    	</div>
+		</div>
+	</div>
+{% endif %}
+<div class="row">
+	<div class="col-sm-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Load Details
+			</div>
+			<div class="panel-body">
+	    		<table class="table table-condensed table-hover">
+					<thead>
+						<tr>
+							<th colspan="2">Details</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><b>Type:</b></td>
+							<td>{{ load.load_type }}</td>
+						</tr>
+						<tr>
+							<td><b>Required Trailer:</b></td>
+							<td>{{ load.trailer_type }}</td>
+						</tr>
+						<tr>
+							<td><b>Total Miles:</b></td>
+							<td>{{ load.total_miles }}</td>
+						</tr>
+						<tr>
+							<td><b>Max Weight:</b></td>
+							<td>{{ load.max_weight }}</td>
+						</tr>
+						<tr>
+							<td><b>Max Length:</b></td>
+							<td>{{ load.max_length }} {{ load.max_length_type }}</td>
+						</tr>
+						<tr>
+							<td><b>Max Width:</b></td>
+							<td>{{ load.max_width }} {{ load.max_width_type }}</td>
+						</tr>
+						<tr>
+							<td><b>Max Height:</b></td>
+							<td>{{ load.max_height }} {{ load.max_height_type }}</td>
+						</tr>
+					</tbody>
+				</table>
+	    	</div>
+	    </div>
+	</div>
+	<div class="col-sm-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				Contact Details
+			</div>
+			<div class="panel-body">
+				<div class="row">
+						<table class="table table-condensed table-hover">
+							<thead>
+								<tr>
+									<th colspan="2">Broker</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><b>Name:</b></td>
+									<td>{{ load.broker.name }}</td>
+								</tr>
+								<tr>
+									<td><b>Phone:</b></td>
+									<td>{{ load.broker.phone }}</td>
+								</tr>
+								<tr>
+									<td><b>Email:</b></td>
+									<td>{{ load.broker.email }}</td>
+								</tr>
+							</tbody>
+						</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+{% endblock %}
