@@ -5,6 +5,7 @@ from app.models import Load, LoadDetail, Lane, Location, Address, Contact
 import urllib
 import urllib2
 import json
+from datetime import datetime
 
 def PostLoadFactory(form, user):
 	broker = ContactFactory(user.company.name,
@@ -152,7 +153,7 @@ def LocationFactory(address, pickup_detail, delivery_detail, arrival_date, stop_
 	return Location(address=address, 
 					pickup_details = pickup_detail, 
 					delivery_details= delivery_detail,
-					arrival_date=arrival_date,
+					arrival_date=datetime.strptime(arrival_date, "%m-%d-%Y").date(),
 					stop_number=stop_number,
 					contact=contact,
 					type=stop_type,

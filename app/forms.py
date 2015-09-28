@@ -2,6 +2,15 @@ from flask.ext.wtf import Form
 from wtforms import StringField, FloatField, PasswordField, SelectField, DateField, BooleanField, IntegerField, HiddenField, FormField, FieldList, TextAreaField, RadioField
 from wtforms.validators import DataRequired, EqualTo, NumberRange, Email, Length
 
+class BOLForm(Form):
+	bol_number = StringField('BOL #', validators=[DataRequired()])
+	weight = StringField('Weight', validators=[DataRequired()])
+	dim_length = StringField('Length', validators=[DataRequired()])
+	dim_width = StringField('Width', validators=[DataRequired()])
+	dim_height = StringField('Height', validators=[DataRequired()])
+	number_units = StringField('Number of Unitys', validators=[DataRequired()])
+	commodity_type = StringField('Commodity Type', validators=[DataRequired()])
+
 class EmailForm(Form):
 	new_email = StringField('Lead Email', validators=[Email("Please enter a valid e-mail")])
 
@@ -70,6 +79,7 @@ class LaneLocationForm(Form):
 	contact_phone_area_code = StringField('Area Code', validators=[])
 	contact_phone_prefix = StringField('Prefix', validators=[])
 	contact_phone_line_number = StringField('Line Number', validators=[])
+	BOLs = FieldList(FormField(BOLForm), validators=[])
 
 class LoadForm(Form):
 	name = StringField('Name', validators=[DataRequired()])
@@ -138,42 +148,6 @@ class PostLoadForm(Form):
 	locations = FieldList(FormField(LaneLocationForm), validators=[])
 
 class AcceptBidForm(Form):
-	name = StringField('Name', validators=[DataRequired()])
-	trailer_type = SelectField('Trailer Type', choices = [('','<none selected>'),
-															('Auto Carrier', 'Auto Carrier'), 
-															('Conestoga', 'Conestoga'),
-															('Container', 'Container'),
-															('Double Drop', 'Double Drop'),
-															('Flatbed', 'Flatbed'),
-															('Hotshot', 'Hotshot'),
-															('Lowboy', 'Lowboy'),
-															('Moving Van', 'Moving Van'),
-															('Power Only', 'Power Only'),
-															('Reefer', 'Reefer'),
-															('RGN', 'RGN'),
-															('Step Deck', 'Step Deck'),
-															('Tanker', 'Tanker'),
-															('Van', 'Van'),], 
-															validators = [DataRequired()])
-	load_type = SelectField('Load Type', choices = [('','<none selected>'),('LTL', 'LTL'), ('TL', 'TL')], validators = [DataRequired()])
-	total_miles = StringField('Total Miles', validators=[DataRequired()])
-	max_weight = StringField('Max Weight', validators =[DataRequired()])
-	max_height = StringField('Max Height', validators =[DataRequired()])
-	max_length = StringField('Max Length', validators =[DataRequired()])
-	max_width = StringField('Max Width', validators =[DataRequired()])
-	max_height_type = SelectField('Height Type', choices = [('','<none selected>'),
-															('Inches', 'in.'), 
-															('Centimeters', 'cm.')], 
-															validators = [DataRequired()])
-	max_length_type = SelectField('Length Type', choices = [('','<none selected>'),
-															('Inches', 'in.'), 
-															('Centimeters', 'cm.')], 
-															validators = [DataRequired()])
-	max_width_type = SelectField('Width Type', choices = [('','<none selected>'),
-															('Inches', 'in.'), 
-															('Centimeters', 'cm.')], 
-															validators = [DataRequired()])
-	over_dimensional = BooleanField('Over Dimenensional', validators=[])
 	locations = FieldList(FormField(LaneLocationForm), validators=[])
 
 class TruckForm(Form):
@@ -275,3 +249,7 @@ class CreateUserForm(Form):
 														('driver', 'Driver'), 
 														('company_admin', 'Company Admin')], 
 														validators = [DataRequired()])
+
+
+
+
