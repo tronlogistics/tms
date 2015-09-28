@@ -173,11 +173,11 @@
 									<tbody>
 										{% for location in form.locations %}
 											<tr>
-												<td>{{ location.stop_number() }} {{ loop.index}}</td>
-												<td>{{ location.stop_type() }}</td>
-												<td>{{ location.city() }}</td>
-												<td>{{ location.state() }}</td>
-												<td>{{ location.postal_code() }}</td>
+												<td>{{ location.stop_number(class="form-control") }} {{ loop.index}}</td>
+												<td>{{ location.stop_type(class="form-control") }}</td>
+												<td>{{ location.city(class="form-control") }}</td>
+												<td>{{ location.state(class="form-control") }}</td>
+												<td>{{ location.postal_code(class="form-control") }}</td>
 												<td><input type="text" id="locations-{{ loop.index }}-arrival_date" name="locations-{{ loop.index }}-arrival_date" data-date-format="dd-mm-yyyy" data-date-viewmode="years" class="form-control date-picker" value="{{ location.arrival_date.data }}"></td>
 												<td><a class="delete-row" href="">Delete</a></td>
 											</tr>

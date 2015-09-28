@@ -55,7 +55,7 @@ def create():
 def post():
 	form = PostLoadForm()
 	for location in form.locations:
-		location.arrival_date.data = location.arrival_date.data.strftime("%m/%d/%Y")
+		location.arrival_date.data = location.arrival_date.data.strftime("%m-%d-%Y")
 	if form.validate_on_submit():
 		load = PostLoadFactory(form, g.user)
 		load.created_by = g.user
