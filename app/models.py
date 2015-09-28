@@ -167,13 +167,13 @@ class Load(db.Model):
 	description = db.Column(db.String(250))
 	comments = db.Column(db.String(500))
 
-	max_weight = db.Column(db.String(7))
-	max_width = db.Column(db.String(7))
-	max_width_type = db.Column(db.String(7))
-	max_length = db.Column(db.String(7))
-	max_length_type = db.Column(db.String(7))
-	max_height = db.Column(db.String(7))
-	max_height_type = db.Column(db.String(7))
+	max_weight = db.Column(db.String(7), nullable=True)
+	max_width = db.Column(db.String(7), nullable=True)
+	max_width_type = db.Column(db.String(7), nullable=True)
+	max_length = db.Column(db.String(7), nullable=True)
+	max_length_type = db.Column(db.String(7), nullable=True)
+	max_height = db.Column(db.String(7), nullable=True)
+	max_height_type = db.Column(db.String(7), nullable=True)
 
 	tracker = db.relationship("LongLat", lazy='dynamic')
 	
