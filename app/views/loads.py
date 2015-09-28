@@ -3,7 +3,7 @@ from flask.ext import excel
 from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, SQLAlchemy
-from app.forms import LoadForm, StatusForm, LaneLocationForm, LocationStatusForm, BidForm
+from app.forms import LoadForm, StatusForm, LaneLocationForm, LocationStatusForm, BidForm, PostLoadForm
 from app.models import Load, LoadDetail, Lane, Location, Truck, User, Driver, Contact, Bid
 from app.permissions import *
 from app.emails import bid_accepted
@@ -40,13 +40,31 @@ def create():
 			load.setStatus("")
 			load.carrier_cost=form.price.data
 		else:
-			load.setStatus()
+			load.setStatus("")
 		db.session.add(load)
 		db.session.add(g.user.company)
 		db.session.commit()
 		return redirect(url_for('.view', load_id=load.id))
 	return render_template('load/create.html',
    							title="Create Load",
+   							active="Loads",
+   							form=form, user=g.user)
+
+@loads.route('/post', methods=['GET', 'POST'])
+@login_required
+def post():
+	form = PostLoadForm()
+	if form.validate_on_submit():
+		load = PostLoadFactory(form, g.user)
+		load.created_by = g.user
+		g.user.company.loads.append(load)
+		load.setStatus("")
+		db.session.add(load)
+		db.session.add(g.user.company)
+		db.session.commit()
+		return redirect(url_for('.view', load_id=load.id))
+	return render_template('load/post.html',
+   							title="Post Load",
    							active="Loads",
    							form=form, user=g.user)
 

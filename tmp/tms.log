@@ -13537,3 +13537,827 @@ NotFound: 404: Not Found
 2015-09-26 13:59:35,456 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
 2015-09-26 16:51:54,349 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
 2015-09-26 16:51:54,990 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 09:30:34,791 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 09:30:35,565 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 09:31:32,319 INFO: User [in /Users/Root1/app/app/views/auth.py:164]
+2015-09-28 09:31:32,320 INFO: User 2 [in /Users/Root1/app/app/views/auth.py:168]
+2015-09-28 09:31:32,330 INFO: User "john@tronlogistics.com" is now activated [in /Users/Root1/app/app/views/auth.py:176]
+2015-09-28 09:31:48,121 INFO: 404: Not Found [in /Users/Root1/app/app/views/org.py:107]
+2015-09-28 09:31:48,251 INFO: 404: Not Found [in /Users/Root1/app/app/views/org.py:107]
+2015-09-28 09:32:01,342 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 09:32:06,053 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 09:32:19,356 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 09:32:21,671 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 09:32:22,354 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 09:33:27,096 INFO: Sending email to john@tronlogistics.com [in /Users/Root1/app/app/emails.py:24]
+2015-09-28 09:33:27,467 INFO: User "john@tronlogistics.com" with role "Company Admin" created [in /Users/Root1/app/app/views/auth.py:132]
+2015-09-28 09:33:50,418 INFO: User [in /Users/Root1/app/app/views/auth.py:164]
+2015-09-28 09:33:50,418 INFO: User 1 [in /Users/Root1/app/app/views/auth.py:168]
+2015-09-28 09:33:50,429 INFO: User "john@tronlogistics.com" is now activated [in /Users/Root1/app/app/views/auth.py:176]
+2015-09-28 09:35:13,097 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 09:44:15,657 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 09:44:16,314 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 09:44:36,368 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 09:45:34,339 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 09:45:50,363 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 09:46:35,853 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 09:46:43,695 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:25:29,734 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:30:42,152 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:31:33,780 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:33:23,577 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:34:38,722 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:34:45,524 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:34:54,433 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:34:58,228 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:35:06,070 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:35:36,306 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:36:09,625 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:36:12,409 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:36:22,292 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:36:42,332 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:36:50,130 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:36:57,953 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:37:12,880 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:38:16,870 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:39:21,675 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:39:31,967 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:39:44,087 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:39:44,768 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:40:22,099 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:40:26,903 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:40:47,980 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:40:55,832 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:41:11,834 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:43:42,238 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:45:21,629 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:46:36,699 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:46:44,742 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:47:09,889 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:47:27,929 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:47:29,301 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=%2C+Barrington%2C+Illinois&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/controllers/LoadService.py:46]
+2015-09-28 10:47:29,422 INFO: <addinfourl at 4497369280 whose fp = <socket._fileobject object at 0x10bf99750>> [in /Users/Root1/app/app/controllers/LoadService.py:48]
+2015-09-28 10:47:29,429 INFO: {
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Barrington",
+               "short_name" : "Barrington",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cook County",
+               "short_name" : "Cook County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Illinois",
+               "short_name" : "IL",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Barrington, IL, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 42.169064,
+                  "lng" : -88.096858
+               },
+               "southwest" : {
+                  "lat" : 42.1282251,
+                  "lng" : -88.1593659
+               }
+            },
+            "location" : {
+               "lat" : 42.1539141,
+               "lng" : -88.1361888
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.169064,
+                  "lng" : -88.096858
+               },
+               "southwest" : {
+                  "lat" : 42.1282251,
+                  "lng" : -88.1593659
+               }
+            }
+         },
+         "place_id" : "ChIJjUQkPrSgD4gRvdvLLrdjseo",
+         "types" : [ "locality", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
+ [in /Users/Root1/app/app/controllers/LoadService.py:50]
+2015-09-28 10:47:54,112 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:47:58,932 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=%2C+Barrington%2C+Illinois&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/controllers/LoadService.py:46]
+2015-09-28 10:47:59,508 INFO: <addinfourl at 4450949600 whose fp = <socket._fileobject object at 0x109355cd0>> [in /Users/Root1/app/app/controllers/LoadService.py:48]
+2015-09-28 10:47:59,514 INFO: {
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Barrington",
+               "short_name" : "Barrington",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cook County",
+               "short_name" : "Cook County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Illinois",
+               "short_name" : "IL",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Barrington, IL, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 42.169064,
+                  "lng" : -88.096858
+               },
+               "southwest" : {
+                  "lat" : 42.1282251,
+                  "lng" : -88.1593659
+               }
+            },
+            "location" : {
+               "lat" : 42.1539141,
+               "lng" : -88.1361888
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.169064,
+                  "lng" : -88.096858
+               },
+               "southwest" : {
+                  "lat" : 42.1282251,
+                  "lng" : -88.1593659
+               }
+            }
+         },
+         "place_id" : "ChIJjUQkPrSgD4gRvdvLLrdjseo",
+         "types" : [ "locality", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
+ [in /Users/Root1/app/app/controllers/LoadService.py:50]
+2015-09-28 10:48:22,304 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:48:24,717 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=%2C+Barrington%2C+Illinois&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/controllers/LoadService.py:47]
+2015-09-28 10:48:24,858 INFO: <addinfourl at 4574070760 whose fp = <socket._fileobject object at 0x1108c2750>> [in /Users/Root1/app/app/controllers/LoadService.py:49]
+2015-09-28 10:48:24,870 INFO: {
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Barrington",
+               "short_name" : "Barrington",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cook County",
+               "short_name" : "Cook County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Illinois",
+               "short_name" : "IL",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Barrington, IL, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 42.169064,
+                  "lng" : -88.096858
+               },
+               "southwest" : {
+                  "lat" : 42.1282251,
+                  "lng" : -88.1593659
+               }
+            },
+            "location" : {
+               "lat" : 42.1539141,
+               "lng" : -88.1361888
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.169064,
+                  "lng" : -88.096858
+               },
+               "southwest" : {
+                  "lat" : 42.1282251,
+                  "lng" : -88.1593659
+               }
+            }
+         },
+         "place_id" : "ChIJjUQkPrSgD4gRvdvLLrdjseo",
+         "types" : [ "locality", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
+ [in /Users/Root1/app/app/controllers/LoadService.py:51]
+2015-09-28 10:48:24,871 INFO: {u'status': u'OK', u'results': [{u'geometry': {u'location_type': u'APPROXIMATE', u'bounds': {u'northeast': {u'lat': 42.169064, u'lng': -88.096858}, u'southwest': {u'lat': 42.1282251, u'lng': -88.1593659}}, u'viewport': {u'northeast': {u'lat': 42.169064, u'lng': -88.096858}, u'southwest': {u'lat': 42.1282251, u'lng': -88.1593659}}, u'location': {u'lat': 42.1539141, u'lng': -88.1361888}}, u'address_components': [{u'long_name': u'Barrington', u'types': [u'locality', u'political'], u'short_name': u'Barrington'}, {u'long_name': u'Cook County', u'types': [u'administrative_area_level_2', u'political'], u'short_name': u'Cook County'}, {u'long_name': u'Illinois', u'types': [u'administrative_area_level_1', u'political'], u'short_name': u'IL'}, {u'long_name': u'United States', u'types': [u'country', u'political'], u'short_name': u'US'}], u'place_id': u'ChIJjUQkPrSgD4gRvdvLLrdjseo', u'formatted_address': u'Barrington, IL, USA', u'types': [u'locality', u'political']}]} [in /Users/Root1/app/app/controllers/LoadService.py:54]
+2015-09-28 10:48:24,872 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=%2C+Chicago%2C+Illinois&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/controllers/LoadService.py:47]
+2015-09-28 10:48:25,041 INFO: <addinfourl at 4574072200 whose fp = <socket._fileobject object at 0x1108c2ad0>> [in /Users/Root1/app/app/controllers/LoadService.py:49]
+2015-09-28 10:48:25,047 INFO: {
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Chicago",
+               "short_name" : "Chgo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cook County",
+               "short_name" : "Cook County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Illinois",
+               "short_name" : "IL",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Chicago, IL, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 42.023131,
+                  "lng" : -87.52404399999999
+               },
+               "southwest" : {
+                  "lat" : 41.6443349,
+                  "lng" : -87.9402669
+               }
+            },
+            "location" : {
+               "lat" : 41.8781136,
+               "lng" : -87.6297982
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.023131,
+                  "lng" : -87.52404399999999
+               },
+               "southwest" : {
+                  "lat" : 41.6443349,
+                  "lng" : -87.9402669
+               }
+            }
+         },
+         "place_id" : "ChIJ7cv00DwsDogRAMDACa2m4K8",
+         "types" : [ "locality", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
+ [in /Users/Root1/app/app/controllers/LoadService.py:51]
+2015-09-28 10:48:25,048 INFO: {u'status': u'OK', u'results': [{u'geometry': {u'location_type': u'APPROXIMATE', u'bounds': {u'northeast': {u'lat': 42.023131, u'lng': -87.52404399999999}, u'southwest': {u'lat': 41.6443349, u'lng': -87.9402669}}, u'viewport': {u'northeast': {u'lat': 42.023131, u'lng': -87.52404399999999}, u'southwest': {u'lat': 41.6443349, u'lng': -87.9402669}}, u'location': {u'lat': 41.8781136, u'lng': -87.6297982}}, u'address_components': [{u'long_name': u'Chicago', u'types': [u'locality', u'political'], u'short_name': u'Chgo'}, {u'long_name': u'Cook County', u'types': [u'administrative_area_level_2', u'political'], u'short_name': u'Cook County'}, {u'long_name': u'Illinois', u'types': [u'administrative_area_level_1', u'political'], u'short_name': u'IL'}, {u'long_name': u'United States', u'types': [u'country', u'political'], u'short_name': u'US'}], u'place_id': u'ChIJ7cv00DwsDogRAMDACa2m4K8', u'formatted_address': u'Chicago, IL, USA', u'types': [u'locality', u'political']}]} [in /Users/Root1/app/app/controllers/LoadService.py:54]
+2015-09-28 10:49:03,789 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:49:04,853 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=%2C+Barrington%2C+Illinois&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/controllers/LoadService.py:47]
+2015-09-28 10:49:05,389 INFO: <addinfourl at 4380604536 whose fp = <socket._fileobject object at 0x10503ecd0>> [in /Users/Root1/app/app/controllers/LoadService.py:49]
+2015-09-28 10:49:05,395 INFO: {
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Barrington",
+               "short_name" : "Barrington",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cook County",
+               "short_name" : "Cook County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Illinois",
+               "short_name" : "IL",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Barrington, IL, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 42.169064,
+                  "lng" : -88.096858
+               },
+               "southwest" : {
+                  "lat" : 42.1282251,
+                  "lng" : -88.1593659
+               }
+            },
+            "location" : {
+               "lat" : 42.1539141,
+               "lng" : -88.1361888
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.169064,
+                  "lng" : -88.096858
+               },
+               "southwest" : {
+                  "lat" : 42.1282251,
+                  "lng" : -88.1593659
+               }
+            }
+         },
+         "place_id" : "ChIJjUQkPrSgD4gRvdvLLrdjseo",
+         "types" : [ "locality", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
+ [in /Users/Root1/app/app/controllers/LoadService.py:51]
+2015-09-28 10:49:05,395 INFO: {u'status': u'OK', u'results': [{u'geometry': {u'location_type': u'APPROXIMATE', u'bounds': {u'northeast': {u'lat': 42.169064, u'lng': -88.096858}, u'southwest': {u'lat': 42.1282251, u'lng': -88.1593659}}, u'viewport': {u'northeast': {u'lat': 42.169064, u'lng': -88.096858}, u'southwest': {u'lat': 42.1282251, u'lng': -88.1593659}}, u'location': {u'lat': 42.1539141, u'lng': -88.1361888}}, u'address_components': [{u'long_name': u'Barrington', u'types': [u'locality', u'political'], u'short_name': u'Barrington'}, {u'long_name': u'Cook County', u'types': [u'administrative_area_level_2', u'political'], u'short_name': u'Cook County'}, {u'long_name': u'Illinois', u'types': [u'administrative_area_level_1', u'political'], u'short_name': u'IL'}, {u'long_name': u'United States', u'types': [u'country', u'political'], u'short_name': u'US'}], u'place_id': u'ChIJjUQkPrSgD4gRvdvLLrdjseo', u'formatted_address': u'Barrington, IL, USA', u'types': [u'locality', u'political']}]} [in /Users/Root1/app/app/controllers/LoadService.py:54]
+2015-09-28 10:49:05,396 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=%2C+Chicago%2C+Illinois&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/controllers/LoadService.py:47]
+2015-09-28 10:49:05,534 INFO: <addinfourl at 4380605904 whose fp = <socket._fileobject object at 0x10503ead0>> [in /Users/Root1/app/app/controllers/LoadService.py:49]
+2015-09-28 10:49:05,540 INFO: {
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Chicago",
+               "short_name" : "Chgo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cook County",
+               "short_name" : "Cook County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Illinois",
+               "short_name" : "IL",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Chicago, IL, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 42.023131,
+                  "lng" : -87.52404399999999
+               },
+               "southwest" : {
+                  "lat" : 41.6443349,
+                  "lng" : -87.9402669
+               }
+            },
+            "location" : {
+               "lat" : 41.8781136,
+               "lng" : -87.6297982
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.023131,
+                  "lng" : -87.52404399999999
+               },
+               "southwest" : {
+                  "lat" : 41.6443349,
+                  "lng" : -87.9402669
+               }
+            }
+         },
+         "place_id" : "ChIJ7cv00DwsDogRAMDACa2m4K8",
+         "types" : [ "locality", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
+ [in /Users/Root1/app/app/controllers/LoadService.py:51]
+2015-09-28 10:49:05,541 INFO: {u'status': u'OK', u'results': [{u'geometry': {u'location_type': u'APPROXIMATE', u'bounds': {u'northeast': {u'lat': 42.023131, u'lng': -87.52404399999999}, u'southwest': {u'lat': 41.6443349, u'lng': -87.9402669}}, u'viewport': {u'northeast': {u'lat': 42.023131, u'lng': -87.52404399999999}, u'southwest': {u'lat': 41.6443349, u'lng': -87.9402669}}, u'location': {u'lat': 41.8781136, u'lng': -87.6297982}}, u'address_components': [{u'long_name': u'Chicago', u'types': [u'locality', u'political'], u'short_name': u'Chgo'}, {u'long_name': u'Cook County', u'types': [u'administrative_area_level_2', u'political'], u'short_name': u'Cook County'}, {u'long_name': u'Illinois', u'types': [u'administrative_area_level_1', u'political'], u'short_name': u'IL'}, {u'long_name': u'United States', u'types': [u'country', u'political'], u'short_name': u'US'}], u'place_id': u'ChIJ7cv00DwsDogRAMDACa2m4K8', u'formatted_address': u'Chicago, IL, USA', u'types': [u'locality', u'political']}]} [in /Users/Root1/app/app/controllers/LoadService.py:54]
+2015-09-28 10:49:05,542 INFO: <app.models.Load object at 0x10519cd10> [in /Users/Root1/app/app/views/loads.py:59]
+2015-09-28 10:49:18,805 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:49:20,902 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=%2C+Barrington%2C+Illinois&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/controllers/LoadService.py:47]
+2015-09-28 10:49:21,053 INFO: <addinfourl at 4403689016 whose fp = <socket._fileobject object at 0x10663fcd0>> [in /Users/Root1/app/app/controllers/LoadService.py:49]
+2015-09-28 10:49:21,059 INFO: {
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Barrington",
+               "short_name" : "Barrington",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cook County",
+               "short_name" : "Cook County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Illinois",
+               "short_name" : "IL",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Barrington, IL, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 42.169064,
+                  "lng" : -88.096858
+               },
+               "southwest" : {
+                  "lat" : 42.1282251,
+                  "lng" : -88.1593659
+               }
+            },
+            "location" : {
+               "lat" : 42.1539141,
+               "lng" : -88.1361888
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.169064,
+                  "lng" : -88.096858
+               },
+               "southwest" : {
+                  "lat" : 42.1282251,
+                  "lng" : -88.1593659
+               }
+            }
+         },
+         "place_id" : "ChIJjUQkPrSgD4gRvdvLLrdjseo",
+         "types" : [ "locality", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
+ [in /Users/Root1/app/app/controllers/LoadService.py:51]
+2015-09-28 10:49:21,060 INFO: {u'status': u'OK', u'results': [{u'geometry': {u'location_type': u'APPROXIMATE', u'bounds': {u'northeast': {u'lat': 42.169064, u'lng': -88.096858}, u'southwest': {u'lat': 42.1282251, u'lng': -88.1593659}}, u'viewport': {u'northeast': {u'lat': 42.169064, u'lng': -88.096858}, u'southwest': {u'lat': 42.1282251, u'lng': -88.1593659}}, u'location': {u'lat': 42.1539141, u'lng': -88.1361888}}, u'address_components': [{u'long_name': u'Barrington', u'types': [u'locality', u'political'], u'short_name': u'Barrington'}, {u'long_name': u'Cook County', u'types': [u'administrative_area_level_2', u'political'], u'short_name': u'Cook County'}, {u'long_name': u'Illinois', u'types': [u'administrative_area_level_1', u'political'], u'short_name': u'IL'}, {u'long_name': u'United States', u'types': [u'country', u'political'], u'short_name': u'US'}], u'place_id': u'ChIJjUQkPrSgD4gRvdvLLrdjseo', u'formatted_address': u'Barrington, IL, USA', u'types': [u'locality', u'political']}]} [in /Users/Root1/app/app/controllers/LoadService.py:54]
+2015-09-28 10:49:21,061 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=%2C+Chicago%2C+Illinois&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/controllers/LoadService.py:47]
+2015-09-28 10:49:21,209 INFO: <addinfourl at 4403690384 whose fp = <socket._fileobject object at 0x10663fad0>> [in /Users/Root1/app/app/controllers/LoadService.py:49]
+2015-09-28 10:49:21,216 INFO: {
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Chicago",
+               "short_name" : "Chgo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cook County",
+               "short_name" : "Cook County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Illinois",
+               "short_name" : "IL",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Chicago, IL, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 42.023131,
+                  "lng" : -87.52404399999999
+               },
+               "southwest" : {
+                  "lat" : 41.6443349,
+                  "lng" : -87.9402669
+               }
+            },
+            "location" : {
+               "lat" : 41.8781136,
+               "lng" : -87.6297982
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.023131,
+                  "lng" : -87.52404399999999
+               },
+               "southwest" : {
+                  "lat" : 41.6443349,
+                  "lng" : -87.9402669
+               }
+            }
+         },
+         "place_id" : "ChIJ7cv00DwsDogRAMDACa2m4K8",
+         "types" : [ "locality", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
+ [in /Users/Root1/app/app/controllers/LoadService.py:51]
+2015-09-28 10:49:21,216 INFO: {u'status': u'OK', u'results': [{u'geometry': {u'location_type': u'APPROXIMATE', u'bounds': {u'northeast': {u'lat': 42.023131, u'lng': -87.52404399999999}, u'southwest': {u'lat': 41.6443349, u'lng': -87.9402669}}, u'viewport': {u'northeast': {u'lat': 42.023131, u'lng': -87.52404399999999}, u'southwest': {u'lat': 41.6443349, u'lng': -87.9402669}}, u'location': {u'lat': 41.8781136, u'lng': -87.6297982}}, u'address_components': [{u'long_name': u'Chicago', u'types': [u'locality', u'political'], u'short_name': u'Chgo'}, {u'long_name': u'Cook County', u'types': [u'administrative_area_level_2', u'political'], u'short_name': u'Cook County'}, {u'long_name': u'Illinois', u'types': [u'administrative_area_level_1', u'political'], u'short_name': u'IL'}, {u'long_name': u'United States', u'types': [u'country', u'political'], u'short_name': u'US'}], u'place_id': u'ChIJ7cv00DwsDogRAMDACa2m4K8', u'formatted_address': u'Chicago, IL, USA', u'types': [u'locality', u'political']}]} [in /Users/Root1/app/app/controllers/LoadService.py:54]
+2015-09-28 10:49:21,217 INFO: None [in /Users/Root1/app/app/views/loads.py:59]
+2015-09-28 10:49:54,102 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:49:55,835 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:49:56,300 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=%2C+Barrington%2C+Illinois&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/controllers/LoadService.py:47]
+2015-09-28 10:49:56,445 INFO: <addinfourl at 4492818408 whose fp = <socket._fileobject object at 0x10bb3f750>> [in /Users/Root1/app/app/controllers/LoadService.py:49]
+2015-09-28 10:49:56,449 INFO: {
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Barrington",
+               "short_name" : "Barrington",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cook County",
+               "short_name" : "Cook County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Illinois",
+               "short_name" : "IL",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Barrington, IL, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 42.169064,
+                  "lng" : -88.096858
+               },
+               "southwest" : {
+                  "lat" : 42.1282251,
+                  "lng" : -88.1593659
+               }
+            },
+            "location" : {
+               "lat" : 42.1539141,
+               "lng" : -88.1361888
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.169064,
+                  "lng" : -88.096858
+               },
+               "southwest" : {
+                  "lat" : 42.1282251,
+                  "lng" : -88.1593659
+               }
+            }
+         },
+         "place_id" : "ChIJjUQkPrSgD4gRvdvLLrdjseo",
+         "types" : [ "locality", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
+ [in /Users/Root1/app/app/controllers/LoadService.py:51]
+2015-09-28 10:49:56,449 INFO: {u'status': u'OK', u'results': [{u'geometry': {u'location_type': u'APPROXIMATE', u'bounds': {u'northeast': {u'lat': 42.169064, u'lng': -88.096858}, u'southwest': {u'lat': 42.1282251, u'lng': -88.1593659}}, u'viewport': {u'northeast': {u'lat': 42.169064, u'lng': -88.096858}, u'southwest': {u'lat': 42.1282251, u'lng': -88.1593659}}, u'location': {u'lat': 42.1539141, u'lng': -88.1361888}}, u'address_components': [{u'long_name': u'Barrington', u'types': [u'locality', u'political'], u'short_name': u'Barrington'}, {u'long_name': u'Cook County', u'types': [u'administrative_area_level_2', u'political'], u'short_name': u'Cook County'}, {u'long_name': u'Illinois', u'types': [u'administrative_area_level_1', u'political'], u'short_name': u'IL'}, {u'long_name': u'United States', u'types': [u'country', u'political'], u'short_name': u'US'}], u'place_id': u'ChIJjUQkPrSgD4gRvdvLLrdjseo', u'formatted_address': u'Barrington, IL, USA', u'types': [u'locality', u'political']}]} [in /Users/Root1/app/app/controllers/LoadService.py:54]
+2015-09-28 10:49:56,450 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=%2C+Chicago%2C+Illinois&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/controllers/LoadService.py:47]
+2015-09-28 10:49:56,602 INFO: <addinfourl at 4492819848 whose fp = <socket._fileobject object at 0x10bb3fad0>> [in /Users/Root1/app/app/controllers/LoadService.py:49]
+2015-09-28 10:49:56,608 INFO: {
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Chicago",
+               "short_name" : "Chgo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cook County",
+               "short_name" : "Cook County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Illinois",
+               "short_name" : "IL",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Chicago, IL, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 42.023131,
+                  "lng" : -87.52404399999999
+               },
+               "southwest" : {
+                  "lat" : 41.6443349,
+                  "lng" : -87.9402669
+               }
+            },
+            "location" : {
+               "lat" : 41.8781136,
+               "lng" : -87.6297982
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.023131,
+                  "lng" : -87.52404399999999
+               },
+               "southwest" : {
+                  "lat" : 41.6443349,
+                  "lng" : -87.9402669
+               }
+            }
+         },
+         "place_id" : "ChIJ7cv00DwsDogRAMDACa2m4K8",
+         "types" : [ "locality", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
+ [in /Users/Root1/app/app/controllers/LoadService.py:51]
+2015-09-28 10:49:56,608 INFO: {u'status': u'OK', u'results': [{u'geometry': {u'location_type': u'APPROXIMATE', u'bounds': {u'northeast': {u'lat': 42.023131, u'lng': -87.52404399999999}, u'southwest': {u'lat': 41.6443349, u'lng': -87.9402669}}, u'viewport': {u'northeast': {u'lat': 42.023131, u'lng': -87.52404399999999}, u'southwest': {u'lat': 41.6443349, u'lng': -87.9402669}}, u'location': {u'lat': 41.8781136, u'lng': -87.6297982}}, u'address_components': [{u'long_name': u'Chicago', u'types': [u'locality', u'political'], u'short_name': u'Chgo'}, {u'long_name': u'Cook County', u'types': [u'administrative_area_level_2', u'political'], u'short_name': u'Cook County'}, {u'long_name': u'Illinois', u'types': [u'administrative_area_level_1', u'political'], u'short_name': u'IL'}, {u'long_name': u'United States', u'types': [u'country', u'political'], u'short_name': u'US'}], u'place_id': u'ChIJ7cv00DwsDogRAMDACa2m4K8', u'formatted_address': u'Chicago, IL, USA', u'types': [u'locality', u'political']}]} [in /Users/Root1/app/app/controllers/LoadService.py:54]
+2015-09-28 10:50:10,837 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:50:12,241 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=%2C+Barrington%2C+Illinois&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/controllers/LoadService.py:47]
+2015-09-28 10:50:12,385 INFO: <addinfourl at 4438369776 whose fp = <socket._fileobject object at 0x108753750>> [in /Users/Root1/app/app/controllers/LoadService.py:49]
+2015-09-28 10:50:12,391 INFO: {
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Barrington",
+               "short_name" : "Barrington",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cook County",
+               "short_name" : "Cook County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Illinois",
+               "short_name" : "IL",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Barrington, IL, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 42.169064,
+                  "lng" : -88.096858
+               },
+               "southwest" : {
+                  "lat" : 42.1282251,
+                  "lng" : -88.1593659
+               }
+            },
+            "location" : {
+               "lat" : 42.1539141,
+               "lng" : -88.1361888
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.169064,
+                  "lng" : -88.096858
+               },
+               "southwest" : {
+                  "lat" : 42.1282251,
+                  "lng" : -88.1593659
+               }
+            }
+         },
+         "place_id" : "ChIJjUQkPrSgD4gRvdvLLrdjseo",
+         "types" : [ "locality", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
+ [in /Users/Root1/app/app/controllers/LoadService.py:51]
+2015-09-28 10:50:12,392 INFO: {u'status': u'OK', u'results': [{u'geometry': {u'location_type': u'APPROXIMATE', u'bounds': {u'northeast': {u'lat': 42.169064, u'lng': -88.096858}, u'southwest': {u'lat': 42.1282251, u'lng': -88.1593659}}, u'viewport': {u'northeast': {u'lat': 42.169064, u'lng': -88.096858}, u'southwest': {u'lat': 42.1282251, u'lng': -88.1593659}}, u'location': {u'lat': 42.1539141, u'lng': -88.1361888}}, u'address_components': [{u'long_name': u'Barrington', u'types': [u'locality', u'political'], u'short_name': u'Barrington'}, {u'long_name': u'Cook County', u'types': [u'administrative_area_level_2', u'political'], u'short_name': u'Cook County'}, {u'long_name': u'Illinois', u'types': [u'administrative_area_level_1', u'political'], u'short_name': u'IL'}, {u'long_name': u'United States', u'types': [u'country', u'political'], u'short_name': u'US'}], u'place_id': u'ChIJjUQkPrSgD4gRvdvLLrdjseo', u'formatted_address': u'Barrington, IL, USA', u'types': [u'locality', u'political']}]} [in /Users/Root1/app/app/controllers/LoadService.py:54]
+2015-09-28 10:50:12,393 INFO: https://maps.googleapis.com/maps/api/geocode/json?address=%2C+Chicago%2C+Illinois&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg [in /Users/Root1/app/app/controllers/LoadService.py:47]
+2015-09-28 10:50:12,556 INFO: <addinfourl at 4438371216 whose fp = <socket._fileobject object at 0x108753ad0>> [in /Users/Root1/app/app/controllers/LoadService.py:49]
+2015-09-28 10:50:12,560 INFO: {
+   "results" : [
+      {
+         "address_components" : [
+            {
+               "long_name" : "Chicago",
+               "short_name" : "Chgo",
+               "types" : [ "locality", "political" ]
+            },
+            {
+               "long_name" : "Cook County",
+               "short_name" : "Cook County",
+               "types" : [ "administrative_area_level_2", "political" ]
+            },
+            {
+               "long_name" : "Illinois",
+               "short_name" : "IL",
+               "types" : [ "administrative_area_level_1", "political" ]
+            },
+            {
+               "long_name" : "United States",
+               "short_name" : "US",
+               "types" : [ "country", "political" ]
+            }
+         ],
+         "formatted_address" : "Chicago, IL, USA",
+         "geometry" : {
+            "bounds" : {
+               "northeast" : {
+                  "lat" : 42.023131,
+                  "lng" : -87.52404399999999
+               },
+               "southwest" : {
+                  "lat" : 41.6443349,
+                  "lng" : -87.9402669
+               }
+            },
+            "location" : {
+               "lat" : 41.8781136,
+               "lng" : -87.6297982
+            },
+            "location_type" : "APPROXIMATE",
+            "viewport" : {
+               "northeast" : {
+                  "lat" : 42.023131,
+                  "lng" : -87.52404399999999
+               },
+               "southwest" : {
+                  "lat" : 41.6443349,
+                  "lng" : -87.9402669
+               }
+            }
+         },
+         "place_id" : "ChIJ7cv00DwsDogRAMDACa2m4K8",
+         "types" : [ "locality", "political" ]
+      }
+   ],
+   "status" : "OK"
+}
+ [in /Users/Root1/app/app/controllers/LoadService.py:51]
+2015-09-28 10:50:12,561 INFO: {u'status': u'OK', u'results': [{u'geometry': {u'location_type': u'APPROXIMATE', u'bounds': {u'northeast': {u'lat': 42.023131, u'lng': -87.52404399999999}, u'southwest': {u'lat': 41.6443349, u'lng': -87.9402669}}, u'viewport': {u'northeast': {u'lat': 42.023131, u'lng': -87.52404399999999}, u'southwest': {u'lat': 41.6443349, u'lng': -87.9402669}}, u'location': {u'lat': 41.8781136, u'lng': -87.6297982}}, u'address_components': [{u'long_name': u'Chicago', u'types': [u'locality', u'political'], u'short_name': u'Chgo'}, {u'long_name': u'Cook County', u'types': [u'administrative_area_level_2', u'political'], u'short_name': u'Cook County'}, {u'long_name': u'Illinois', u'types': [u'administrative_area_level_1', u'political'], u'short_name': u'IL'}, {u'long_name': u'United States', u'types': [u'country', u'political'], u'short_name': u'US'}], u'place_id': u'ChIJ7cv00DwsDogRAMDACa2m4K8', u'formatted_address': u'Chicago, IL, USA', u'types': [u'locality', u'political']}]} [in /Users/Root1/app/app/controllers/LoadService.py:54]
+2015-09-28 10:54:29,722 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:55:38,407 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-28 10:55:39,060 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]

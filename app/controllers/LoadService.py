@@ -1,9 +1,68 @@
-from app import db
+from app import db, app
 from geopy import geocoders 
 from geopy.geocoders import Nominatim
 from app.models import Load, LoadDetail, Lane, Location, Address, Contact
 import urllib
 import urllib2
+import json
+
+def PostLoadFactory(form, user):
+	broker = ContactFactory(user.company.name,
+							user.phone,
+							user.email)
+	shipper = None
+	load = Load(broker=broker,
+				shipper=shipper,
+				name=form.name.data, 
+				broker_invoice=0, 
+				description="",
+				trailer_type=form.trailer_type.data,
+				load_type=form.load_type.data,
+				total_miles=form.total_miles.data,
+				max_weight=form.max_weight.data,
+				max_length=form.max_length.data,
+				max_length_type=form.max_length_type.data,
+				max_width=form.max_width.data,
+				max_width_type=form.max_width_type.data,
+				max_height=form.max_height.data,
+				max_height_type=form.max_height_type.data)
+
+	load.assigned_driver = None
+
+	stop_off_locations = []
+	locations = filter(lambda location: not location.retired == 0, form.locations)
+	for location in locations:
+		address = AddressFactory("",
+								location.city.data,
+								location.state.data,
+								location.postal_code.data)
+		if(location.stop_type.data == "Pickup" or location.stop_type.data == "Both"):
+			pickup_detail = LoadDetailFactory(0, "", "Pickup")
+		if(location.stop_type.data == "Pickup" or location.stop_type.data == "Both"):
+			delivery_detail = LoadDetailFactory(0, "", "Delivery")
+		#contact = ContactFactory(location.contact_name.data, location.contact_phone.data, location.contact_email.data)
+		url = 'https://maps.googleapis.com/maps/api/geocode/json?' + urllib.urlencode({
+				'address': address.toString()
+			}) + "&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg"
+
+		response = urllib2.urlopen(url)
+		data = response.read()
+		try: 
+			js = json.loads(str(data))
+		except: js = None
+		if 'status' not in js or js['status'] != 'OK':
+			app.logger.error("Failed to Retrieve")
+
+
+		latitude = js["results"][0]["geometry"]["location"]["lat"]
+		longitude = js["results"][0]["geometry"]["location"]["lng"]
+		stop_off = LocationFactory(address, pickup_detail, delivery_detail, location.arrival_date.data, location.stop_number.data, None, location.stop_type.data, latitude, longitude)
+		stop_off_locations.append(stop_off)
+
+	load.lane = LaneFactory(stop_off_locations)
+	#shipper.shipped_loads.append(load)
+	#broker.brokered_loads.append(load)
+	return load
 
 def LoadFactory(form):
 	#geolocator = Nominatim
@@ -102,6 +161,12 @@ def LocationFactory(address, pickup_detail, delivery_detail, arrival_date, stop_
 
 def LoadDetailFactory(weight, notes, type):
 	return LoadDetail(weight=weight, notes=notes, type=type)
+
+def PostLoadDetailFactory(weight, notes, type, dim_length, dim_width, dim_height, dim_length_type, dim_width_type, dim_height_type):
+	return LoadDetail(weight=weight, notes=notes, type=type, 
+						dim_length=dim_length, dim_width=dim_width, dim_height=dim_height,
+						dim_length_type=dim_length_type, dim_width_type=dim_width_type,
+						dim_height_type=dim_height_type)
 
 def AddressFactory(address1, city, state, postal_code):
 	return Address(address1=address1,

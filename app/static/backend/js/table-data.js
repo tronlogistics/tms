@@ -57,16 +57,16 @@ var TableData = function() {
 			var jqTds = $('>td', nRow);
 			var rowNum = oTable.fnSettings().fnRecordsTotal()
 			
+			
+
 			jqTds[0].innerHTML = '<input type="hidden" id="locations-' + rowNum + '-stop_number" name="locations-' + rowNum + '-stop_number" class="form-control" value="' + rowNum + '">' + rowNum;
-			jqTds[1].innerHTML = '<input type="text" id="locations-' + rowNum + '-address1" name="locations-' + rowNum + '-address1" class="form-control" value="' + aData[1] + '">';
+			jqTds[1].innerHTML = '<select class="form-control location-type" id="locations-' + rowNum + '-stop_type" name="locations-' + rowNum + '-stop_type"><option value="">&lt;none selected&gt;</option><option value="Pickup">Pickup</option><option value="Drop Off">Drop Off</option><option value="Both">Both</option></select>';
 			jqTds[2].innerHTML = '<input type="text" id="locations-' + rowNum + '-city" name="locations-' + rowNum + '-city" class="form-control" value="' + aData[2] + '">';
 			jqTds[3].innerHTML = '<input type="text" id="locations-' + rowNum + '-state" name="locations-' + rowNum + '-state" class="form-control" value="' + aData[3] + '">';
 			jqTds[4].innerHTML = '<input type="text" id="locations-' + rowNum + '-postal_code" name="locations-' + rowNum + '-postal_code" class="form-control" value="' + aData[4] + '">';
-			jqTds[5].innerHTML = '<input type="text" id="locations-' + rowNum + '-pickup_weight" name="locations-' + rowNum + '-pickup_weight" class="form-control" value="' + aData[5] + '">';
-			jqTds[6].innerHTML = '<input type="text" id="locations-' + rowNum + '-delivery_weight" name="locations-' + rowNum + '-delivery_weight" class="form-control" value="' + aData[6] + '">';
-			jqTds[7].innerHTML = '<input type="text" id="locations-' + rowNum + '-arrival_date" name="locations-' + rowNum + '-arrival_date" data-date-format="dd-mm-yyyy" data-date-viewmode="years" class="form-control date-picker" value="' + aData[7] + '">';
+			jqTds[5].innerHTML = '<input type="text" id="locations-' + rowNum + '-arrival_date" name="locations-' + rowNum + '-arrival_date" data-date-format="dd-mm-yyyy" data-date-viewmode="years" class="form-control date-picker" value="' + aData[7] + '">';
 			//jqTds[8].innerHTML = '<input type="text" id="locations-' + rowNum + '-arrival_time" name="locations-' + rowNum + '-arrival_time" class="form-control" value="' + aData[8] + '">';
-			jqTds[8].innerHTML = '<a class="delete-row" href="">Delete</a>';
+			jqTds[6].innerHTML = '<a class="delete-row" href="">Delete</a>';
 
 			
 

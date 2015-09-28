@@ -22,9 +22,15 @@
                             </a>
                             <ul class="sub-menu">
                                 <li>
-                                    <a href="{{ url_for('loads.create') }}">
-                                        <span class="title"> New Load </span>
-                                    </a>
+                                    {% if g.user.company.is_carrier() %}
+                                        <a href="{{ url_for('loads.create') }}">
+                                            <span class="title"> New Load </span>
+                                        </a>
+                                    {% else %}
+                                        <a href="{{ url_for('loads.post') }}">
+                                            <span class="title"> New Load </span>
+                                        </a>
+                                    {% endif %}
                                 </li>
                                 <li>
                                     <a href="{{ url_for('loads.all') }}">

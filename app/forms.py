@@ -98,6 +98,45 @@ class LoadForm(Form):
 	shipper = FormField(ContactForm)
 	locations = FieldList(FormField(StopNumberForm), validators=[])
 
+class PostLoadForm(Form):
+	name = StringField('Name', validators=[DataRequired()])
+	trailer_type = SelectField('Trailer Type', choices = [('','<none selected>'),
+															('Auto Carrier', 'Auto Carrier'), 
+															('Conestoga', 'Conestoga'),
+															('Container', 'Container'),
+															('Double Drop', 'Double Drop'),
+															('Flatbed', 'Flatbed'),
+															('Hotshot', 'Hotshot'),
+															('Lowboy', 'Lowboy'),
+															('Moving Van', 'Moving Van'),
+															('Power Only', 'Power Only'),
+															('Reefer', 'Reefer'),
+															('RGN', 'RGN'),
+															('Step Deck', 'Step Deck'),
+															('Tanker', 'Tanker'),
+															('Van', 'Van'),], 
+															validators = [DataRequired()])
+	load_type = SelectField('Load Type', choices = [('','<none selected>'),('LTL', 'LTL'), ('TL', 'TL')], validators = [DataRequired()])
+	total_miles = StringField('Total Miles', validators=[DataRequired()])
+	max_weight = StringField('Max Weight', validators =[DataRequired()])
+	max_height = StringField('Max Height', validators =[DataRequired()])
+	max_length = StringField('Max Length', validators =[DataRequired()])
+	max_width = StringField('Max Width', validators =[DataRequired()])
+	max_height_type = SelectField('Height Type', choices = [('','<none selected>'),
+															('Inches', 'in.'), 
+															('Centimeters', 'cm.')], 
+															validators = [DataRequired()])
+	max_length_type = SelectField('Length Type', choices = [('','<none selected>'),
+															('Inches', 'in.'), 
+															('Centimeters', 'cm.')], 
+															validators = [DataRequired()])
+	max_width_type = SelectField('Width Type', choices = [('','<none selected>'),
+															('Inches', 'in.'), 
+															('Centimeters', 'cm.')], 
+															validators = [DataRequired()])
+	over_dimensional = BooleanField('Over Dimenensional', validators=[])
+	locations = FieldList(FormField(LaneLocationForm), validators=[])
+
 
 
 class TruckForm(Form):

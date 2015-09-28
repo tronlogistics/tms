@@ -161,11 +161,19 @@ class Load(db.Model):
 	load_type = db.Column(db.String(150))
 	total_miles = db.Column(db.Integer) 
 	#purchase_order = db.Column(db.String(20))
-	#over_dimensional = db.Column(db.Boolean)
+	over_dimensional = db.Column(db.Boolean)
 	carrier_invoice = db.Column(db.String(150))
 	broker_invoice = db.Column(db.String(150))
 	description = db.Column(db.String(250))
 	comments = db.Column(db.String(500))
+
+	max_weight = db.Column(db.String(7))
+	max_width = db.Column(db.String(7))
+	max_width_type = db.Column(db.String(7))
+	max_length = db.Column(db.String(7))
+	max_length_type = db.Column(db.String(7))
+	max_height = db.Column(db.String(7))
+	max_height_type = db.Column(db.String(7))
 
 	tracker = db.relationship("LongLat", lazy='dynamic')
 	
@@ -190,9 +198,9 @@ class Load(db.Model):
 
 		if numLocations < 2:
 			status = "Missing Origin/Destination"
-		elif (not self.created_by.company.is_carrier) and len(filter((lambda bid: bid.accepted), self.bids)) < 1:
+		elif (not self.created_by.company.is_carrier()) and len(filter((lambda bid: bid.accepted), self.bids)) < 1:
 			status = "Pending Carrier Assignment"
-		elif (not self.created_by.company.is_carrier) and len(filter((lambda bid: bid.accepted), self.bids)) == 1:
+		elif (not self.created_by.company.is_carrier()) and len(filter((lambda bid: bid.accepted), self.bids)) == 1:
 			status = "Carrier Assigned"
 		elif self.truck is None:
 			status = "Unnassigned"
