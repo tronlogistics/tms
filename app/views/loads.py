@@ -54,6 +54,8 @@ def create():
 @login_required
 def post():
 	form = PostLoadForm()
+	for location in form.locations:
+		location.arrival_date.data = location.arrival_date.data.strftime("%m/%d/%Y")
 	if form.validate_on_submit():
 		load = PostLoadFactory(form, g.user)
 		load.created_by = g.user
@@ -66,7 +68,8 @@ def post():
 	return render_template('load/post.html',
    							title="Post Load",
    							active="Loads",
-   							form=form, user=g.user)
+   							form=form, 
+   							user=g.user)
 
 @loads.route('/<load_id>/edit', methods=['GET', 'POST'])
 @login_required

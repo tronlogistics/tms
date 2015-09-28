@@ -10,7 +10,9 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<i class="fa fa-external-link-square"></i>
-							General Details
+							General Details<br />
+
+							{{ locations }}
 						</div>
 						<div class="panel-body">
 							<div class="col-sm-10">
@@ -169,6 +171,17 @@
 										</tr>
 									</thead>
 									<tbody>
+										{% for location in form.locations %}
+											<tr>
+												<td>{{ location.stop_number() }} {{ loop.index}}</td>
+												<td>{{ location.stop_type() }}</td>
+												<td>{{ location.city() }}</td>
+												<td>{{ location.state() }}</td>
+												<td>{{ location.postal_code() }}</td>
+												<td><input type="text" id="locations-{{ loop.index }}-arrival_date" name="locations-{{ loop.index }}-arrival_date" data-date-format="dd-mm-yyyy" data-date-viewmode="years" class="form-control date-picker" value="{{ location.arrival_date.data }}"></td>
+												<td><a class="delete-row" href="">Delete</a></td>
+											</tr>
+										{% endfor %}
 										<!--- Content created by table-data.js -->
 									</tbody>
 								</table>
