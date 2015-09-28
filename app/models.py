@@ -161,7 +161,7 @@ class Load(db.Model):
 	load_type = db.Column(db.String(150))
 	total_miles = db.Column(db.Integer) 
 	#purchase_order = db.Column(db.String(20))
-	over_dimensional = db.Column(db.Boolean, nullable=True)
+	over_dimensional = db.Column(db.Boolean, nullable=False, server_default=False)
 	carrier_invoice = db.Column(db.String(150))
 	broker_invoice = db.Column(db.String(150))
 	description = db.Column(db.String(250))
