@@ -1,0 +1,70 @@
+'<hr \/><div class=\"row bol-' + e.target.id + '-info\">'+
+													'<div class=\"col-sm-6\">' +
+													'	<div class=\"form-group\">' +
+													'		<label class=\"col-sm-3 control-label\">' +
+													'			BOL # <span class=\"symbol required\"><\/span>' +
+													'		<\/label>' +
+													'		<div class=\"col-sm-7\">' +
+													'			<input type=\"text\" id=\"locations-' + e.target.id + '-BOLs-' + curID + '-bol_number\" name=\"locations-' + e.target.id + '-BOLs-' + curID + '-bol_number\" class=\"form-control\" value=\"\">' +
+													'		<\/div>' +
+													'	<\/div>' +
+													'	<div class=\"form-group\">' +
+													'		<label class=\"col-sm-3 control-label\">' +
+													'			# Units <span class=\"symbol required\"><\/span>' +
+													'		<\/label>' +
+													'		<div class=\"col-sm-7\">' +
+													'			<input type=\"text\" id=\"locations-' + e.target.id + '-BOLs-' + curID + '-number_units\" name=\"locations-' + e.target.id + '-BOLs-' + curID + '-number_units\" class=\"form-control\" value=\"\">' +
+													'		<\/div>' +
+													'	<\/div>' +
+													'	<div class=\"form-group\">' +
+													'		<label class=\"col-sm-3 control-label\">' +
+													'			Weight <span class=\"symbol required\"><\/span>' +
+													'		<\/label>' +
+													'		<div class=\"col-sm-7\">' +
+													'			<input type=\"text\" id=\"locations-' + e.target.id + '-BOLs-' + curID + '-weight\" name=\"locations-' + e.target.id + '-BOLs-' + curID + '-weight\" class=\"form-control\" value=\"\">' +
+													'		<\/div>' +
+													'	<\/div>' +
+													'	<div class=\"form-group\">' +
+													'		<label class=\"col-sm-3 control-label\">' +
+													'			Commodity Type <span class=\"symbol required\"><\/span>' +
+													'		<\/label>' +
+													'		<div class=\"col-sm-7\">' +
+													'			<input type=\"text\" id=\"locations-' + e.target.id + '-BOLs-' + curID + '-commodity_type\" name=\"locations-' + e.target.id + '-BOLs-' + curID + '-commodity_type\" class=\"form-control\" value=\"\">' +
+													'		<\/div>' +
+													'	<\/div>	' +
+													'<\/div>' +
+													'<div class=\"col-sm-6\">' +
+													'	<div class=\"form-group\">' +
+													'		<label class=\"col-sm-3 control-label\">' +
+													'			Length <span class=\"symbol required\"><\/span>' +
+													'		<\/label>' +
+													'		<div class=\"col-sm-7\">' +
+													'			<input type=\"text\" id=\"locations-' + e.target.id + '-BOLs-' + curID + '-dim_length\" name=\"locations-' + e.target.id + '-BOLs-' + curID + '-dim_length\" class=\"form-control\" value=\"\">' +
+													'		<\/div>' +
+													'		<div class=\"col-sm-3\">' +
+													'			<select class=\"form-control\" id="locations-' + e.target.id + '-BOLs-' + curID + '-dim_length_type\" name="locations-' + e.target.id + '-BOLs-' + curID + '-dim_length_type\"><option value=\"\">&lt;none selected&gt;<\/option><option value=\"Inches\">in.<\/option><option value=\"Centimeters\">cm.<\/option><\/select>' +
+													'	<\/div>' +
+													'	<div class=\"form-group\">' +
+													'		<label class=\"col-sm-3 control-label\">' +
+													'			Width <span class=\"symbol required\"><\/span>' +
+													'		<\/label>' +
+													'		<div class=\"col-sm-4\">' +
+													'			<input type=\"text\" id=\"locations-' + e.target.id + '-BOLs-' + curID + '-dim_width\" name=\"locations-' + e.target.id + '-BOLs-' + curID + '-dim_width\" class=\"form-control\" value=\"\">' +
+													'		<\/div>' +
+													'		<div class=\"col-sm-3\">' +
+													'			<select class=\"form-control\" id="locations-' + e.target.id + '-BOLs-' + curID + '-dim_width_type\" name="locations-' + e.target.id + '-BOLs-' + curID + '-dim_width_type\"><option value=\"\">&lt;none selected&gt;<\/option><option value=\"Inches\">in.<\/option><option value=\"Centimeters\">cm.<\/option><\/select>' +
+													'		<\/div>' +
+													'	<\/div>' +
+													'	<div class=\"form-group\">' +
+													'		<label class=\"col-sm-3 control-label\">' +
+													'			Height <span class=\"symbol required\"><\/span>' +
+													'		<\/label>' +
+													'		<div class=\"col-sm-4\">' +
+													'			<input type=\"text\" id=\"locations-' + e.target.id + '-BOLs-' + curID + '-dim_height\" name=\"locations-' + e.target.id + '-BOLs-' + curID + '-dim_height\" class=\"form-control\" value=\"\">' +
+													'		<\/div>' +
+													'		<div class=\"col-sm-3\">' +
+													'			<select class=\"form-control\" id="locations-' + e.target.id + '-BOLs-' + curID + '-dim_height_type\" name="locations-' + e.target.id + '-BOLs-' + curID + '-dim_height_type\"><option value=\"\">&lt;none selected&gt;<\/option><option value=\"Inches\">in.<\/option><option value=\"Centimeters\">cm.<\/option><\/select>' +
+													'		<\/div>' +
+													'	<\/div>' +
+													'<\/div>' +
+													'<\/div>'

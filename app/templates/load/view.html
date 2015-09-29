@@ -124,6 +124,10 @@
 									</thead>
 									<tbody>
 										<tr>
+											<td>Address</td>
+											<td>{{ location.address }}</td>
+										</tr>
+										<tr>
 											<td>Status</td>
 											<td>
 												{% if location.status_history.count() > 0 %}
@@ -270,6 +274,10 @@
 									</thead>
 									<tbody>
 										<tr>
+											<td>Address</td>
+											<td>{{ location.address }}</td>
+										</tr>
+										<tr>
 											<td>Status</td>
 											<td>
 												{% if location.status_history.count() > 0 %}
@@ -290,8 +298,8 @@
 										
 										{% if location.type == "Pickup" %}
 										<tr>
-											<td class="col-sm-6">Pickup Weight</td>
-											<td class="col-sm-6">{{ location.pickup_details.weight }}</td>
+											<td>Pickup Weight</td>
+											<td>{{ location.pickup_details.weight }}</td>
 										</tr>
 										<tr>
 											<td>Notes</td>
@@ -299,8 +307,8 @@
 										</tr>
 										{% else %}
 										<tr>
-											<td class="col-sm-6">Delivery Weight</td>
-											<td class="col-sm-6">{{ location.delivery_details.weight }}</td>
+											<td>Delivery Weight</td>
+											<td>{{ location.delivery_details.weight }}</td>
 										</tr>
 										<tr>
 											<td>Notes</td>
@@ -386,8 +394,30 @@
 							<td>{{ load.total_miles }}</td>
 						</tr>
 						<tr>
-							<td><b>Price:</b></td>
-							<td>${{ load.price }}</td>
+							<td><b>Over Dimensional:</b></td>
+							<td>
+								{% if load.over_dimensional %}
+									Yes
+								{% else %}
+									No
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
+							<td><b>Max Weight:</b></td>
+							<td>{{ load.max_weight }}</td>
+						</tr>
+						<tr>
+							<td><b>Max Length:</b></td>
+							<td>{{ load.max_length }} {{ load.max_length_type }}</td>
+						</tr>
+						<tr>
+							<td><b>Max Width:</b></td>
+							<td>{{ load.max_width }} {{ load.max_width_type }}</td>
+						</tr>
+						<tr>
+							<td><b>Max Height:</b></td>
+							<td>{{ load.max_height }} {{ load.max_height_type }}</td>
 						</tr>
 					</tbody>
 				</table>

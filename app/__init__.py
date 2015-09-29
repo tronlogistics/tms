@@ -97,9 +97,11 @@ class MyAdminIndexView(admin.AdminIndexView):
 
 #from app import models
 
-from models import User, Role, Load
+from models import *
 admin = Admin(app, name='Tron Logistics', index_view=MyAdminIndexView())
 admin.add_view(MyModelView(User, db.session))
 admin.add_view(MyModelView(Role, db.session))
 admin.add_view(MyModelView(Load, db.session))
+admin.add_view(MyModelView(LoadDetail, db.session))
+admin.add_view(MyModelView(BOL, db.session))
 

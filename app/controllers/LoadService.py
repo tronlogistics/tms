@@ -44,7 +44,7 @@ def PostLoadFactory(form, user):
 			delivery_detail = LoadDetailFactory(0, "", "Delivery")
 		#contact = ContactFactory(location.contact_name.data, location.contact_phone.data, location.contact_email.data)
 		url = 'https://maps.googleapis.com/maps/api/geocode/json?' + urllib.urlencode({
-				'address': address.toString()
+				'address': address
 			}) + "&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg"
 
 		response = urllib2.urlopen(url)

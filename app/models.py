@@ -340,8 +340,8 @@ class Address(db.Model):
 	latitude = db.Column(db.Float(6))
 	longitude = db.Column(db.Float(6))
 
-	def toString(self):
-		return self.address1 + ", " + self.city + ", " + self.state
+	def __repr__(self):
+		return self.address1 + ", " + self.city + ", " + self.state + " " + self.postal_code
 
 class Contact(db.Model):
 	__tablename__ = 'Contact'
@@ -451,5 +451,8 @@ class BOL(db.Model):
 	dim_width_type = db.Column(db.String(7))
 	dim_height = db.Column(db.String(7))
 	dim_height_type = db.Column(db.String(7))
+
+	def __repr__(self):
+		return self.number
 
 

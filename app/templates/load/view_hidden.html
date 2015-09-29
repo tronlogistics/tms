@@ -300,6 +300,16 @@
 							<td>{{ load.total_miles }}</td>
 						</tr>
 						<tr>
+							<td><b>Over Dimensional:</b></td>
+							<td>
+								{% if load.over_dimensional %}
+									Yes
+								{% else %}
+									No
+								{% endif %}
+							</td>
+						</tr>
+						<tr>
 							<td><b>Max Weight:</b></td>
 							<td>{{ load.max_weight }}</td>
 						</tr>

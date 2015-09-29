@@ -4,7 +4,7 @@ from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, SQLAlchemy
 from app.forms import LoadForm, StatusForm, LaneLocationForm, LocationStatusForm, BidForm, PostLoadForm, AcceptBidForm
-from app.models import Load, LoadDetail, Lane, Location, Truck, User, Driver, Contact, Bid
+from app.models import Load, LoadDetail, Lane, Location, Truck, User, Driver, Contact, Bid, BOL
 from app.permissions import *
 from app.emails import bid_accepted
 from ..controllers import LoadService, factory
@@ -168,10 +168,8 @@ def view(load_id):
 				current_location = load.lane.locations[-1]
 		else:
 			current_location = sorted_locations[0]
-		print g.user.company.is_carrier()
-		print len(load.assigned_companies)
+
 		if g.user.company.is_carrier() and len(load.assigned_companies) < 2:
-			print "Hidden"
 			return render_template('load/view_hidden.html',
 												load=load, 
 												carriers=carriers,
@@ -182,7 +180,7 @@ def view(load_id):
 												current_location=current_location,
 												user=g.user)
 		else:
-			return render_template('load/view.html',
+			return render_template('load/view2.html',
 												load=load, 
 												carriers=carriers,
 												locations = load.lane.locations,
@@ -525,23 +523,86 @@ def accept_bid(load_id, bid_id):
 	bid = Bid.query.get(int(bid_id))
 	form = AcceptBidForm()
 	if form.validate_on_submit():
-		#load.lane.locations = []
-		#for location in form.locations
-		#	address = Address(address1=location.address1,
-		#						city=location.city,
-		#						state=location.state,
-		#						postal_code=location.postal_code)
+		load.lane.locations = []
+		for indx, location in enumerate(form.locations):
+			address = Address(address1=location.address1.data,
+								city=location.city.data,
+								state=location.state.data,
+								postal_code=location.postal_code.data)
+			db.session.add(address)
+			url = 'https://maps.googleapis.com/maps/api/geocode/json?' + urllib.urlencode({
+				'address': address
+			}) + "&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg"
 
-		#	Location(address=address, 
-		#			pickup_details = pickup_detail, 
-		#			delivery_details= delivery_detail,
-		#			arrival_date=datetime.strptime(arrival_date, "%m-%d-%Y").date(),
-		#			stop_number=stop_number,
-		#			contact=contact,
-		#			type=stop_type,
-		#			latitude=latitude,
-		#			longitude=longitude)
-		bid.created_by.company.loads.append(bid.load)
+			response = urllib2.urlopen(url)
+			data = response.read()
+			try: 
+				js = json.loads(str(data))
+			except: js = None
+			if 'status' not in js or js['status'] != 'OK':
+				app.logger.error("Failed to Retrieve")
+
+
+			latitude = js["results"][0]["geometry"]["location"]["lat"]
+			longitude = js["results"][0]["geometry"]["location"]["lng"]
+
+			bols = []
+			for cur_BOL in location.BOLs:
+				bol = None
+				if location.stop_type.data == "Drop Off":
+					locs = filter((lambda loc: loc.type == "Pickup"), load.lane.locations)
+					for loc in locs:
+						for this_BOL in loc.pickup_details.BOLs:
+							if this_BOL.number == cur_BOL.bol_number.data:
+								bol = this_BOL
+				else:				
+					bol = BOL(number=cur_BOL.bol_number.data,
+								number_units=cur_BOL.number_units.data,
+								weight=cur_BOL.weight.data,
+								commodity_type=cur_BOL.commodity_type.data,
+								dim_length=cur_BOL.dim_length.data,
+								dim_length_type=cur_BOL.dim_length_type.data,
+								dim_width=cur_BOL.dim_width.data,
+								dim_width_type=cur_BOL.dim_width_type.data,
+								dim_height=cur_BOL.dim_height.data,
+								dim_height_type=cur_BOL.dim_height_type.data)
+				bols.append(bol)
+				db.session.add(bol)
+			print bols
+			contact = Contact(name=location.contact_name.data, phone=location.contact_phone.data)
+			pickup_detail = None
+			delivery_detail = None
+			if location.stop_type.data == "Pickup":
+				pickup_detail = LoadDetail(notes=location.notes.data, 
+											type=location.stop_type.data, 
+											BOLs=bols)
+				delivery_detail = None
+			elif location.stop_type.data == "Drop Off":
+				pickup_detail = None
+				delivery_detail = LoadDetail(notes=location.notes.data, 
+											type=location.stop_type.data, 
+											BOLs=bols)
+			else:
+				pickup_detail = LoadDetail(notes=location.notes.data, 
+											type=location.stop_type.data, 
+											BOLs=bols)
+				delivery_detail = LoadDetail(notes=location.notes.data, 
+											type=location.stop_type.data, 
+											BOLs=bols)
+
+			cur_loc = Location(address=address, 
+					pickup_details = pickup_detail, 
+					delivery_details= delivery_detail,
+					arrival_date=location.arrival_date.data,
+					stop_number=indx + 1,
+					contact=contact,
+					type=location.stop_type.data,
+					latitude=latitude,
+					longitude=longitude)
+			db.session.add(cur_loc)
+			load.lane.locations.append(cur_loc)
+
+		bid.created_by.company.loads.append(load)
 		bid.accepted = True
 		load.setStatus("")
 		db.session.add(load)
@@ -550,7 +611,7 @@ def accept_bid(load_id, bid_id):
 		db.session.commit()
 		bid_accepted(bid.created_by, load)
 		return redirect(url_for('.all'))
-	else:
+	elif not form.is_submitted():
 		for location in load.lane.locations:
 			loc_form = LaneLocationForm()
 			loc_form.stop_type = location.type
@@ -558,9 +619,15 @@ def accept_bid(load_id, bid_id):
 			loc_form.city = location.address.city
 			loc_form.state = location.address.state
 			loc_form.postal_code = location.address.postal_code
-			loc_form.arrival_date = location.arrival_date.strftime("%m-%d-%Y")
+			loc_form.arrival_date = location.arrival_date.strftime("%m/%d/%Y")
+			loc_form.contact_name = ""
+			loc_form.contact_phone = ""
+			loc_form.notes = ""
+
+
 			form.locations.append_entry(loc_form)
-		return render_template('load/accept_bid.html', 
+
+	return render_template('load/accept_bid.html', 
 							form=form,
 							load=load, 
 							user=g.user,

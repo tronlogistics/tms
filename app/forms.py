@@ -3,13 +3,29 @@ from wtforms import StringField, FloatField, PasswordField, SelectField, DateFie
 from wtforms.validators import DataRequired, EqualTo, NumberRange, Email, Length
 
 class BOLForm(Form):
+	def __init__(self, *args, **kwargs):
+		kwargs['csrf_enabled'] = False
+		Form.__init__(self, *args, **kwargs)
+
 	bol_number = StringField('BOL #', validators=[DataRequired()])
-	weight = StringField('Weight', validators=[DataRequired()])
-	dim_length = StringField('Length', validators=[DataRequired()])
-	dim_width = StringField('Width', validators=[DataRequired()])
-	dim_height = StringField('Height', validators=[DataRequired()])
-	number_units = StringField('Number of Unitys', validators=[DataRequired()])
-	commodity_type = StringField('Commodity Type', validators=[DataRequired()])
+	weight = StringField('Weight', validators=[])
+	dim_length = StringField('Length', validators=[])
+	dim_width = StringField('Width', validators=[])
+	dim_height = StringField('Height', validators=[])
+	dim_height_type = SelectField('Height Type', coerce=str, choices = [('',''),
+															('Inches', 'in.'), 
+															('Centimeters', 'cm.')], 
+															validators = [])
+	dim_length_type = SelectField('Length Type', coerce=str, choices = [('',''),
+															('Inches', 'in.'), 
+															('Centimeters', 'cm.')], 
+															validators = [])
+	dim_width_type = SelectField('Width Type', coerce=str, choices = [('',''),
+															('Inches', 'in.'), 
+															('Centimeters', 'cm.')], 
+															validators = [])
+	number_units = StringField('Number of Unitys', validators=[])
+	commodity_type = StringField('Commodity Type', validators=[])
 
 class EmailForm(Form):
 	new_email = StringField('Lead Email', validators=[Email("Please enter a valid e-mail")])
@@ -58,8 +74,8 @@ class LaneLocationForm(Form):
 
 	stop_type = SelectField('Location Type', coerce=str, choices = [('','<none selected>'),
 														('Pickup', 'Pickup'), 
-														('Drop Off', 'Drop Off'),
-														('Both', 'Both')], 
+														('Drop Off', 'Drop Off'), 
+														('Pick/Drop', 'Pick/Drop')], 
 														validators = [])
 	address1 = StringField("Address 1", validators =[])
 	city = StringField("City", validators =[])
@@ -69,6 +85,7 @@ class LaneLocationForm(Form):
 	retired = HiddenField("Retired", validators=[])
 	arrival_date = DateField("Date", validators=[], format='%m/%d/%Y')
 	arrival_Time = StringField("Time", validators=[])
+	notes = TextAreaField('Description', validators=[])
 	pickup_weight = StringField("Pickup Weight", validators=[])
 	pickup_notes = TextAreaField('Description', validators=[])
 	delivery_weight = StringField("Delivery Weight", validators=[])
