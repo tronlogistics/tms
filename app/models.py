@@ -20,6 +20,11 @@ Company_to_Load = db.Table('company_to_load', db.metadata,
 	db.Column('load_id', db.Integer, db.ForeignKey('Load.id'), primary_key=True)
 )
 
+detail_to_BOL = Table('detail_to_BOL', db.metadata,
+    Column('detail_id', db.Integer, ForeignKey('LoadDetail.id')),
+    Column('BOL_id', db.Integer, db.ForeignKey('BOL.id'))
+)
+
 #assigned_Users = db.Table('assigned_Users', db.metadata,
 #	Column('User_id', Integer, ForeignKey('User.id')),
 #	Column('load_id', Integer, ForeignKey('Load.id'))
@@ -319,6 +324,8 @@ class LoadDetail(db.Model):
 	approx_miles = db.Column(db.String(10))
 	number_pieces = db.Column(db.String(10))
 	notes = db.Column(db.String(500))
+	BOLs = relationship("BOL",
+                    secondary=detail_to_BOL)
 
 class Address(db.Model):
 	__tablename__ = 'Address'
@@ -430,3 +437,19 @@ class Bid(db.Model):
 	user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
 	created_by = db.relationship("User", backref="bids")
 	load_id = db.Column(db.Integer, db.ForeignKey('Load.id'))
+
+class BOL(db.Model):
+	__tablename__ = "BOL"
+	id = db.Column(db.Integer, primary_key = True)
+	number = db.Column(db.String(20))
+	number_units = db.Column(db.Integer)
+	weight = db.Column(db.String(7))
+	commodity_type = db.Column(db.String(255))
+	dim_length = db.Column(db.String(7))
+	dim_length_type = db.Column(db.String(7))
+	dim_width = db.Column(db.String(7))
+	dim_width_type = db.Column(db.String(7))
+	dim_height = db.Column(db.String(7))
+	dim_height_type = db.Column(db.String(7))
+
+

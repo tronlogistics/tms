@@ -525,6 +525,22 @@ def accept_bid(load_id, bid_id):
 	bid = Bid.query.get(int(bid_id))
 	form = AcceptBidForm()
 	if form.validate_on_submit():
+		#load.lane.locations = []
+		#for location in form.locations
+		#	address = Address(address1=location.address1,
+		#						city=location.city,
+		#						state=location.state,
+		#						postal_code=location.postal_code)
+
+		#	Location(address=address, 
+		#			pickup_details = pickup_detail, 
+		#			delivery_details= delivery_detail,
+		#			arrival_date=datetime.strptime(arrival_date, "%m-%d-%Y").date(),
+		#			stop_number=stop_number,
+		#			contact=contact,
+		#			type=stop_type,
+		#			latitude=latitude,
+		#			longitude=longitude)
 		bid.created_by.company.loads.append(bid.load)
 		bid.accepted = True
 		load.setStatus("")
