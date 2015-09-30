@@ -11,7 +11,7 @@ var FormWizard = function() {
 		});
 		var numberOfSteps = 0;
 		animateBar();
-		//initValidator();
+		initValidator();
 	};
 	var animateBar = function(val) {
 		if (( typeof val == 'undefined') || val == "") {
@@ -21,7 +21,7 @@ var FormWizard = function() {
 		var valueNow = Math.floor(100 / numberOfSteps * val);
 		$('.step-bar').css('width', valueNow + '%');
 	};
-	/*var initValidator = function() {
+	var initValidator = function() {
 		//$.validator.addMethod("cardExpiry", function() {
 		//	//if all values are selected
 		//	if ($("#card_expiry_mm").val() != "" && $("#card_expiry_yyyy").val() != "") {
@@ -45,45 +45,40 @@ var FormWizard = function() {
 			},
 			ignore : ':hidden',
 			rules : {
-				username : {
+				name : {
 					minlength : 2,
 					required : true
 				},
-				email : {
-					required : true,
-					email : true
-				},
-				password : {
-					minlength : 6,
+				load_type : {
 					required : true
 				},
-				password_again : {
-					required : true,
-					minlength : 5,
-					equalTo : "#password"
-				},
-				full_name : {
-					required : true,
-					minlength : 2,
-				},
-				phone : {
+				trailer_type : {
 					required : true
 				},
-				gender : {
+				total_miles : {
 					required : true
 				},
-				address : {
+				max_weight : {
 					required : true
 				},
-				city : {
+				max_length : {
 					required : true
 				},
-				country : {
+				max_width : {
 					required : true
 				},
-				card_name : {
+				max_height : {
 					required : true
 				},
+				max_length_type : {
+					required : true
+				},
+				max_width_type : {
+					required : true
+				},
+				max_height_type : {
+					required : true
+				}/*,
 				card_number : {
 					minlength : 16,
 					maxlength : 16,
@@ -99,10 +94,10 @@ var FormWizard = function() {
 				payment : {
 					required : true,
 					minlength : 1
-				}
+				}*/
 			},
 			messages : {
-				firstname : "Please specify your first name"
+				/*name : "Please specify your first name"*/
 			},
 			highlight : function(element) {
 				$(element).closest('.help-block').removeClass('valid');
@@ -120,7 +115,7 @@ var FormWizard = function() {
 				$(element).closest('.form-group').removeClass('has-error').addClass('has-success').find('.symbol').removeClass('required').addClass('ok');
 			}
 		});
-	};*/
+	};
 	var displayConfirm = function() {
 		$('.display-value', form).each(function() {
 			var input = $('[name="' + $(this).attr("data-display") + '"]', form);

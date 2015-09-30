@@ -4995,3 +4995,7 @@ ol.progtrckr li.progtrckr-todo:before {
 	border-top-right-radius:4px;
 	border-bottom-left-radius:0;
 }
+
+.help-block {
+	color:red;
+}

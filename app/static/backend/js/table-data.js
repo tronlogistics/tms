@@ -60,11 +60,11 @@ var TableData = function() {
 			
 
 			jqTds[0].innerHTML = '<input type="hidden" id="locations-' + rowNum + '-stop_number" name="locations-' + rowNum + '-stop_number" class="form-control" value="' + rowNum + '">' + rowNum;
-			jqTds[1].innerHTML = '<select class="form-control location-type" id="locations-' + rowNum + '-stop_type" name="locations-' + rowNum + '-stop_type"><option value="">&lt;none selected&gt;</option><option value="Pickup">Pickup</option><option value="Drop Off">Drop Off</option><option value="Both">Both</option></select>';
-			jqTds[2].innerHTML = '<input type="text" id="locations-' + rowNum + '-city" name="locations-' + rowNum + '-city" class="form-control" value="' + aData[2] + '">';
-			jqTds[3].innerHTML = '<input type="text" id="locations-' + rowNum + '-state" name="locations-' + rowNum + '-state" class="form-control" value="' + aData[3] + '">';
-			jqTds[4].innerHTML = '<input type="text" id="locations-' + rowNum + '-postal_code" name="locations-' + rowNum + '-postal_code" class="form-control" value="' + aData[4] + '">';
-			jqTds[5].innerHTML = '<input type="text" id="locations-' + rowNum + '-arrival_date" name="locations-' + rowNum + '-arrival_date" data-date-format="dd-mm-yyyy" data-date-viewmode="years" class="form-control date-picker" value="' + aData[7] + '">';
+			jqTds[1].innerHTML = '<select class="form-control location-type" id="locations-' + rowNum + '-stop_type" name="locations-' + rowNum + '-stop_type" data-rule-required="true"><option value="">&lt;none selected&gt;</option><option value="Pickup">Pickup</option><option value="Drop Off">Drop Off</option><option value="Both">Both</option></select>';
+			jqTds[2].innerHTML = '<input type="text" id="locations-' + rowNum + '-city" name="locations-' + rowNum + '-city" class="form-control" value="' + aData[2] + '" data-rule-required="true">';
+			jqTds[3].innerHTML = '<input type="text" id="locations-' + rowNum + '-state" name="locations-' + rowNum + '-state" class="form-control" value="' + aData[3] + '" data-rule-required="true">';
+			jqTds[4].innerHTML = '<input type="text" id="locations-' + rowNum + '-postal_code" name="locations-' + rowNum + '-postal_code" class="form-control" value="' + aData[4] + '" data-rule-required="true">';
+			jqTds[5].innerHTML = '<input type="text" id="locations-' + rowNum + '-arrival_date" name="locations-' + rowNum + '-arrival_date" data-date-format="mm/dd/yyyy" data-date-viewmode="years" class="form-control date-picker" value="' + aData[7] + '" data-rule-required="true">';
 			//jqTds[8].innerHTML = '<input type="text" id="locations-' + rowNum + '-arrival_time" name="locations-' + rowNum + '-arrival_time" class="form-control" value="' + aData[8] + '">';
 			jqTds[6].innerHTML = '<a class="delete-row" href="">Delete</a>';
 
@@ -110,42 +110,21 @@ var TableData = function() {
 				actualEditingRow = null;
 			}
 		});
-		/*$('#sample_2').on('click', '.delete-row', function(e) {
+		$('#sample_2').on('click', '.delete-row', function(e) {
 			e.preventDefault();
-			if (newRow && actualEditingRow) {
+			/*if (newRow && actualEditingRow) {
 				oTable.fnDeleteRow(actualEditingRow);
 				newRow = false;
 
-			}
+			}*/
 			var nRow = $(this).parents('tr')[0];
-			bootbox.confirm("Are you sure to delete this row?", function(result) {
-				if (result) {
-					$.blockUI({
-						message : '<i class="fa fa-spinner fa-spin"></i> Do some ajax to sync with backend...'
-					});
-					$.mockjax({
-						url : '/tabledata/delete/webservice',
-						dataType : 'json',
-						responseTime : 1000,
-						responseText : {
-							say : 'ok'
-						}
-					});
-					$.ajax({
-						url : '/tabledata/delete/webservice',
-						dataType : 'json',
-						success : function(json) {
-							$.unblockUI();
-							if (json.say == "ok") {
-								oTable.fnDeleteRow(nRow);
-							}
-						}
-					});
+			
+			/* Decrease the following index values by 1 */
 
-				}
-			});
+			oTable.fnDeleteRow(nRow);
+							
 
-		});*/
+		});
 		$('#sample_2').on('click', '.save-row', function(e) {
 			e.preventDefault();
 

@@ -44,9 +44,10 @@
 	jQuery(document).ready(function() {
 		Main.init();
 		{% if form is defined %}
-			FormElements.init();
-			$('.input-mask-phone').mask("(999) 999-9999");
-			TableData.init();
+		{#FormElements.init();#}
+		FormWizard.init();
+		$('.input-mask-phone').mask("(999) 999-9999");
+		TableData.init();
 		{% endif %}
 	});
 </script>

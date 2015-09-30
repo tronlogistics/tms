@@ -45,7 +45,7 @@ def create():
 		db.session.add(g.user.company)
 		db.session.commit()
 		return redirect(url_for('.view', load_id=load.id))
-	return render_template('load/create.html',
+	return render_template('load/create2.html',
    							title="Create Load",
    							active="Loads",
    							form=form, user=g.user)
