@@ -61,12 +61,12 @@ var TableData = function() {
 
 			jqTds[0].innerHTML = '<input type="hidden" id="locations-' + rowNum + '-stop_number" name="locations-' + rowNum + '-stop_number" class="form-control" value="' + rowNum + '">' + rowNum;
 			jqTds[1].innerHTML = '<select class="form-control location-type" id="locations-' + rowNum + '-stop_type" name="locations-' + rowNum + '-stop_type" data-rule-required="true"><option value="">&lt;none selected&gt;</option><option value="Pickup">Pickup</option><option value="Drop Off">Drop Off</option><option value="Both">Both</option></select>';
-			jqTds[2].innerHTML = '<input type="text" id="locations-' + rowNum + '-city" name="locations-' + rowNum + '-city" class="form-control" value="' + aData[2] + '" data-rule-required="true">';
-			jqTds[3].innerHTML = '<input type="text" id="locations-' + rowNum + '-state" name="locations-' + rowNum + '-state" class="form-control" value="' + aData[3] + '" data-rule-required="true">';
-			jqTds[4].innerHTML = '<input type="text" id="locations-' + rowNum + '-postal_code" name="locations-' + rowNum + '-postal_code" class="form-control" value="' + aData[4] + '" data-rule-required="true">';
-			jqTds[5].innerHTML = '<input type="text" id="locations-' + rowNum + '-arrival_date" name="locations-' + rowNum + '-arrival_date" data-date-format="mm/dd/yyyy" data-date-viewmode="years" class="form-control date-picker" value="' + aData[7] + '" data-rule-required="true">';
-			//jqTds[8].innerHTML = '<input type="text" id="locations-' + rowNum + '-arrival_time" name="locations-' + rowNum + '-arrival_time" class="form-control" value="' + aData[8] + '">';
-			jqTds[6].innerHTML = '<a class="delete-row" href="">Delete</a>';
+			jqTds[2].innerHTML = '<input type="text" id="locations-' + rowNum + '-address1" name="locations-' + rowNum + '-address1" class="form-control" value="' + aData[2] + '" data-rule-required="true">';
+			jqTds[3].innerHTML = '<input type="text" id="locations-' + rowNum + '-city" name="locations-' + rowNum + '-city" class="form-control" value="' + aData[2] + '" data-rule-required="true">';
+			jqTds[4].innerHTML = '<input type="text" id="locations-' + rowNum + '-state" name="locations-' + rowNum + '-state" class="form-control" value="' + aData[3] + '" data-rule-required="true">';
+			jqTds[5].innerHTML = '<input type="text" id="locations-' + rowNum + '-postal_code" name="locations-' + rowNum + '-postal_code" class="form-control" value="' + aData[4] + '" data-rule-required="true">';
+			jqTds[6].innerHTML = '<input type="text" id="locations-' + rowNum + '-arrival_date" name="locations-' + rowNum + '-arrival_date" data-date-format="mm/dd/yyyy" data-date-viewmode="years" class="form-control date-picker" value="' + aData[7] + '" data-rule-required="true">';
+			jqTds[7].innerHTML = '<a class="delete-row" href="">Delete</a>';
 
 			
 
@@ -118,10 +118,23 @@ var TableData = function() {
 
 			}*/
 			var nRow = $(this).parents('tr')[0];
-			
-			/* Decrease the following index values by 1 */
+			var deletedStopNumber = $(this).parent().siblings(":first").children("input").val()
 
-			oTable.fnDeleteRow(nRow);
+			$('#sample_2 tbody tr').each(function(index) {
+				var thisStopNumber = $(this).children(':first').children("input").val();
+				if(thisStopNumber > deletedStopNumber) {
+					$(this).children(':first').html('<input type="hidden" id="locations-' + thisStopNumber + '-stop_number" name="locations-' + thisStopNumber + '-stop_number" class="form-control" value="' + (thisStopNumber - 1) + '">' + (thisStopNumber - 1));
+				} else if(thisStopNumber == deletedStopNumber) {	
+					if($('#wrapper-' + index).length) {
+						$('#wrapper-' + index).hide()
+						$('#locations-' + index + '-retired').val(1);
+					}
+				}
+			});			
+
+			$(this).parent().parent().hide()
+
+			//oTable.fnDeleteRow(nRow);
 							
 
 		});

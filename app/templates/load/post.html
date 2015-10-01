@@ -160,16 +160,17 @@
 							<div class="table-responsive">
 								<table class="table table-striped table-hover" id="sample_2">
 									<thead>
-										<tr>
-											<th>Stop #</th>
-											<th>Location Type</th>
-											<th>City</th>
-											<th>State</th>
-											<th>Zip</th>
-											<th>Arrival Date</th>
-											<th>Delete</th>
-										</tr>
-									</thead>
+											<tr>
+												<th>Stop #</th>
+												<th>Location Type <span class="symbol required"></span></th>
+												<th>Address</th>
+												<th>City <span class="symbol required"></span></th>
+												<th>State <span class="symbol required"></span></th>
+												<th>Zip <span class="symbol required"></span></th>
+												<th>Arrival Date <span class="symbol required"></span></th>
+												<th>Delete</th>
+											</tr>
+										</thead>
 									<tbody>
 										{% for location in form.locations %}
 											<tr>

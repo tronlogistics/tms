@@ -183,3 +183,7 @@
 2015-09-30 13:27:35,229 INFO: 404: Not Found [in /Users/Root1/app/app/views/org.py:107]
 2015-09-30 13:27:40,268 INFO: 404: Not Found [in /Users/Root1/app/app/views/org.py:107]
 2015-09-30 13:27:40,455 INFO: 404: Not Found [in /Users/Root1/app/app/views/org.py:107]
+2015-09-30 16:47:25,903 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-09-30 16:47:26,839 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-10-01 09:12:25,512 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-10-01 09:12:26,254 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
