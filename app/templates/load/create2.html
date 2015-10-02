@@ -511,24 +511,36 @@
 	        });
 		$( document ).on( 'click', '.add_pickup_button', function(e) {
 			e.preventDefault();
-			var newBOL = $('#bol-pickup-template').html().replace(/__LOC_INDEX__/g, e.target.id).replace(/__BOL_INDEX__/g, $('.locations-' + e.target.id + '-bol').length).replace(/__BOL_NUMBER__/g, $('.locations-' + e.target.id + '-bol').length + 1);
+			var countHidden = 0;
+			var firstNotHidden = $('#locations-' + e.target.id + '-bol-wrapper').children('.bol-wrapper').length;
+			$('#locations-' + e.target.id + '-bol-wrapper').children('.bol-wrapper').each(function(e) {
+				if($(this).closest('.bol-wrapper').is(':hidden')) {
+					countHidden += 1;
+				} else if(e < firstNotHidden) {
+					firstNotHidden = e;
+				}
+			});
+			var newBOL = $('#bol-pickup-template').html().replace(/__LOC_INDEX__/g, e.target.id).replace(/__BOL_INDEX__/g, $('.locations-' + e.target.id + '-bol').length).replace(/__BOL_NUMBER__/g, $('.locations-' + e.target.id + '-bol').length + 1 - countHidden);
 			var showBOL = $('.locations-' + e.target.id + '-bol').length;
 		   	$('#locations-' + e.target.id + '-bol-wrapper').append(newBOL);
 		   	$('#locations-' + e.target.id + '-BOLs-' + showBOL + '-remove').show();
 		   	var numBOLs = $('.locations-' + e.target.id + '-bol').length;
-			if(numBOLs > 1) {
+			if(numBOLs - countHidden > 1) {
 				//alert($('#locations-' + e.target.id + '-BOLs-0-remove').html());
-				$('#locations-' + e.target.id + '-BOLs-0-remove').show();
+				$('#locations-' + e.target.id + '-BOLs-' + firstNotHidden + '-remove').show();
 			} else if (numBOLs == 1) {
-				$('#locations-' + e.target.id + '-BOLs-0-remove').hide();
+				$('#locations-' + e.target.id + '-BOLs-' + firstNotHidden + '-remove').hide();
 			}
 		});
 		$( document ).on( 'click', '.add_dropoff_button', function(e) {
 			e.preventDefault();
 			var countHidden = 0;
+			var firstNotHidden = $('#locations-' + e.target.id + '-bol-wrapper').children('.bol-wrapper').length;
 			$('#locations-' + e.target.id + '-bol-wrapper').children('.bol-wrapper').each(function(e) {
 				if($(this).closest('.bol-wrapper').is(':hidden')) {
 					countHidden += 1;
+				} else if(e < firstNotHidden) {
+					firstNotHidden = e;
 				}
 			});
 			var newBOL = $('#bol-dropoff-template').html().replace(/__LOC_INDEX__/g, e.target.id).replace(/__BOL_INDEX__/g, $('.locations-' + e.target.id + '-bol').length).replace(/__BOL_NUMBER__/g, $('.locations-' + e.target.id + '-bol').length + 1 - countHidden);
@@ -537,27 +549,29 @@
 		   	//alert($('#locations-' + e.target.id + '-BOLs-' + showBOL + '-remove').html());
 		   	$('#locations-' + e.target.id + '-BOLs-' + showBOL + '-remove').show();
 		   	var numBOLs = $('.locations-' + e.target.id + '-bol').length;
-			if(numBOLs > 1) {
+			if(numBOLs - countHidden > 1) {
 				//alert($('#locations-' + e.target.id + '-BOLs-0-remove').html());
-				$('#locations-' + e.target.id + '-BOLs-0-remove').show();
+				$('#locations-' + e.target.id + '-BOLs-' + firstNotHidden + '-remove').show();
 			} else if (numBOLs == 1) {
-				$('#locations-' + e.target.id + '-BOLs-0-remove').hide();
+				$('#locations-' + e.target.id + '-BOLs-' + firstNotHidden + '-remove').hide();
 			}
 		});
 
 		$( document ).on( 'click', '.remove-bol-button', function(e) {
 			e.preventDefault();
 			
-			var hidden = $(this).closest('.bol-wrapper')
+			var hidden = $(this).closest('.bol-wrapper');
+			var hiddenID = hidden.find('.bol_id').val();
 			var countHidden = 0;
 		   	$(this).closest('.location-bols').children('.bol-wrapper').each(function(index) {
 		   		if($(this).html() == hidden.html()) {
 		   			$(this).next('input').val(1);
 		   			$(this).closest('.bol-wrapper').hide();
-		   		} else if ($(this).find('.bol_id').val() > hidden.find('.bol_id').val()) {
+		   		} else if ($(this).find('.bol_id').val() > hiddenID) {
 		   			//alert('hi');
-		   			$(this).find('.bol-header').text('BOL #' + (index));
-		   			$(this).find('.bol_id').val(index + 1);
+		   			var thisID = $(this).find('.bol_id').val();
+		   			$(this).find('.bol-header').text('BOL #' + (thisID - 1));
+		   			$(this).find('.bol_id').val(thisID - 1);
 		   		}
 		   		if($(this).closest('.bol-wrapper').is(':hidden')) {
 		   			countHidden += 1;
