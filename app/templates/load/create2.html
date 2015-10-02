@@ -292,7 +292,7 @@
 					<div class="row">
 						<div class="col-sm-12">
 							<h4 class="bol-header">BOL #__BOL_NUMBER__</h4>
-							<button class="btn btn-danger remove-bol-button" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-remove">Remove BOL</button>
+							<button class="btn btn-danger remove-bol-button" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-remove" style="display:none;">Remove BOL</button>
 							<input type="hidden" id="locations-__LOC_INDEX__-BOLS-__BOL_INDEX__-retired" name="locations-__LOC_INDEX__-BOLS-__BOL_INDEX__-retired" class="form-control retire-bol-input" value="">
 							<input type="hidden" id="__BOL_INDEX__-id" name="bol-id" class="form-control bol_id" value="__BOL_NUMBER__">
 						</div>
@@ -372,9 +372,12 @@
 				</div>
 			</div>
 			<div id="bol-dropoff-template" style="display:none;">
-				<div class="row locations-__LOC_INDEX__-bol">
+				<div class="row locations-__LOC_INDEX__-bol bol-wrapper">
 					<div class="col-sm-12">
-						<h4>BOL #__BOL_NUMBER__</h4>
+						<h4 class="bol-header">BOL #__BOL_NUMBER__</h4>
+						<button class="btn btn-danger remove-bol-button" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-remove" style="display:none;">Remove BOL</button>
+						<input type="hidden" id="locations-__LOC_INDEX__-BOLS-__BOL_INDEX__-retired" name="locations-__LOC_INDEX__-BOLS-__BOL_INDEX__-retired" class="form-control retire-bol-input" value="">
+						<input type="hidden" id="__BOL_INDEX__-id" name="bol-id" class="form-control bol_id" value="__BOL_NUMBER__">
 						<hr />
 						<div class="form-group">
 							<label class="col-sm-3 control-label">
@@ -460,6 +463,7 @@
 		<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 
 	<script>
+
 		$( document ).on( "focus", "input.date-picker", function() {
 				$('.date-picker').datepicker({
 			            autoclose: true,
@@ -483,9 +487,9 @@
 						//get template, replace applicable indexes
 						var newBol;
 						if($('#locations-' + (i + 1) + '-stop_type').val() == "Pickup") {
-							newBOL = $('#bol-pickup-template').html().replace(/__LOC_INDEX__/g, i).replace(/__BOL_INDEX__/g, i).replace(/__BOL_NUMBER__/g, 1);
+							newBOL = $('#bol-pickup-template').html().replace(/__LOC_INDEX__/g, i).replace(/__BOL_INDEX__/g, 0).replace(/__BOL_NUMBER__/g, 1);
 						} else {
-							newBOL = $('#bol-dropoff-template').html().replace(/__LOC_INDEX__/g, i).replace(/__BOL_INDEX__/g, i).replace(/__BOL_NUMBER__/g, 1);
+							newBOL = $('#bol-dropoff-template').html().replace(/__LOC_INDEX__/g, i).replace(/__BOL_INDEX__/g, 0).replace(/__BOL_NUMBER__/g, 1);
 						}
 
 						//add location to screen
@@ -507,28 +511,65 @@
 	        });
 		$( document ).on( 'click', '.add_pickup_button', function(e) {
 			e.preventDefault();
-
-		   	var newBOL = $('#bol-pickup-template').html().replace(/__LOC_INDEX__/g, e.target.id).replace(/__BOL_INDEX__/g, $('#locations-' + e.target.id + '-bol-wrapper').length).replace(/__BOL_NUMBER__/g, $('.locations-' + e.target.id + '-bol').length + 1);
+			var newBOL = $('#bol-pickup-template').html().replace(/__LOC_INDEX__/g, e.target.id).replace(/__BOL_INDEX__/g, $('.locations-' + e.target.id + '-bol').length).replace(/__BOL_NUMBER__/g, $('.locations-' + e.target.id + '-bol').length + 1);
+			var showBOL = $('.locations-' + e.target.id + '-bol').length;
 		   	$('#locations-' + e.target.id + '-bol-wrapper').append(newBOL);
+		   	$('#locations-' + e.target.id + '-BOLs-' + showBOL + '-remove').show();
+		   	var numBOLs = $('.locations-' + e.target.id + '-bol').length;
+			if(numBOLs > 1) {
+				//alert($('#locations-' + e.target.id + '-BOLs-0-remove').html());
+				$('#locations-' + e.target.id + '-BOLs-0-remove').show();
+			} else if (numBOLs == 1) {
+				$('#locations-' + e.target.id + '-BOLs-0-remove').hide();
+			}
 		});
 		$( document ).on( 'click', '.add_dropoff_button', function(e) {
 			e.preventDefault();
-		   	var newBOL = $('#bol-dropoff-template').html().replace(/__LOC_INDEX__/g, e.target.id).replace(/__BOL_INDEX__/g, $('#locations-' + e.target.id + '-bol-wrapper').length).replace(/__BOL_NUMBER__/g, $('.locations-' + e.target.id + '-bol').length + 1);
+			var countHidden = 0;
+			$('#locations-' + e.target.id + '-bol-wrapper').children('.bol-wrapper').each(function(e) {
+				if($(this).closest('.bol-wrapper').is(':hidden')) {
+					countHidden += 1;
+				}
+			});
+			var newBOL = $('#bol-dropoff-template').html().replace(/__LOC_INDEX__/g, e.target.id).replace(/__BOL_INDEX__/g, $('.locations-' + e.target.id + '-bol').length).replace(/__BOL_NUMBER__/g, $('.locations-' + e.target.id + '-bol').length + 1 - countHidden);
+			var showBOL = $('.locations-' + e.target.id + '-bol').length;
 		   	$('#locations-' + e.target.id + '-bol-wrapper').append(newBOL);
+		   	//alert($('#locations-' + e.target.id + '-BOLs-' + showBOL + '-remove').html());
+		   	$('#locations-' + e.target.id + '-BOLs-' + showBOL + '-remove').show();
+		   	var numBOLs = $('.locations-' + e.target.id + '-bol').length;
+			if(numBOLs > 1) {
+				//alert($('#locations-' + e.target.id + '-BOLs-0-remove').html());
+				$('#locations-' + e.target.id + '-BOLs-0-remove').show();
+			} else if (numBOLs == 1) {
+				$('#locations-' + e.target.id + '-BOLs-0-remove').hide();
+			}
 		});
 
 		$( document ).on( 'click', '.remove-bol-button', function(e) {
 			e.preventDefault();
+			
 			var hidden = $(this).closest('.bol-wrapper')
+			var countHidden = 0;
 		   	$(this).closest('.location-bols').children('.bol-wrapper').each(function(index) {
 		   		if($(this).html() == hidden.html()) {
 		   			$(this).next('input').val(1);
 		   			$(this).closest('.bol-wrapper').hide();
 		   		} else if ($(this).find('.bol_id').val() > hidden.find('.bol_id').val()) {
+		   			//alert('hi');
 		   			$(this).find('.bol-header').text('BOL #' + (index));
 		   			$(this).find('.bol_id').val(index + 1);
 		   		}
+		   		if($(this).closest('.bol-wrapper').is(':hidden')) {
+		   			countHidden += 1;
+		   		}
 		   	});
+		   	if(countHidden + 1 == $(this).closest('.location-bols').children('.bol-wrapper').length) {
+		   		$(this).closest('.location-bols').children('.bol-wrapper').each(function(index) {
+			   		if(!$(this).closest('.bol-wrapper').is(':hidden')) {
+			   			$(this).closest('.bol-wrapper').find('.remove-bol-button').hide();
+			   		} 
+		   		});
+		   	}
 		});
 		
 	</script>
