@@ -25,6 +25,11 @@ detail_to_BOL = Table('detail_to_BOL', db.metadata,
     Column('BOL_id', db.Integer, db.ForeignKey('BOL.id'))
 )
 
+location_to_BOL = Table('location_to_BOL', db.metadata,
+    db.Column('location_id', db.Integer, ForeignKey('Location.id')),
+    db.Column('BOL_id', db.Integer, db.ForeignKey('BOL.id'))
+)
+
 #assigned_Users = db.Table('assigned_Users', db.metadata,
 #	Column('User_id', Integer, ForeignKey('User.id')),
 #	Column('load_id', Integer, ForeignKey('Load.id'))
@@ -282,6 +287,8 @@ class Location(db.Model):
 	
 	address = db.relationship('Address', uselist=False, backref='location')
 
+	notes = db.Column(db.String(1333))
+
 	pickup_id = db.Column(db.Integer, db.ForeignKey('LoadDetail.id'))
 	pickup_details = db.relationship('LoadDetail', primaryjoin="LoadDetail.id==Location.pickup_id")
 
@@ -299,6 +306,9 @@ class Location(db.Model):
 
 	latitude = db.Column(db.Float(6))
 	longitude = db.Column(db.Float(6))
+
+	BOLs = relationship("BOL",
+                    secondary=location_to_BOL)
 
 	def __repr__(self):
 		return '%s, %s' % (self.address.city, self.address.state)

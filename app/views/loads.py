@@ -3,7 +3,7 @@ from flask.ext import excel
 from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, SQLAlchemy
-from app.forms import LoadForm, StatusForm, LaneLocationForm, LocationStatusForm, BidForm, PostLoadForm, AcceptBidForm
+from app.forms import LoadForm, StatusForm, LaneLocationForm, LocationStatusForm, BidForm, PostLoadForm, AcceptBidForm, BOLForm
 from app.models import Load, LoadDetail, Lane, Location, Truck, User, Driver, Contact, Bid, BOL
 from app.permissions import *
 from app.emails import bid_accepted
@@ -31,20 +31,32 @@ def before_request():
 @loads.route('/create', methods=['GET', 'POST'])
 @login_required
 def create():
-	form = LoadForm()
+	form = PostLoadForm()
+	flash(request.method)
+	for location in form.locations:
+		flash(location.stop_type.data)
 	if form.validate_on_submit():
-		load = LoadFactory(form)
+		#load = PostLoadFactory(form, g.user)
+		#load.created_by = g.user
+		#g.user.company.loads.append(load)
+		#if g.user.is_carrier:
+		#	load.setStatus("")
+		#	load.carrier_cost=form.price.data
+		#else:
+		#	load.setStatus("")
+		#db.session.add(load)
+		#db.session.add(g.user.company)
+		#db.session.commit()
+		#return redirect(url_for('.view', load_id=load.id))
+		load = CreateLoadFactory(form, g.user)
 		load.created_by = g.user
 		g.user.company.loads.append(load)
-		if g.user.is_carrier:
-			load.setStatus("")
-			load.carrier_cost=form.price.data
-		else:
-			load.setStatus("")
+		load.setStatus("")
 		db.session.add(load)
 		db.session.add(g.user.company)
 		db.session.commit()
 		return redirect(url_for('.view', load_id=load.id))
+	flash(form.errors)
 	return render_template('load/create2.html',
    							title="Create Load",
    							active="Loads",
@@ -77,7 +89,8 @@ def edit(load_id):
 	permission = EditLoadPermission(load_id)
 	if permission.can():
 		load = Load.query.get(int(load_id))
-		form = LoadForm()
+		#form = LoadForm()
+		form = PostLoadForm()
 		if form.validate_on_submit():
 			load.name = form.name.data
 			load.load_type = form.load_type.data
@@ -116,17 +129,56 @@ def edit(load_id):
 			form.total_miles.data = load.total_miles
 			form.trailer_type.data = load.trailer_type
 			form.total_miles.data = load.total_miles
-			form.price.data = load.carrier_invoice
-			form.description.data = load.description
-			form.locations = []
-			form.broker.company_name.data = load.broker.name
-			form.broker.phone.data = load.broker.phone
-			form.broker.email.data = load.broker.email
-			form.shipper.company_name.data = load.shipper.name
-			form.shipper.phone.data = load.shipper.phone
-			form.shipper.email.data = load.shipper.email
+			form.max_weight.data = load.max_weight
+			form.over_dimensional.data = load.over_dimensional
+			form.max_length.data = load.max_length
+			form.max_length_type.data = load.max_length_type
+			form.max_width.data = load.max_width
+			form.max_width_type.data = load.max_width_type
+			form.max_height.data = load.max_height
+			form.max_height_type.data = load.max_height_type
 
-		return render_template('load/edit.html', 
+			for location in load.lane.locations:
+				loc_form = LaneLocationForm()
+				loc_form.stop_type = location.type
+				loc_form.address1 = location.address.address1
+				loc_form.city = location.address.city
+				loc_form.state = location.address.state
+				loc_form.postal_code = location.address.postal_code
+				loc_form.arrival_date = location.arrival_date.strftime("%m/%d/%Y")
+				loc_form.contact_name = location.contact.name
+				loc_form.contact_phone = location.contact.phone
+				loc_form.notes = location.notes
+
+				for bol in location.BOLs:
+					bol_form = BOLForm()
+					bol_form.bol_number = bol.number
+					bol_form.number_units = bol.number_units
+					bol_form.weight = bol.number
+					bol_form.commodity_type = bol.number
+					bol_form.dim_length = bol.dim_length
+					bol_form.dim_length_type = bol.dim_length_type
+					bol_form.dim_width = bol.dim_width
+					bol_form.dim_width_type = bol.dim_width_type
+					bol_form.dim_height = bol.dim_height
+					bol_form.dim_height_type = bol.dim_height_type
+
+					loc_form.BOLs.append_entry(bol_form)
+
+				form.locations.append_entry(loc_form)
+
+				
+			#form.price.data = load.carrier_invoice
+			#form.description.data = load.description
+			#form.locations = []
+			#form.broker.company_name.data = load.broker.name
+			#form.broker.phone.data = load.broker.phone
+			#form.broker.email.data = load.broker.email
+			#form.shipper.company_name.data = load.shipper.name
+			#form.shipper.phone.data = load.shipper.phone
+			#form.shipper.email.data = load.shipper.email
+
+		return render_template('load/edit2.html', 
 								title="Edit Load", 
 								form=form, 
 								active="Loads",
@@ -169,7 +221,7 @@ def view(load_id):
 		else:
 			current_location = sorted_locations[0]
 
-		if g.user.company.is_carrier() and len(load.assigned_companies) < 2:
+		if g.user.company.is_carrier() and len(load.assigned_companies) < 2 and load.created_by.company != g.user.company:
 			return render_template('load/view_hidden.html',
 												load=load, 
 												carriers=carriers,
@@ -568,7 +620,6 @@ def accept_bid(load_id, bid_id):
 								dim_height_type=cur_BOL.dim_height_type.data)
 				bols.append(bol)
 				db.session.add(bol)
-			print bols
 			contact = Contact(name=location.contact_name.data, phone=location.contact_phone.data)
 			pickup_detail = None
 			delivery_detail = None

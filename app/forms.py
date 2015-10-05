@@ -72,10 +72,9 @@ class LaneLocationForm(Form):
 		kwargs['csrf_enabled'] = False
 		Form.__init__(self, *args, **kwargs)
 
-	stop_type = SelectField('Location Type', coerce=str, choices = [('','<none selected>'),
+	stop_type = SelectField('Location Type', coerce=str, choices = [('',''),
 														('Pickup', 'Pickup'), 
-														('Drop Off', 'Drop Off'), 
-														('Pick/Drop', 'Pick/Drop')], 
+														('Drop Off', 'Drop Off')], 
 														validators = [])
 	address1 = StringField("Address 1", validators =[])
 	city = StringField("City", validators =[])

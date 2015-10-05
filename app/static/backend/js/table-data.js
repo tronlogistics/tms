@@ -55,12 +55,12 @@ var TableData = function() {
 		function editRow(oTable, nRow) {
 			var aData = oTable.fnGetData(nRow);
 			var jqTds = $('>td', nRow);
-			var rowNum = oTable.fnSettings().fnRecordsTotal()
+			var rowNum = oTable.fnSettings().fnRecordsTotal() - 1;
 			
 			
 
-			jqTds[0].innerHTML = '<input type="hidden" id="locations-' + rowNum + '-stop_number" name="locations-' + rowNum + '-stop_number" class="form-control" value="' + rowNum + '">' + rowNum;
-			jqTds[1].innerHTML = '<select class="form-control location-type" id="locations-' + rowNum + '-stop_type" name="locations-' + rowNum + '-stop_type" data-rule-required="true"><option value="">&lt;none selected&gt;</option><option value="Pickup">Pickup</option><option value="Drop Off">Drop Off</option><option value="Both">Both</option></select>';
+			jqTds[0].innerHTML = '<input type="hidden" id="locations-' + rowNum + '-stop_number" name="locations-' + rowNum + '-stop_number" class="form-control" value="' + (rowNum + 1) + '">' + (rowNum + 1);
+			jqTds[1].innerHTML = '<select class="form-control location-type" id="locations-' + rowNum + '-stop_type" name="locations-' + rowNum + '-stop_type" data-rule-required="true"><option value=""></option><option value="Pickup">Pickup</option><option value="Drop Off">Drop Off</option></select>';
 			jqTds[2].innerHTML = '<input type="text" id="locations-' + rowNum + '-address1" name="locations-' + rowNum + '-address1" class="form-control" value="' + aData[2] + '" data-rule-required="true">';
 			jqTds[3].innerHTML = '<input type="text" id="locations-' + rowNum + '-city" name="locations-' + rowNum + '-city" class="form-control" value="' + aData[2] + '" data-rule-required="true">';
 			jqTds[4].innerHTML = '<input type="text" id="locations-' + rowNum + '-state" name="locations-' + rowNum + '-state" class="form-control" value="' + aData[3] + '" data-rule-required="true">';

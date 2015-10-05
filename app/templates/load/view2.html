@@ -168,27 +168,11 @@
 											<td>Type</td>
 											<td>{{ location.type }}</td>
 										</tr>
-										
-										{% if location.type == "Pickup" %}
-										<tr>
-											<td>Pickup Weight</td>
-											<td>{{ location.pickup_details.weight }}</td>
-										</tr>
 										<tr>
 											<td>Notes</td>
 											<td>{{ location.pickup_details.notes }}</td>
 										</tr>
-										{% else %}
-										<tr>
-											<td>Delivery Weight</td>
-											<td>{{ location.delivery_details.weight }}</td>
-										</tr>
-										<tr>
-											<td>Notes</td>
-											<td>{{ location.delivery_details.notes }}</td>
-										</tr>
-										{% endif %}
-
+										
 									</tbody>
 								</table>
 
@@ -315,25 +299,11 @@
 											<td>{{ location.type }}</td>
 										</tr>
 										
-										{% if location.type == "Pickup" %}
-										<tr>
-											<td>Pickup Weight</td>
-											<td>{{ location.pickup_details.weight }}</td>
-										</tr>
+										
 										<tr>
 											<td>Notes</td>
-											<td>{{ location.pickup_details.notes }}</td>
+											<td>{{ location.notes }}</td>
 										</tr>
-										{% else %}
-										<tr>
-											<td>Delivery Weight</td>
-											<td>{{ location.delivery_details.weight }}</td>
-										</tr>
-										<tr>
-											<td>Notes</td>
-											<td>{{ location.delivery_details.notes }}</td>
-										</tr>
-										{% endif %}
 
 									</tbody>
 								</table>
@@ -679,26 +649,12 @@
 													<td>Type</td>
 													<td>{{ location.type }}</td>
 												</tr>
+
+												<tr>
+													<td>Notes</td>
+													<td>{{ location.notes }}</td>
+												</tr>
 												
-												{% if location.type == "Pickup" %}
-												<tr>
-													<td>Pickup Weight</td>
-													<td>{{ location.pickup_details.weight }}</td>
-												</tr>
-												<tr>
-													<td>Notes</td>
-													<td>{{ location.pickup_details.notes }}</td>
-												</tr>
-												{% else %}
-												<tr>
-													<td>Delivery Weight</td>
-													<td>{{ location.delivery_details.weight }}</td>
-												</tr>
-												<tr>
-													<td>Notes</td>
-													<td>{{ location.delivery_details.notes }}</td>
-												</tr>
-												{% endif %}
 
 											</tbody>
 										</table>
@@ -724,121 +680,61 @@
 										</table>
 									</div>
 								</div>
-								{% if location.pickup_details is not none %}
-									{% for bol in location.pickup_details.BOLs %}
-										<hr />
-										<div class="row">
-											<div class="col-sm-6">
-												<table class="table table-condensed table-hover">
-													<thead>
-														<tr>
-															<th colspan="2">BOL Info</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>BOL #</td>
-															<td>{{ bol.number }}</td>
-														</tr>
-														<tr>
-															<td># Units</td>
-															<td>{{ bol.number_units }}</td>
-														</tr>
-														<tr>
-															<td>Weight</td>
-															<td>{{ bol.weight }}</td>
-														</tr>
-														<tr>
-															<td>Commodity Type</td>
-															<td>{{ bol.commodity_type }}</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-											<div class="col-sm-6">
-												<table class="table table-condensed table-hover">
-													<thead>
-														<tr>
-															<th colspan="2">Dimensions</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>Length</td>
-															<td>{{ bol.dim_length }} {{ bol.dim_length_type }}</td>
-														</tr>
-														<tr>
-															<td>Width</td>
-															<td>{{ bol.dim_width }} {{ bol.dim_width_type }}</td>
-														</tr>
-														<tr>
-															<td>Height</td>
-															<td>{{ bol.dim_height }} {{ bol.dim_height_type }}</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
+								{% for bol in location.BOLs %}
+									<hr />
+									<div class="row">
+										<div class="col-sm-6">
+											<table class="table table-condensed table-hover">
+												<thead>
+													<tr>
+														<th colspan="2">BOL Info</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>BOL #</td>
+														<td>{{ bol.number }}</td>
+													</tr>
+													<tr>
+														<td># Units</td>
+														<td>{{ bol.number_units }}</td>
+													</tr>
+													<tr>
+														<td>Weight</td>
+														<td>{{ bol.weight }}</td>
+													</tr>
+													<tr>
+														<td>Commodity Type</td>
+														<td>{{ bol.commodity_type }}</td>
+													</tr>
+												</tbody>
+											</table>
 										</div>
-									{% endfor %}
-								{% endif %}
-
-								{% if location.delivery_details is not none %}
-									{% for bol in location.delivery_details.BOLs %}
-										<hr />
-										<div class="row">
-											<div class="col-sm-6">
-												<table class="table table-condensed table-hover">
-													<thead>
-														<tr>
-															<th colspan="2">BOL Info</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>BOL #</td>
-															<td>{{ bol.number }}</td>
-														</tr>
-														<tr>
-															<td># Units</td>
-															<td>{{ bol.number_units }}</td>
-														</tr>
-														<tr>
-															<td>Weight</td>
-															<td>{{ bol.weight }}</td>
-														</tr>
-														<tr>
-															<td>Commodity Type</td>
-															<td>{{ bol.commodity_type }}</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-											<div class="col-sm-6">
-												<table class="table table-condensed table-hover">
-													<thead>
-														<tr>
-															<th colspan="2">Dimensions</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>Length</td>
-															<td>{{ bol.dim_length }} {{ bol.dim_length_type }}</td>
-														</tr>
-														<tr>
-															<td>Width</td>
-															<td>{{ bol.dim_width }} {{ bol.dim_width_type }}</td>
-														</tr>
-														<tr>
-															<td>Height</td>
-															<td>{{ bol.dim_height }} {{ bol.dim_height_type }}</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
+										<div class="col-sm-6">
+											<table class="table table-condensed table-hover">
+												<thead>
+													<tr>
+														<th colspan="2">Dimensions</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Length</td>
+														<td>{{ bol.dim_length }} {{ bol.dim_length_type }}</td>
+													</tr>
+													<tr>
+														<td>Width</td>
+														<td>{{ bol.dim_width }} {{ bol.dim_width_type }}</td>
+													</tr>
+													<tr>
+														<td>Height</td>
+														<td>{{ bol.dim_height }} {{ bol.dim_height_type }}</td>
+													</tr>
+												</tbody>
+											</table>
 										</div>
-									{% endfor %}
-								{% endif %}
+									</div>
+								{% endfor %}
 							</div>
 						{% else %}
 							<div class="tab-pane" id="detailedTab{{ loop.index }}">
@@ -984,121 +880,61 @@
 									</div>
 								</div>
 								
-								{% if location.pickup_details is not none %}
-									{% for bol in location.pickup_details.BOLs %}
-										<hr />
-										<div class="row">
-											<div class="col-sm-6">
-												<table class="table table-condensed table-hover">
-													<thead>
-														<tr>
-															<th colspan="2">BOL Info</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>BOL #</td>
-															<td>{{ bol.number }}</td>
-														</tr>
-														<tr>
-															<td># Units</td>
-															<td>{{ bol.number_units }}</td>
-														</tr>
-														<tr>
-															<td>Weight</td>
-															<td>{{ bol.weight }}</td>
-														</tr>
-														<tr>
-															<td>Commodity Type</td>
-															<td>{{ bol.commodity_type }}</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-											<div class="col-sm-6">
-												<table class="table table-condensed table-hover">
-													<thead>
-														<tr>
-															<th colspan="2">Dimensions</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>Length</td>
-															<td>{{ bol.dim_length }} {{ bol.dim_length_type }}</td>
-														</tr>
-														<tr>
-															<td>Width</td>
-															<td>{{ bol.dim_width }} {{ bol.dim_width_type }}</td>
-														</tr>
-														<tr>
-															<td>Height</td>
-															<td>{{ bol.dim_height }} {{ bol.dim_height_type }}</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
+								{% for bol in location.BOLs %}
+									<hr />
+									<div class="row">
+										<div class="col-sm-6">
+											<table class="table table-condensed table-hover">
+												<thead>
+													<tr>
+														<th colspan="2">BOL Info</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>BOL #</td>
+														<td>{{ bol.number }}</td>
+													</tr>
+													<tr>
+														<td># Units</td>
+														<td>{{ bol.number_units }}</td>
+													</tr>
+													<tr>
+														<td>Weight</td>
+														<td>{{ bol.weight }}</td>
+													</tr>
+													<tr>
+														<td>Commodity Type</td>
+														<td>{{ bol.commodity_type }}</td>
+													</tr>
+												</tbody>
+											</table>
 										</div>
-									{% endfor %}
-								{% endif %}
-
-								{% if location.delivery_details is not none %}
-									{% for bol in location.delivery_details.BOLs %}
-										<hr />
-										<div class="row">
-											<div class="col-sm-6">
-												<table class="table table-condensed table-hover">
-													<thead>
-														<tr>
-															<th colspan="2">BOL Info</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>BOL #</td>
-															<td>{{ bol.number }}</td>
-														</tr>
-														<tr>
-															<td># Units</td>
-															<td>{{ bol.number_units }}</td>
-														</tr>
-														<tr>
-															<td>Weight</td>
-															<td>{{ bol.weight }}</td>
-														</tr>
-														<tr>
-															<td>Commodity Type</td>
-															<td>{{ bol.commodity_type }}</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-											<div class="col-sm-6">
-												<table class="table table-condensed table-hover">
-													<thead>
-														<tr>
-															<th colspan="2">Dimensions</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>Length</td>
-															<td>{{ bol.dim_length }} {{ bol.dim_length_type }}</td>
-														</tr>
-														<tr>
-															<td>Width</td>
-															<td>{{ bol.dim_width }} {{ bol.dim_width_type }}</td>
-														</tr>
-														<tr>
-															<td>Height</td>
-															<td>{{ bol.dim_height }} {{ bol.dim_height_type }}</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
+										<div class="col-sm-6">
+											<table class="table table-condensed table-hover">
+												<thead>
+													<tr>
+														<th colspan="2">Dimensions</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Length</td>
+														<td>{{ bol.dim_length }} {{ bol.dim_length_type }}</td>
+													</tr>
+													<tr>
+														<td>Width</td>
+														<td>{{ bol.dim_width }} {{ bol.dim_width_type }}</td>
+													</tr>
+													<tr>
+														<td>Height</td>
+														<td>{{ bol.dim_height }} {{ bol.dim_height_type }}</td>
+													</tr>
+												</tbody>
+											</table>
 										</div>
-									{% endfor %}
-								{% endif %}
+									</div>
+								{% endfor %}
 							</div>
 						{% endif %}
 
