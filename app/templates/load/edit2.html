@@ -216,6 +216,232 @@
 						<h2 class="StepTitle">Step 3 Title</h2>
 						<div class="container">
 							<div id="location-container">
+								{% for location in form.locations %}
+									<div id="wrapper-{{ loop.index - 1 }}" >
+									<input type="hidden" id="locations-{{ loop.index - 1 }}-retired" name="locations-{{ loop.index - 1 }}-retired" class="form-control" value="">
+									
+									<div class="row bol-0-info">
+										<div clas="col-sm-12">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<i class="clip-menu"></i>
+													<span id="locations-{{ loop.index - 1 }}-address">	</span>
+												</div>
+												<div class="panel-body">
+													<div class="row">
+														<div class="col-sm-12">
+															<h3>General Info</h3>
+															<div class="row">
+																<div class="col-sm-6">
+																	<div class="form-group">
+																		<label class="col-sm-3 control-label">
+																			Contact Name <span class="symbol required"></span>
+																		</label>
+																		<div class="col-sm-7">
+																			{{ location.contact_name(class='form-control') }}
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<label class="col-sm-3 control-label">
+																			Contact Phone <span class="symbol required"></span>
+																		</label>
+																		<div class="col-sm-7">
+																			{{ location.contact_phone(class='form-control input-mask-phone') }}
+																		</div>
+																	</div>
+																</div>
+																<div class="col-sm-6">
+																	<div class="form-group">
+																		<label class="col-sm-3 control-label">
+																			Location Notes
+																		</label>
+																		<div class="col-sm-7">
+																			{{ location.notes(class='form-control') }}
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-12">
+															<div id="locations-{{ loop.index - 1 }}-bol-wrapper" class="location-bols">
+																{% set loc_index = loop.index - 1 %}
+																{% for bol in location.BOLs %}
+																	{% if location.stop_type.data == "Pickup" %}
+																		<div class="locations-{{ loc_index }}-bol bol-wrapper">
+																		<div class="row">
+																			<div class="col-sm-12">
+																				<h4 class="bol-header">BOL #{{ loop.index }}</h4>
+																				<button class="btn btn-danger remove-bol-button" id="locations-{{ loc_index }}-BOLs-{{ loop.index - 1 }}-remove" style="display:none;">Remove BOL</button>
+																				<input type="hidden" id="locations-{{ loc_index }}-BOLS-{{ loop.index - 1 }}-retired" name="locations-{{ loc_index }}-BOLS-{{ loop.index - 1 }}-retired" class="form-control retire-bol-input" value="">
+																				<input type="hidden" id="{{ loop.index - 1 }}-id" name="bol-id" class="form-control bol_id" value="{{ loop.index }}">
+																			</div>
+																		</div>
+																		<hr />
+																		<div class="row">
+																			<div class="col-sm-6">
+																				<div class="form-group">
+																					<label class="col-sm-3 control-label">
+																						BOL # <span class="symbol required"></span>
+																					</label>
+																					<div class="col-sm-7">
+																						{{ bol.bol_number(class='form-control') }}
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label class="col-sm-3 control-label">
+																						# Units <span class="symbol required"></span>
+																					</label>
+																					<div class="col-sm-7">
+																						{{ bol.number_units(class='form-control') }}
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label class="col-sm-3 control-label">
+																						Weight <span class="symbol required"></span>
+																					</label>
+																					<div class="col-sm-7">
+																						{{ bol.weight(class='form-control') }}
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label class="col-sm-3 control-label">
+																						Commodity Type <span class="symbol required"></span>
+																					</label>
+																					<div class="col-sm-7">
+																						{{ bol.commodity_type(class='form-control') }}
+																					</div>
+																				</div>
+																			</div>
+																			<div class="col-sm-6">
+																				<div class="form-group">
+																					<label class="col-sm-4 control-label">
+																						Length <span class="symbol required"></span>
+																					</label>
+																					<div class="col-sm-3">
+																						{{ bol.dim_length(class='form-control') }}
+																					</div>
+																					<div class="col-sm-4">
+																						{{ bol.dim_length_type(class='form-control') }}
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label class="col-sm-4 control-label">
+																						Width <span class="symbol required"></span>
+																					</label>
+																					<div class="col-sm-3">
+																						{{ bol.dim_width(class='form-control') }}
+																					</div>
+																					<div class="col-sm-4">
+																						{{ bol.dim_width_type(class='form-control') }}
+																					</div>
+																				</div>
+																				<div class="form-group">
+																					<label class="col-sm-4 control-label">
+																						Height <span class="symbol required"></span>
+																					</label>
+																					<div class="col-sm-3">
+																						{{ bol.dim_height(class='form-control') }}
+																					</div>
+																					<div class="col-sm-4">
+																						{{ bol.dim_height_type(class='form-control') }}
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	{% else %}
+																		<div class="row locations-{{ loc_index }}-bol bol-wrapper">
+																			<div class="col-sm-12">
+																				<h4 class="bol-header">BOL #{{ loop.index }}</h4>
+																				<button class="btn btn-danger remove-bol-button" id="locations-{{ loc_index }}-BOLs-{{ loop.index - 1 }}-remove" style="display:none;">Remove BOL</button>
+																				<input type="hidden" id="locations-{{ loc_index }}-BOLS-{{ loop.index - 1 }}-retired" name="locations-{{ loc_index }}-BOLS-{{ loop.index - 1 }}-retired" class="form-control retire-bol-input" value="">
+																				<input type="hidden" id="{{ loop.index - 1 }}-id" name="bol-id" class="form-control bol_id" value="{{ loop.index - 1 }}">
+																				<hr />
+																				<div class="form-group">
+																					<label class="col-sm-3 control-label">
+																						BOL # <span class="symbol required"></span>
+																					</label>
+																					<div class="col-sm-7">
+																						<input type="text" id="locations-{{ loc_index }}-BOLs-{{ loop.index - 1 }}-bol_number" name="locations-{{ loc_index }}-BOLs-{{ loop.index - 1 }}-bol_number" class="form-control" value="" data-rule-required="true">
+																					</div>
+																				</div>
+																				<div style="display:none;">
+																					<div class="form-group">
+																						<label class="col-sm-3 control-label">
+																							# Units <span class="symbol required"></span>
+																						</label>
+																						<div class="col-sm-7">
+																							<input type="text" id="locations-{{ loc_index }}-BOLs-__BOL_INDEX__-number_units" name="locations-{{ loc_index }}-BOLs-__BOL_INDEX__-number_units" class="form-control" value="">
+																						</div>
+																					</div>
+																					<div class="form-group">
+																						<label class="col-sm-3 control-label">
+																							Weight <span class="symbol required"></span>
+																						</label>
+																						<div class="col-sm-7">
+																							<input type="text" id="locations-{{ loc_index }}-BOLs-__BOL_INDEX__-weight" name="locations-{{ loc_index }}-BOLs-__BOL_INDEX__-weight" class="form-control" value="">
+																						</div>
+																					</div>
+																					<div class="form-group">
+																						<label class="col-sm-3 control-label">
+																							Commodity Type <span class="symbol required"></span>
+																						</label>
+																						<div class="col-sm-7">
+																							<input type="text" id="locations-{{ loc_index }}-BOLs-__BOL_INDEX__-commodity_type" name="locations-{{ loc_index }}-BOLs-__BOL_INDEX__-commodity_type" class="form-control" value="">
+																						</div>
+																					</div>
+																					<div class="form-group">
+																						<label class="col-sm-4 control-label">
+																							Length <span class="symbol required"></span>
+																						</label>
+																						<div class="col-sm-3">
+																							<input type="text" id="locations-{{ loc_index }}-BOLs-__BOL_INDEX__-dim_length" name="locations-{{ loc_index }}-BOLs-__BOL_INDEX__-dim_length" class="form-control" value="">
+																						</div>
+																						<div class="col-sm-4">
+																							<select class="form-control" id="locations-{{ loc_index }}-BOLs-__BOL_INDEX__-dim_length_type" name="locations-{{ loc_index }}-BOLs-__BOL_INDEX__-dim_length_type"><option value=""></option><option value="Inches">in.</option><option value="Centimeters">cm.</option></select>
+																						</div>
+																					</div>
+																					<div class="form-group">
+																						<label class="col-sm-4 control-label">
+																							Width <span class="symbol required"></span>
+																						</label>
+																						<div class="col-sm-3">
+																							<input type="text" id="locations-{{ loc_index }}-BOLs-__BOL_INDEX__-dim_width" name="locations-{{ loc_index }}-BOLs-__BOL_INDEX__-dim_width" class="form-control" value="">
+																						</div>
+																						<div class="col-sm-4">
+																							<select class="form-control" id="locations-{{ loc_index }}-BOLs-__BOL_INDEX__-dim_width_type" name="locations-{{ loc_index }}-BOLs-__BOL_INDEX__-dim_width_type"><option value=""></option><option value="Inches">in.</option><option value="Centimeters">cm.</option></select>
+																						</div>
+																					</div>
+																					<div class="form-group">
+																						<label class="col-sm-4 control-label">
+																							Height <span class="symbol required"></span>
+																						</label>
+																						<div class="col-sm-3">
+																							<input type="text" id="locations-{{ loc_index }}-BOLs-__BOL_INDEX__-dim_height" name="locations-{{ loc_index }}-BOLs-__BOL_INDEX__-dim_height" class="form-control" value="">
+																						</div>
+																						<div class="col-sm-4">
+																							<select class="form-control" id="locations-{{ loc_index }}-BOLs-__BOL_INDEX__-dim_height_type" name="locations-{{ loc_index }}-BOLs-__BOL_INDEX__-dim_height_type"><option value=""></option><option value="Inches">in.</option><option value="Centimeters">cm.</option></select>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	{% endif %}
+																{% endfor %}
+															</div>
+														</div>
+													</div>
+													<div class="row text-center">
+														<button class="btn btn-primary" id="{{ loop.index - 1 }}">Add Another BOL</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>	
+								</div>
+								{% endfor %}
 							</div>
 						</div>
 						<hr />

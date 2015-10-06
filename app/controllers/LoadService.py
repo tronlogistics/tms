@@ -70,9 +70,11 @@ def PostLoadFactory(form, user):
 	return load
 
 def CreateLoadFactory(form, user):
-	broker = ContactFactory(user.company.name,
-							user.phone,
-							user.email)
+	#broker = ContactFactory(user.company.name,
+	#						user.phone,
+	#						user.email)
+
+	broker = None
 	shipper = None
 	load = Load(broker=broker,
 				shipper=shipper,
@@ -126,7 +128,7 @@ def CreateLoadFactory(form, user):
 		stop_off = LocationFactory(address, pickup_detail, delivery_detail, location.arrival_date.data, location.stop_number.data, contact, location.stop_type.data, location.notes.data, latitude, longitude)
 		stop_off_locations.append(stop_off)
 		bols = []
-		for cur_BOL in location.BOLs:
+		for cur_BOL in filter(lambda b: not b.retired == 0, location.BOLs):
 			bol = None
 			if location.stop_type.data == "Drop Off":
 				locs = filter((lambda loc: loc.type == "Pickup"), stop_off_locations)
