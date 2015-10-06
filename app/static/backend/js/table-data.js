@@ -127,7 +127,7 @@ var TableData = function() {
 				} else if(thisStopNumber == deletedStopNumber) {	
 					if($('#wrapper-' + index).length) {
 						$('#wrapper-' + index).hide()
-						$('#locations-' + index + '-retired').val(1);
+						$('#locations-' + index + '-retired').val("1");
 					}
 				}
 			});			
