@@ -591,7 +591,7 @@
 			var countHidden = 0;
 		   	$(this).closest('.location-bols').children('.bol-wrapper').each(function(index) {
 		   		if($(this).html() == hidden.html()) {
-		   			$(this).next('input').val(1);
+		   			$(this).next('input').val("1");
 		   			$(this).closest('.bol-wrapper').hide();
 		   		} else if ($(this).find('.bol_id').val() > hiddenID) {
 		   			//alert('hi');
