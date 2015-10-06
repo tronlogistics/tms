@@ -26,6 +26,7 @@ class BOLForm(Form):
 															validators = [])
 	number_units = StringField('Number of Unitys', validators=[])
 	commodity_type = StringField('Commodity Type', validators=[])
+	retired = HiddenField("Retired", validators=[])
 
 class EmailForm(Form):
 	new_email = StringField('Lead Email', validators=[Email("Please enter a valid e-mail")])
