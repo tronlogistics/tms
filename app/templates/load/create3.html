@@ -183,18 +183,6 @@
 									</tr>
 								</thead>
 								<tbody>
-									{% for location in form.locations %}
-										<tr>
-											<td>{{ location.stop_number(class="form-control") }} {{ loop.index}}</td>
-											<td>{{ location.stop_type(class="form-control") }}</td>
-											<td>{{ location.address1(class="form-control") }}</td>
-											<td>{{ location.city(class="form-control") }}</td>
-											<td>{{ location.state(class="form-control") }}</td>
-											<td>{{ location.postal_code(class="form-control") }}</td>
-											<td><input type="text" id="locations-{{ loop.index - 1 }}-arrival_date" name="locations-{{ loop.index - 1 }}-arrival_date" data-date-format="mm-dd-yyyy" data-date-viewmode="years" class="form-control date-picker" value="{{ location.arrival_date.data }}"></td>
-											<td><a class="delete-row" href="">Delete</a></td>
-										</tr>
-									{% endfor %}
 									<!--- Content created by table-data.js -->
 								</tbody>
 							</table>
@@ -216,246 +204,6 @@
 						<h2 class="StepTitle">Step 3 Title</h2>
 						<div class="container">
 							<div id="location-container">
-								{% for location in form.locations %}
-									<div id="wrapper-{{ loop.index - 1 }}" >
-									<input type="hidden" id="locations-{{ loop.index - 1 }}-retired" name="locations-{{ loop.index - 1 }}-retired" class="form-control" value="">
-									
-									<div class="row bol-0-info">
-										<div clas="col-sm-12">
-											<div class="panel panel-default">
-												<div class="panel-heading">
-													<i class="clip-menu"></i>
-													<span id="locations-{{ loop.index - 1 }}-address">	</span>
-												</div>
-												<div class="panel-body">
-													<div class="row">
-														<div class="col-sm-12">
-															<h3>General Info</h3>
-															<div class="row">
-																<div class="col-sm-6">
-																	<div class="form-group">
-																		<label class="col-sm-3 control-label">
-																			Contact Name <span class="symbol required"></span>
-																		</label>
-																		<div class="col-sm-7">
-																			{{ location.contact_name(class='form-control') }}
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-3 control-label">
-																			Contact Phone <span class="symbol required"></span>
-																		</label>
-																		<div class="col-sm-7">
-																			{{ location.contact_phone(class='form-control input-mask-phone') }}
-																		</div>
-																	</div>
-																</div>
-																<div class="col-sm-6">
-																	<div class="form-group">
-																		<label class="col-sm-3 control-label">
-																			Location Notes
-																		</label>
-																		<div class="col-sm-7">
-																			{{ location.notes(class='form-control') }}
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-sm-12">
-															<div id="locations-{{ loop.index - 1 }}-bol-wrapper" class="location-bols">
-																{% set loc_index = loop.index - 1 %}
-																{% set num_bols = location.BOLs|count %}
-																{% for bol in location.BOLs %}
-																	{% if location.stop_type.data == "Pickup" %}
-																		<div class="locations-{{ loc_index }}-bol bol-wrapper">
-																		<div class="row">
-																			<div class="col-sm-12">
-																				<h4 class="bol-header">BOL #{{ loop.index }}</h4>
-																				{% if num_bols > 1 %}
-																					<button class="btn btn-danger remove-bol-button" id="locations-{{ loc_index }}-BOLs-{{ loop.index - 1 }}-remove" style="">Remove BOL</button>
-																				{% else %}
-																					<button class="btn btn-danger remove-bol-button" id="locations-{{ loc_index }}-BOLs-{{ loop.index - 1 }}-remove" style="display:none;">Remove BOL</button>
-																				{% endif %}
-																				<input type="hidden" id="locations-{{ loc_index }}-BOLS-{{ loop.index - 1 }}-retired" name="locations-{{ loc_index }}-BOLS-{{ loop.index - 1 }}-retired" class="form-control retire-bol-input" value="">
-																				<input type="hidden" id="{{ loop.index - 1 }}-id" name="bol-id" class="form-control bol_id" value="{{ loop.index }}">
-																			</div>
-																		</div>
-																		<hr />
-																		<div class="row">
-																			<div class="col-sm-6">
-																				<div class="form-group">
-																					<label class="col-sm-3 control-label">
-																						BOL # <span class="symbol required"></span>
-																					</label>
-																					<div class="col-sm-7">
-																						{{ bol.bol_number(class='form-control .pickup-number') }}
-																					</div>
-																				</div>
-																				<div class="form-group">
-																					<label class="col-sm-3 control-label">
-																						# Units <span class="symbol required"></span>
-																					</label>
-																					<div class="col-sm-7">
-																						{{ bol.number_units(class='form-control') }}
-																					</div>
-																				</div>
-																				<div class="form-group">
-																					<label class="col-sm-3 control-label">
-																						Weight <span class="symbol required"></span>
-																					</label>
-																					<div class="col-sm-7">
-																						{{ bol.weight(class='form-control') }}
-																					</div>
-																				</div>
-																				<div class="form-group">
-																					<label class="col-sm-3 control-label">
-																						Commodity Type <span class="symbol required"></span>
-																					</label>
-																					<div class="col-sm-7">
-																						{{ bol.commodity_type(class='form-control') }}
-																					</div>
-																				</div>
-																			</div>
-																			<div class="col-sm-6">
-																				<div class="form-group">
-																					<label class="col-sm-4 control-label">
-																						Length <span class="symbol required"></span>
-																					</label>
-																					<div class="col-sm-3">
-																						{{ bol.dim_length(class='form-control') }}
-																					</div>
-																					<div class="col-sm-4">
-																						{{ bol.dim_length_type(class='form-control') }}
-																					</div>
-																				</div>
-																				<div class="form-group">
-																					<label class="col-sm-4 control-label">
-																						Width <span class="symbol required"></span>
-																					</label>
-																					<div class="col-sm-3">
-																						{{ bol.dim_width(class='form-control') }}
-																					</div>
-																					<div class="col-sm-4">
-																						{{ bol.dim_width_type(class='form-control') }}
-																					</div>
-																				</div>
-																				<div class="form-group">
-																					<label class="col-sm-4 control-label">
-																						Height <span class="symbol required"></span>
-																					</label>
-																					<div class="col-sm-3">
-																						{{ bol.dim_height(class='form-control') }}
-																					</div>
-																					<div class="col-sm-4">
-																						{{ bol.dim_height_type(class='form-control') }}
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																	{% else %}
-																		<div class="row locations-{{ loc_index }}-bol bol-wrapper">
-																			<div class="col-sm-12">
-																				<h4 class="bol-header">BOL #{{ loop.index }}</h4>
-																				{% if num_bols > 1 %}
-																					<button class="btn btn-danger remove-bol-button" id="locations-{{ loc_index }}-BOLs-{{ loop.index - 1 }}-remove" style="">Remove BOL</button>
-																				{% else %}
-																					<button class="btn btn-danger remove-bol-button" id="locations-{{ loc_index }}-BOLs-{{ loop.index - 1 }}-remove" style="display:none;">Remove BOL</button>
-																				{% endif %}
-																				<input type="hidden" id="locations-{{ loc_index }}-BOLS-{{ loop.index - 1 }}-retired" name="locations-{{ loc_index }}-BOLS-{{ loop.index - 1 }}-retired" class="form-control retire-bol-input" value="">
-																				<input type="hidden" id="{{ loop.index - 1 }}-id" name="bol-id" class="form-control bol_id" value="{{ loop.index - 1 }}">
-																				<hr />
-																				<div class="form-group">
-																					<label class="col-sm-3 control-label">
-																						BOL # <span class="symbol required"></span>
-																					</label>
-																					<div class="col-sm-7">
-																						<input type="text" id="locations-{{ loc_index }}-BOLS-{{ loop.index - 1 }}-bol_number" name="locations-{{ loc_index }}-BOLS-{{ loop.index - 1 }}-bol_number" class="form-control" equalto=".pickup-number" value="{{ bol.bol_number.data }}">
-																						{#{{ bol.bol_number(class='form-control', data-rule-equalto=".pickup-number") }}#}
-																					</div>
-																				</div>
-																				<div style="display:none;">
-																					<div class="form-group">
-																						<label class="col-sm-3 control-label">
-																							# Units <span class="symbol required"></span>
-																						</label>
-																						<div class="col-sm-7">
-																							{{ bol.number_units(class='form-control') }}
-																						</div>
-																					</div>
-																					<div class="form-group">
-																						<label class="col-sm-3 control-label">
-																							Weight <span class="symbol required"></span>
-																						</label>
-																						<div class="col-sm-7">
-																							{{ bol.weight(class='form-control') }}
-																						</div>
-																					</div>
-																					<div class="form-group">
-																						<label class="col-sm-3 control-label">
-																							Commodity Type <span class="symbol required"></span>
-																						</label>
-																						<div class="col-sm-7">
-																							{{ bol.commodity_type(class='form-control') }}
-																						</div>
-																					</div>
-																					<div class="form-group">
-																						<label class="col-sm-4 control-label">
-																							Length <span class="symbol required"></span>
-																						</label>
-																						<div class="col-sm-3">
-																							{{ bol.dim_length(class='form-control') }}
-																						</div>
-																						<div class="col-sm-4">
-																							{{ bol.dim_length_type(class='form-control') }}
-																						</div>
-																					</div>
-																					<div class="form-group">
-																						<label class="col-sm-4 control-label">
-																							Width <span class="symbol required"></span>
-																						</label>
-																						<div class="col-sm-3">
-																							{{ bol.dim_width(class='form-control') }}
-																						</div>
-																						<div class="col-sm-4">
-																							{{ bol.dim_width_type(class='form-control') }}
-																						</div>
-																					</div>
-																					<div class="form-group">
-																						<label class="col-sm-4 control-label">
-																							Height <span class="symbol required"></span>
-																						</label>
-																						<div class="col-sm-3">
-																							{{ bol.dim_height(class='form-control') }}
-																						</div>
-																						<div class="col-sm-4">
-																							{{ bol.dim_height_type(class='form-control') }}
-																						</div>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	{% endif %}
-																{% endfor %}
-															</div>
-														</div>
-													</div>
-													<div class="row text-center">
-														{% if location.stop_type.data == "Pickup" %}
-															<button class="btn btn-primary add_pickup_button" id="{{ loop.index - 1 }}">Add Another BOL</button>
-														{% else %}
-															<button class="btn btn-primary add_dropoff_button" id="{{ loop.index - 1 }}">Add Another BOL </button>
-														{% endif %}
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>	
-								</div>
-								{% endfor %}
 							</div>
 						</div>
 						<hr />
@@ -586,63 +334,67 @@
 									<input type="text" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-bol_number" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-bol_number" class="form-control" data-rule-required="true" value="">
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="col-sm-3 control-label">
-									# Units <span class="symbol required"></span>
-								</label>
-								<div class="col-sm-7">
-									<input type="text" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-number_units" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-number_units" class="form-control" data-rule-required="true" value="">
+							<div class="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-hide-details">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">
+										# Units <span class="symbol required"></span>
+									</label>
+									<div class="col-sm-7">
+										<input type="text" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-number_units" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-number_units" class="form-control" data-rule-required="true" value="">
+									</div>
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 control-label">
-									Weight <span class="symbol required"></span>
-								</label>
-								<div class="col-sm-7">
-									<input type="text" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-weight" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-weight" class="form-control" data-rule-required="true" value="">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">
+										Weight <span class="symbol required"></span>
+									</label>
+									<div class="col-sm-7">
+										<input type="text" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-weight" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-weight" class="form-control" data-rule-required="true" value="">
+									</div>
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-3 control-label">
-									Commodity Type <span class="symbol required"></span>
-								</label>
-								<div class="col-sm-7">
-									<input type="text" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-commodity_type" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-commodity_type" class="form-control" data-rule-required="true" value="">
+								<div class="form-group">
+									<label class="col-sm-3 control-label">
+										Commodity Type <span class="symbol required"></span>
+									</label>
+									<div class="col-sm-7">
+										<input type="text" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-commodity_type" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-commodity_type" class="form-control" data-rule-required="true" value="">
+									</div>
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-6">
-							<div class="form-group">
-								<label class="col-sm-4 control-label">
-									Length <span class="symbol required"></span>
-								</label>
-								<div class="col-sm-3">
-									<input type="text" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_length" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_length" class="form-control" value="">
+						<div class="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-hide-details">
+							<div class="col-sm-6">
+								<div class="form-group">
+									<label class="col-sm-4 control-label">
+										Length <span class="symbol required"></span>
+									</label>
+									<div class="col-sm-3">
+										<input type="text" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_length" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_length" class="form-control" value="">
+									</div>
+									<div class="col-sm-4">
+										<select class="form-control" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_length_type" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_length_type"><option value=""></option><option value="Inches">in.</option><option value="Centimeters">cm.</option></select>
+									</div>
 								</div>
-								<div class="col-sm-4">
-									<select class="form-control" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_length_type" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_length_type"><option value=""></option><option value="Inches">in.</option><option value="Centimeters">cm.</option></select>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">
+										Width <span class="symbol required"></span>
+									</label>
+									<div class="col-sm-3">
+										<input type="text" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_width" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_width" class="form-control" value="">
+									</div>
+									<div class="col-sm-4">
+										<select class="form-control" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_width_type" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_width_type"><option value=""></option><option value="Inches">in.</option><option value="Centimeters">cm.</option></select>
+									</div>
 								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-4 control-label">
-									Width <span class="symbol required"></span>
-								</label>
-								<div class="col-sm-3">
-									<input type="text" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_width" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_width" class="form-control" value="">
-								</div>
-								<div class="col-sm-4">
-									<select class="form-control" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_width_type" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_width_type"><option value=""></option><option value="Inches">in.</option><option value="Centimeters">cm.</option></select>
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="col-sm-4 control-label">
-									Height <span class="symbol required"></span>
-								</label>
-								<div class="col-sm-3">
-									<input type="text" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_height" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_height" class="form-control" value="">
-								</div>
-								<div class="col-sm-4">
-									<select class="form-control" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_height_type" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_height_type"><option value=""></option><option value="Inches">in.</option><option value="Centimeters">cm.</option></select>
+								<div class="form-group">
+									<label class="col-sm-4 control-label">
+										Height <span class="symbol required"></span>
+									</label>
+									<div class="col-sm-3">
+										<input type="text" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_height" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_height" class="form-control" value="">
+									</div>
+									<div class="col-sm-4">
+										<select class="form-control" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_height_type" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-dim_height_type"><option value=""></option><option value="Inches">in.</option><option value="Centimeters">cm.</option></select>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -758,28 +510,47 @@
 				$('#sample_2 tbody tr').each(function(i) {
 					//alert(i);
 					if($('#wrapper-' + i).length) {
-						var test = 0;
+						if($('#locations-' + i + '-stop_type').val() != "Pickup") {
+							$('.locations-' + i + '-BOLs-0-hide-details').hide();
+							$('#locations-' + i +'-bol-wrapper').each(function(index) {
+								$('.locations-' + i + '-BOLs-' + index + '-number_units').data('rule-required',false);
+								$('.locations-' + i + '-BOLs-' + index + '-weight').data('rule-required',false);
+								$('.locations-' + i + '-BOLs-' + index + '-commodity_type').data('rule-required',false);
+								$('.locations-' + i + '-BOLs-' + index + '-dim_length').data('rule-required',false);
+								$('.locations-' + i + '-BOLs-' + index + '-dim_length_type').data('rule-required',false);
+								$('.locations-' + i + '-BOLs-' + index + '-dim_width').data('rule-required',false);
+								$('.locations-' + i + '-BOLs-' + index + '-dim_width_type').data('rule-required',false);
+								$('.locations-' + i + '-BOLs-' + index + '-dim_height').data('rule-required',false);
+								$('.locations-' + i + '-BOLs-' + index + '-dim_height_type').data('rule-required',false);
+							});
+						} else {
+							$('.locations-' + i + '-BOLs-0-hide-details').show();
+							$('#locations-' + i +'-bol-wrapper').each(function(index) {
+								$('.locations-' + i + '-BOLs-' + index + '-number_units').data('rule-required',true);
+								$('.locations-' + i + '-BOLs-' + index + '-weight').data('rule-required',true);
+								$('.locations-' + i + '-BOLs-' + index + '-commodity_type').data('rule-required',true);
+								$('.locations-' + i + '-BOLs-' + index + '-dim_length').data('rule-required',true);
+								$('.locations-' + i + '-BOLs-' + index + '-dim_length_type').data('rule-required',true);
+								$('.locations-' + i + '-BOLs-' + index + '-dim_width').data('rule-required',true);
+								$('.locations-' + i + '-BOLs-' + index + '-dim_width_type').data('rule-required',true);
+								$('.locations-' + i + '-BOLs-' + index + '-dim_height').data('rule-required',true);
+								$('.locations-' + i + '-BOLs-' + index + '-dim_height_type').data('rule-required',true);
+							});
+						}
 					}
 					else {
 						var newRow = $('#location-template').html().replace(/__LOC_INDEX__/g, i);
 						//get template, replace applicable indexes
-						var newBol;
-						if($('#locations-' + i + '-stop_type').val() == "Pickup") {
-							newBOL = $('#bol-pickup-template').html().replace(/__LOC_INDEX__/g, i).replace(/__BOL_INDEX__/g, 0).replace(/__BOL_NUMBER__/g, 1);
-						} else {
-							newBOL = $('#bol-dropoff-template').html().replace(/__LOC_INDEX__/g, i).replace(/__BOL_INDEX__/g, 0).replace(/__BOL_NUMBER__/g, 1);
-						}
-
+						
 						//add location to screen
 						$('#location-container').append(newRow);
 
 						// add bol to location
+						var newBOL = $('#bol-pickup-template').html().replace(/__LOC_INDEX__/g, i).replace(/__BOL_INDEX__/g, 0).replace(/__BOL_NUMBER__/g, 1);
 						$('#locations-' + i + '-bol-wrapper').append(newBOL);
-
-						if($('#locations-' + i + '-stop_type').val() == "Pickup") {
-							$('#' + i).addClass('add_pickup_button');
-						} else {
-							$('#' + i).addClass('add_dropoff_button');
+						$('#' + i).addClass('add_button');
+						if($('#locations-' + i + '-stop_type').val() != "Pickup") {
+							$('.locations-' + i + '-BOLs-0-hide-details').hide();
 						}
 
 						//Set location title
@@ -787,7 +558,7 @@
 					}
 				});
 	        });
-		$( document ).on( 'click', '.add_pickup_button', function(e) {
+		$( document ).on( 'click', '.add_button', function(e) {
 			e.preventDefault();
 			var countHidden = 0;
 			var firstNotHidden = $('#locations-' + e.target.id + '-bol-wrapper').children('.bol-wrapper').length;
@@ -801,6 +572,9 @@
 			var newBOL = $('#bol-pickup-template').html().replace(/__LOC_INDEX__/g, e.target.id).replace(/__BOL_INDEX__/g, $('.locations-' + e.target.id + '-bol').length).replace(/__BOL_NUMBER__/g, $('.locations-' + e.target.id + '-bol').length + 1 - countHidden);
 			var showBOL = $('.locations-' + e.target.id + '-bol').length;
 		   	$('#locations-' + e.target.id + '-bol-wrapper').append(newBOL);
+		   	if($('#locations-' + e.target.id + '-stop_type').val() != "Pickup") {
+				$('.locations-' + e.target.id + '-BOLs-' + ($('.locations-' + e.target.id + '-bol').length - 1) + '-hide-details').hide();
+			}
 		   	$('#locations-' + e.target.id + '-BOLs-' + showBOL + '-remove').show();
 		   	var numBOLs = $('.locations-' + e.target.id + '-bol').length;
 			if(numBOLs - countHidden > 1) {
@@ -810,30 +584,7 @@
 				$('#locations-' + e.target.id + '-BOLs-' + firstNotHidden + '-remove').hide();
 			}
 		});
-		$( document ).on( 'click', '.add_dropoff_button', function(e) {
-			e.preventDefault();
-			var countHidden = 0;
-			var firstNotHidden = $('#locations-' + e.target.id + '-bol-wrapper').children('.bol-wrapper').length;
-			$('#locations-' + e.target.id + '-bol-wrapper').children('.bol-wrapper').each(function(e) {
-				if($(this).closest('.bol-wrapper').is(':hidden')) {
-					countHidden += 1;
-				} else if(e < firstNotHidden) {
-					firstNotHidden = e;
-				}
-			});
-			var newBOL = $('#bol-dropoff-template').html().replace(/__LOC_INDEX__/g, e.target.id).replace(/__BOL_INDEX__/g, $('.locations-' + e.target.id + '-bol').length).replace(/__BOL_NUMBER__/g, $('.locations-' + e.target.id + '-bol').length + 1 - countHidden);
-			var showBOL = $('.locations-' + e.target.id + '-bol').length;
-		   	$('#locations-' + e.target.id + '-bol-wrapper').append(newBOL);
-		   	//alert($('#locations-' + e.target.id + '-BOLs-' + showBOL + '-remove').html());
-		   	$('#locations-' + e.target.id + '-BOLs-' + showBOL + '-remove').show();
-		   	var numBOLs = $('.locations-' + e.target.id + '-bol').length;
-			if(numBOLs - countHidden > 1) {
-				//alert($('#locations-' + e.target.id + '-BOLs-0-remove').html());
-				$('#locations-' + e.target.id + '-BOLs-' + firstNotHidden + '-remove').show();
-			} else if (numBOLs == 1) {
-				$('#locations-' + e.target.id + '-BOLs-' + firstNotHidden + '-remove').hide();
-			}
-		});
+		
 
 		$( document ).on( 'click', '.remove-bol-button', function(e) {
 			e.preventDefault();
@@ -843,7 +594,7 @@
 			var countHidden = 0;
 		   	$(this).closest('.location-bols').children('.bol-wrapper').each(function(index) {
 		   		if($(this).html() == hidden.html()) {
-		   			$(this).next('input').val(1);
+		   			$(this).next('input').val("1");
 		   			$(this).closest('.bol-wrapper').hide();
 		   		} else if ($(this).find('.bol_id').val() > hiddenID) {
 		   			//alert('hi');

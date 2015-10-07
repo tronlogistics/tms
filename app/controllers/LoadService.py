@@ -104,7 +104,9 @@ def CreateLoadFactory(form, user):
 								location.postal_code.data)
 		if(location.stop_type.data == "Pickup" or location.stop_type.data == "Both"):
 			pickup_detail = LoadDetailFactory(0, "", "Pickup")
-		if(location.stop_type.data == "Pickup" or location.stop_type.data == "Both"):
+			delivery_detail = None
+		if(location.stop_type.data == "Drop Off" or location.stop_type.data == "Both"):
+			pickup_detail = None
 			delivery_detail = LoadDetailFactory(0, "", "Delivery")
 		contact = ContactFactory(location.contact_name.data, location.contact_phone.data, location.contact_email.data)
 		url = 'https://maps.googleapis.com/maps/api/geocode/json?' + urllib.urlencode({

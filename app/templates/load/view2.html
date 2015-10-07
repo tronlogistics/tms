@@ -170,7 +170,7 @@
 										</tr>
 										<tr>
 											<td>Notes</td>
-											<td>{{ location.pickup_details.notes }}</td>
+											<td>{{ location.notes }}</td>
 										</tr>
 										
 									</tbody>
@@ -842,18 +842,12 @@
 													<td>Type</td>
 													<td>{{ location.type }}</td>
 												</tr>
+												<tr>
+													<td>Type</td>
+													<td>{{ location.notes }}</td>
+												</tr>
 												
-												{% if location.type == "Pickup" %}
-												<tr>
-													<td>Notes</td>
-													<td>{{ location.pickup_details.notes }}</td>
-												</tr>
-												{% else %}
-												<tr>
-													<td>Notes</td>
-													<td>{{ location.delivery_details.notes }}</td>
-												</tr>
-												{% endif %}
+								
 
 											</tbody>
 										</table>
