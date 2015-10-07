@@ -294,7 +294,7 @@ def edit(load_id):
 			#form.shipper.phone.data = load.shipper.phone
 			#form.shipper.email.data = load.shipper.email
 
-		return render_template('load/edit2.html', 
+		return render_template('load/edit3.html', 
 								title="Edit Load", 
 								form=form, 
 								active="Loads",

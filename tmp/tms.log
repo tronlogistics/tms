@@ -361,3 +361,5 @@
 2015-10-07 15:58:45,706 ERROR: Failed to Retrieve [in /Users/Root1/app/app/controllers/LoadService.py:122]
 2015-10-07 15:58:45,826 ERROR: Failed to Retrieve [in /Users/Root1/app/app/controllers/LoadService.py:122]
 2015-10-07 16:24:02,994 ERROR: Failed to Retrieve [in /Users/Root1/app/app/controllers/LoadService.py:122]
+2015-10-07 16:34:41,716 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-10-07 16:34:42,460 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]

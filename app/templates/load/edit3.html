@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 
+
 {% block content %}
 <!-- start: PAGE CONTENT -->
 	<div class="row">
@@ -183,6 +184,18 @@
 									</tr>
 								</thead>
 								<tbody>
+									{% for location in form.locations %}
+										<tr>
+											<td>{{ location.stop_number(class="form-control") }} {{ loop.index}}</td>
+											<td>{{ location.stop_type(class="form-control") }}</td>
+											<td>{{ location.address1(class="form-control") }}</td>
+											<td>{{ location.city(class="form-control") }}</td>
+											<td>{{ location.state(class="form-control") }}</td>
+											<td>{{ location.postal_code(class="form-control") }}</td>
+											<td><input type="text" id="locations-{{ loop.index - 1 }}-arrival_date" name="locations-{{ loop.index - 1 }}-arrival_date" data-date-format="mm-dd-yyyy" data-date-viewmode="years" class="form-control date-picker" value="{{ location.arrival_date.data }}"></td>
+											<td><a class="delete-row" href="">Delete</a></td>
+										</tr>
+									{% endfor %}
 									<!--- Content created by table-data.js -->
 								</tbody>
 							</table>
@@ -204,6 +217,232 @@
 						<h2 class="StepTitle">Step 3 Title</h2>
 						<div class="container">
 							<div id="location-container">
+								{% for location in form.locations %}
+									<div id="wrapper-{{ loop.index - 1 }}" >
+									<input type="hidden" id="locations-{{ loop.index - 1 }}-retired" name="locations-{{ loop.index - 1 }}-retired" class="form-control" value="">
+									
+									<div class="row bol-0-info">
+										<div clas="col-sm-12">
+											<div class="panel panel-default">
+												<div class="panel-heading">
+													<i class="clip-menu"></i>
+													<span id="locations-{{ loop.index - 1 }}-address">	</span>
+												</div>
+												<div class="panel-body">
+													<div class="row">
+														<div class="col-sm-12">
+															<h3>General Info</h3>
+															<div class="row">
+																<div class="col-sm-6">
+																	<div class="form-group">
+																		<label class="col-sm-3 control-label">
+																			Contact Name <span class="symbol required"></span>
+																		</label>
+																		<div class="col-sm-7">
+																			{{ location.contact_name(class='form-control') }}
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<label class="col-sm-3 control-label">
+																			Contact Phone <span class="symbol required"></span>
+																		</label>
+																		<div class="col-sm-7">
+																			{{ location.contact_phone(class='form-control input-mask-phone') }}
+																		</div>
+																	</div>
+																</div>
+																<div class="col-sm-6">
+																	<div class="form-group">
+																		<label class="col-sm-3 control-label">
+																			Location Notes
+																		</label>
+																		<div class="col-sm-7">
+																			{{ location.notes(class='form-control') }}
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-sm-12">
+															<div id="locations-{{ loop.index - 1 }}-bol-wrapper" class="location-bols">
+																{% set loc_index = loop.index - 1 %}
+																{% set num_bols = location.BOLs|count %}
+																{% for bol in location.BOLs %}
+																
+																	<div class="locations-{{ loc_index }}-bol bol-wrapper">
+																		<div class="row">
+																			<div class="col-sm-12">
+																				<h4 class="bol-header">BOL #{{ loc_index}}-{{ loop.index - 1 }}</h4>
+																				{% if num_bols > 1 %}
+																					<button class="btn btn-danger remove-bol-button" id="locations-{{ loc_index }}-BOLs-{{ loop.index - 1 }}-remove" style="">Remove BOL</button>
+																				{% else %}
+																					<button class="btn btn-danger remove-bol-button" id="locations-{{ loc_index }}-BOLs-{{ loop.index - 1 }}-remove" style="display:none;">Remove BOL</button>
+																				{% endif %}
+																				<input type="hidden" id="locations-{{ loc_index }}-BOLS-{{ loop.index - 1 }}-retired" name="locations-{{ loc_index }}-BOLS-{{ loop.index - 1 }}-retired" class="form-control retire-bol-input" value="">
+																				<input type="hidden" id="{{ loop.index - 1 }}-id" name="bol-id" class="form-control bol_id" value="{{ loop.index }}">
+																			</div>
+																		</div>
+																		<hr />
+																		<div class="row">
+																			<div class="col-sm-6">
+																				<div class="form-group">
+																					<label class="col-sm-3 control-label">
+																						BOL # <span class="symbol required"></span>
+																					</label>
+																					<div class="col-sm-7">
+																						{{ bol.bol_number(class='form-control .pickup-number') }}
+																					</div>
+																				</div>
+																				{% if location.stop_type.data == "Pickup" %}
+																					<div class="locations-{{ loc_index }}-BOLs-{{ loop.index - 1 }}-hide-details">
+																						<div class="form-group">
+																							<label class="col-sm-3 control-label">
+																								# Units <span class="symbol required"></span>
+																							</label>
+																							<div class="col-sm-7">
+																								{{ bol.number_units(class='form-control') }}
+																							</div>
+																						</div>
+																						<div class="form-group">
+																							<label class="col-sm-3 control-label">
+																								Weight <span class="symbol required"></span>
+																							</label>
+																							<div class="col-sm-7">
+																								{{ bol.weight(class='form-control') }}
+																							</div>
+																						</div>
+																						<div class="form-group">
+																							<label class="col-sm-3 control-label">
+																								Commodity Type <span class="symbol required"></span>
+																							</label>
+																							<div class="col-sm-7">
+																								{{ bol.commodity_type(class='form-control') }}
+																							</div>
+																						</div>
+																					</div>
+																				{% else %}
+																					<div class="locations-{{ loc_index }}-BOLs-{{ loop.index - 1 }}-hide-details" style="display:none;">
+																						<div class="form-group">
+																							<label class="col-sm-3 control-label">
+																								# Units <span class="symbol required"></span>
+																							</label>
+																							<div class="col-sm-7">
+																								{{ bol.number_units(class='form-control') }}
+																							</div>
+																						</div>
+																						<div class="form-group">
+																							<label class="col-sm-3 control-label">
+																								Weight <span class="symbol required"></span>
+																							</label>
+																							<div class="col-sm-7">
+																								{{ bol.weight(class='form-control') }}
+																							</div>
+																						</div>
+																						<div class="form-group">
+																							<label class="col-sm-3 control-label">
+																								Commodity Type <span class="symbol required"></span>
+																							</label>
+																							<div class="col-sm-7">
+																								{{ bol.commodity_type(class='form-control') }}
+																							</div>
+																						</div>
+																					</div>
+																				{% endif %}
+																			</div>
+																			{% if location.stop_type.data == "Pickup" %}
+																				<div class="locations-{{ loc_index }}-BOLs-{{ loop.index - 1 }}-hide-details">
+																					<div class="col-sm-6">
+																						<div class="form-group">
+																							<label class="col-sm-4 control-label">
+																								Length <span class="symbol required"></span>
+																							</label>
+																							<div class="col-sm-3">
+																								{{ bol.dim_length(class='form-control') }}
+																							</div>
+																							<div class="col-sm-4">
+																								{{ bol.dim_length_type(class='form-control') }}
+																							</div>
+																						</div>
+																						<div class="form-group">
+																							<label class="col-sm-4 control-label">
+																								Width <span class="symbol required"></span>
+																							</label>
+																							<div class="col-sm-3">
+																								{{ bol.dim_width(class='form-control') }}
+																							</div>
+																							<div class="col-sm-4">
+																								{{ bol.dim_width_type(class='form-control') }}
+																							</div>
+																						</div>
+																						<div class="form-group">
+																							<label class="col-sm-4 control-label">
+																								Height <span class="symbol required"></span>
+																							</label>
+																							<div class="col-sm-3">
+																								{{ bol.dim_height(class='form-control') }}
+																							</div>
+																							<div class="col-sm-4">
+																								{{ bol.dim_height_type(class='form-control') }}
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																			{% else %}
+																				<div class="locations-{{ loc_index }}-BOLs-{{ loop.index - 1 }}-hide-details" style="display:none;">
+																					<div class="col-sm-6">
+																						<div class="form-group">
+																							<label class="col-sm-4 control-label">
+																								Length <span class="symbol required"></span>
+																							</label>
+																							<div class="col-sm-3">
+																								{{ bol.dim_length(class='form-control') }}
+																							</div>
+																							<div class="col-sm-4">
+																								{{ bol.dim_length_type(class='form-control') }}
+																							</div>
+																						</div>
+																						<div class="form-group">
+																							<label class="col-sm-4 control-label">
+																								Width <span class="symbol required"></span>
+																							</label>
+																							<div class="col-sm-3">
+																								{{ bol.dim_width(class='form-control') }}
+																							</div>
+																							<div class="col-sm-4">
+																								{{ bol.dim_width_type(class='form-control') }}
+																							</div>
+																						</div>
+																						<div class="form-group">
+																							<label class="col-sm-4 control-label">
+																								Height <span class="symbol required"></span>
+																							</label>
+																							<div class="col-sm-3">
+																								{{ bol.dim_height(class='form-control') }}
+																							</div>
+																							<div class="col-sm-4">
+																								{{ bol.dim_height_type(class='form-control') }}
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																			{% endif %}
+																		</div>
+																	</div>
+																{% endfor %}
+															</div>
+														</div>
+													</div>
+													<div class="row text-center">
+														<button class="btn btn-primary add_button" id="{{ loop.index - 1 }}">Add Another BOL</button>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>	
+								</div>
+								{% endfor %}
 							</div>
 						</div>
 						<hr />
@@ -430,12 +669,13 @@
 					alert("You must add a pickup & drop off location.")
 				}
 				$('#sample_2 tbody tr').each(function(i) {
-					//alert(i);
+					//alert($('#locations-' + i + '-stop_type').val() != "Pickup");
 					if($('#wrapper-' + i).length) {
 						if($('#locations-' + i + '-stop_type').val() != "Pickup") {
-							$('.locations-' + i + '-BOLs-0-hide-details').hide();
-							$('#locations-' + i +'-bol-wrapper').each(function(index) {
-								$('.locations-' + i + '-BOLs-' + index + '-number_units').data('rule-required',false);
+							$('.locations-' + i +'-bol').each(function(index) {
+								$('.locations-' + i + '-BOLs-' + index + '-hide-details').hide();
+								$('#locations-' + i + '-BOLs-' + index + '-weight').data('rule-required',true);
+								$('#locations-' + i + '-BOLs-' + index + '-number_units').data('rule-required',false);
 								$('#locations-' + i + '-BOLs-' + index + '-weight').data('rule-required',false);
 								$('#locations-' + i + '-BOLs-' + index + '-commodity_type').data('rule-required',false);
 								$('#locations-' + i + '-BOLs-' + index + '-dim_length').data('rule-required',false);
@@ -446,9 +686,10 @@
 								$('#locations-' + i + '-BOLs-' + index + '-dim_height_type').data('rule-required',false);
 							});
 						} else {
-							$('.locations-' + i + '-BOLs-0-hide-details').show();
-							$('#locations-' + i +'-bol-wrapper').each(function(index) {
-								$('.locations-' + i + '-BOLs-' + index + '-number_units').data('rule-required',true);
+							$('.locations-' + i +'-bol').each(function(index) {
+								$('.locations-' + i + '-BOLs-' + index + '-hide-details').show();
+								$('#locations-' + i + '-BOLs-' + index + '-weight').data('rule-required',true);
+								$('#locations-' + i + '-BOLs-' + index + '-number_units').data('rule-required',true);
 								$('#locations-' + i + '-BOLs-' + index + '-weight').data('rule-required',true);
 								$('#locations-' + i + '-BOLs-' + index + '-commodity_type').data('rule-required',true);
 								$('#locations-' + i + '-BOLs-' + index + '-dim_length').data('rule-required',true);
@@ -538,4 +779,4 @@
 		});
 		
 	</script>
-	{% endblock %}
+{% endblock %}
