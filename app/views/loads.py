@@ -32,9 +32,6 @@ def before_request():
 @login_required
 def create():
 	form = PostLoadForm()
-	flash(request.method)
-	for location in form.locations:
-		flash(location.stop_type.data)
 	if form.validate_on_submit():
 		#load = PostLoadFactory(form, g.user)
 		#load.created_by = g.user
@@ -56,7 +53,6 @@ def create():
 		db.session.add(g.user.company)
 		db.session.commit()
 		return redirect(url_for('.view', load_id=load.id))
-	flash(form.errors)
 	return render_template('load/create3.html',
    							title="Create Load",
    							active="Loads",
@@ -233,7 +229,6 @@ def edit(load_id):
 						
 			return redirect(url_for('.view', load_id=load.id))
 		else:
-			flash(form.errors)
 			if len(form.errors) == 0:
 				form.name.data = load.name
 				form.load_type.data = load.load_type

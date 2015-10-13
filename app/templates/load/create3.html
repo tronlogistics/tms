@@ -39,7 +39,7 @@
 									<small>Location Pick/Drop Details</small> </span>
 							</a>
 						</li>
-						{#<li>
+						<li>
 							<a href="#step-4">
 								<div class="stepNumber">
 									4
@@ -48,7 +48,7 @@
 									<br />
 									<small>Assign a Truck</small> </span>
 							</a>
-						</li>#}
+						</li>
 					</ul>
 					<div class="progress progress-striped active progress-sm">
 						<div aria-valuemax="100" aria-valuemin="0" role="progressbar" class="progress-bar progress-bar-success step-bar">
@@ -223,7 +223,7 @@
 							</div>
 						</div>
 					</div>
-					{#<div id="step-4">
+					<div id="step-4">
 						<h2 class="StepTitle">Step 4 Content</h2>
 						
 						<div class="form-group">
@@ -246,7 +246,7 @@
 								</button>
 							</div>
 						</div>
-					</div>#}
+					</div>
 				</div>
 			</form>
 			<!-- end: FORM WIZARD PANEL -->
@@ -331,7 +331,7 @@
 									BOL # <span class="symbol required"></span>
 								</label>
 								<div class="col-sm-7">
-									<input type="text" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-bol_number" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-bol_number" class="form-control" data-rule-required="true" value="">
+									<input type="text" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-bol_number" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-bol_number" class="form-control bol-number" data-rule-required="true" value="">
 								</div>
 							</div>
 							<div class="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-hide-details">
@@ -408,7 +408,7 @@
 	<script src="{{ static('backend/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
 		<script src="{{ static('backend/plugins/jquery-validation/dist/jquery.validate.min.js') }}"></script>
 		<script src="{{ static('backend/plugins/jQuery-Smart-Wizard/js/jquery.smartWizard.js') }}"></script>
-		<script src="{{ static('backend/js/form-wizard.js') }}"></script>
+		<script src="{{ static('backend/js/load-wizard.js') }}"></script>
 		<script type="text/javascript" src="{{ static('backend/plugins/DataTables/media/js/jquery.dataTables.min.js') }}"></script>
 		<script type="text/javascript" src="{{ static('backend/plugins/DataTables/media/js/DT_bootstrap.js') }}"></script>
 		<script src="{{ static('backend/js/table-data.js') }}"></script>
@@ -433,8 +433,11 @@
 					//alert(i);
 					if($('#wrapper-' + i).length) {
 						if($('#locations-' + i + '-stop_type').val() != "Pickup") {
-							$('.locations-' + i + '-BOLs-0-hide-details').hide();
-							$('#locations-' + i +'-bol-wrapper').each(function(index) {
+							$('.locations-' + i +'-bol').each(function(index) {
+								$('.locations-' + i + '-BOLs-' + index + '-hide-details').hide();
+								$('#locations-' + i + '-BOLs-' + index + '-bol_number').data('rule-required',true);
+								$('#locations-' + i + '-BOLs-' + index + '-bol_number').removeClass('pickup-bol');
+								$('#locations-' + i + '-BOLs-' + index + '-bol_number').addClass('dropoff-bol');
 								$('.locations-' + i + '-BOLs-' + index + '-number_units').data('rule-required',false);
 								$('#locations-' + i + '-BOLs-' + index + '-weight').data('rule-required',false);
 								$('#locations-' + i + '-BOLs-' + index + '-commodity_type').data('rule-required',false);
@@ -446,8 +449,11 @@
 								$('#locations-' + i + '-BOLs-' + index + '-dim_height_type').data('rule-required',false);
 							});
 						} else {
-							$('.locations-' + i + '-BOLs-0-hide-details').show();
-							$('#locations-' + i +'-bol-wrapper').each(function(index) {
+							$('.locations-' + i +'-bol').each(function(index) {
+								$('.locations-' + i + '-BOLs-' + index + '-hide-details').show();
+								$('#locations-' + i + '-BOLs-' + index + '-bol_number').data('rule-required',true);
+								$('#locations-' + i + '-BOLs-' + index + '-bol_number').removeClass('dropoff-bol');
+								$('#locations-' + i + '-BOLs-' + index + '-bol_number').addClass('pickup-bol');
 								$('.locations-' + i + '-BOLs-' + index + '-number_units').data('rule-required',true);
 								$('#locations-' + i + '-BOLs-' + index + '-weight').data('rule-required',true);
 								$('#locations-' + i + '-BOLs-' + index + '-commodity_type').data('rule-required',true);
@@ -473,6 +479,9 @@
 						$('#' + i).addClass('add_button');
 						if($('#locations-' + i + '-stop_type').val() != "Pickup") {
 							$('.locations-' + i + '-BOLs-0-hide-details').hide();
+							$('#locations-' + i + '-BOLs-0-bol_number').addClass('dropoff-bol');
+						} else {
+							$('#locations-' + i + '-BOLs-0-bol_number').addClass('pickup-bol');
 						}
 
 						//Set location title
@@ -496,14 +505,19 @@
 		   	$('#locations-' + e.target.id + '-bol-wrapper').append(newBOL);
 		   	if($('#locations-' + e.target.id + '-stop_type').val() != "Pickup") {
 				$('.locations-' + e.target.id + '-BOLs-' + ($('.locations-' + e.target.id + '-bol').length - 1) + '-hide-details').hide();
+				$('#locations-' + e.target.id + '-BOLs-' + ($('.locations-' + e.target.id + '-bol').length - 1) + '-bol_number').addClass('dropoff-bol');
+			} else {
+				$('#locations-' + e.target.id + '-BOLs-' + ($('.locations-' + e.target.id + '-bol').length - 1) + '-bol_number').addClass('pickup-bol');
 			}
 		   	$('#locations-' + e.target.id + '-BOLs-' + showBOL + '-remove').show();
 		   	var numBOLs = $('.locations-' + e.target.id + '-bol').length;
 			if(numBOLs - countHidden > 1) {
 				//alert($('#locations-' + e.target.id + '-BOLs-0-remove').html());
 				$('#locations-' + e.target.id + '-BOLs-' + firstNotHidden + '-remove').show();
+				
 			} else if (numBOLs == 1) {
 				$('#locations-' + e.target.id + '-BOLs-' + firstNotHidden + '-remove').hide();
+				
 			}
 		});
 		
@@ -516,8 +530,8 @@
 			var countHidden = 0;
 		   	$(this).closest('.location-bols').children('.bol-wrapper').each(function(index) {
 		   		if($(this).html() == hidden.html()) {
-		   			$(this).next('input').val("1");
 		   			$(this).closest('.bol-wrapper').hide();
+		   			$(this).find('.retire-bol-input').val("1");
 		   		} else if ($(this).find('.bol_id').val() > hiddenID) {
 		   			//alert('hi');
 		   			var thisID = $(this).find('.bol_id').val();
