@@ -172,97 +172,11 @@ var FormWizard = function() {
 			animateBar(nextstep);
 			return true;
 		} else {
-			if (wizardForm.valid()) {
-				var validator = wizardForm.validate();
-				var validDrops = 0;
-				//need to filter all BOLs where they have not been hidden/removed.
-				var orderedBOLs = [];
-				var message = "";
-				$('#sample_2 tbody tr').each(function(i) {
-					if($('#locations-' + i + '-retired').val() != "1") {
-						$('#locations-' + i + '-bol-wrapper').children('.bol-wrapper').each(function(bol) {
-							if($(this).find('.retire-bol-input').val() != "1") {
-								cur_index = orderedBOLs.length;
-								orderedBOLs[cur_index] = [];
-								orderedBOLs[cur_index].push($(this).find('.bol-number').val());
-								orderedBOLs[cur_index].push(i);
-								orderedBOLs[cur_index].push($('#locations-' + i + '-stop_type').val());
-							}
-						});
-					}
-				});
-				var pickupBOLs = [];
-				var dropoffBOLs = [];
-				var matched = 0;
-				for (i = 0; i < orderedBOLs.length; i++) {
-					if(orderedBOLs[i][2] == "Pickup") {
-						var index = pickupBOLs.length;
-						pickupBOLs[index] = [];
-						for(j = 0; j < orderedBOLs[i].length; j++) {
-							pickupBOLs[index][j] = orderedBOLs[i][j];
-						}
-					} else {
-						var index = dropoffBOLs.length;
-						dropoffBOLs[index] = [];
-						for(j = 0; j < orderedBOLs[i].length; j++) {
-							dropoffBOLs[index][j] = orderedBOLs[i][j];
-						}
-					}
-				}
-				if (pickupBOLs.length == dropoffBOLs.length) {
-					var passesValidation = false;
-					var BOLNumbers = [];
-					for (i = 0; i < dropoffBOLs.length; i++) {
-						if ( $.inArray(dropoffBOLs[i][0], BOLNumbers) >= 0 ) {
-					        message = "All drop off numbers must be unique";
-					        passesValidation = false;
-					    }  else {
-					    	BOLNumbers.push(dropoffBOLs[i][0]);
-					    }
-					}
-					BOLNumbers = [];
-					for (i = 0; i < pickupBOLs.length; i++) {
-					    if ( $.inArray(pickupBOLs[i][0], BOLNumbers) >= 0 ) {
-					    	if (message != "") {
-					    		message += "\n";
-					    	}
-					        message += "All pickup off numbers must be unique";
-					        passesValidation = false; // <-- stops the loop
-					    }  else {
-					    	BOLNumbers.push(pickupBOLs[i][0]);
-					    }
-					}
-					for (i = 0; i < orderedBOLs.length; i++) {
-						if(orderedBOLs[i][2] == "Pickup") {
-							for (j = orderedBOLs.length - 1; j > i; j--) {
-								if(orderedBOLs[i][0] == orderedBOLs[j][0] && orderedBOLs[j][2] != "Pickup") {
-									matched++;
-									break;
-								}
-							}
-						}
-					}
-					if(!(matched * 2 == pickupBOLs.length + dropoffBOLs.length)) {
-						if (message != "") {
-				    		message += "\n";
-				    	}
-						message += "One or more BOLs is missing a pick/drop location";
-					}
-
-					if(message != "") {
-						alert(message);
-					} else {
-						passesValidation = true;
-					}
-					if(passesValidation) {
-						$('.anchor').children("li:nth-child(" + stepnumber + ")").children("a").removeClass('wait');
-						displayConfirm();
-						animateBar(nextstep);
-						return true;
-					}
-				} else {
-					alert('You must have the same number of pickup and dropoff BOLs.');
-				}
+			if (wizardForm.valid() && validateCurStep(stepnumber)) {
+				$('.anchor').children("li:nth-child(" + stepnumber + ")").children("a").removeClass('wait');
+				displayConfirm();
+				animateBar(nextstep);
+				return true;
 			}
 		}
 	};
@@ -270,12 +184,21 @@ var FormWizard = function() {
 		if(stepnumber == 1) {
 			return true;
 		}
-		if(stepnumber == 2) {
+		else if(stepnumber == 2) {
 			return validateLocations();
+		} else if (stepnumber == 3) {
+			return validateBOLs();
+		} else {
+			return true;
 		}
 	}
 	var validateAllSteps = function() {
-		var isStepValid = true;
+		var isStepValid = validateCurStep(3);
+		/*for(i = 1; i < 5; i++) {
+			if(!validateCurStep(i)) {
+				isStepValid = false;
+			}
+		}*/
 		// all step validation logic
 		return isStepValid;
 	};
@@ -285,25 +208,29 @@ var FormWizard = function() {
 		var lastLocations = $('#sample_2 tbody tr').length - 1;
 		var prevDate = "";
 		var dateOrderCorrect = true;
+		var index = 0;
 		$('#sample_2 tbody tr').each(function(i) {
 			//alert(i);
-			if(i == 0) {
-				if($('#locations-' + i + '-stop_type').val() != "Pickup") {
-					message += "The first location must be a \"Pickup\" location.";
+			if(!$(this).is(':hidden')) {
+				if(index == 0) {
+					if($('#locations-' + i + '-stop_type').val() != "Pickup") {
+						message += "The first location must be a \"Pickup\" location.";
+					}
+				} else if(i == lastLocations && $('#locations-' + i + '-stop_type').val() != "Drop Off") {
+					if(message != "") {
+						message += "\n";
+					}
+					message += "The last location must be a \"Drop Off\" location.";
 				}
-			} else if(i == lastLocations && $('#locations-' + i + '-stop_type').val() != "Drop Off") {
-				if(message != "") {
-					message += "\n";
-				}
-				message += "The last location must be a \"Drop Off\" location.";
-			}
 
-			if(prevDate != "") {
-				if($('#locations-' + i + '-arrival_date').datepicker("getDate") < prevDate) {
-					dateOrderCorrect = false;
+				if(prevDate != "") {
+					if($('#locations-' + i + '-arrival_date').datepicker("getDate") < prevDate) {
+						dateOrderCorrect = false;
+					}
 				}
+				prevDate = $('#locations-' + i + '-arrival_date').datepicker("getDate");
+				index++;
 			}
-			prevDate = $('#locations-' + i + '-arrival_date').datepicker("getDate");
 		});
 		if(!dateOrderCorrect) {
 			if(message != "") {
@@ -311,13 +238,97 @@ var FormWizard = function() {
 			}
 			message += "The arrival dates must be in ascending order.";
 		}
-		alert(message);
-		if(mesage == "") {
+		if(message == "") {
 			return true;
 		} else {
 			alert(message);
 			return false;
 		}
+	}
+	var validateBOLs = function() {
+		var validDrops = 0;
+		//need to filter all BOLs where they have not been hidden/removed.
+		var orderedBOLs = [];
+		var message = "";
+		var passesValidation = false;
+		$('#sample_2 tbody tr').each(function(i) {
+			if($('#locations-' + i + '-retired').val() != "1") {
+				$('#locations-' + i + '-bol-wrapper').children('.bol-wrapper').each(function(bol) {
+					if($(this).find('.retire-bol-input').val() != "1") {
+						cur_index = orderedBOLs.length;
+						orderedBOLs[cur_index] = [];
+						orderedBOLs[cur_index].push($(this).find('.bol-number').val());
+						orderedBOLs[cur_index].push(i);
+						orderedBOLs[cur_index].push($('#locations-' + i + '-stop_type').val());
+					}
+				});
+			}
+		});
+		var pickupBOLs = [];
+		var dropoffBOLs = [];
+		var matched = 0;
+		for (i = 0; i < orderedBOLs.length; i++) {
+			if(orderedBOLs[i][2] == "Pickup") {
+				var index = pickupBOLs.length;
+				pickupBOLs[index] = [];
+				for(j = 0; j < orderedBOLs[i].length; j++) {
+					pickupBOLs[index][j] = orderedBOLs[i][j];
+				}
+			} else {
+				var index = dropoffBOLs.length;
+				dropoffBOLs[index] = [];
+				for(j = 0; j < orderedBOLs[i].length; j++) {
+					dropoffBOLs[index][j] = orderedBOLs[i][j];
+				}
+			}
+		}
+		if (pickupBOLs.length == dropoffBOLs.length) {
+			var BOLNumbers = [];
+			for (i = 0; i < dropoffBOLs.length; i++) {
+				if ( $.inArray(dropoffBOLs[i][0], BOLNumbers) >= 0 ) {
+			        message = "All drop off numbers must be unique";
+			        passesValidation = false;
+			    }  else {
+			    	BOLNumbers.push(dropoffBOLs[i][0]);
+			    }
+			}
+			BOLNumbers = [];
+			for (i = 0; i < pickupBOLs.length; i++) {
+			    if ( $.inArray(pickupBOLs[i][0], BOLNumbers) >= 0 ) {
+			    	if (message != "") {
+			    		message += "\n";
+			    	}
+			        message += "All pickup off numbers must be unique";
+			        passesValidation = false; // <-- stops the loop
+			    }  else {
+			    	BOLNumbers.push(pickupBOLs[i][0]);
+			    }
+			}
+			for (i = 0; i < orderedBOLs.length; i++) {
+				if(orderedBOLs[i][2] == "Pickup") {
+					for (j = orderedBOLs.length - 1; j > i; j--) {
+						if(orderedBOLs[i][0] == orderedBOLs[j][0] && orderedBOLs[j][2] != "Pickup") {
+							matched++;
+							break;
+						}
+					}
+				}
+			}
+			if(!(matched * 2 == pickupBOLs.length + dropoffBOLs.length)) {
+				if (message != "") {
+		    		message += "\n";
+		    	}
+				message += "One or more BOLs is missing a pick/drop location";
+			}
+			if(message != "") {
+				alert(message);
+			} else {
+				passesValidation = true;
+			}
+		} else {
+			alert('You must have the same number of pickup and dropoff BOLs.');
+		}
+		return passesValidation;
 	}
 	return {
 		init : function() {

@@ -119,12 +119,14 @@ var TableData = function() {
 			}*/
 			var nRow = $(this).parents('tr')[0];
 			var deletedStopNumber = $(this).parent().siblings(":first").children("input").val()
-
+			alert(deletedStopNumber);
 			$('#sample_2 tbody tr').each(function(index) {
 				var thisStopNumber = $(this).children(':first').children("input").val();
+				alert(thisStopNumber);
 				if(thisStopNumber > deletedStopNumber) {
-					$(this).children(':first').html('<input type="hidden" id="locations-' + thisStopNumber + '-stop_number" name="locations-' + thisStopNumber + '-stop_number" class="form-control" value="' + (thisStopNumber - 1) + '">' + (thisStopNumber - 1));
-				} else if(thisStopNumber == deletedStopNumber) {	
+					$(this).children(':first').html('<input type="hidden" id="locations-' + index + '-stop_number" name="locations-' + index + '-stop_number" class="form-control" value="' + (thisStopNumber - 1) + '">' + (thisStopNumber - 1));
+				} else if(thisStopNumber == deletedStopNumber) {
+					$('#locations-' + index + '-stop_type').val('Pickup');	
 					if($('#wrapper-' + index).length) {
 						$('#wrapper-' + index).hide()
 						$('#locations-' + index + '-retired').val("1");

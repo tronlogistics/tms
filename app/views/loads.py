@@ -53,6 +53,7 @@ def create():
 		db.session.add(g.user.company)
 		db.session.commit()
 		return redirect(url_for('.view', load_id=load.id))
+	flash(form.errors)
 	return render_template('load/create3.html',
    							title="Create Load",
    							active="Loads",

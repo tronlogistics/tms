@@ -5,23 +5,23 @@
 {% block content %}
 
 <div class="tabbable">
-						<ul id="myTab4" class="nav nav-tabs tab-padding tab-space-3 tab-blue">
-							<li class="active">
-								<a href="#panel_tab3_example1" data-toggle="tab">
-									Status
-								</a>
-							</li>
-							<li>
-								<a href="#panel_tab3_example2" data-toggle="tab">
-									Location Details
-								</a>
-							</li>
-							<li>
-								<a href="#panel_tab3_example3" data-toggle="tab">
-									History
-								</a>
-							</li>
-						</ul>
+	<ul id="myTab4" class="nav nav-tabs tab-padding tab-space-3 tab-blue">
+		<li class="active">
+			<a href="#panel_tab3_example1" data-toggle="tab">
+				Status
+			</a>
+		</li>
+		<li>
+			<a href="#panel_tab3_example2" data-toggle="tab">
+				Location Details
+			</a>
+		</li>
+		<li>
+			<a href="#panel_tab3_example3" data-toggle="tab">
+				History
+			</a>
+		</li>
+	</ul>
 	<div class="tab-content">
 		<div class="tab-pane in active" id="panel_tab3_example1">
 			{% if locations.count() > 0 %}
@@ -843,7 +843,7 @@
 													<td>{{ location.type }}</td>
 												</tr>
 												<tr>
-													<td>Type</td>
+													<td>Notes</td>
 													<td>{{ location.notes }}</td>
 												</tr>
 												

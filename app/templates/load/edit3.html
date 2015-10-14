@@ -186,7 +186,7 @@
 								<tbody>
 									{% for location in form.locations %}
 										<tr>
-											<td>{{ location.stop_number(class="form-control") }} {{ loop.index}}</td>
+											<td>{{ location.stop_number(class="form-control stop-number") }} {{ loop.index}}</td>
 											<td>{{ location.stop_type(class="form-control") }}</td>
 											<td>{{ location.address1(class="form-control") }}</td>
 											<td>{{ location.city(class="form-control") }}</td>
@@ -219,7 +219,7 @@
 							<div id="location-container">
 								{% for location in form.locations %}
 									<div id="wrapper-{{ loop.index - 1 }}" >
-										<input type="hidden" id="locations-{{ loop.index - 1 }}-retired" name="locations-{{ loop.index - 1 }}-retired" class="form-control" value="">
+										<input type="hidden" id="locations-{{ loop.index - 1 }}-retired" name="locations-{{ loop.index - 1 }}-retired" class="form-control" value="0">
 										
 										<div class="row bol-0-info">
 											<div clas="col-sm-12">
@@ -280,7 +280,7 @@
 																					{% else %}
 																						<button class="btn btn-danger remove-bol-button" id="locations-{{ loc_index }}-BOLs-{{ loop.index - 1 }}-remove" style="display:none;">Remove BOL</button>
 																					{% endif %}
-																					<input type="hidden" id="locations-{{ loc_index }}-BOLS-{{ loop.index - 1 }}-retired" name="locations-{{ loc_index }}-BOLS-{{ loop.index - 1 }}-retired" class="form-control retire-bol-input" value="">
+																					<input type="hidden" id="locations-{{ loc_index }}-BOLS-{{ loop.index - 1 }}-retired" name="locations-{{ loc_index }}-BOLS-{{ loop.index - 1 }}-retired" class="form-control retire-bol-input" value="0">
 																					<input type="hidden" id="{{ loop.index - 1 }}-id" name="bol-id" class="form-control bol_id" value="{{ loop.index }}">
 																				</div>
 																			</div>
@@ -292,7 +292,7 @@
 																							BOL # <span class="symbol required"></span>
 																						</label>
 																						<div class="col-sm-7">
-																							{{ bol.bol_number(class='form-control .pickup-number') }}
+																							{{ bol.bol_number(class='form-control bol-number pickup-number') }}
 																						</div>
 																					</div>
 																					{% if location.stop_type.data == "Pickup" %}
@@ -453,9 +453,9 @@
 								</button>
 							</div>
 							<div class="col-sm-2 col-sm-offset-3">
-								<button class="btn btn-blue next-step btn-block">
+								{#<button class="btn btn-blue next-step btn-block">
 									Next <i class="fa fa-arrow-circle-right"></i>
-								</button>
+								</button>#}
 								<button type="submit" class="btn btn-success finish-step btn-block">
 									Finish <i class="fa fa-arrow-circle-right"></i>
 								</button>
@@ -491,7 +491,7 @@
 			<!-- end: FORM WIZARD PANEL -->
 			<div id="location-template" style="display: none;">
 				<div id="wrapper-__LOC_INDEX__" >
-					<input type="hidden" id="locations-__LOC_INDEX__-retired" name="locations-__LOC_INDEX__-retired" class="form-control" value="">
+					<input type="hidden" id="locations-__LOC_INDEX__-retired" name="locations-__LOC_INDEX__-retired" class="form-control" value="0">
 					
 					<div class="row bol-0-info">
 						<div clas="col-sm-12">
@@ -558,7 +558,7 @@
 						<div class="col-sm-12">
 							<h4 class="bol-header">BOL #__BOL_NUMBER__</h4>
 							<button class="btn btn-danger remove-bol-button" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-remove" style="display:none;">Remove BOL</button>
-							<input type="hidden" id="locations-__LOC_INDEX__-BOLS-__BOL_INDEX__-retired" name="locations-__LOC_INDEX__-BOLS-__BOL_INDEX__-retired" class="form-control retire-bol-input" value="">
+							<input type="hidden" id="locations-__LOC_INDEX__-BOLS-__BOL_INDEX__-retired" name="locations-__LOC_INDEX__-BOLS-__BOL_INDEX__-retired" class="form-control retire-bol-input" value="0">
 							<input type="hidden" id="__BOL_INDEX__-id" name="bol-id" class="form-control bol_id" value="__BOL_NUMBER__">
 						</div>
 					</div>
@@ -570,7 +570,7 @@
 									BOL # <span class="symbol required"></span>
 								</label>
 								<div class="col-sm-7">
-									<input type="text" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-bol_number" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-bol_number" class="form-control" data-rule-required="true" value="">
+									<input type="text" id="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-bol_number" name="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-bol_number" class="form-control bol-number" data-rule-required="true" value="">
 								</div>
 							</div>
 							<div class="locations-__LOC_INDEX__-BOLs-__BOL_INDEX__-hide-details">
@@ -647,7 +647,7 @@
 	<script src="{{ static('backend/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
 		<script src="{{ static('backend/plugins/jquery-validation/dist/jquery.validate.min.js') }}"></script>
 		<script src="{{ static('backend/plugins/jQuery-Smart-Wizard/js/jquery.smartWizard.js') }}"></script>
-		<script src="{{ static('backend/js/form-wizard.js') }}"></script>
+		<script src="{{ static('backend/js/load-wizard.js') }}"></script>
 		<script type="text/javascript" src="{{ static('backend/plugins/DataTables/media/js/jquery.dataTables.min.js') }}"></script>
 		<script type="text/javascript" src="{{ static('backend/plugins/DataTables/media/js/DT_bootstrap.js') }}"></script>
 		<script src="{{ static('backend/js/table-data.js') }}"></script>
@@ -669,13 +669,20 @@
 					alert("You must add a pickup & drop off location.")
 				}
 				$('#sample_2 tbody tr').each(function(i) {
-					//alert($('#locations-' + i + '-stop_type').val() != "Pickup");
+					//alert(i);
+
 					if($('#wrapper-' + i).length) {
+						//alert($('#locations-' + i + '-retired').val());
+						//if($('#locations-' + i + '-retired').val() == "1") {
+						//	$('#wrapper-' + i).hide();
+						//}
 						if($('#locations-' + i + '-stop_type').val() != "Pickup") {
 							$('.locations-' + i +'-bol').each(function(index) {
 								$('.locations-' + i + '-BOLs-' + index + '-hide-details').hide();
-								$('#locations-' + i + '-BOLs-' + index + '-weight').data('rule-required',true);
-								$('#locations-' + i + '-BOLs-' + index + '-number_units').data('rule-required',false);
+								$('#locations-' + i + '-BOLs-' + index + '-bol_number').data('rule-required',true);
+								$('#locations-' + i + '-BOLs-' + index + '-bol_number').removeClass('pickup-bol');
+								$('#locations-' + i + '-BOLs-' + index + '-bol_number').addClass('dropoff-bol');
+								$('.locations-' + i + '-BOLs-' + index + '-number_units').data('rule-required',false);
 								$('#locations-' + i + '-BOLs-' + index + '-weight').data('rule-required',false);
 								$('#locations-' + i + '-BOLs-' + index + '-commodity_type').data('rule-required',false);
 								$('#locations-' + i + '-BOLs-' + index + '-dim_length').data('rule-required',false);
@@ -688,8 +695,10 @@
 						} else {
 							$('.locations-' + i +'-bol').each(function(index) {
 								$('.locations-' + i + '-BOLs-' + index + '-hide-details').show();
-								$('#locations-' + i + '-BOLs-' + index + '-weight').data('rule-required',true);
-								$('#locations-' + i + '-BOLs-' + index + '-number_units').data('rule-required',true);
+								$('#locations-' + i + '-BOLs-' + index + '-bol_number').data('rule-required',true);
+								$('#locations-' + i + '-BOLs-' + index + '-bol_number').removeClass('dropoff-bol');
+								$('#locations-' + i + '-BOLs-' + index + '-bol_number').addClass('pickup-bol');
+								$('.locations-' + i + '-BOLs-' + index + '-number_units').data('rule-required',true);
 								$('#locations-' + i + '-BOLs-' + index + '-weight').data('rule-required',true);
 								$('#locations-' + i + '-BOLs-' + index + '-commodity_type').data('rule-required',true);
 								$('#locations-' + i + '-BOLs-' + index + '-dim_length').data('rule-required',true);
@@ -701,7 +710,7 @@
 							});
 						}
 					}
-					else {
+					else if(!$(this).is(':hidden'))	{
 						var newRow = $('#location-template').html().replace(/__LOC_INDEX__/g, i);
 						//get template, replace applicable indexes
 						
@@ -714,6 +723,9 @@
 						$('#' + i).addClass('add_button');
 						if($('#locations-' + i + '-stop_type').val() != "Pickup") {
 							$('.locations-' + i + '-BOLs-0-hide-details').hide();
+							$('#locations-' + i + '-BOLs-0-bol_number').addClass('dropoff-bol');
+						} else {
+							$('#locations-' + i + '-BOLs-0-bol_number').addClass('pickup-bol');
 						}
 
 						//Set location title
@@ -737,14 +749,19 @@
 		   	$('#locations-' + e.target.id + '-bol-wrapper').append(newBOL);
 		   	if($('#locations-' + e.target.id + '-stop_type').val() != "Pickup") {
 				$('.locations-' + e.target.id + '-BOLs-' + ($('.locations-' + e.target.id + '-bol').length - 1) + '-hide-details').hide();
+				$('#locations-' + e.target.id + '-BOLs-' + ($('.locations-' + e.target.id + '-bol').length - 1) + '-bol_number').addClass('dropoff-bol');
+			} else {
+				$('#locations-' + e.target.id + '-BOLs-' + ($('.locations-' + e.target.id + '-bol').length - 1) + '-bol_number').addClass('pickup-bol');
 			}
 		   	$('#locations-' + e.target.id + '-BOLs-' + showBOL + '-remove').show();
 		   	var numBOLs = $('.locations-' + e.target.id + '-bol').length;
 			if(numBOLs - countHidden > 1) {
 				//alert($('#locations-' + e.target.id + '-BOLs-0-remove').html());
 				$('#locations-' + e.target.id + '-BOLs-' + firstNotHidden + '-remove').show();
+				
 			} else if (numBOLs == 1) {
 				$('#locations-' + e.target.id + '-BOLs-' + firstNotHidden + '-remove').hide();
+				
 			}
 		});
 		
@@ -757,10 +774,9 @@
 			var countHidden = 0;
 		   	$(this).closest('.location-bols').children('.bol-wrapper').each(function(index) {
 		   		if($(this).html() == hidden.html()) {
-		   			$(this).next('input').val("1");
 		   			$(this).closest('.bol-wrapper').hide();
+		   			$(this).find('.retire-bol-input').val("1");
 		   		} else if ($(this).find('.bol_id').val() > hiddenID) {
-		   			//alert('hi');
 		   			var thisID = $(this).find('.bol_id').val();
 		   			$(this).find('.bol-header').text('BOL #' + (thisID - 1));
 		   			$(this).find('.bol_id').val(thisID - 1);
