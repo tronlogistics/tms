@@ -685,118 +685,237 @@ def create_bid(load_id):
 def accept_bid(load_id, bid_id):
 	load = Load.query.get(int(load_id))
 	bid = Bid.query.get(int(bid_id))
-	form = AcceptBidForm()
+	form = PostLoadForm()
 	if form.validate_on_submit():
-		load.lane.locations = []
-		for indx, location in enumerate(form.locations):
-			address = Address(address1=location.address1.data,
-								city=location.city.data,
-								state=location.state.data,
-								postal_code=location.postal_code.data)
-			db.session.add(address)
-			url = 'https://maps.googleapis.com/maps/api/geocode/json?' + urllib.urlencode({
-				'address': address
-			}) + "&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg"
+		load.name = form.name.data
+		load.load_type = form.load_type.data
+		load.total_miles = form.total_miles.data
+		load.trailer_type = form.trailer_type.data
+		load.total_miles = form.total_miles.data
+		load.max_weight = form.max_weight.data
+		load.over_dimensional = form.over_dimensional.data
+		load.max_length = form.max_length.data
+		load.max_length_type = form.max_length_type.data
+		load.max_width = form.max_width.data
+		load.max_width_type = form.max_width_type.data
+		load.max_height = form.max_height.data
+		load.max_height_type = form.max_height_type.data
 
-			response = urllib2.urlopen(url)
-			data = response.read()
-			try: 
-				js = json.loads(str(data))
-			except: js = None
-			if 'status' not in js or js['status'] != 'OK':
-				app.logger.error("Failed to Retrieve")
+		locations = filter(lambda location: not location.retired == "0", form.locations)
+		for index, location in enumerate(locations):
+			#print "%s > %s = %s" % (location.stop_number.data, load.lane.locations.count(), int(location.stop_number.data) > int(load.lane.locations.count()))
+			if int(location.stop_number.data) > int(load.lane.locations.count()):
+				address = AddressFactory(location.address1.data,
+										location.city.data,
+										location.state.data,
+										location.postal_code.data)
+				print location.stop_type.data
+				if(location.stop_type.data == "Pickup" or location.stop_type.data == "Both"):
+					pickup_detail = LoadDetailFactory(0, "", "Pickup")
+					delivery_detail = None
+				if(location.stop_type.data == "Drop Off" or location.stop_type.data == "Both"):
+					pickup_detail = None
+					delivery_detail = LoadDetailFactory(0, "", "Delivery")
+				contact = ContactFactory(location.contact_name.data, location.contact_phone.data, location.contact_email.data)
+				url = 'https://maps.googleapis.com/maps/api/geocode/json?' + urllib.urlencode({
+						'address': address
+					}) + "&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg"
 
+				response = urllib2.urlopen(url)
+				data = response.read()
+				try: 
+					js = json.loads(str(data))
+				except: js = None
+				if 'status' not in js or js['status'] != 'OK':
+					app.logger.error("Failed to Retrieve")
 
-			latitude = js["results"][0]["geometry"]["location"]["lat"]
-			longitude = js["results"][0]["geometry"]["location"]["lng"]
-
-			bols = []
-			for cur_BOL in location.BOLs:
-				bol = None
-				if location.stop_type.data == "Drop Off":
-					locs = filter((lambda loc: loc.type == "Pickup"), load.lane.locations)
-					for loc in locs:
-						for this_BOL in loc.pickup_details.BOLs:
-							if this_BOL.number == cur_BOL.bol_number.data:
-								bol = this_BOL
-				else:				
-					bol = BOL(number=cur_BOL.bol_number.data,
-								number_units=cur_BOL.number_units.data,
-								weight=cur_BOL.weight.data,
-								commodity_type=cur_BOL.commodity_type.data,
-								dim_length=cur_BOL.dim_length.data,
-								dim_length_type=cur_BOL.dim_length_type.data,
-								dim_width=cur_BOL.dim_width.data,
-								dim_width_type=cur_BOL.dim_width_type.data,
-								dim_height=cur_BOL.dim_height.data,
-								dim_height_type=cur_BOL.dim_height_type.data)
-				bols.append(bol)
-				db.session.add(bol)
-			contact = Contact(name=location.contact_name.data, phone=location.contact_phone.data)
-			pickup_detail = None
-			delivery_detail = None
-			if location.stop_type.data == "Pickup":
-				pickup_detail = LoadDetail(notes=location.notes.data, 
-											type=location.stop_type.data, 
-											BOLs=bols)
-				delivery_detail = None
-			elif location.stop_type.data == "Drop Off":
-				pickup_detail = None
-				delivery_detail = LoadDetail(notes=location.notes.data, 
-											type=location.stop_type.data, 
-											BOLs=bols)
+				latitude = None
+				longitude = None
+				if len(js["results"]) > 0:
+					latitude = js["results"][0]["geometry"]["location"]["lat"]
+					longitude = js["results"][0]["geometry"]["location"]["lng"]
+				
+				new_location = Location(address=address, 
+										pickup_details = pickup_detail, 
+										delivery_details= delivery_detail,
+										arrival_date=location.arrival_date.data,
+										stop_number=location.stop_number.data,
+										contact=contact,
+										type=location.stop_type.data,
+										notes=location.notes.data,
+										latitude=latitude,
+										longitude=longitude)
+				load.lane.locations.append(new_location)
+				bols = []
+				for cur_BOL in filter(lambda b: not b.retired == "0", location.BOLs):
+					bol = None
+					if location.stop_type.data == "Drop Off":
+						locs = filter((lambda loc: loc.type == "Pickup"), load.lane.locations)
+						for loc in locs:
+							for this_BOL in loc.BOLs:
+								if this_BOL.number == cur_BOL.bol_number.data:
+									bol = this_BOL
+					else:				
+						bol = BOL(number=cur_BOL.bol_number.data,
+									number_units=cur_BOL.number_units.data,
+									weight=cur_BOL.weight.data,
+									commodity_type=cur_BOL.commodity_type.data,
+									dim_length=cur_BOL.dim_length.data,
+									dim_length_type=cur_BOL.dim_length_type.data,
+									dim_width=cur_BOL.dim_width.data,
+									dim_width_type=cur_BOL.dim_width_type.data,
+									dim_height=cur_BOL.dim_height.data,
+									dim_height_type=cur_BOL.dim_height_type.data)
+					new_location.BOLs.append(bol)
+					db.session.add(bol)
+				db.session.add(load)
+				db.session.commit()
 			else:
-				pickup_detail = LoadDetail(notes=location.notes.data, 
-											type=location.stop_type.data, 
-											BOLs=bols)
-				delivery_detail = LoadDetail(notes=location.notes.data, 
-											type=location.stop_type.data, 
-											BOLs=bols)
+				load.lane.locations[index].arrival_date = location.arrival_date.data
+				load.lane.locations[index].type=location.stop_type.data
+				load.lane.locations[index].notes=location.notes.data
+				load.lane.locations[index].contact.name = location.contact_name.data
+				load.lane.locations[index].contact.phone = location.contact_phone.data
+				load.lane.locations[index].address.address1 = location.address1.data
+				load.lane.locations[index].address.city = location.city.data
+				load.lane.locations[index].address.state = location.state.data
+				load.lane.locations[index].address.postal_code = location.postal_code.data
+				
+				url = 'https://maps.googleapis.com/maps/api/geocode/json?' + urllib.urlencode({
+						'address': load.lane.locations[index].address
+					}) + "&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg"
 
-			cur_loc = Location(address=address, 
-					pickup_details = pickup_detail, 
-					delivery_details= delivery_detail,
-					arrival_date=location.arrival_date.data,
-					stop_number=indx + 1,
-					contact=contact,
-					type=location.stop_type.data,
-					latitude=latitude,
-					longitude=longitude)
-			db.session.add(cur_loc)
-			load.lane.locations.append(cur_loc)
+				response = urllib2.urlopen(url)
+				data = response.read()
+				try: 
+					js = json.loads(str(data))
+				except: js = None
+				if 'status' not in js or js['status'] != 'OK':
+					app.logger.error("Failed to Retrieve")
 
-		bid.created_by.company.loads.append(load)
-		bid.accepted = True
-		load.setStatus("")
-		db.session.add(load)
-		db.session.add(bid)
-		db.session.add(bid.created_by.company)
-		db.session.commit()
-		bid_accepted(bid.created_by, load)
-		return redirect(url_for('.all'))
-	elif not form.is_submitted():
-		for location in load.lane.locations:
-			loc_form = LaneLocationForm()
-			loc_form.stop_type = location.type
-			loc_form.address1 = location.address.address1
-			loc_form.city = location.address.city
-			loc_form.state = location.address.state
-			loc_form.postal_code = location.address.postal_code
-			loc_form.arrival_date = location.arrival_date.strftime("%m/%d/%Y")
-			loc_form.contact_name = ""
-			loc_form.contact_phone = ""
-			loc_form.notes = ""
+				latitude = None
+				longitude = None
+				if len(js["results"]) > 0:
+					latitude = js["results"][0]["geometry"]["location"]["lat"]
+					longitude = js["results"][0]["geometry"]["location"]["lng"]
+				load.lane.locations[index].latitude = latitude
+				load.lane.locations[index].longitude = longitude
+				load.lane.locations[index].BOLs = []
+				bols = filter(lambda b: not b.retired == "0", location.BOLs)
+				for cur_BOL in bols:
+					bol = None
+					if location.stop_type.data == "Drop Off":
+						locs = filter((lambda loc: loc.type == "Pickup"), load.lane.locations)
+						for loc in locs:
+							for this_BOL in loc.BOLs:
+								if this_BOL.number == cur_BOL.bol_number.data:
+									bol = this_BOL
+					else:				
+						bol = BOL(number=cur_BOL.bol_number.data,
+									number_units=cur_BOL.number_units.data,
+									weight=cur_BOL.weight.data,
+									commodity_type=cur_BOL.commodity_type.data,
+									dim_length=cur_BOL.dim_length.data,
+									dim_length_type=cur_BOL.dim_length_type.data,
+									dim_width=cur_BOL.dim_width.data,
+									dim_width_type=cur_BOL.dim_width_type.data,
+									dim_height=cur_BOL.dim_height.data,
+									dim_height_type=cur_BOL.dim_height_type.data)
+					load.lane.locations[index].BOLs.append(bol)
+					db.session.add(bol)
+				db.session.add(load)
+				db.session.commit()
+					
+		return redirect(url_for('.view', load_id=load.id))
+	else:
+		if len(form.errors) == 0:
+			form.name.data = load.name
+			form.load_type.data = load.load_type
+			form.total_miles.data = load.total_miles
+			form.trailer_type.data = load.trailer_type
+			form.total_miles.data = load.total_miles
+			form.max_weight.data = load.max_weight
+			form.over_dimensional.data = load.over_dimensional
+			form.max_length.data = load.max_length
+			form.max_length_type.data = load.max_length_type
+			form.max_width.data = load.max_width
+			form.max_width_type.data = load.max_width_type
+			form.max_height.data = load.max_height
+			form.max_height_type.data = load.max_height_type
 
+			for location in load.lane.locations:
+				bols = []
+				bols.append({
+					"bol_number": "",
+					"number_units": "",
+					"weight": "",
+					"commodity_type": "",
+					"dim_length": "",
+					"dim_length_type": "",
+					"dim_width": "",
+					"dim_width_type": "",
+					"dim_height": "",
+					"dim_height_type": "",
+				})
+				if location.contact is not None:
+					loc_data = {
+				        "stop_number": location.stop_number,
+				        "stop_type": location.type,
+						"address1": location.address.address1,
+						"city": location.address.city,
+						"state": location.address.state,
+						"postal_code": location.address.postal_code,
+						"arrival_date": location.arrival_date.strftime("%m/%d/%Y"),
+						"contact_name": location.contact.name,
+						"contact_phone": location.contact.phone,
+						"notes":  location.notes,
+				        "BOLs": bols
+				    }
+				else:
+					loc_data = {
+				        "stop_number": location.stop_number,
+				        "stop_type": location.type,
+						"address1": location.address.address1,
+						"city": location.address.city,
+						"state": location.address.state,
+						"postal_code": location.address.postal_code,
+						"arrival_date": location.arrival_date.strftime("%m/%d/%Y"),
+						"contact_name": "",
+						"contact_phone": "",
+						"notes":  location.notes,
+				        "BOLs": bols
+				    }
+				
 
-			form.locations.append_entry(loc_form)
+				form.locations.append_entry(loc_data)
 
-	return render_template('load/accept_bid.html', 
-							form=form,
-							load=load, 
-							user=g.user,
+			
+		#form.price.data = load.carrier_invoice
+		#form.description.data = load.description
+		#form.locations = []
+		#form.broker.company_name.data = load.broker.name
+		#form.broker.phone.data = load.broker.phone
+		#form.broker.email.data = load.broker.email
+		#form.shipper.company_name.data = load.shipper.name
+		#form.shipper.phone.data = load.shipper.phone
+		#form.shipper.email.data = load.shipper.email
+
+	return render_template('load/edit3.html', 
+							title="Edit Load", 
+							form=form, 
 							active="Loads",
-							hide=True,
-							title="Accept Bid")
+							load=load,
+							user=g.user,
+							edit=True)
+	
+
+	#return render_template('load/accept_bid.html', 
+	#						form=form,
+	#						load=load, 
+	#						user=g.user,
+	#						active="Loads",
+	#						hide=True,
+	#						title="Accept Bid")
 
 @loads.route('/<load_id>/bids/<bid_id>/reject', methods=['GET', 'POST'])
 @login_required
