@@ -256,7 +256,7 @@
 					
 					<div class="row bol-0-info">
 						<div clas="col-sm-12">
-							<div class="panel panel-default">
+							<div class="panel panel-defaul">
 								<div class="panel-heading">
 									<i class="clip-menu"></i>
 									<span id="locations-__LOC_INDEX__-address">	</span>
@@ -305,7 +305,7 @@
 										</div>
 									</div>
 									<div class="row text-center">
-										<button class="btn btn-primary" id="__LOC_INDEX__">Add Another BOL</button>
+										<button class="btn btn-primary" id="__LOC_INDEX__">Add BOL</button>
 									</div>
 								</div>
 							</div>
@@ -478,8 +478,8 @@
 						$('#location-container').append(newRow);
 
 						// add bol to location
-						var newBOL = $('#bol-pickup-template').html().replace(/__LOC_INDEX__/g, i).replace(/__BOL_INDEX__/g, 0).replace(/__BOL_NUMBER__/g, 1);
-						$('#locations-' + i + '-bol-wrapper').append(newBOL);
+						{#var newBOL = $('#bol-pickup-template').html().replace(/__LOC_INDEX__/g, i).replace(/__BOL_INDEX__/g, 0).replace(/__BOL_NUMBER__/g, 1);
+						$('#locations-' + i + '-bol-wrapper').append(newBOL);#}
 						$('#' + i).addClass('add_button');
 						if($('#locations-' + i + '-stop_type').val() != "Pickup") {
 							$('.locations-' + i + '-BOLs-0-hide-details').hide();

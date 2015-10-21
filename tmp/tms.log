@@ -402,3 +402,7 @@
 2015-10-20 18:31:56,269 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
 2015-10-20 18:33:04,375 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
 2015-10-20 18:33:17,458 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-10-20 18:51:58,481 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-10-20 18:51:59,174 INFO: TMS startup [in /Users/Root1/app/app/__init__.py:64]
+2015-10-20 18:57:45,317 ERROR: Failed to Retrieve [in /Users/Root1/app/app/controllers/LoadService.py:122]
+2015-10-20 18:57:46,239 ERROR: Failed to Retrieve [in /Users/Root1/app/app/controllers/LoadService.py:122]
