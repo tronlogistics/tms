@@ -774,8 +774,12 @@ def accept_bid(load_id, bid_id):
 				load.lane.locations[index].arrival_date = location.arrival_date.data
 				load.lane.locations[index].type=location.stop_type.data
 				load.lane.locations[index].notes=location.notes.data
-				load.lane.locations[index].contact.name = location.contact_name.data
-				load.lane.locations[index].contact.phone = location.contact_phone.data
+				if load.lane.locations[index].contact is not None:
+					load.lane.locations[index].contact.name = location.contact_name.data
+					load.lane.locations[index].contact.phone = location.contact_phone.data
+				else:
+					contact = Contact(name=location.contact_name.data, phone=location.contact_phone.data)
+					load.lane.locations[index].contact = contact
 				load.lane.locations[index].address.address1 = location.address1.data
 				load.lane.locations[index].address.city = location.city.data
 				load.lane.locations[index].address.state = location.state.data
