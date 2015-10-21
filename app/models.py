@@ -351,7 +351,10 @@ class Address(db.Model):
 	longitude = db.Column(db.Float(6))
 
 	def __repr__(self):
-		return self.address1 + ", " + self.city + ", " + self.state + " " + self.postal_code
+		if self.address1 is None or self.address1 == "":
+			return self.city + ", " + self.state + " " + self.postal_code
+		else:
+			return self.address1 + ", " + self.city + ", " + self.state + " " + self.postal_code
 
 class Contact(db.Model):
 	__tablename__ = 'Contact'

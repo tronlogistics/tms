@@ -825,6 +825,14 @@ def accept_bid(load_id, bid_id):
 					db.session.add(bol)
 				db.session.add(load)
 				db.session.commit()
+		bid.created_by.company.loads.append(load)
+		bid.accepted = True
+		load.setStatus("")
+		db.session.add(load)
+		db.session.add(bid)
+		db.session.add(bid.created_by.company)
+		db.session.commit()
+		bid_accepted(bid.created_by, load)
 					
 		return redirect(url_for('.view', load_id=load.id))
 	else:
@@ -936,7 +944,7 @@ def view_bids(load_id):
 	load = Load.query.get(int(load_id))
 	return render_template('load/bid/view_all.html', 
 							load=load, 
-							bids=load.bids,
+							bids=filter((lambda bid: bid.accepted != False), load.bids),
 							user=g.user,
 							active="Loads",
 							hide=True,
