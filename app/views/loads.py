@@ -907,7 +907,7 @@ def accept_bid(load_id, bid_id):
 		#form.shipper.company_name.data = load.shipper.name
 		#form.shipper.phone.data = load.shipper.phone
 		#form.shipper.email.data = load.shipper.email
-
+	flash(form.errors)
 	return render_template('load/edit3.html', 
 							title="Create Rate Confirmation", 
 							form=form, 
