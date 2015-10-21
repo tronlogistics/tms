@@ -909,7 +909,7 @@ def accept_bid(load_id, bid_id):
 		#form.shipper.email.data = load.shipper.email
 
 	return render_template('load/edit3.html', 
-							title="Edit Load", 
+							title="Create Rate Confirmation", 
 							form=form, 
 							active="Loads",
 							load=load,
