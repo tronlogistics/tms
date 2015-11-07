@@ -315,6 +315,12 @@ def get_user(id):
         abort(400)
     return jsonify({'username': user.username})
 
+@auth.route('/api/loads')
+def get_load():
+    load = Load.query.all().first()
+    
+    return jsonify(load)
+
 
 @auth.route('/api/token')
 @authAPI.login_required
