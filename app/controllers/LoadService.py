@@ -8,7 +8,7 @@ import json
 from datetime import datetime
 
 def PostLoadFactory(form, user):
-	broker = ContactFactory(user.company.name,
+	broker = ContactFactory(user.name,
 							user.phone,
 							user.email)
 	shipper = None
