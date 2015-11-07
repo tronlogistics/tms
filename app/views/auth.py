@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, url_for, redirect, request, flash, session, g, current_app
+from flask import Blueprint, render_template, url_for, redirect, request, flash, session, g, current_app, jsonify, abort
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
-from app import db, lm, app, mail
+from app import db, lm, app, mail, authAPI
 from app.forms import LoginForm, RegisterForm, ForgotForm, ResetPasswordForm, ContactUsForm, EmailForm, DemoForm
 from app.models import User, Role, Lead, Address, Company
 from app.permissions import *
@@ -231,6 +231,106 @@ def change_password():
 	if form.validate_on_submit():
 		g.user.password = form.password.data
 		return redirect(url_for('load.all'))
+
+
+
+#### API ####
+
+@authAPI.verify_password
+def verify_password(email_or_token, password):
+    # first try to authenticate by token
+    user = User.verify_auth_token(email_or_token)
+    if not user:
+        # try to authenticate with username/password
+        user = User.query.filter_by(email=email_or_token).first()
+        if not user or not user.check_password(password):
+            return False
+    g.user = user
+    return True
+
+
+@auth.route('/api/users', methods=['POST'])
+def new_user():
+	first_name = request.json.get('first_name')
+	last_name = request.json.get('last_name')
+	phone_number = request.json.get('phone_number')
+	company_name = "%s %s" % (first_name, last_name)
+	role = Role.query.filter_by(code='owner_operator').first()
+	address = request.json.get('address')
+	city = request.json.get('city')
+	state = request.json.get('state')
+	postal_code = request.json.get('postal_code')
+	email = request.json.get('email')
+	password = request.json.get('password')
+	if email is None or password is None:
+		abort(400)    # missing arguments
+	if User.query.filter_by(email=email).first() is not None:
+		abort(400)    # existing user
+	address = Address(address1=address,
+						city=city,
+						state=state,
+						postal_code=postal_code)
+	company = Company(name=company_name,
+						address=address,
+						company_type="Owner Operator")
+	user = User(first_name=first_name,
+				last_name=last_name,
+				phone=phone_number,
+				email=email,
+				password=password)
+	user.roles.append(role)
+	company.users.append(user)
+	user.activated = True
+	db.session.add(address)
+	db.session.add(company)
+	db.session.add(user)
+	db.session.commit()
+	login_user(user, remember=True)
+	identity_changed.send(current_app._get_current_object(),
+										identity=Identity(user.email))
+	token = g.user.generate_auth_token(600)
+	jsonify({'token': token.decode('ascii'), 'duration': 600})
+	return (jsonify({'token': token.decode('ascii'), 'duration': 600}), 201)
+
+@auth.route('/api/login', methods=['POST'])
+def api_login_user():
+	print "--------- %s" % request.json
+	email = request.json.get('email')
+	password = request.json.get('password')
+	if email is None or password is None:
+		abort(400)    # missing arguments
+	user = User.query.filter_by(email=email).first()
+	if User.query.filter_by(email=email).first() is None:
+		abort(400)    # no existing user
+	login_user(user, remember=True)
+	identity_changed.send(current_app._get_current_object(),
+										identity=Identity(user.email))
+	return (jsonify({'email': user.email}), 201,
+		{'Location': url_for('.get_user', id=user.id, _external=True)})
+
+@auth.route('/api/users/<int:id>')
+def get_user(id):
+    user = User.query.get(id)
+    if not user:
+        abort(400)
+    return jsonify({'username': user.username})
+
+
+@auth.route('/api/token')
+@authAPI.login_required
+def get_auth_token():
+    token = g.user.generate_auth_token(600)
+    return jsonify({'token': token.decode('ascii'), 'duration': 600})
+
+
+@auth.route('/api/resource')
+@authAPI.login_required
+def get_resource():
+    return jsonify({'data': 'Hello, %s!' % g.user.username})
+
+
+#############
+
 
 @app.errorhandler(401)
 def no_access_error(error):

@@ -4,6 +4,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from sqlalchemy import create_engine, Column, Integer, String, Date, ForeignKey, event, Boolean, Table
 from sqlalchemy.orm import scoped_session, sessionmaker, backref, relationship
 from datetime import datetime
+from passlib.apps import custom_app_context as pwd_context
+from itsdangerous import (TimedJSONWebSignatureSerializer
+                          as Serializer, BadSignature, SignatureExpired)
 
 User_to_Role = db.Table('user_to_user', db.metadata,
 	db.Column('user_id', db.Integer, db.ForeignKey('User.id'), primary_key=True),
@@ -67,7 +70,8 @@ class Company(db.Model):
 		self.address=address
 		self.company_type=company_type
 		self.fleet = Fleet()
-		self.user = []
+		self.loads = []
+		self.users = []
 
 	def is_carrier(self):
 		return self.company_type == "carrier"
@@ -140,6 +144,12 @@ class User(db.Model):
 	def check_password(self, password):
 		return check_password_hash(self.password, password)
 
+	def hash_password(self, password):
+		self.password = pwd_context.encrypt(password)
+
+	def verify_password(self, password):
+		return pwd_context.verify(password, self.password)
+
 	def activate(self):
 		self.confirmed_at = datetime.now()
 
@@ -151,6 +161,22 @@ class User(db.Model):
 
 	def is_admin(self):
 		return len(filter((lambda role: role.code == 'admin'), self.roles)) > 0
+
+	def generate_auth_token(self, expiration=600):
+		s = Serializer(app.config['SECRET_KEY'], expires_in=expiration)
+		return s.dumps({'id': self.id})
+
+	@staticmethod
+	def verify_auth_token(token):
+		s = Serializer(app.config['SECRET_KEY'])
+		try:
+			data = s.loads(token)
+		except SignatureExpired:
+			return None    # valid token, but expired
+		except BadSignature:
+			return None    # invalid token
+		user = User.query.get(data['id'])
+		return user
 
 	def __repr__(self):
 		return '%s %s' % (self.first_name, self.last_name)

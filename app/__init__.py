@@ -7,7 +7,7 @@ from flask.ext.mail import Mail
 from flask.ext.admin import Admin, BaseView, expose
 from flask.ext.admin.contrib import sqla
 from flask.ext.admin.contrib.sqla import ModelView
-from flask_oauthlib.provider import OAuth2Provider
+from flask.ext.httpauth import HTTPBasicAuth
 #import stripe
 
 
@@ -32,7 +32,7 @@ mail = Mail(app)
 
 principals = Principal(app)
 
-oauth = OAuth2Provider(app)
+authAPI = HTTPBasicAuth()
 
 from .views.loads import loads
 #from .views.dashboard import dashboard
