@@ -317,9 +317,9 @@ def get_user(id):
 
 @auth.route('/api/loads')
 def get_load():
-    load = Load.query.all().first()
+    load = User.query.all()[0]
     
-    return jsonify(load)
+    return jsonify({'username': load.email})
 
 
 @auth.route('/api/token')
