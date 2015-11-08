@@ -1,11 +1,12 @@
 from flask import Blueprint, render_template, url_for, redirect, request, flash, session, g, current_app, jsonify, abort
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
-from app import db, lm, app, mail, authAPI
+from app import db, lm, app, mail, authAPI, cors
 from app.forms import LoginForm, RegisterForm, ForgotForm, ResetPasswordForm, ContactUsForm, EmailForm, DemoForm
 from app.models import User, Role, Lead, Address, Company
 from app.permissions import *
 from app.emails import register_account, new_lead, contact_us, reset_pass, get_serializer, request_demo
+from flask.ext.cors import CORS, cross_origin
 #from app import stripe, stripe_keys
 
 auth = Blueprint('auth', __name__, url_prefix='/u')
@@ -316,6 +317,7 @@ def get_user(id):
     return jsonify({'username': user.username})
 
 @auth.route('/api/loads')
+@cross_origin()
 def get_load():
     load = User.query.all()[0]
     

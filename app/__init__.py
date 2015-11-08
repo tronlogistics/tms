@@ -8,6 +8,7 @@ from flask.ext.admin import Admin, BaseView, expose
 from flask.ext.admin.contrib import sqla
 from flask.ext.admin.contrib.sqla import ModelView
 from flask.ext.httpauth import HTTPBasicAuth
+from flask.ext.cors import CORS, cross_origin
 #import stripe
 
 
@@ -29,6 +30,8 @@ lm = LoginManager()
 lm.init_app(app)
 
 mail = Mail(app)
+
+cors = CORS(app)
 
 principals = Principal(app)
 
