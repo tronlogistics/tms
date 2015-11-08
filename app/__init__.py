@@ -9,6 +9,8 @@ from flask.ext.admin.contrib import sqla
 from flask.ext.admin.contrib.sqla import ModelView
 from flask.ext.httpauth import HTTPBasicAuth
 from flask.ext.cors import CORS, cross_origin
+from flask.ext import restful
+from flask.ext.restful import Api
 #import stripe
 
 
@@ -36,6 +38,17 @@ cors = CORS(app)
 principals = Principal(app)
 
 authAPI = HTTPBasicAuth()
+
+
+#flask-restful
+api = restful.Api(app)
+
+@app.after_request
+def after_request(response):
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+  return response
 
 from .views.loads import loads
 #from .views.dashboard import dashboard
