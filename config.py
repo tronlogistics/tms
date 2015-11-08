@@ -41,6 +41,8 @@ LANGUAGES = {
     'es': 'Español'
 }
 
+CORS_HEADERS = 'Content-Type'
+
 # microsoft translation service
 MS_TRANSLATOR_CLIENT_ID = ''  # enter your MS translator app id here
 MS_TRANSLATOR_CLIENT_SECRET = ''  # enter your MS translator app secret here
