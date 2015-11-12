@@ -9,8 +9,9 @@ from flask.ext.admin.contrib import sqla
 from flask.ext.admin.contrib.sqla import ModelView
 from flask.ext.httpauth import HTTPBasicAuth
 from flask.ext.cors import CORS, cross_origin
-from flask.ext import restful
-from flask.ext.restful import Api
+
+from flask_restful import Resource, Api
+
 #import stripe
 
 
@@ -23,7 +24,7 @@ import os
 
 #stripe.api_key = stripe_keys['secret_key']
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path="")
 app.config.from_object('config')
 
 db = SQLAlchemy(app)
@@ -39,15 +40,15 @@ principals = Principal(app)
 
 authAPI = HTTPBasicAuth()
 
-
-#flask-restful
-api = restful.Api(app)
+api = Api(app)
 
 @app.after_request
 def after_request(response):
+  
   response.headers.add('Access-Control-Allow-Origin', '*')
   response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
   response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
+  print(response.headers)
   return response
 
 from .views.loads import loads
@@ -58,6 +59,7 @@ from .views.trucks import trucks
 from .views.static import static
 from .views.auth import auth
 from .views.org import org
+#
 app.register_blueprint(loads)
 app.register_blueprint(fleet)
 app.register_blueprint(drivers)
@@ -66,6 +68,8 @@ app.register_blueprint(trucks)
 app.register_blueprint(static)
 app.register_blueprint(auth)
 app.register_blueprint(org)
+
+from .views.api import api
 
 
 #from .controllers.factory import LoadFactory
@@ -123,4 +127,3 @@ admin.add_view(MyModelView(Role, db.session))
 admin.add_view(MyModelView(Load, db.session))
 admin.add_view(MyModelView(LoadDetail, db.session))
 admin.add_view(MyModelView(BOL, db.session))
-

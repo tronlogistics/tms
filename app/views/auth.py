@@ -249,7 +249,6 @@ def verify_password(email_or_token, password):
     g.user = user
     return True
 
-
 @auth.route('/api/users', methods=['POST'])
 def new_user():
 	first_name = request.json.get('first_name')
@@ -295,7 +294,6 @@ def new_user():
 
 @auth.route('/api/login', methods=['POST'])
 def api_login_user():
-	print "--------- %s" % request.json
 	email = request.json.get('email')
 	password = request.json.get('password')
 	if email is None or password is None:
@@ -303,11 +301,16 @@ def api_login_user():
 	user = User.query.filter_by(email=email).first()
 	if User.query.filter_by(email=email).first() is None:
 		abort(400)    # no existing user
-	login_user(user, remember=True)
-	identity_changed.send(current_app._get_current_object(),
+	if user.check_password(password):
+
+		login_user(user, remember=True)
+		identity_changed.send(current_app._get_current_object(),
 										identity=Identity(user.email))
-	return (jsonify({'email': user.email}), 201,
+
+		return (jsonify({'token': user.generate_auth_token().decode('ascii')}), 201,
 		{'Location': url_for('.get_user', id=user.id, _external=True)})
+	else:
+		return abort(403)
 
 @auth.route('/api/users/<int:id>')
 def get_user(id):
@@ -315,13 +318,6 @@ def get_user(id):
     if not user:
         abort(400)
     return jsonify({'username': user.username})
-
-@auth.route('/api/loads')
-@cross_origin()
-def get_load():
-    load = User.query.all()[0]
-    
-    return jsonify({'test': 'test'})
 
 
 @auth.route('/api/token')
