@@ -285,9 +285,11 @@ def api_login_user():
 	email = request.json.get('email')
 	password = request.json.get('password')
 	if email is None or password is None:
+		print("email/pas")
 		abort(400)    # missing arguments
-	user = User.query.filter_by(email=email).first()
-	if User.query.filter_by(email=email).first() is None:
+	user = User.query.filter_by(func.lower(email)=func.lower(email)).first()
+	if user is None:
+		print("test")
 		abort(400)    # no existing user
 	if user.check_password(password):
 
@@ -296,10 +298,6 @@ def api_login_user():
 										identity=Identity(user.email))
 		g.user = user
 		token = g.user.generate_auth_token()
-		print("----------")
-		print(g.user)
-		print(token)
-		print("----------")
 		
 
 		return (jsonify({ 'token': token.decode('ascii') }), 201,
