@@ -287,7 +287,8 @@ def api_login_user():
 	if email is None or password is None:
 		print("email/pas")
 		abort(400)    # missing arguments
-	user = User.query.filter_by(func.lower(email)=func.lower(email)).first()
+	user = User.query.filter_by(email=email.lower()).first()
+	print user
 	if user is None:
 		print("test")
 		abort(400)    # no existing user
