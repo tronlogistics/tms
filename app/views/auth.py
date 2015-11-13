@@ -237,18 +237,6 @@ def change_password():
 
 #### API ####
 
-@authAPI.verify_password
-def verify_password(email_or_token, password):
-    # first try to authenticate by token
-    user = User.verify_auth_token(email_or_token)
-    if not user:
-        # try to authenticate with username/password
-        user = User.query.filter_by(email=email_or_token).first()
-        if not user or not user.check_password(password):
-            return False
-    g.user = user
-    return True
-
 @auth.route('/api/users', methods=['POST'])
 def new_user():
 	first_name = request.json.get('first_name')
@@ -306,8 +294,15 @@ def api_login_user():
 		login_user(user, remember=True)
 		identity_changed.send(current_app._get_current_object(),
 										identity=Identity(user.email))
+		g.user = user
+		token = g.user.generate_auth_token()
+		print("----------")
+		print(g.user)
+		print(token)
+		print("----------")
+		
 
-		return (jsonify({'token': user.generate_auth_token().decode('ascii')}), 201,
+		return (jsonify({ 'token': token.decode('ascii') }), 201,
 		{'Location': url_for('.get_user', id=user.id, _external=True)})
 	else:
 		return abort(403)

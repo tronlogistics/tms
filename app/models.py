@@ -6,7 +6,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker, backref, relationship
 from datetime import datetime
 from passlib.apps import custom_app_context as pwd_context
 from itsdangerous import (TimedJSONWebSignatureSerializer
-                          as Serializer, BadSignature, SignatureExpired)
+                          as Serializer, BadSignature, SignatureExpired, base64_decode, base64_encode)
 
 User_to_Role = db.Table('user_to_user', db.metadata,
 	db.Column('user_id', db.Integer, db.ForeignKey('User.id'), primary_key=True),
