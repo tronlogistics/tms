@@ -3,6 +3,7 @@ from app.models import User, Load, Location, LocationStatus
 from flask import Blueprint, request, session, g, current_app, jsonify, abort
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.restful import Api, Resource, reqparse, fields, marshal
+from datetime import datetime
 
 @authAPI.verify_password
 def verify_password(email_or_token, password):
@@ -190,7 +191,7 @@ class LocationAPI(Resource):
         print("-----PUT 6------")
         for k, v in args.iteritems():
             if v != None:
-                status = LocationStatus(status=form.status.data, created_on=datetime.utcnow())
+                status = LocationStatus(status=v, created_on=datetime.utcnow())
                 location.status_history.append(status)
                 location.status = form.status.data
                 db.session.add(status)
