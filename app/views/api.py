@@ -172,17 +172,22 @@ class LocationAPI(Resource):
         return {'location': marshal(location, location_fields)}
 
     def put(self, load_id, location_id):
-        print("-----PUT------")
+        print("-----PUT 1------")
         load = [load for load in g.user.company.loads if load.id == load_id]
+        print("-----PUT 2------")
         location = None
+        print("-----PUT 3------")
         for cur_location in load[0].lane.locations:
             if cur_location.id == location_id:
                 location = cur_location
+        print("-----PUT 4------")
         args = self.reqparse.parse_args()
+        print("-----PUT 5------")
         for k, v in args.iteritems():
             if v != None:
                 print("test")
                 #task[k] = v
+        print("-----PUT 6------")
         return jsonify( { 'task': 'task' } )
 
 
