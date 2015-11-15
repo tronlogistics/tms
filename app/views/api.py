@@ -174,12 +174,12 @@ class LocationAPI(Resource):
     def put(self, load_id, location_id):
         print("-----PUT------")
         load = [load for load in g.user.company.loads if load.id == load_id]
-        print(load.id)
+        print load[0].id
         location = None
         for cur_location in load[0].lane.locations:
             if cur_location.id == location_id:
                 location = cur_location
-        print(location.id)
+        print location.id
         args = self.reqparse.parse_args()
         for k, v in args.iteritems():
             if v != None:
