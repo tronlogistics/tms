@@ -1,5 +1,5 @@
 from app import app, authAPI, lm, api
-from app.models import User
+from app.models import User, Load, Location, LocationStatus
 from flask import Blueprint, request, session, g, current_app, jsonify, abort
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.restful import Api, Resource, reqparse, fields, marshal
