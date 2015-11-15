@@ -161,6 +161,7 @@ class LocationAPI(Resource):
         super(LocationAPI, self).__init__()
 
     def get(self, load_id, location_id):
+        print("-----GET------")
         load = [load for load in g.user.company.loads if load.id == load_id]
         location = None
         for cur_location in load[0].lane.locations:
@@ -171,6 +172,7 @@ class LocationAPI(Resource):
         return {'location': marshal(location, location_fields)}
 
     def put(self, load_id, location_id):
+        print("-----POST------")
         load = [load for load in g.user.company.loads if load.id == load_id]
         location = None
         for cur_location in load[0].lane.locations:
