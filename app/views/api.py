@@ -186,11 +186,13 @@ class LocationAPI(Resource):
         print("-----PUT 4------")
         args = self.reqparse.parse_args()
         print("-----PUT 5------")
+        print args
+        print("-----PUT 6------")
         for k, v in args.iteritems():
             if v != None:
                 print("test")
                 #task[k] = v
-        print("-----PUT 6------")
+        print("-----PUT 7------")
         return jsonify( { 'task': 'task' } )
 
 
