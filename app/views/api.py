@@ -170,6 +170,24 @@ class LocationAPI(Resource):
             abort(404)
         return {'location': marshal(location, location_fields)}
 
+    def put(self, load_id, location_id):
+        load = [load for load in g.user.company.loads if load.id == load_id]
+        location = None
+        for cur_location in load[0].lane.locations:
+            if cur_location.id == location_id:
+                location = cur_location
+        args = self.re
+        location = filter(lambda t: t['id'] == id, tasks)
+        if len(task) == 0:
+            abort(404)
+        task = task[0]
+        args = self.reqparse.parse_args()
+        for k, v in args.iteritems():
+            if v != None:
+                print("K %s - V" % (k, v))
+                #task[k] = v
+        return jsonify( { 'task': 'task' } )
+
 
 
 
