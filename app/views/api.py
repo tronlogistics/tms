@@ -153,7 +153,10 @@ class LocationAPI(Resource):
     decorators = [authAPI.login_required]
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
-        self.reqparse.add_argument('id', type=str, required=True,
+        self.reqparse.add_argument('id', type=str, required=False,
+                                   help='No task title provided',
+                                   location='json')
+        self.reqparse.add_argument('status', type=str, required=False,
                                    help='No task title provided',
                                    location='json')
         #self.reqparse.add_argument('number', type=str, default="",
