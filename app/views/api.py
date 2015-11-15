@@ -183,7 +183,7 @@ class LocationAPI(Resource):
         args = self.reqparse.parse_args()
         for k, v in args.iteritems():
             if v != None:
-                print "K %s - V %s" % (k, v)
+                print ("K %s - V %s" % (k, v))
                 #task[k] = v
         return jsonify( { 'task': 'task' } )
 
