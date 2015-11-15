@@ -190,10 +190,13 @@ class LocationAPI(Resource):
         print("-----PUT 6------")
         for k, v in args.iteritems():
             if v != None:
-                print(k)
-                print(v)
-                #task[k] = v
+                status = LocationStatus(status=form.status.data, created_on=datetime.utcnow())
+                location.status_history.append(status)
+                location.status = form.status.data
+                db.session.add(status)
         print("-----PUT 7------")
+        db.session.add(location)
+        db.session.commit()
         return jsonify( { 'task': 'task' } )
 
 
