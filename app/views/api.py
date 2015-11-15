@@ -190,7 +190,8 @@ class LocationAPI(Resource):
         print("-----PUT 6------")
         for k, v in args.iteritems():
             if v != None:
-                print("test")
+                print(k)
+                print(v)
                 #task[k] = v
         print("-----PUT 7------")
         return jsonify( { 'task': 'task' } )
