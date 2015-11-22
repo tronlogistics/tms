@@ -3,7 +3,7 @@ from flask.ext.login import login_user, logout_user, current_user, login_require
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, mail, authAPI, cors
 from app.forms import LoginForm, RegisterForm, ForgotForm, ResetPasswordForm, ContactUsForm, EmailForm, DemoForm
-from app.models import User, Role, Lead, Address, Company
+from app.models import User, Role, Lead, Address, Company, Truck, Driver
 from app.permissions import *
 from app.emails import register_account, new_lead, contact_us, reset_pass, get_serializer, request_demo
 from flask.ext.cors import CORS, cross_origin
@@ -239,28 +239,52 @@ def change_password():
 
 @auth.route('/api/users', methods=['POST'])
 def new_user():
-	first_name = request.json.get('first_name')
-	last_name = request.json.get('last_name')
-	phone_number = request.json.get('phone_number')
-	company_name = "%s %s" % (first_name, last_name)
-	role = Role.query.filter_by(code='owner_operator').first()
-	address = request.json.get('address')
+	first_name = request.json.get('firstName')
+	last_name = request.json.get('lastName')
+	email = request.json.get('email')
+	phone_number = request.json.get('phoneNumber')
+	street_address = request.json.get('streetAddress')
 	city = request.json.get('city')
 	state = request.json.get('state')
-	postal_code = request.json.get('postal_code')
-	email = request.json.get('email')
+	postal_code = request.json.get('postalCode')
+	company_name = request.json.get('companyName')
 	password = request.json.get('password')
+	confirm = request.json.get('confirm')
+	type = request.json.get('type')
+	mco = request.json.get('mco')
+	print("------------")
+	print mco
+	print("------------")
+	role = Role.query.filter_by(code=type).first()
 	if email is None or password is None:
 		abort(400)    # missing arguments
 	if User.query.filter_by(email=email).first() is not None:
 		abort(400)    # existing user
-	address = Address(address1=address,
+	address = Address(address1=street_address,
 						city=city,
 						state=state,
 						postal_code=postal_code)
-	company = Company(name=company_name,
-						address=address,
-						company_type="Owner Operator")
+	company = Company.query.filter_by(mco=mco).first()
+	print("------- FINDING COMPANY --------")
+	print("Cur Company %s" % company)
+	if company is None:
+		print("Role: %s" % role.code)
+		if role.code == "owner_operator":
+			print("OO")
+			company = Company(mco=mco,
+							name=company_name,
+							address=address,
+							company_type="Owner Operator")
+		elif role.code == "broker" or role.code == "shipper":
+			company = Company(mco=mco,
+							name=company_name,
+							address=address,
+							company_type="Shipper/Broker")
+		else:
+			company = Company(mco=mco,
+							name=company_name,
+							address=address,
+							company_type="Carrier")
 	user = User(first_name=first_name,
 				last_name=last_name,
 				phone=phone_number,
@@ -268,29 +292,54 @@ def new_user():
 				password=password)
 	user.roles.append(role)
 	company.users.append(user)
-	user.activated = True
+	user.activate()
+	
+	login_user(user, remember=True)
+	g.user = user
+	if user.roles[0].code == "owner_operator":
+		truck = Truck(name=request.json.get('truckName'), 
+						trailer_type=request.json.get('truckType'),
+						max_weight=request.json.get('truckMaxWeight'),
+						is_available=True,
+						tracker = [])
+		
+		driver = Driver(first_name=user.first_name, 
+							last_name=user.last_name,
+							email=user.email,
+							phone=user.phone,
+							driver_account=user)
+		company.fleet.trucks.append(truck)
+		company.fleet.drivers.append(driver)
+		if user.roles[0].code == "owner_operator":
+			driver.driver_type = "Owner Operator"
+			role = Role.query.filter_by(code="company_admin").first()
+			user.roles.append(role)
+		else:
+			driver.driver_type = "Company Driver"
+		truck.driver = driver
+		db.session.add(truck)
+		db.session.add(company)
+		db.session.add(driver)
 	db.session.add(address)
 	db.session.add(company)
 	db.session.add(user)
 	db.session.commit()
-	login_user(user, remember=True)
-	identity_changed.send(current_app._get_current_object(),
-										identity=Identity(user.email))
-	token = g.user.generate_auth_token(600)
-	jsonify({'token': token.decode('ascii'), 'duration': 600})
-	return (jsonify({'token': token.decode('ascii'), 'duration': 600}), 201)
+	#identity_changed.send(current_app._get_current_object(),
+	#										identity=Identity(user.email))
+	token = g.user.generate_auth_token()
+	#jsonify({'token': token.decode('ascii'), 'duration': 600})
+	return (jsonify({ 'token': token.decode('ascii') }), 201)
 
 @auth.route('/api/login', methods=['POST'])
 def api_login_user():
 	email = request.json.get('email')
 	password = request.json.get('password')
 	if email is None or password is None:
-		print("email/pas")
 		abort(400)    # missing arguments
 	user = User.query.filter_by(email=email.lower()).first()
-	print user
+	if not filter(lambda role: role.code == "owner_operator", user.roles):
+		return abort(403)
 	if user is None:
-		print("test")
 		abort(400)    # no existing user
 	if user.check_password(password):
 
@@ -301,23 +350,19 @@ def api_login_user():
 		token = g.user.generate_auth_token()
 		
 
-		return (jsonify({ 'token': token.decode('ascii') }), 201,
-		{'Location': url_for('.get_user', id=user.id, _external=True)})
+		return (jsonify({
+						'token': token.decode('ascii'), 
+						'isOwnerOperator': len(filter(lambda role: role.code == "owner_operator", user.roles)) > 0 
+						}))
 	else:
-		return abort(403)
+		return abort(401)
 
-@auth.route('/api/users/<int:id>')
-def get_user(id):
-    user = User.query.get(id)
-    if not user:
-        abort(400)
-    return jsonify({'username': user.username})
 
 
 @auth.route('/api/token')
 @authAPI.login_required
 def get_auth_token():
-    token = g.user.generate_auth_token(600)
+    token = g.user.generate_auth_token(172800)
     return jsonify({'token': token.decode('ascii'), 'duration': 600})
 
 

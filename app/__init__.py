@@ -44,11 +44,9 @@ api = Api(app)
 
 @app.after_request
 def after_request(response):
-  
   response.headers.add('Access-Control-Allow-Origin', '*')
   response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
   response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
-  print(response.headers)
   return response
 
 from .views.loads import loads
@@ -122,6 +120,7 @@ class MyAdminIndexView(admin.AdminIndexView):
 
 from models import *
 admin = Admin(app, name='Tron Logistics', index_view=MyAdminIndexView())
+admin.add_view(MyModelView(Company, db.session))
 admin.add_view(MyModelView(User, db.session))
 admin.add_view(MyModelView(Role, db.session))
 admin.add_view(MyModelView(Load, db.session))

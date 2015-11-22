@@ -1,5 +1,5 @@
-from app import app, authAPI, lm, api
-from app.models import User, Load, Location, LocationStatus
+from app import app, authAPI, lm, api, db
+from app.models import User, Load, Location, LocationStatus, LongLat, Truck
 from flask import Blueprint, request, session, g, current_app, jsonify, abort
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.restful import Api, Resource, reqparse, fields, marshal
@@ -64,6 +64,12 @@ address_fields = {
     'longitude': fields.String
 }
 
+location_status_fields = {
+    'id': fields.String,
+    'status': fields.String,
+    'created_on': fields.DateTime(dt_format='rfc822')
+}
+
 location_fields = {
     'id': fields.String,
     'address': fields.Nested(address_fields),
@@ -74,6 +80,7 @@ location_fields = {
     'type': fields.String,
     'latitude': fields.String,
     'longitude': fields.String,
+    'status_history': fields.List(fields.Nested(location_status_fields)),
     'BOLs': fields.List(fields.Nested(bol_fields))
 }
 
@@ -105,16 +112,6 @@ load_fields = {
 }
 
 
-
-
-
-
-
-bol_fields = {
-    
-}
-
-
 class LoadListAPI(Resource):
     #decorators = [authAPI.login_required]#[authAPI.verify_password, authAPI.login_required]
     decorators = [authAPI.login_required]
@@ -128,10 +125,13 @@ class LoadListAPI(Resource):
         super(LoadListAPI, self).__init__()
 
     def get(self):
-        loads = g.user.company.loads
-        for load in loads:
-            load.lane.locations
-        return {'loads': [marshal(load, load_fields) for load in g.user.company.loads]}
+        #loads = g.user.company.loads
+        loads = []
+        for driver in g.user.driver_instances:
+            for load in driver.truck.loads:
+                loads.append(load)
+        
+        return {'loads': [marshal(load, load_fields) for load in filter(lambda load: load.status != "Delivered", loads)]}
 
 class LoadAPI(Resource):
     decorators = [authAPI.login_required]
@@ -176,69 +176,51 @@ class LocationAPI(Resource):
         return {'location': marshal(location, location_fields)}
 
     def put(self, load_id, location_id):
-        print("-----PUT 1------")
         load = [load for load in g.user.company.loads if load.id == load_id]
-        print("-----PUT 2------")
         location = None
-        print("-----PUT 3------")
         for cur_location in load[0].lane.locations:
             if cur_location.id == location_id:
                 location = cur_location
-        print("-----PUT 4------")
         args = self.reqparse.parse_args()
-        print("-----PUT 5------")
         print args
-        print("-----PUT 6------")
-        for k, v in args.iteritems():
-            if v != None:
-                status = LocationStatus(status=v, created_on=datetime.utcnow())
-                location.status_history.append(status)
-                location.status = form.status.data
-                db.session.add(status)
-        print("-----PUT 7------")
+        for k, status in args.iteritems():
+            if status != None:
+                status_history = LocationStatus(status=status, created_on=datetime.utcnow())
+                location.status_history.append(status_history)
+                location.status = status
+                db.session.add(status_history)
+        load[0].setStatus("")
         db.session.add(location)
         db.session.commit()
         return jsonify( { 'task': 'task' } )
 
+class LongLatAPI(Resource):
+    decorators = [authAPI.login_required]
+    def __init__(self):
+        self.reqparse = reqparse.RequestParser()
+        self.reqparse.add_argument('longitude', type=str, required=False,
+                                   help='No longitude provided',
+                                   location='json')
+        self.reqparse.add_argument('latitude', type=str, required=False,
+                                   help='No latitude provided',
+                                   location='json')
+        #self.reqparse.add_argument('number', type=str, default="",
+        #                           location='json')
+        super(LongLatAPI, self).__init__()
 
-
-
-#class TaskAPI(Resource):
-#    decorators = [auth.login_required]
-
-#    def __init__(self):
-#        self.reqparse = reqparse.RequestParser()
-#        self.reqparse.add_argument('title', type=str, location='json')
-#        self.reqparse.add_argument('description', type=str, location='json')
-#        self.reqparse.add_argument('done', type=bool, location='json')
-#        super(TaskAPI, self).__init__()
-
-#    def get(self, id):
-#        task = [task for task in tasks if task['id'] == id]
-#        if len(task) == 0:
-#            abort(404)
-#        return {'task': marshal(task[0], task_fields)}
-
-#    def put(self, id):
-#        task = [task for task in tasks if task['id'] == id]
-#        if len(task) == 0:
-#            abort(404)
-#        task = task[0]
-#        args = self.reqparse.parse_args()
-#        for k, v in args.items():
-#            if v is not None:
-#                task[k] = v
-#        return {'task': marshal(task, task_fields)}
-
-#    def delete(self, id):
-#        task = [task for task in tasks if task['id'] == id]
-#        if len(task) == 0:
-#            abort(404)
-#        tasks.remove(task[0])
-#        return {'result': True}
-
+    def post(self):
+        for driver in g.user.driver_instances:
+            print "found instance"
+            if driver.truck is not None:
+                geo = LongLat(latitude=request.json.get('location').get('coords').get('latitude'),
+                                longitude=request.json.get('location').get('coords').get('longitude'))
+                driver.truck.tracker.append(geo)
+                db.session.add(geo)
+                db.session.add(driver.truck)
+        db.session.commit()
+        return jsonify( { 'response': 'success' } )
 
 api.add_resource(LoadListAPI, '/todo/api/v1.0/loads', endpoint='loads')
 api.add_resource(LoadAPI, '/todo/api/v1.0/loads/<int:id>', endpoint='load')
 api.add_resource(LocationAPI, '/todo/api/v1.0/loads/<int:load_id>/locations/<int:location_id>', endpoint='location')
-#api.add_resource(TaskAPI, '/todo/api/v1.0/tasks/<int:id>', endpoint='task')
+api.add_resource(LongLatAPI, '/todo/api/v1.0/longlat', endpoint='longlat')

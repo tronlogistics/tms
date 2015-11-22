@@ -578,6 +578,7 @@ def assign(load_id, assign_id):
 		#If current user is a carrier: remove all other currently assigned carriers and indicate 
 		#the load is assigned
 		truck = Truck.query.get(assign_id)
+		#if filter(lambda truck: truck.id == assign_id, g.user.company.fleet.trucks)
 		load.truck = truck
 		load.setStatus("")
 		db.session.add(truck)
@@ -641,9 +642,12 @@ def assign_driver(load_id):
 	#TODO: filter by applicabale carriers
 	if not g.user.company.is_carrier():
 		carriers = []
-		for carrier in User.query.all():
-			if filter((lambda role: role.name == 'carrier'), carrier.roles):
-				carriers.append(carrier)
+		for user in User.query.all():
+			print user
+			for role in user.roles:
+				print role
+			if filter((lambda role: role.code == 'owner_operator'), user.roles):
+				carriers.append(user.company.fleet.trucks[0])
 
 	else:
 		carriers = filter((lambda truck: truck.driver is not None
@@ -911,7 +915,6 @@ def accept_bid(load_id, bid_id):
 		#form.shipper.company_name.data = load.shipper.name
 		#form.shipper.phone.data = load.shipper.phone
 		#form.shipper.email.data = load.shipper.email
-	flash(form.errors)
 	return render_template('load/edit3.html', 
 							title="Create Rate Confirmation", 
 							form=form, 

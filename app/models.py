@@ -51,6 +51,7 @@ class Lead(db.Model):
 class Company(db.Model):
 	__tablename__ = 'Company'
 	id = db.Column(db.Integer, primary_key=True)
+	mco = db.Column(db.String, unique=True)
 	name = db.Column(db.String(100), nullable=False, server_default='')
 	address = db.relationship("Address", uselist=False)
 	users = db.relationship("User", backref="company")
@@ -65,7 +66,8 @@ class Company(db.Model):
 	def __repr__(self):
 		return '%s' % (self.name)
 
-	def __init__(self, name, address, company_type):
+	def __init__(self, mco, name, address, company_type):
+		self.mco = mco
 		self.name = name
 		self.address=address
 		self.company_type=company_type
@@ -234,14 +236,14 @@ class Load(db.Model):
 
 		if numLocations < 2:
 			status = "Missing Origin/Destination"
-		elif (not self.created_by.company.is_carrier()) and len(filter((lambda bid: bid.accepted), self.bids)) < 1:
-			status = "Pending Carrier Assignment"
-		elif (not self.created_by.company.is_carrier()) and len(filter((lambda bid: bid.accepted), self.bids)) == 1:
-			status = "Carrier Assigned"
+		#if (not self.created_by.company.is_carrier()) and len(filter((lambda bid: bid.accepted), self.bids)) < 1:
+		#	status = "Pending Carrier Assignment"
+		#if (not self.created_by.company.is_carrier()) and len(filter((lambda bid: bid.accepted), self.bids)) == 1:
+		#	status = "Carrier Assigned"
 		elif self.truck is None:
-			status = "Unnassigned"
+			status = "Waiting For Truck Assignment"
 		else:
-			status = "Assigned"
+			status = "Truck Assigned"
 			indx = 0
 			for location in self.lane.locations:
 				if indx == 0 and location.status_history.count() > 0:
@@ -494,82 +496,10 @@ class BOL(db.Model):
 	def __repr__(self):
 		return self.number
 
-class Client(db.Model):
-	__tablename__ = "Client"
-	# human readable name, not required
-	name = db.Column(db.String(40))
-	
-	# human readable description, not required
-	description = db.Column(db.String(400))
-
-	# creator of the client, not required
-	user_id = db.Column(db.ForeignKey('User.id'))
-	# required if you need to support client credential
-	user = db.relationship("User")
-	client_id = db.Column(db.String(40), primary_key=True)
-	client_secret = db.Column(db.String(55), unique=True, index=True,
-    							nullable=False)
-	# public or confidential
-	is_confidential = db.Column(db.Boolean)
-
-	_redirect_uris = db.Column(db.Text)
-	_default_scopes = db.Column(db.Text)
-
-	@property
-	def client_type(self):
-		if self.is_confidential:
-			return 'confidential'
-		return 'public'
-
-	@property
-	def redirect_uris(self):
-		if self._redirect_uris:
-			return self._redirect_uris.split()
-		return []
-
-	@property
-	def default_redirect_uri(self):
-		return self.redirect_uris[0]
-
-	@property
-	def default_scopes(self):
-		if self._default_scopes:
-			return self._default_scopes.split()
-		return []
-
-class Grant(db.Model):
-	__tablename__ = "Gant"
-
-	id = db.Column(db.Integer, primary_key=True)
-
-	user_id = db.Column( db.Integer, db.ForeignKey('User.id', ondelete='CASCADE'))
-
-	user = db.relationship('User')
-	client_id = db.Column( db.String(40), db.ForeignKey('Client.client_id'), nullable=False)
-
-	client = db.relationship('Client')
-
-	code = db.Column(db.String(255), index=True, nullable=False)
-
-	redirect_uri = db.Column(db.String(255))
-	expires = db.Column(db.DateTime)
-
-	_scopes = db.Column(db.Text)
-	def delete(self):
-		db.session.delete(self)
-		db.session.commit()
-		return self
-
-	@property
-	def scopes(self):
-		if self._scopes:
-			return self._scopes.split()
-		return []
-
 class Token(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	client_id = db.Column(db.String(40), db.ForeignKey('Client.client_id'), nullable=False)
-	client = db.relationship('Client')
+	#client_id = db.Column(db.String(40), db.ForeignKey('Client.client_id'), nullable=False)
+	#client = db.relationship('Client')
 
 	user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
 	user = db.relationship('User')

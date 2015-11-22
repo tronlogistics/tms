@@ -1,11 +1,15 @@
 from app.models import Role
 from app import db
 role1 = Role(code="admin", name="Admin")
-role2 = Role(code="company_admin", name="Company Admin")
-role3 = Role(code="driver", name="Driver")
-role4 = Role(code="owner_operator", name="Onwer Operator")
+role2 = Role(code="shipper", name="Shipper")
+role3 = Role(code="broker", name="Broker")
+role4 = Role(code="company_admin", name="Company Admin")
+role5 = Role(code="driver", name="Driver")
+role6 = Role(code="owner_operator", name="Onwer Operator")
 db.session.add(role1)
 db.session.add(role2)
 db.session.add(role3)
 db.session.add(role4)
+db.session.add(role5)
+db.session.add(role6)
 db.session.commit()
