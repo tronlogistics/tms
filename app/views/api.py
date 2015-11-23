@@ -146,7 +146,7 @@ class LoadAPI(Resource):
 
     def get(self, id):
         load = Load.query.get(id)
-        if len(load) == 0:
+        if load is None:
             abort(404)
         return {'load': marshal(load, load_fields)}
 
