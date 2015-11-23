@@ -166,12 +166,14 @@ class LocationAPI(Resource):
 
     def get(self, load_id, location_id):
         print("-----GET------")
-        load = [load for load in g.user.company.loads if load.id == load_id]
+        load = Load.query.get(id)
         location = None
-        for cur_location in load[0].lane.locations:
+        if load is None:
+            abort(404)
+        for cur_location in load.lane.locations:
             if cur_location.id == location_id:
                 location = cur_location
-        if len(load) == 0:
+        if location is None:
             abort(404)
         return {'location': marshal(location, location_fields)}
 
