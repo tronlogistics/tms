@@ -65,7 +65,7 @@
                 var styledMap = new google.maps.StyledMapType(styles, {name: "Styled Map"});
                 // Stores all markers
                 var allMarkers = [];
-                {% for longlat in truck.tracker %}
+                {% if truck.tracker[-1] is not none %}
                     var myLatlng = new google.maps.LatLng( {{longlat.latitude}}, {{longlat.longitude}});
                     {% if loop.index == 1 %}
                         var mapOptions = {
@@ -83,7 +83,7 @@
                         title: '{{ loop.index }}'
                     });
                     allMarkers.push(marker);
-                {% endfor %}
+                {% endif %}
 
                 {% for load in truck.driver.loads %}
                     {% for location in load.lane.locations %}
