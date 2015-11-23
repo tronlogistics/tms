@@ -145,10 +145,10 @@ class LoadAPI(Resource):
         super(LoadAPI, self).__init__()
 
     def get(self, id):
-        load = [load for load in g.user.company.loads if load.id == id]
+        load = Load.query.get(int(id))
         if len(load) == 0:
             abort(404)
-        return {'load': marshal(load[0], load_fields)}
+        return {'load': marshal(Load.query.ge, load_fields)}
 
 class LocationAPI(Resource):
     decorators = [authAPI.login_required]

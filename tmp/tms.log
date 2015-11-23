@@ -1062,3 +1062,5 @@
 2015-11-22 15:20:04,295 INFO: TMS startup [in /Users/johnlopez/tms/app/__init__.py:85]
 2015-11-22 15:21:47,050 INFO: 1, True [in /Users/johnlopez/tms/app/views/trucks.py:372]
 2015-11-22 15:21:47,051 INFO: returning 1 [in /Users/johnlopez/tms/app/views/trucks.py:375]
+2015-11-22 19:26:47,268 INFO: TMS startup [in /Users/johnlopez/tms/app/__init__.py:85]
+2015-11-22 19:26:47,969 INFO: TMS startup [in /Users/johnlopez/tms/app/__init__.py:85]
