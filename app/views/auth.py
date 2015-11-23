@@ -270,7 +270,6 @@ def new_user():
 	if company is None:
 		print("Role: %s" % role.code)
 		if role.code == "owner_operator":
-			print("OO")
 			company = Company(mco=mco,
 							name=company_name,
 							address=address,
