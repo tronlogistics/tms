@@ -178,20 +178,19 @@ class LocationAPI(Resource):
         return {'location': marshal(location, location_fields)}
 
     def put(self, load_id, location_id):
-        load = [load for load in g.user.company.loads if load.id == load_id]
+        load = Load.query.get(id)
         location = None
-        for cur_location in load[0].lane.locations:
+        for cur_location in load.lane.locations:
             if cur_location.id == location_id:
                 location = cur_location
         args = self.reqparse.parse_args()
-        print args
         for k, status in args.iteritems():
             if status != None:
                 status_history = LocationStatus(status=status, created_on=datetime.utcnow())
                 location.status_history.append(status_history)
                 location.status = status
                 db.session.add(status_history)
-        load[0].setStatus("")
+        load.setStatus("")
         db.session.add(location)
         db.session.commit()
         return jsonify( { 'task': 'task' } )
