@@ -148,7 +148,7 @@ class LoadAPI(Resource):
         load = Load.query.get(int(id))
         if len(load) == 0:
             abort(404)
-        return {'load': marshal(Load.query.ge, load_fields)}
+        return {'load': marshal(load, load_fields)}
 
 class LocationAPI(Resource):
     decorators = [authAPI.login_required]
