@@ -166,7 +166,7 @@ class LocationAPI(Resource):
 
     def get(self, load_id, location_id):
         print("-----GET------")
-        load = Load.query.get(id)
+        load = Load.query.get(load_id)
         location = None
         if load is None:
             abort(404)
@@ -178,7 +178,7 @@ class LocationAPI(Resource):
         return {'location': marshal(location, location_fields)}
 
     def put(self, load_id, location_id):
-        load = Load.query.get(id)
+        load = Load.query.get(load_id)
         location = None
         for cur_location in load.lane.locations:
             if cur_location.id == location_id:
