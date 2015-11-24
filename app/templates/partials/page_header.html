@@ -36,13 +36,13 @@
 														{% endif %}
 															{% if load.truck is not none %}
 																{% if load.truck.driver.driver_account is not none %}
-																	{% if load.truck.driver.driver_account.disabled != True %}
+																	{#{% if load.truck.driver.driver_account.disabled != True %}
 																		<a href="javascript:ping_driver({{ load.truck.driver.truck.id }});" class="new-modal btn btn-green">Ping Driver</a>
 																	{% else %}
 																		<span data-toggle="tooltip" data-placement="right" title="Activate driver account to ping driver">
 																			<a href="javascript:ping_driver({{ load.truck.driver.truck.id }});" class="new-modal btn btn-green" disabled="disabled">Ping Driver</a>
 																		</span>
-																	{% endif %}
+																	{% endif %}#}
 																{% else %}
 																	<span data-toggle="tooltip" data-placement="right" title="Create a driver account to ping driver"> 
 																		<a href="javascript:ping_driver({{ load.truck.driver.truck.id }});" class="new-modal btn btn-green" disabled="disabled">Ping Driver</a>

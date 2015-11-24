@@ -76,9 +76,11 @@
                         };
                         var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
                     {% endif %}
+                    {% set img_loc = 'backend/images/map_icons/number_' + loop.index|string + '.png' %}
                     var marker = new google.maps.Marker({
                         position: myLatlng,
                         map: map,
+                        icon: '{{ static(img_loc) }}',
                         title: '{{ location.stop_number }}'
                     });
                     allMarkers.push(marker);
@@ -86,16 +88,17 @@
 
                 {% endfor %}
 
-                {% for longlat in load.tracker %}
-                    var myLatlng = new google.maps.LatLng( {{longlat.latitude}}, {{longlat.longitude}});
+                {% if load.truck.tracker[-1] is not none %}
+                    var myLatlng = new google.maps.LatLng( {{load.truck.tracker[-1].latitude}}, {{load.truck.tracker[-1].longitude}});
 
                     var marker = new google.maps.Marker({
                         position: myLatlng,
                         map: map,
-                        title: '{{ loop.index }}'
+                        icon: '{{ static('backend/images/map_icons/truck3.png') }}',
+                        title: 'Current Location'
                     });
                     allMarkers.push(marker);
-                {% endfor %}
+                {% endif %}
 
                 if(allMarkers.length == 0) {
                     var myLatlng = new google.maps.LatLng( 39.8282, -98.5795);

@@ -66,21 +66,19 @@
                 // Stores all markers
                 var allMarkers = [];
                 {% if truck.tracker[-1] is not none %}
-                    var myLatlng = new google.maps.LatLng( {{longlat.latitude}}, {{longlat.longitude}});
-                    {% if loop.index == 1 %}
+                    var myLatlng = new google.maps.LatLng( {{truck.tracker[-1].latitude}}, {{truck.tracker[-1].longitude}});
                         var mapOptions = {
                             center: myLatlng,
                             zoom: 7
                         };
                         var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-                    {% endif %}
 
-                    var myLatlng = new google.maps.LatLng( {{longlat.latitude}}, {{longlat.longitude}});
+                    var myLatlng = new google.maps.LatLng( {{truck.tracker[-1].latitude}}, {{truck.tracker[-1].longitude}});
 
                     var marker = new google.maps.Marker({
                         position: myLatlng,
                         map: map,
-                        title: '{{ loop.index }}'
+                        title: 'Current Location'
                     });
                     allMarkers.push(marker);
                 {% endif %}

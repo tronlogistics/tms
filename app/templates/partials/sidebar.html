@@ -51,42 +51,44 @@
                                 </li>#}
                             </ul>
                         </li>
-                        <li {% if active == "Trucks" %}class="active open" {% endif%}>
-                            <a href="javascript:void(0)"><i class="fa fa-truck"></i>
-                                <span class="title"> Trucks </span><i class="icon-arrow"></i>
-                                <span class="selected"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li>
-                                    <a href="{{ url_for('trucks.create') }}">
-                                        <span class="title"> New Truck </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ url_for('trucks.all') }}">
-                                        <span class="title"> View All </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li {% if active == "Drivers" %}class="active open" {% endif%}>
-                            <a href="javascript:void(0)"><i class="clip-users"></i>
-                                <span class="title"> Drivers </span><i class="icon-arrow"></i>
-                                <span class="selected"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li>
-                                    <a href="{{ url_for('drivers.create') }}">
-                                        <span class="title"> New Driver </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ url_for('drivers.all') }}">
-                                        <span class="title"> View All </span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        {% if g.user.company.is_carrier() %}
+                            <li {% if active == "Trucks" %}class="active open" {% endif%}>
+                                <a href="javascript:void(0)"><i class="fa fa-truck"></i>
+                                    <span class="title"> Trucks </span><i class="icon-arrow"></i>
+                                    <span class="selected"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a href="{{ url_for('trucks.create') }}">
+                                            <span class="title"> New Truck </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('trucks.all') }}">
+                                            <span class="title"> View All </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li {% if active == "Drivers" %}class="active open" {% endif%}>
+                                <a href="javascript:void(0)"><i class="clip-users"></i>
+                                    <span class="title"> Drivers </span><i class="icon-arrow"></i>
+                                    <span class="selected"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li>
+                                        <a href="{{ url_for('drivers.create') }}">
+                                            <span class="title"> New Driver </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('drivers.all') }}">
+                                            <span class="title"> View All </span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        {% endif %}
                         {% if g.user.is_company_admin() %}
                             <li {% if active == "Company" %}class="active open" {% endif%}>
                                 <a href="{{ url_for('org.view') }}"><i class="clip-home"></i>

@@ -186,15 +186,20 @@ class LocationAPI(Resource):
         args = self.reqparse.parse_args()
         for k, status in args.iteritems():
             if status != None:
+                location.status = status
                 status_history = LocationStatus(status=status, created_on=datetime.utcnow())
                 location.status_history.append(status_history)
-                for next_location in load.lane.locations:
-                    if next_location.stop_number > location.stop_number:
-                        new_status = LocationStatus(status="En Route", created_on=datetime.utcnow())
-                        next_location.status_history.append(new_status)
-                        break
-                location.status = status
                 db.session.add(status_history)
+                if status == "Departed":
+                    changeStopNumbers(load)
+                    next_loc = getNextLocation(load)
+                    if next_loc is not None:
+                        next_status = LocationStatus(status="En Route", created_on=datetime.utcnow())
+                        next_loc.status_history.append(next_status)
+                        db.session.add(next_status)
+                        db.session.add(next_loc)
+
+                
         load.setStatus("")
         db.session.add(location)
         db.session.commit()
@@ -216,7 +221,6 @@ class LongLatAPI(Resource):
 
     def post(self):
         for driver in g.user.driver_instances:
-            print "found instance"
             if driver.truck is not None:
                 geo = LongLat(latitude=request.json.get('location').get('coords').get('latitude'),
                                 longitude=request.json.get('location').get('coords').get('longitude'))
@@ -230,3 +234,16 @@ api.add_resource(LoadListAPI, '/todo/api/v1.0/loads', endpoint='loads')
 api.add_resource(LoadAPI, '/todo/api/v1.0/loads/<int:id>', endpoint='load')
 api.add_resource(LocationAPI, '/todo/api/v1.0/loads/<int:load_id>/locations/<int:location_id>', endpoint='location')
 api.add_resource(LongLatAPI, '/todo/api/v1.0/longlat', endpoint='longlat')
+
+def getNextLocation(load):
+    for location in load.lane.locations:
+
+        if int(location.stop_number) > 0:
+            app.logger.info("returning %s" % location.stop_number)
+            return location
+    return None
+
+def changeStopNumbers(load):
+    for location in load.lane.locations:
+        location.stop_number -= 1
+        db.session.add(location)

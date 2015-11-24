@@ -61,7 +61,7 @@ def PostLoadFactory(form, user):
 			latitude = js["results"][0]["geometry"]["location"]["lat"]
 			longitude = js["results"][0]["geometry"]["location"]["lng"]
 
-		stop_off = LocationFactory(address, pickup_detail, delivery_detail, location.arrival_date.data, location.stop_number.data, None, location.stop_type.data, "", latitude, longitude)
+		stop_off = LocationFactory(address, pickup_detail, delivery_detail, location.arrival_date.data, location.stop_number.data, None, location.stop_type.data, location.notes.data, latitude, longitude)
 		stop_off_locations.append(stop_off)
 
 	load.lane = LaneFactory(stop_off_locations)
@@ -181,6 +181,7 @@ def LocationFactory(address, pickup_detail, delivery_detail, arrival_date, stop_
 					stop_number=stop_number,
 					contact=contact,
 					type=stop_type,
+					notes=notes,
 					latitude=latitude,
 					longitude=longitude)
 
