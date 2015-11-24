@@ -188,6 +188,11 @@ class LocationAPI(Resource):
             if status != None:
                 status_history = LocationStatus(status=status, created_on=datetime.utcnow())
                 location.status_history.append(status_history)
+                for next_location in load.lane.locations:
+                    if next_location.stop_number > location.stop_number:
+                        new_status = LocationStatus(status="En Route", created_on=datetime.utcnow())
+                        next_location.status_history.append(new_status)
+                        break
                 location.status = status
                 db.session.add(status_history)
         load.setStatus("")
