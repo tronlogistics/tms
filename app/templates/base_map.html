@@ -88,7 +88,7 @@
 
                 {% endfor %}
                 {% if load.truck.tracker is defined %}
-                    {% if load.truck.tracker|length > 0 %}
+                    {% if load.truck.tracker.size() > 0 %}
                         var myLatlng = new google.maps.LatLng( {{load.truck.tracker[-1].latitude}}, {{load.truck.tracker[-1].longitude}});
 
                         var marker = new google.maps.Marker({
