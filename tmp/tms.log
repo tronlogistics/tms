@@ -1102,3 +1102,5 @@
 2015-11-24 12:06:20,528 INFO: 404: Not Found [in /Users/johnlopez/tms/app/views/org.py:107]
 2015-11-24 12:20:52,227 INFO: TMS startup [in /Users/johnlopez/tms/app/__init__.py:85]
 2015-11-24 12:20:52,991 INFO: TMS startup [in /Users/johnlopez/tms/app/__init__.py:85]
+2015-12-25 11:43:52,815 INFO: TMS startup [in /Users/johnlopez/tms/app/__init__.py:85]
+2015-12-25 11:43:53,515 INFO: TMS startup [in /Users/johnlopez/tms/app/__init__.py:85]
