@@ -159,7 +159,7 @@ class LoadAPI(Resource):
 
     def get(self, id):
         print "get 1"
-        load = Load.query.get(int(id))
+        load = Load.query.get_or_404(int(id))
         print "get 2"
         #if len(load) == 0:
         #    abort(404)
