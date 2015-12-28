@@ -158,12 +158,12 @@ class LoadAPI(Resource):
         super(LoadAPI, self).__init__()
 
     def get(self, id):
-		print "get 1"
+        print "get 1"
         load = Load.query.get(int(id))
-		print "get 2"
+        print "get 2"
         if len(load) == 0:
             abort(404)
-		print "get 3"
+        print "get 3"
         return {'load': marshal(load, load_fields)}
 
 class LocationAPI(Resource):
