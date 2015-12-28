@@ -9,7 +9,7 @@ from datetime import datetime
 def verify_password(email_or_token, password):
     
     # first try to authenticate by token
-	print email_or_token
+    print email_or_token
     user = User.verify_auth_token(email_or_token)
     if not user:
         # try to authenticate with username/password
