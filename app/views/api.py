@@ -11,9 +11,10 @@ def verify_password(email_or_token, password):
     # first try to authenticate by token
     print email_or_token
     user = User.verify_auth_token(email_or_token)
+	print (not user)
     if not user:
         # try to authenticate with username/password
-        print "finding user"
+        print "finding user %s" % email_or_token
         user = User.query.filter_by(email=email_or_token).first()
         if not user or not user.check_password(password):
             return False
@@ -158,12 +159,7 @@ class LoadAPI(Resource):
         super(LoadAPI, self).__init__()
 
     def get(self, id):
-        print "get 1"
         load = Load.query.get_or_404(int(id))
-        print "get 2"
-        #if len(load) == 0:
-        #    abort(404)
-        print "get 3"
         return {'load': marshal(load, load_fields)}
 
 class LocationAPI(Resource):
@@ -187,8 +183,8 @@ class LocationAPI(Resource):
         for cur_location in load[0].lane.locations:
             if cur_location.id == location_id:
                 location = cur_location
-        if len(load) == 0:
-            abort(404)
+        if location is None:
+			abort(404)
         return {'location': marshal(location, location_fields)}
 
     def put(self, load_id, location_id):
