@@ -13,9 +13,11 @@ def verify_password(email_or_token, password):
     user = User.verify_auth_token(email_or_token)
     if not user:
         # try to authenticate with username/password
+        print "finding user"
         user = User.query.filter_by(email=email_or_token).first()
         if not user or not user.check_password(password):
             return False
+        print "user found"
     g.user = user
     return True
 
@@ -127,14 +129,21 @@ class LoadListAPI(Resource):
 
     def get(self):
         #loads = g.user.company.loads
+		print "1"
 		try:
+			print "2"
 			loads = []
+			print "3"
 			for driver in g.user.driver_instances:
+				print "4"
 				for load in driver.truck.loads:
+					print "5"
 					loads.append(load)
-			
+					print "6"
+			print "7"
 			return {'loads': [marshal(load, load_fields) for load in filter(lambda load: load.status != "Delivered", loads)]}
 		except:
+			print "8"
 			print "Unexpected error:", sys.exc_info()[0]
 
 class LoadAPI(Resource):
