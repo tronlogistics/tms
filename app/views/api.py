@@ -140,7 +140,7 @@ class LoadListAPI(Resource):
 					print "5"
 					loads.append(load)
 					print "6"
-			print s
+			print "7"
 			return {'loads': [marshal(load, load_fields) for load in filter(lambda load: load.status != "Delivered", loads)]}
 		except:
 			print "8"
@@ -161,8 +161,8 @@ class LoadAPI(Resource):
         print "get 1"
         load = Load.query.get(int(id))
         print "get 2"
-        if len(load) == 0:
-            abort(404)
+        #if len(load) == 0:
+        #    abort(404)
         print "get 3"
         return {'load': marshal(load, load_fields)}
 
