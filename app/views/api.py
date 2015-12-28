@@ -9,6 +9,7 @@ from datetime import datetime
 def verify_password(email_or_token, password):
     
     # first try to authenticate by token
+	print email_or_token
     user = User.verify_auth_token(email_or_token)
     if not user:
         # try to authenticate with username/password
@@ -126,12 +127,15 @@ class LoadListAPI(Resource):
 
     def get(self):
         #loads = g.user.company.loads
-        loads = []
-        for driver in g.user.driver_instances:
-            for load in driver.truck.loads:
-                loads.append(load)
-        
-        return {'loads': [marshal(load, load_fields) for load in filter(lambda load: load.status != "Delivered", loads)]}
+		try:
+			loads = []
+			for driver in g.user.driver_instances:
+				for load in driver.truck.loads:
+					loads.append(load)
+			
+			return {'loads': [marshal(load, load_fields) for load in filter(lambda load: load.status != "Delivered", loads)]}
+		except:
+			print "Unexpected error:", sys.exc_info()[0]
 
 class LoadAPI(Resource):
     decorators = [authAPI.login_required]
