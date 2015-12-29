@@ -133,22 +133,14 @@ class LoadListAPI(Resource):
         super(LoadListAPI, self).__init__()
 
     def get(self):
-        #loads = g.user.company.loads
-		print "1"
+        print json.dumps(request.json)
 		try:
-			print "2"
 			loads = []
-			print "3"
 			for driver in g.user.driver_instances:
-				print "4"
 				for load in driver.truck.loads:
-					print "5"
 					loads.append(load)
-					print "6"
-			print "7"
 			return {'loads': [marshal(load, load_fields) for load in filter(lambda load: load.status != "Delivered", loads)]}
 		except:
-			print "8"
 			print "Unexpected error:", sys.exc_info()[0]
 
 class LoadAPI(Resource):
@@ -211,7 +203,7 @@ class LocationAPI(Resource):
         return jsonify( { 'task': 'task' } )
 
 class LongLatAPI(Resource):
-    #decorators = [authAPI.login_required]
+    decorators = [authAPI.login_required]
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
         self.reqparse.add_argument('longitude', type=str, required=False,
@@ -226,15 +218,15 @@ class LongLatAPI(Resource):
 
     def post(self):
         print json.dumps(request.json)
-        #for driver in g.user.driver_instances:
-        #    print "found instance"
-        #    if driver.truck is not None:
-        #        geo = LongLat(latitude=request.json.get('location').get('coords').get('latitude'),
-        #                        longitude=request.json.get('location').get('coords').get('longitude'))
-        #        driver.truck.tracker.append(geo)
-        #        db.session.add(geo)
-        #        db.session.add(driver.truck)
-        #db.session.commit()
+        for driver in g.user.driver_instances:
+            print "found instance"
+            if driver.truck is not None:
+                geo = LongLat(latitude=request.json.get('location').get('coords').get('latitude'),
+                                longitude=request.json.get('location').get('coords').get('longitude'))
+                driver.truck.tracker.append(geo)
+                db.session.add(geo)
+                db.session.add(driver.truck)
+        db.session.commit()
         return jsonify( { 'response': 'success' } )
 
 api.add_resource(LoadListAPI, '/todo/api/v1.0/loads', endpoint='loads')
