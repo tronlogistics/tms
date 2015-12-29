@@ -106,23 +106,31 @@ def register():
 		if User.query.filter_by(email=register_form.email.data).first() is not None:
 			flash("This e-mail is already registerd. Please sign in!")
 			return redirect(url_for('.login'))
-		address = Address(address1=register_form.address.data,
-							city=register_form.city.data,
-							state=register_form.state.data,
-							postal_code=register_form.postal_code.data)
-		company = Company(mco="2", name=register_form.company_name.data,
-							address=address,
-							company_type=register_form.account_type.data)
+			
 		user = User(first_name=register_form.first_name.data,
 					last_name=register_form.last_name.data,
 					phone=register_form.phone_number.data,
 					email=register_form.email.data,
 					password=register_form.password.data)
-		role = Role.query.filter_by(code='company_admin').first()
-		user.roles.append(role)
+		company = Company.query.filter_by(mco=register_form.mco.data).first()
+		if company is None:	
+			address = Address(address1=register_form.address.data,
+								city=register_form.city.data,
+								state=register_form.state.data,
+								postal_code=register_form.postal_code.data)
+			company = Company(mco=register_form.mco.data, name=register_form.company_name.data,
+								address=address,
+								company_type=register_form.account_type.data)
+
+			role = Role.query.filter_by(code='company_admin').first()
+			user.roles.append(role)
+
+			db.session.add(address)
+			db.session.add(company)
+		
 		company.users.append(user)
-		db.session.add(address)
-		db.session.add(company)
+		
+		
 		db.session.add(user)
 		db.session.add(role)
 		db.session.commit()

@@ -274,6 +274,7 @@ class RegisterForm(Form):
 													('WY', 'Wyoming')], 
 													validators = [DataRequired()])
 	postal_code = StringField('Zip Code', validators=[])
+	mco = StringField('MCO', validators=[])
 	email = StringField('Email', validators=[DataRequired()])
 	phone_number = StringField('Phone', validators=[DataRequired()])
 	password = PasswordField('New Password', [
