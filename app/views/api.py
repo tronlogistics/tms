@@ -3,7 +3,8 @@ from app.models import User, Load, Location, LocationStatus, LongLat, Truck
 from flask import Blueprint, request, session, g, current_app, jsonify, abort
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.restful import Api, Resource, reqparse, fields, marshal
-from datetime import datetime
+from datetime import datetime,
+import json
 
 @authAPI.verify_password
 def verify_password(email_or_token, password):
@@ -224,7 +225,7 @@ class LongLatAPI(Resource):
         super(LongLatAPI, self).__init__()
 
     def post(self):
-        print son.dumps(request.json)
+        print json.dumps(request.json)
         #for driver in g.user.driver_instances:
         #    print "found instance"
         #    if driver.truck is not None:
