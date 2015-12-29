@@ -581,6 +581,10 @@ def assign(load_id, assign_id):
 		#if filter(lambda truck: truck.id == assign_id, g.user.company.fleet.trucks)
 		load.truck = truck
 		load.setStatus("")
+		if truck.driver.driver_account is not None:
+			if truck.driver.driver_account.company != g.user.company and truck.triver.driver_account.company.loads.count(load) == 0:
+				truck.driver.driver_account.company.loads.append(load)
+				db.session.add(truck.driver.driver_account.company)
 		db.session.add(truck)
 		db.session.add(load)
 		db.session.commit()
@@ -596,6 +600,10 @@ def unassign(load_id, unassign_id):
 		#If current user is a carrier: remove all other currently assigned carriers and indicate 
 		#the load is assigned
 		truck = Truck.query.get(unassign_id)
+		if truck.driver.driver_account is not None:
+			if truck.driver.driver_account.company != g.user.company and truck.triver.driver_account.company.loads.count(load) > 0:
+				truck.driver.driver_account.company.loads.remove(load)
+				db.session.add(truck.driver.driver_account.company)
 		if truck.id == load.truck.id:
 			load.truck = None
 			load.setStatus("")

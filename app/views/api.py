@@ -9,12 +9,17 @@ from datetime import datetime
 def verify_password(email_or_token, password):
     
     # first try to authenticate by token
+    print email_or_token
     user = User.verify_auth_token(email_or_token)
+    print user
+    print "%s" % (not user)
     if not user:
         # try to authenticate with username/password
+        print "finding user %s" % email_or_token
         user = User.query.filter_by(email=email_or_token).first()
         if not user or not user.check_password(password):
             return False
+        print "user found"
     g.user = user
     return True
 
@@ -126,12 +131,22 @@ class LoadListAPI(Resource):
 
     def get(self):
         #loads = g.user.company.loads
-        loads = []
-        for driver in g.user.driver_instances:
-            for load in driver.truck.loads:
-                loads.append(load)
-        
-        return {'loads': [marshal(load, load_fields) for load in filter(lambda load: load.status != "Delivered", loads)]}
+		print "1"
+		try:
+			print "2"
+			loads = []
+			print "3"
+			for driver in g.user.driver_instances:
+				print "4"
+				for load in driver.truck.loads:
+					print "5"
+					loads.append(load)
+					print "6"
+			print "7"
+			return {'loads': [marshal(load, load_fields) for load in filter(lambda load: load.status != "Delivered", loads)]}
+		except:
+			print "8"
+			print "Unexpected error:", sys.exc_info()[0]
 
 class LoadAPI(Resource):
     decorators = [authAPI.login_required]
@@ -145,9 +160,7 @@ class LoadAPI(Resource):
         super(LoadAPI, self).__init__()
 
     def get(self, id):
-        load = Load.query.get(id)
-        if load is None:
-            abort(404)
+        load = Load.query.get_or_404(int(id))
         return {'load': marshal(load, load_fields)}
 
 class LocationAPI(Resource):
@@ -166,41 +179,30 @@ class LocationAPI(Resource):
 
     def get(self, load_id, location_id):
         print("-----GET------")
-        load = Load.query.get(load_id)
+        load = [load for load in g.user.company.loads if load.id == load_id]
         location = None
-        if load is None:
-            abort(404)
-        for cur_location in load.lane.locations:
+        for cur_location in load[0].lane.locations:
             if cur_location.id == location_id:
                 location = cur_location
         if location is None:
-            abort(404)
+			abort(404)
         return {'location': marshal(location, location_fields)}
 
     def put(self, load_id, location_id):
-        load = Load.query.get(load_id)
+        load = [load for load in g.user.company.loads if load.id == load_id]
         location = None
-        for cur_location in load.lane.locations:
+        for cur_location in load[0].lane.locations:
             if cur_location.id == location_id:
                 location = cur_location
         args = self.reqparse.parse_args()
+        print args
         for k, status in args.iteritems():
             if status != None:
-                location.status = status
                 status_history = LocationStatus(status=status, created_on=datetime.utcnow())
                 location.status_history.append(status_history)
+                location.status = status
                 db.session.add(status_history)
-                if status == "Departed":
-                    changeStopNumbers(load)
-                    next_loc = getNextLocation(load)
-                    if next_loc is not None:
-                        next_status = LocationStatus(status="En Route", created_on=datetime.utcnow())
-                        next_loc.status_history.append(next_status)
-                        db.session.add(next_status)
-                        db.session.add(next_loc)
-
-                
-        load.setStatus("")
+        load[0].setStatus("")
         db.session.add(location)
         db.session.commit()
         return jsonify( { 'task': 'task' } )
@@ -221,6 +223,7 @@ class LongLatAPI(Resource):
 
     def post(self):
         for driver in g.user.driver_instances:
+            print "found instance"
             if driver.truck is not None:
                 geo = LongLat(latitude=request.json.get('location').get('coords').get('latitude'),
                                 longitude=request.json.get('location').get('coords').get('longitude'))
@@ -234,16 +237,3 @@ api.add_resource(LoadListAPI, '/todo/api/v1.0/loads', endpoint='loads')
 api.add_resource(LoadAPI, '/todo/api/v1.0/loads/<int:id>', endpoint='load')
 api.add_resource(LocationAPI, '/todo/api/v1.0/loads/<int:load_id>/locations/<int:location_id>', endpoint='location')
 api.add_resource(LongLatAPI, '/todo/api/v1.0/longlat', endpoint='longlat')
-
-def getNextLocation(load):
-    for location in load.lane.locations:
-
-        if int(location.stop_number) > 0:
-            app.logger.info("returning %s" % location.stop_number)
-            return location
-    return None
-
-def changeStopNumbers(load):
-    for location in load.lane.locations:
-        location.stop_number -= 1
-        db.session.add(location)
