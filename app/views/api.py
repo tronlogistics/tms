@@ -210,7 +210,7 @@ class LocationAPI(Resource):
         return jsonify( { 'task': 'task' } )
 
 class LongLatAPI(Resource):
-    decorators = [authAPI.login_required]
+    #decorators = [authAPI.login_required]
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
         self.reqparse.add_argument('longitude', type=str, required=False,
@@ -224,15 +224,16 @@ class LongLatAPI(Resource):
         super(LongLatAPI, self).__init__()
 
     def post(self):
-        for driver in g.user.driver_instances:
-            print "found instance"
-            if driver.truck is not None:
-                geo = LongLat(latitude=request.json.get('location').get('coords').get('latitude'),
-                                longitude=request.json.get('location').get('coords').get('longitude'))
-                driver.truck.tracker.append(geo)
-                db.session.add(geo)
-                db.session.add(driver.truck)
-        db.session.commit()
+        print son.dumps(request.json)
+        #for driver in g.user.driver_instances:
+        #    print "found instance"
+        #    if driver.truck is not None:
+        #        geo = LongLat(latitude=request.json.get('location').get('coords').get('latitude'),
+        #                        longitude=request.json.get('location').get('coords').get('longitude'))
+        #        driver.truck.tracker.append(geo)
+        #        db.session.add(geo)
+        #        db.session.add(driver.truck)
+        #db.session.commit()
         return jsonify( { 'response': 'success' } )
 
 api.add_resource(LoadListAPI, '/todo/api/v1.0/loads', endpoint='loads')
