@@ -110,7 +110,7 @@ def register():
 							city=register_form.city.data,
 							state=register_form.state.data,
 							postal_code=register_form.postal_code.data)
-		company = Company(mco="1", name=register_form.company_name.data,
+		company = Company(mco="2", name=register_form.company_name.data,
 							address=address,
 							company_type=register_form.account_type.data)
 		user = User(first_name=register_form.first_name.data,
