@@ -1131,3 +1131,5 @@
 2015-12-29 16:28:02,692 INFO: Sending email to t123123123`13`1@t.com [in /Users/johnlopez/tms/app/emails.py:24]
 2015-12-29 16:28:03,017 INFO: User "t123123123`13`1@t.com" with role "Company Admin" created [in /Users/johnlopez/tms/app/views/auth.py:141]
 2015-12-29 16:28:05,495 INFO: {u't123123123`13`1@t.com': (450, '4.1.2 <t123123123`13`1@t.com>: Recipient address rejected: Domain not found')} [in /Users/johnlopez/tms/app/emails.py:15]
+2015-12-29 16:31:23,551 INFO: TMS startup [in /Users/johnlopez/tms/app/__init__.py:85]
+2015-12-29 16:31:25,405 INFO: TMS startup [in /Users/johnlopez/tms/app/__init__.py:85]

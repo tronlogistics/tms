@@ -582,7 +582,7 @@ def assign(load_id, assign_id):
 		load.truck = truck
 		load.setStatus("")
 		if truck.driver.driver_account is not None:
-			if truck.driver.driver_account.company != g.user.company and truck.triver.driver_account.company.loads.count(load) == 0:
+			if truck.driver.driver_account.company != g.user.company and truck.driver.driver_account.company.loads.count(load) == 0:
 				truck.driver.driver_account.company.loads.append(load)
 				db.session.add(truck.driver.driver_account.company)
 		db.session.add(truck)
@@ -601,7 +601,7 @@ def unassign(load_id, unassign_id):
 		#the load is assigned
 		truck = Truck.query.get(unassign_id)
 		if truck.driver.driver_account is not None:
-			if truck.driver.driver_account.company != g.user.company and truck.triver.driver_account.company.loads.count(load) > 0:
+			if truck.driver.driver_account.company != g.user.company and truck.driver.driver_account.company.loads.count(load) > 0:
 				truck.driver.driver_account.company.loads.remove(load)
 				db.session.add(truck.driver.driver_account.company)
 		if truck.id == load.truck.id:
