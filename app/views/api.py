@@ -9,6 +9,7 @@ from datetime import datetime
 def verify_password(email_or_token, password):
     
     # first try to authenticate by token
+    print"%s - %s" % (email_or_token, password)
     print email_or_token
     user = User.verify_auth_token(email_or_token)
     print user
@@ -16,6 +17,7 @@ def verify_password(email_or_token, password):
     if not user:
         # try to authenticate with username/password
         print "finding user %s" % email_or_token
+        print "finding user %s" % password
         user = User.query.filter_by(email=email_or_token).first()
         if not user or not user.check_password(password):
             return False
