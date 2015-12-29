@@ -133,10 +133,10 @@ class LoadListAPI(Resource):
         super(LoadListAPI, self).__init__()
 
     def get(self):
-        print json.dumps(request.json)
 		try:
 			loads = []
-			for driver in g.user.driver_instances:
+			print json.dumps(request.json)
+            for driver in g.user.driver_instances:
 				for load in driver.truck.loads:
 					loads.append(load)
 			return {'loads': [marshal(load, load_fields) for load in filter(lambda load: load.status != "Delivered", loads)]}
