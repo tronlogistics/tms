@@ -164,9 +164,9 @@ class User(db.Model):
 	def is_admin(self):
 		return len(filter((lambda role: role.code == 'admin'), self.roles)) > 0
 
-	def generate_auth_token(self, expiration=None):
-		s = Serializer(app.config['SECRET_KEY'])
-		#s = Serializer(app.config['SECRET_KEY'], expires_in=expiration)
+	def generate_auth_token(self, expiration=1892160000):
+		#s = Serializer(app.config['SECRET_KEY'])
+		s = Serializer(app.config['SECRET_KEY'], expires_in=expiration)
 		return s.dumps({'id': self.id})
 
 	@staticmethod
