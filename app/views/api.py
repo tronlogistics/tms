@@ -225,7 +225,7 @@ class LongLatAPI(Resource):
         super(LongLatAPI, self).__init__()
 
     def post(self):
-        print json.dumps(request.json)
+        print json.dumps(request.headers)
         #for driver in g.user.driver_instances:
         #    print "found instance"
         #    if driver.truck is not None:

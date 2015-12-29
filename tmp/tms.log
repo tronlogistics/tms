@@ -1110,3 +1110,7 @@
 2015-12-29 12:19:32,458 INFO: TMS startup [in /Users/johnlopez/tms/app/__init__.py:85]
 2015-12-29 12:20:57,803 INFO: eyJhbGciOiJIUzI1NiIsImV4cCI6MzM0MzU3MzI1NywiaWF0IjoxNDUxNDEzMjU3fQ.eyJpZCI6MX0.sYu9JA6nKTRxYMtp3fWiOhglJRNqsuxRTFMiJAhvaIg -  [in /Users/johnlopez/tms/app/views/api.py:12]
 2015-12-29 12:21:32,515 INFO: TMS startup [in /Users/johnlopez/tms/app/__init__.py:85]
+2015-12-29 13:04:11,473 INFO: TMS startup [in /Users/johnlopez/tms/app/__init__.py:85]
+2015-12-29 13:04:12,083 INFO: TMS startup [in /Users/johnlopez/tms/app/__init__.py:85]
+2015-12-29 13:06:29,456 INFO: TMS startup [in /Users/johnlopez/tms/app/__init__.py:85]
+2015-12-29 13:06:30,085 INFO: TMS startup [in /Users/johnlopez/tms/app/__init__.py:85]
