@@ -38,7 +38,7 @@ def registerUserFromJSON(json):
 		driver.driver_type = "Owner Operator"
 		truck.driver = driver
 		company.fleet.trucks.append(truck)
-		company.feelt.drivers.append(driver)
+		company.fleet.drivers.append(driver)
 		db.session.add(truck)
 		db.session.add(driver)
 
