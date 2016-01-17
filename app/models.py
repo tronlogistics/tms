@@ -196,7 +196,7 @@ class User(db.Model):
 		return len(filter((lambda role: role.code == 'admin'), self.roles)) > 0
 
 	def isOwnerOperator(self):
-		return len(filter(lambda role: role.code == "owner_operator", user.roles)) > 0
+		return len(filter(lambda role: role.code == "owner_operator", self.roles)) > 0
 
 	def generate_auth_token(self, expiration=1892160000):
 		s = Serializer(app.config['SECRET_KEY'], expires_in=expiration)
