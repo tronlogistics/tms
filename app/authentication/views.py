@@ -8,7 +8,7 @@ from app.permissions import *
 from app.emails import register_account, new_lead, contact_us, reset_pass, get_serializer, request_demo
 from flask.ext.cors import CORS, cross_origin
 from .registration.controller import registerUserFromForm, registerUserFromJSON
-from .authentication.controller import handleLoginFromForm
+from .authentication.controller import handleLoginFromForm, loginUser
 #from app import stripe, stripe_keys
 
 auth = Blueprint('auth', __name__, url_prefix='/u')
