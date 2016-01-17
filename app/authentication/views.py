@@ -102,7 +102,8 @@ def new_user():
 	if User.query.filter_by(email=email).first() is not None:
 		abort(400)    # existing user
 	registerUserFromJSON(request.json)
-	
+	print(email)
+	print(User.getUserByEmail(email))
 	token = User.getUserByEmail(email).generate_auth_token()
 	return (jsonify({ 'token': token.decode('ascii') }), 201)
 
