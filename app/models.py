@@ -234,13 +234,15 @@ class User(db.Model):
 		user = User(first_name=request.json.get('firstName'),
 				last_name=request.json.get('lastName'),
 				phone=request.json.get('phoneNumber'),
-				email=request.json.get('streetAddress'),
+				email=request.json.get('email'),
 				password=request.json.get('password'))
+		db.session.add(user)
+		db.session.commit()
 		return user
 
 	@staticmethod
 	def getUserByEmail(email):
-		return User.query.filter_by(email=email).first()
+		return User.query.filter_by(email=email.lower()).first()
 
 	@staticmethod
 	def getUserByID(email):
