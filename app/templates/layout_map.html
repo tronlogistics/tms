@@ -65,93 +65,30 @@
 				</div>
 			</div>
 			<div class="row">
-				{% if location.delivery_details.weight == "" %}
-					<div class="col-sm-12">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<i class="fa fa-external-link-square"></i>
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<i class="fa fa-external-link-square"></i>
+							{% if location.stop_type == "Drop Off" %}
+								Delivery Details
+							{% else %}
 								Pickup Details
-							</div>
-							<table id="truck" class="table table-condensed">
-								<tbody>
-			                    	<tr>
-										<td><b>Weight:</b></td>
-										<td>{{ location.pickup_details.weight }}</td>
-									</tr>
-									<tr>
-										<td><b>Notes:</b></td>
-										<td>{{ location.pickup_details.notes }}</td>
-									</tr>
-				                </tbody>
-							</table>
+							{% endif %}
 						</div>
+						<table id="truck" class="table table-condensed">
+							<tbody>
+		                    	<tr>
+									<td><b>Weight:</b></td>
+									<td>{{ location.weight }}</td>
+								</tr>
+								<tr>
+									<td><b>Notes:</b></td>
+									<td>{{ location.notes }}</td>
+								</tr>
+			                </tbody>
+						</table>
 					</div>
-				{% elif location.pickup_details.weight == "" %}
-					<div class="col-sm-12">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<i class="fa fa-external-link-square"></i>
-								Drop Off Details
-							</div>
-							<table id="truck" class="table table-condensed">
-								<tbody>
-			                    	<tr>
-										<td><b>Weight:</b></td>
-										<td>{{ location.delivery_details.weight }}</td>
-									</tr>
-									<tr>
-										<td><b>Notes:</b></td>
-										<td>{{ location.delivery_details.notes }}</td>
-									</tr>
-				                </tbody>
-							</table>
-						</div>
-					</div>
-				{% else %}
-					<div class="col-sm-6">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<i class="fa fa-external-link-square"></i>
-								Pickup Details
-							</div>
-							<table id="truck" class="table table-condensed">
-								<tbody>
-			           
-				                    	<tr>
-											<td><b>Weight:</b></td>
-											<td>{{ location.pickup_details.weight }}</td>
-										</tr>
-										<tr>
-											<td><b>Notes:</b></td>
-											<td>{{ location.pickup_details.notes }}</td>
-										</tr>
-				                </tbody>
-							</table>
-						</div>
-					</div>
-					<div class="col-sm-6">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								<i class="fa fa-external-link-square"></i>
-								Drop Off Details
-							</div>
-							<table id="truck" class="table table-condensed">
-								<tbody>
-			           
-				                    	
-										<tr>
-											<td><b>Weight:</b></td>
-											<td>{{ location.delivery_details.weight }}</td>
-										</tr>
-										<tr>
-											<td><b>Notes:</b></td>
-											<td>{{ location.delivery_details.notes }}</td>
-										</tr>
-				                </tbody>
-							</table>
-						</div>
-					</div>
-				{% endif %}
+				</div>
 			</div>
 		</div>
 		<div class="modal-footer">

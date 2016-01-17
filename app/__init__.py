@@ -49,13 +49,13 @@ def after_request(response):
   response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
   return response
 
-from .views.loads import loads
+from .loads.views import loads
 #from .views.dashboard import dashboard
 from .views.fleet import fleet
 from .views.drivers import drivers
 from .views.trucks import trucks
 from .views.static import static
-from .views.auth import auth
+from .authentication.views import auth
 from .views.org import org
 #
 app.register_blueprint(loads)

@@ -7,11 +7,12 @@ from app.forms import LoadForm, StatusForm, LaneLocationForm, LocationStatusForm
 from app.models import Load, LoadDetail, Lane, Location, Truck, Driver, Contact, Bid, BOL, User
 from app.permissions import *
 from app.emails import bid_accepted
-from ..controllers import LoadService, factory
+from ..controllers import LoadService
 from app.controllers.LoadService import *
 from sqlalchemy import desc
 from geopy import geocoders 
 from geopy.geocoders import Nominatim
+from .controller import *
 import urllib
 import urllib2
 import json
@@ -45,7 +46,7 @@ def create():
 		#db.session.add(g.user.company)
 		#db.session.commit()
 		#return redirect(url_for('.view', load_id=load.id))
-		load = CreateLoadFactory(form, g.user)
+		load = createLoadFromForm(form, g.user)
 		load.created_by = g.user
 		g.user.company.loads.append(load)
 		load.setStatus("")

@@ -1,3 +1,4 @@
+from flask import Blueprint, render_template, url_for, redirect, request, flash, session, g, current_app, jsonify, abort
 from app import app
 from app import db
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -7,20 +8,24 @@ from datetime import datetime
 from passlib.apps import custom_app_context as pwd_context
 from itsdangerous import (TimedJSONWebSignatureSerializer
                           as Serializer, BadSignature, SignatureExpired, base64_decode, base64_encode)
-
-User_to_Role = db.Table('user_to_user', db.metadata,
-	db.Column('user_id', db.Integer, db.ForeignKey('User.id'), primary_key=True),
-	db.Column('role_id', db.Integer, db.ForeignKey('Role.id'), primary_key=True)
-)
-
-User_to_User = db.Table('user_to_role', db.metadata,
-	db.Column('left_user_id', db.Integer, db.ForeignKey('User.id'), primary_key=True),
-	db.Column('right_user_id', db.Integer, db.ForeignKey('User.id'), primary_key=True)
-)
+import urllib
+import urllib2
+import json
+from datetime import datetime
 
 Company_to_Load = db.Table('company_to_load', db.metadata,
 	db.Column('company_id', db.Integer, db.ForeignKey('Company.id'), primary_key=True),
 	db.Column('load_id', db.Integer, db.ForeignKey('Load.id'), primary_key=True)
+)
+
+User_to_Role = db.Table('user_to_role', db.metadata,
+	db.Column('user_id', db.Integer, db.ForeignKey('User.id'), primary_key=True),
+	db.Column('role_id', db.Integer, db.ForeignKey('Role.id'), primary_key=True)
+)
+
+User_to_User = db.Table('user_to_user', db.metadata,
+	db.Column('left_user_id', db.Integer, db.ForeignKey('User.id'), primary_key=True),
+	db.Column('right_user_id', db.Integer, db.ForeignKey('User.id'), primary_key=True)
 )
 
 detail_to_BOL = Table('detail_to_BOL', db.metadata,
@@ -42,11 +47,6 @@ assigned_Contacts = db.Table('assigned_Contacts', db.metadata,
 	Column('Contact_id', Integer, ForeignKey('Contact.id')),
 	Column('load_id', Integer, ForeignKey('Load.id'))
 )
-
-class Lead(db.Model):
-	__tablename__ = 'Lead'
-	id = db.Column(db.Integer, primary_key=True)
-	email = db.Column(db.String(255), nullable=False, unique=True, index=True)
 
 class Company(db.Model):
 	__tablename__ = 'Company'
@@ -78,18 +78,55 @@ class Company(db.Model):
 	def is_carrier(self):
 		return self.company_type == "carrier"
 
+	@staticmethod
+	def createCompanyFromForm(form):
+		address = Address.createAddressFromForm(form)
+		company = Company(mco=form.mco.data, 
+							name=form.company_name.data,
+							address=address,
+							company_type=form.account_type.data)
+		db.session.add(company)
+		db.session.commit()
+
+	@staticmethod
+	def createCompanyFromJSON(json):
+		roleCode = json.get('type')
+		company = None
+		address = Address.createAddressFromJSON(json)
+		if roleCode == "owner_operator":
+			company = Company(mco=json.get('mco'), 
+							name=json.get('companyName'),
+							address=address,
+							company_type="Owner Operator")
+		elif roleCode == "broker" or roleCode == "shipper":
+			company = Company(mco=json.get('mco'), 
+							name=json.get('companyName'),
+							address=address,
+							company_type="Shipper/Broker")
+		else:
+			company = Company(mco=json.get('mco'), 
+							name=json.get('companyName'),
+							address=address,
+							company_type="Carrier")
+		return company
+
+	@staticmethod
+	def findCompanyByMCO(mco):
+		return Company.query.filter_by(mco=mco).first()
+
 class User(db.Model):
 	__tablename__ = 'User'
 	id = db.Column(db.Integer, primary_key=True)
 
+	#Foreign key to company
 	company_id = db.Column(db.Integer, db.ForeignKey('Company.id'))
+
 	# User authentication information
-	#Username = db.Column(db.String(50), nullable=False, unique=True)
+	email = db.Column(db.String(255), nullable=False, unique=True, index=True)
 	password = db.Column(db.String(255), nullable=False, server_default='')
 	#reset_password_token = db.Column(db.String(100), nullable=False, server_default='')
 
-	# User email information
-	email = db.Column(db.String(255), nullable=False, unique=True, index=True)
+	
 	confirmed_at = db.Column(db.DateTime())
 
 	# User information
@@ -98,21 +135,15 @@ class User(db.Model):
 	last_name = db.Column(db.String(100), nullable=False, server_default='')
 	phone = db.Column(db.String(30))
 
+	#Is account disabled
 	disabled = db.Column(db.Boolean)
-	
-	#contacts = db.relationship('User',
-	#				secondary=User_to_User,
-	#				primaryjoin=id==User_to_User.c.left_user_id,
-	#				secondaryjoin=id==User_to_User.c.right_user_id,
-	#				backref='contacted_by'
-    #)
+
+	#User Roles
 	roles = db.relationship("Role",
                     secondary=User_to_Role)
 
+	#Stripe Customer Identier
 	customer_id = db.Column(db.Integer)
-
-	#driver_id = Column(db.Integer, db.ForeignKey('Driver.id'))
-	#driver_account = db.relationship("User", uselist=False)
 
 	def __init__(self, email, first_name, last_name, phone, password):
 		self.email = email.lower()
@@ -164,10 +195,16 @@ class User(db.Model):
 	def is_admin(self):
 		return len(filter((lambda role: role.code == 'admin'), self.roles)) > 0
 
+	def isOwnerOperator(self):
+		return len(filter(lambda role: role.code == "owner_operator", user.roles)) > 0
+
 	def generate_auth_token(self, expiration=1892160000):
-		#s = Serializer(app.config['SECRET_KEY'])
 		s = Serializer(app.config['SECRET_KEY'], expires_in=expiration)
 		return s.dumps({'id': self.id})
+
+	def makeCompanyAdmin(self):
+		role = Role.query.filter_by(code='company_admin').first()
+		self.roles.append(role)
 
 	@staticmethod
 	def verify_auth_token(token):
@@ -181,8 +218,107 @@ class User(db.Model):
 		user = User.query.get(data['id'])
 		return user
 
+	@staticmethod
+	def createUserFromForm(form):
+		user = User(first_name=form.first_name.data,
+				last_name=form.last_name.data,
+				phone=form.phone_number.data,
+				email=form.email.data,
+				password=form.password.data)
+		db.session.add(user)
+		db.session.commit()
+		return user
+
+	@staticmethod
+	def createUserFromJSON(json):
+		user = User(first_name=request.json.get('firstName'),
+				last_name=request.json.get('lastName'),
+				phone=request.json.get('phoneNumber'),
+				email=request.json.get('streetAddress'),
+				password=request.json.get('password'))
+		return user
+
+	@staticmethod
+	def getUserByEmail(email):
+		return User.query.filter_by(email=email).first()
+
+	@staticmethod
+	def getUserByID(email):
+		return User.query.get_or_404(user_id)
+
+	@staticmethod
+	def getUserByActivationSlug(activation_slug):
+		s = get_serializer()
+		try:
+			user_id = s.loads(activation_slug)
+		except BadSignature:
+			abort(404)
+
+		user = User.query.get_or_404(user_id)
+		return user
+
 	def __repr__(self):
 		return '%s %s' % (self.first_name, self.last_name)
+
+class Address(db.Model):
+	__tablename__ = 'Address'
+	id = db.Column(db.Integer, primary_key=True)
+	location_id = db.Column(db.Integer, db.ForeignKey('Location.id'))
+	company_id = db.Column(db.Integer, ForeignKey('Company.id'))
+	address1 = db.Column(db.String(100))
+	address2 = db.Column(db.String(100))
+	city = db.Column(db.String(100))
+	state = db.Column(db.String(80))
+	postal_code = db.Column(db.String(10))
+	latitude = db.Column(db.Float(6))
+	longitude = db.Column(db.Float(6))
+
+	def __init__(self, address1, city, state, postal_code):
+		self.address1 = address1
+		self.city = city
+		self.state = state
+		self.postal_code = postal_code
+
+	@staticmethod
+	def createAddressFromForm(form):
+		address = Address(address1=form.address1.data,
+							city=form.city.data,
+							state=form.state.data,
+							postal_code=form.postal_code.data)
+		db.session.add(address)
+		db.session.commit()
+		return address 
+
+	@staticmethod
+	def createAddressFromJSON(json):
+		address = Address(address1=json.get('streetAddress'),
+							city=json.get('city'),
+							state=json.get('state'),
+							postal_code=json.get('postalCode'))
+
+	def __repr__(self):
+		if self.address1 is None or self.address1 == "":
+			return self.city + ", " + self.state + " " + self.postal_code
+		else:
+			return self.address1 + ", " + self.city + ", " + self.state + " " + self.postal_code
+
+class Role(db.Model):
+	__tablename__ = 'Role'
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(100))
+	code = db.Column(db.String(100))
+
+	@staticmethod
+	def findRoleByType(type):
+		return Role.query.filter_by(code=type).first()
+
+	def __repr__(self):
+		return '%s' % (self.name)
+
+class Lead(db.Model):
+	__tablename__ = 'Lead'
+	id = db.Column(db.Integer, primary_key=True)
+	email = db.Column(db.String(255), nullable=False, unique=True, index=True)
 
 class Load(db.Model):
 	__tablename__ = 'Load'
@@ -228,6 +364,57 @@ class Load(db.Model):
 	created_by = db.relationship("User")
 
 	bids = db.relationship("Bid", backref="load")
+
+	@staticmethod
+	def createLoadFromForm(form, user):
+		broker = None
+		shipper = None
+		load = Load(broker=broker,
+					shipper=shipper,
+					name=form.name.data, 
+					broker_invoice=0, 
+					description="",
+					over_dimensional=form.over_dimensional.data,
+					trailer_type=form.trailer_type.data,
+					load_type=form.load_type.data,
+					total_miles=form.total_miles.data,
+					max_weight=form.max_weight.data,
+					max_length=form.max_length.data,
+					max_length_type=form.max_length_type.data,
+					max_width=form.max_width.data,
+					max_width_type=form.max_width_type.data,
+					max_height=form.max_height.data,
+					max_height_type=form.max_height_type.data)
+
+		load.created_by = user
+
+		load.assigned_driver = None
+
+		stop_off_locations = []
+		locations = filter(lambda location: not location.retired == "0", form.locations)
+		for location in locations:
+			stop_off = Location.createLocationFromForm(location)
+			bols = []
+			for cur_BOL in filter(lambda b: not b.retired == "0", location.BOLs):
+				bol = None
+				if stop_off.stop_type == "Drop Off":
+					print("finding dropoff")
+					print(filter((lambda loc: loc.stop_type == "Pickup"), stop_off_locations))
+					bol = Location.findMatchingBOLByNumber(filter((lambda loc: loc.stop_type == "Pickup"), stop_off_locations), cur_BOL)
+					print(bol)
+				else:				
+					print("adding new")
+					bol = BOL.createBOLFromForm(cur_BOL)
+					print(bol)
+				stop_off.BOLs.append(bol)
+			db.session.add(stop_off)
+			stop_off_locations.append(stop_off)
+			
+
+		load.lane = Lane.createLaneFromLocationArray(stop_off_locations)
+		db.session.add(load)
+		db.session.commit()
+		return load
 
 	def setStatus(self, status):
 		if status == "Completed" or status == "Invoiced":
@@ -300,11 +487,22 @@ class Load(db.Model):
 #		self.status = status
 #		return self.status
 
+
 class Lane(db.Model):
 	__tablename__ = 'Lane'
 	id = db.Column(db.Integer, primary_key=True)
 	load_id = db.Column(Integer, ForeignKey('Load.id'))
 	locations = db.relationship('Location', backref='lane', lazy='dynamic')
+
+	def __init__(self, locations):
+		self.locations = locations
+
+	@staticmethod
+	def createLaneFromLocationArray(locations):
+		lane = Lane(locations)
+		db.session.add(lane)
+		db.session.commit()
+		return lane
 
 
 class Location(db.Model):
@@ -318,12 +516,7 @@ class Location(db.Model):
 
 	notes = db.Column(db.String(1333))
 
-	pickup_id = db.Column(db.Integer, db.ForeignKey('LoadDetail.id'))
-	pickup_details = db.relationship('LoadDetail', primaryjoin="LoadDetail.id==Location.pickup_id")
-
-	delivery_id = db.Column(db.Integer, db.ForeignKey('LoadDetail.id'))
-	#delivery_details_id = db.Column(db.Integer, db.ForeignKey('loaddetail.id'))
-	delivery_details = db.relationship('LoadDetail', primaryjoin="LoadDetail.id==Location.delivery_id")
+	stop_type = db.Column(db.String(20))
 
 	contact_id = db.Column(db.Integer, db.ForeignKey('Contact.id'))
 	contact = relationship("Contact")
@@ -339,8 +532,79 @@ class Location(db.Model):
 	BOLs = relationship("BOL",
                     secondary=location_to_BOL)
 
+	def __init__(self, address, arrival_date, stop_number, contact, stop_type, notes):
+		self.address = address
+		self.arrival_date = arrival_date
+		self.stop_number = stop_number
+		self.contact = contact
+		self.stop_type = stop_type
+		self.notes = notes
+		url = 'https://maps.googleapis.com/maps/api/geocode/json?' + urllib.urlencode({
+				'address': address
+			}) + "&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg"
+
+		response = urllib2.urlopen(url)
+		data = response.read()
+		try: 
+			js = json.loads(str(data))
+		except: js = None
+		if 'status' not in js or js['status'] != 'OK':
+			app.logger.error("Failed to Retrieve")
+
+		latitude = None
+		longitude = None
+		if len(js["results"]) > 0:
+			latitude = js["results"][0]["geometry"]["location"]["lat"]
+			longitude = js["results"][0]["geometry"]["location"]["lng"]
+
+		self.latitude = latitude
+		self.longitude = longitude
+
+	@staticmethod
+	def createLocationFromForm(form):
+		address = Address.createAddressFromForm(form)
+		contact = Contact.createContactFromForm(form)
+		
+
+		stop_off = Location(address, form.arrival_date.data, form.stop_number.data, contact, form.stop_type.data, form.notes.data)
+		
+		
+
+		db.session.add(stop_off)
+		db.session.commit()
+		return stop_off
+
+	@staticmethod
+	def findMatchingBOLByNumber(pickup_locations, form):
+		for loc in pickup_locations:
+			for this_BOL in loc.BOLs:
+				if this_BOL.number == form.bol_number.data:
+					return this_BOL
+
 	def __repr__(self):
 		return '%s, %s' % (self.address.city, self.address.state)
+
+	def applyGeolocation(self):
+		url = 'https://maps.googleapis.com/maps/api/geocode/json?' + urllib.urlencode({
+				'address': address
+			}) + "&key=AIzaSyBUCQyghcP_W51ad0aqyZgEYhD-TCGbrQg"
+
+		response = urllib2.urlopen(url)
+		data = response.read()
+		try: 
+			js = json.loads(str(data))
+		except: js = None
+		if 'status' not in js or js['status'] != 'OK':
+			app.logger.error("Failed to Retrieve")
+
+		latitude = None
+		longitude = None
+		if len(js["results"]) > 0:
+			latitude = js["results"][0]["geometry"]["location"]["lat"]
+			longitude = js["results"][0]["geometry"]["location"]["lng"]
+
+		self.latitude = latitude
+		self.longitude = longitude
 
 class LocationStatus(db.Model):
 	__tablename__ = 'LocationStatus'
@@ -366,24 +630,7 @@ class LoadDetail(db.Model):
 	BOLs = relationship("BOL",
                     secondary=detail_to_BOL)
 
-class Address(db.Model):
-	__tablename__ = 'Address'
-	id = db.Column(db.Integer, primary_key=True)
-	location_id = db.Column(db.Integer, db.ForeignKey('Location.id'))
-	company_id = db.Column(db.Integer, ForeignKey('Company.id'))
-	address1 = db.Column(db.String(100))
-	address2 = db.Column(db.String(100))
-	city = db.Column(db.String(100))
-	state = db.Column(db.String(80))
-	postal_code = db.Column(db.String(10))
-	latitude = db.Column(db.Float(6))
-	longitude = db.Column(db.Float(6))
 
-	def __repr__(self):
-		if self.address1 is None or self.address1 == "":
-			return self.city + ", " + self.state + " " + self.postal_code
-		else:
-			return self.address1 + ", " + self.city + ", " + self.state + " " + self.postal_code
 
 class Contact(db.Model):
 	__tablename__ = 'Contact'
@@ -396,6 +643,15 @@ class Contact(db.Model):
 	brokered_loads = db.relationship('Load', backref='broker', lazy='dynamic', foreign_keys='Load.broker_id')
 	shipped_loads = db.relationship('Load', backref='shipper', lazy='dynamic', foreign_keys='Load.shipper_id')
 	__mapper_args__ = {'polymorphic_on': contact_type}
+
+	@staticmethod
+	def createContactFromForm(form):
+		contact = Contact(name=form.contact_name.data,
+					phone=form.contact_phone.data,
+					email=form.contact_email.data)
+		db.session.add(contact)
+		db.session.commit()
+		return contact
 
 	def __repr__(self):
 		return '%s' % (self.name)
@@ -432,6 +688,15 @@ class Truck(db.Model):
 	tracker = db.relationship("LongLat", lazy='dynamic')
 	driver = db.relationship('Driver', uselist=False, backref='truck')
 
+	@staticmethod
+	def createTruckFromJSON(json):
+		truck = Truck(name=request.json.get('truckName'), 
+						trailer_type=request.json.get('truckType'),
+						max_weight=request.json.get('truckMaxWeight'),
+						is_available=True,
+						tracker = [])
+		return truck
+
 class Driver(db.Model):
 	__tablename__ = 'Driver'
 	id = db.Column(db.Integer, primary_key = True)
@@ -453,14 +718,14 @@ class Driver(db.Model):
 	def get_full_name(self):
 		return self.first_name + ' ' + self.last_name
 
-class Role(db.Model):
-	__tablename__ = 'Role'
-	id = db.Column(db.Integer, primary_key=True)
-	name = db.Column(db.String(100))
-	code = db.Column(db.String(100))
-
-	def __repr__(self):
-		return '%s' % (self.name)
+	@staticmethod
+	def createDriverFromUserData(user):
+		driver = Driver(first_name=user.first_name, 
+							last_name=user.last_name,
+							email=user.email,
+							phone=user.phone,
+							driver_account=user)
+		return driver
 
 class LongLat(db.Model):
 	__tablename__ = 'LongLat'
@@ -493,6 +758,22 @@ class BOL(db.Model):
 	dim_width_type = db.Column(db.String(7))
 	dim_height = db.Column(db.String(7))
 	dim_height_type = db.Column(db.String(7))
+
+	@staticmethod
+	def createBOLFromForm(form):
+		bol = BOL(number=form.bol_number.data,
+					number_units=form.number_units.data,
+					weight=form.weight.data,
+					commodity_type=form.commodity_type.data,
+					dim_length=form.dim_length.data,
+					dim_length_type=form.dim_length_type.data,
+					dim_width=form.dim_width.data,
+					dim_width_type=form.dim_width_type.data,
+					dim_height=form.dim_height.data,
+					dim_height_type=form.dim_height_type.data)
+		db.session.add(bol)
+		db.session.commit()
+		return bol
 
 	def __repr__(self):
 		return self.number
