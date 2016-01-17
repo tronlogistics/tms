@@ -43,8 +43,7 @@ def registerUserFromJSON(json):
 		db.session.add(driver)
 
 	
-	login_user(user, remember=True)
-	user.activate()
+	loginUser(user)
 
 	db.session.add(user)
 	db.session.add(company)
