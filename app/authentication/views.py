@@ -110,10 +110,13 @@ def new_user():
 @auth.route('/api/login', methods=['POST'])
 def api_login_user():
 	email = request.json.get('email')
+	print(email)
 	password = request.json.get('password')
+	print(password)
 	if email is None or password is None:
 		abort(400)    # missing arguments
 	user = User.getUserByEmail(email)
+	print(user)
 	if not user.isOwnerOperator():
 		return abort(403)
 	if user is None:
