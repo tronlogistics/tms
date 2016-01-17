@@ -119,12 +119,18 @@ def api_login_user():
 	print(user)
 	if not user.isOwnerOperator():
 		return abort(403)
+	print("1")
 	if user is None:
 		abort(400)    # no existing user
+	print("2")
 	if user.check_password(password):
+		print("3")
 		loginUser(user)
+		print("4")
 		g.user = user
+		print("5")
 		token = g.user.generate_auth_token()
+		print("6")
 		return (jsonify({
 						'token': token.decode('ascii'), 
 						'isOwnerOperator': len(filter(lambda role: role.code == "owner_operator", user.roles)) > 0 
