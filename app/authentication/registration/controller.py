@@ -3,6 +3,7 @@ from app.repositories.user import UserDI
 from app.models.user import User
 from app.models.company import Company
 from app.repositories.companyrepository import CompanyDI
+from app.repositories.rolerepository import RoleDI
 from app.emails import register_account
 from app import db
 from app import app
@@ -32,7 +33,7 @@ def registerUserFromJSON(json):
 		flash("This e-mail is already registerd. Please sign in!")
 	user = UserDI.createUserFromJSON(json)	
 	company = CompanyDI.findCompanyByMCO(json.get('mco'))
-	role = Role.findRoleByType(json.get('type'))
+	role = RoleDI.findRoleByType(json.get('type'))
 	if company is None:	
 		company = CompanyDI.createCompanyFromJSON(json)
 		user.makeCompanyAdmin()
