@@ -32,9 +32,9 @@ class Truck(db.Model):
 
 	@staticmethod
 	def createTruckFromJSON(json):
-		truck = Truck(name=request.json.get('truckName'), 
-						trailer_type=request.json.get('truckType'),
-						max_weight=request.json.get('truckMaxWeight'),
+		truck = Truck(name=json.get('truckName'), 
+						trailer_type=json.get('truckType'),
+						max_weight=json.get('truckMaxWeight'),
 						is_available=True,
 						tracker = [])
 		return truck
