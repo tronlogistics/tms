@@ -4,15 +4,25 @@ from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, SQLAlchemy
 from app.forms import LoadForm, StatusForm, LaneLocationForm, LocationStatusForm, BidForm, PostLoadForm, AcceptBidForm, BOLForm
-from app.models import Load, LoadDetail, Lane, Location, Truck, Driver, Contact, Bid, BOL, User
+#from app.models import Load, LoadDetail, Lane, Location, Truck, Driver, Contact, Bid, BOL, User
+from app.models.load import Load
+from app.models.lane import Lane
+from app.models.loaddetail import LoadDetail
+from app.models.location import Location
+from app.models.truck import Truck
+from app.models.driver import Driver
+from app.models.contact import Contact
+from app.models.bid import Bid
+from app.models.bol import BOL
+from app.models.user import User
 from app.permissions import *
 from app.emails import bid_accepted
-from ..controllers import LoadService
-from app.controllers.LoadService import *
+#from ..controllers import LoadService
+#from app.controllers.LoadService import *
 from sqlalchemy import desc
 from geopy import geocoders 
 from geopy.geocoders import Nominatim
-from .controller import *
+#from .controller import *
 import urllib
 import urllib2
 import json
@@ -106,13 +116,11 @@ def edit(load_id):
 
 			locations = filter(lambda location: not location.retired == "0", form.locations)
 			for index, location in enumerate(locations):
-				#print "%s > %s = %s" % (location.stop_number.data, load.lane.locations.count(), int(location.stop_number.data) > int(load.lane.locations.count()))
 				if int(location.stop_number.data) > int(load.lane.locations.count()):
 					address = AddressFactory(location.address1.data,
 											location.city.data,
 											location.state.data,
 											location.postal_code.data)
-					print location.stop_type.data
 					if(location.stop_type.data == "Pickup" or location.stop_type.data == "Both"):
 						pickup_detail = LoadDetailFactory(0, "", "Pickup")
 						delivery_detail = None
@@ -248,9 +256,7 @@ def edit(load_id):
 
 				for location in load.lane.locations:
 					bols = []
-					print location
 					for bol in location.BOLs:
-						print bol
 						bols.append({
 							"bol_number": bol.number,
 							"number_units": bol.number_units,
@@ -652,10 +658,7 @@ def assign_driver(load_id):
 	if not g.user.company.is_carrier():
 		carriers = []
 		for user in User.query.all():
-			print user
-			for role in user.roles:
-				print role
-			if filter((lambda role: role.code == 'owner_operator'), user.roles):
+			if user.isOwnerOperator():
 				carriers.append(user.company.fleet.trucks[0])
 
 	else:
@@ -716,13 +719,11 @@ def accept_bid(load_id, bid_id):
 
 		locations = filter(lambda location: not location.retired == "0", form.locations)
 		for index, location in enumerate(locations):
-			#print "%s > %s = %s" % (location.stop_number.data, load.lane.locations.count(), int(location.stop_number.data) > int(load.lane.locations.count()))
 			if int(location.stop_number.data) > int(load.lane.locations.count()):
 				address = AddressFactory(location.address1.data,
 										location.city.data,
 										location.state.data,
 										location.postal_code.data)
-				print location.stop_type.data
 				if(location.stop_type.data == "Pickup" or location.stop_type.data == "Both"):
 					pickup_detail = LoadDetailFactory(0, "", "Pickup")
 					delivery_detail = None

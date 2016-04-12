@@ -3,7 +3,10 @@ from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app
 from app.forms import DriverForm, TruckForm, AssignDriverForm
-from app.models import Load, Driver, Truck
+#from app.models import Load, Driver, Truck
+from app.models.load import Load
+from app.models.driver import Driver
+from app.models.truck import Truck
 from app.permissions import *
 
 fleet = Blueprint('fleet', __name__, url_prefix='/fleet')

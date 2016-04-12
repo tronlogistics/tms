@@ -1,18 +1,29 @@
 from flask import Blueprint, render_template, url_for, redirect, request, flash, session, g, current_app, jsonify, abort
-from app.models import *
+from app.repositories.user import UserDI
+from app.models.user import User
+from app.models.company import Company
+from app.repositories.companyrepository import CompanyDI
 from app.emails import register_account
+from app import db
+from app import app
 from ..authentication.controller import loginUser
+
 
 def registerUserFromForm(form):
 	if emailIsAlreadyRegistered(form.email.data):
 		flash("This e-mail is already registerd. Please sign in!")
-	user = User.createUserFromForm(form)
-	registerUser(user)	
-	company = Company.findCompanyByMCO(form.mco.data)
+	user = UserDI.createUserFromForm(form)
+	
+	#registerUser(user)	
+	company = CompanyDI.findCompanyByMCO(form.mco.data)
 	if company is None:	
-		company = Company.createCompanyFromForm(form)
+		company = CompanyDI.createCompanyFromForm(form)
 		user.makeCompanyAdmin()
 	company.users.append(user)
+	print("**********")
+	print user.roles
+	print(company.users)
+	print("**********")
 	db.session.add(user)
 	db.session.add(company)
 	db.session.commit()
@@ -23,11 +34,11 @@ def registerUserFromForm(form):
 def registerUserFromJSON(json):
 	if emailIsAlreadyRegistered(json.get('email')):
 		flash("This e-mail is already registerd. Please sign in!")
-	user = User.createUserFromJSON(json)	
-	company = Company.findCompanyByMCO(json.get('mco'))
+	user = UserDI.createUserFromJSON(json)	
+	company = CompanyDI.findCompanyByMCO(json.get('mco'))
 	role = Role.findRoleByType(json.get('type'))
 	if company is None:	
-		company = Company.createCompanyFromJSON(json)
+		company = CompanyDI.createCompanyFromJSON(json)
 		user.makeCompanyAdmin()
 	user.roles.append(role)
 	company.users.append(user)

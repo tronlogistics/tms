@@ -1,5 +1,11 @@
 from app import app, authAPI, lm, api, db
-from app.models import User, Load, Location, LocationStatus, LongLat, Truck
+#from app.models import User, Load, Location, LocationStatus, LongLat, Truck
+from app.models.user import User
+from app.models.load import Load
+from app.models.location import Location
+from app.models.status import Status
+from app.models.longlat import LongLat
+from app.models.truck import Truck
 from flask import Blueprint, request, session, g, current_app, jsonify, abort
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.restful import Api, Resource, reqparse, fields, marshal
@@ -133,6 +139,7 @@ class LoadListAPI(Resource):
         super(LoadListAPI, self).__init__()
 
     def get(self):
+        print request.headers
         try:
             loads = []
             print json.dumps(request.json)
@@ -193,7 +200,7 @@ class LocationAPI(Resource):
         print args
         for k, status in args.iteritems():
             if status != None:
-                status_history = LocationStatus(status=status, created_on=datetime.utcnow())
+                status_history = Status(status=status, created_on=datetime.utcnow())
                 location.status_history.append(status_history)
                 location.status = status
                 db.session.add(status_history)
@@ -203,7 +210,7 @@ class LocationAPI(Resource):
         return jsonify( { 'task': 'task' } )
 
 class LongLatAPI(Resource):
-    decorators = [authAPI.login_required]
+    #decorators = [authAPI.login_required]
     def __init__(self):
         self.reqparse = reqparse.RequestParser()
         self.reqparse.add_argument('longitude', type=str, required=False,
@@ -217,16 +224,16 @@ class LongLatAPI(Resource):
         super(LongLatAPI, self).__init__()
 
     def post(self):
-        print json.dumps(request.json)
-        for driver in g.user.driver_instances:
-            print "found instance"
-            if driver.truck is not None:
-                geo = LongLat(latitude=request.json.get('location').get('coords').get('latitude'),
-                                longitude=request.json.get('location').get('coords').get('longitude'))
-                driver.truck.tracker.append(geo)
-                db.session.add(geo)
-                db.session.add(driver.truck)
-        db.session.commit()
+        print request.headers
+        #for driver in g.user.driver_instances:
+        #    print "found instance"
+        #    if driver.truck is not None:
+        #        geo = LongLat(latitude=request.json.get('location').get('coords').get('latitude'),
+        #                        longitude=request.json.get('location').get('coords').get('longitude'))
+        #        driver.truck.tracker.append(geo)
+        #        db.session.add(geo)
+        #        db.session.add(driver.truck)
+        #db.session.commit()
         return jsonify( { 'response': 'success' } )
 
 api.add_resource(LoadListAPI, '/todo/api/v1.0/loads', endpoint='loads')

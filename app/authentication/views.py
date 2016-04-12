@@ -3,7 +3,13 @@ from flask.ext.login import login_user, logout_user, current_user, login_require
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, mail, authAPI, cors
 from app.forms import LoginForm, RegisterForm, ForgotForm, ResetPasswordForm, ContactUsForm, EmailForm, DemoForm
-from app.models import User, Role, Lead, Address, Company, Truck, Driver
+#from app.models import User, Role, Lead, Address, Company, Truck, Driver
+from app.models.user import User
+from app.models.role import Role
+from app.models.address import Address
+from app.models.company import Company
+from app.models.truck import Truck
+from app.models.driver import Driver
 from app.permissions import *
 from app.emails import register_account, new_lead, contact_us, reset_pass, get_serializer, request_demo
 from flask.ext.cors import CORS, cross_origin
@@ -54,7 +60,9 @@ def register():
 @auth.route('/activate/<activation_slug>')
 def activate_user(activation_slug):
     user = User.getUserByActivationSlug(activation_slug)
-    activateUser(user)
+    user.activate()
+    db.session.add(user)
+    db.session.commit()
     
     if user.password == "":
     	return redirect(url_for('.set_password', user_id=user_id))
@@ -102,35 +110,24 @@ def new_user():
 	if User.query.filter_by(email=email).first() is not None:
 		abort(400)    # existing user
 	registerUserFromJSON(request.json)
-	print(email)
-	print(User.getUserByEmail(email))
 	token = User.getUserByEmail(email).generate_auth_token()
 	return (jsonify({ 'token': token.decode('ascii') }), 201)
 
 @auth.route('/api/login', methods=['POST'])
 def api_login_user():
 	email = request.json.get('email')
-	print(email)
 	password = request.json.get('password')
-	print(password)
 	if email is None or password is None:
 		abort(400)    # missing arguments
 	user = User.getUserByEmail(email)
-	print(user)
 	if not user.isOwnerOperator():
 		return abort(403)
-	print("1")
 	if user is None:
 		abort(400)    # no existing user
-	print("2")
 	if user.check_password(password):
-		print("3")
 		loginUser(user)
-		print("4")
 		g.user = user
-		print("5")
 		token = g.user.generate_auth_token()
-		print("6")
 		return (jsonify({
 						'token': token.decode('ascii'), 
 						'isOwnerOperator': len(filter(lambda role: role.code == "owner_operator", user.roles)) > 0 
@@ -142,17 +139,17 @@ def api_login_user():
 #############
 
 
-@app.errorhandler(401)
+@auth.errorhandler(401)
 def no_access_error(error):
 	flash("You must sign in to view this page")
 	return redirect(url_for('auth.login'))
 
-@app.errorhandler(403)
+@auth.errorhandler(403)
 def forbidden_error(error):
 	app.logger.info(error)
 	return render_template('static/404.html'), 403
 
-@app.errorhandler(404)
+@auth.errorhandler(404)
 def not_found_error(error):
 	app.logger.info(error)
 	return render_template('static/404.html'), 404

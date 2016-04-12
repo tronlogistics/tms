@@ -118,7 +118,28 @@ class MyAdminIndexView(admin.AdminIndexView):
 
 #from app import models
 
-from models import *
+#from models import *
+
+from app.models.address import Address
+from app.models.associationtables import *
+from app.models.bid import Bid
+from app.models.bol import BOL
+from app.models.company import Company
+from app.models.contact import Contact
+from app.models.driver import Driver
+from app.models.fleet import Fleet
+from app.models.lane import Lane
+from app.models.load import Load
+from app.models.loaddetail import LoadDetail
+from app.models.location import Location
+from app.models.longlat import LongLat
+from app.models.role import Role
+from app.models.status import Status
+from app.models.truck import Truck
+from app.models.user import User
+
+
+
 admin = Admin(app, name='Tron Logistics', index_view=MyAdminIndexView())
 admin.add_view(MyModelView(Company, db.session))
 admin.add_view(MyModelView(User, db.session))

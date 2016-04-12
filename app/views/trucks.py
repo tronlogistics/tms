@@ -3,7 +3,13 @@ from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, mail
 from app.forms import DriverForm, TruckForm, AssignDriverForm, LocationStatusForm, RouteForm, AssignDriverForm
-from app.models import Load, Driver, Truck, LongLat, Location, LocationStatus
+#from app.models import Load, Driver, Truck, LongLat, Location, LocationStatus
+from app.models.load import Load
+from app.models.driver import Driver
+from app.models.truck import Truck
+from app.models.longlat import LongLat
+from app.models.location import Location
+from app.models.status import Status
 from app.permissions import *
 from app.emails import ping_driver, get_serializer
 from itsdangerous import URLSafeSerializer, BadSignature
@@ -122,7 +128,7 @@ def view(truck_id):
 		truck = Truck.query.get_or_404(truck_id)
 		location = getNextLocation(truck)
 		if form.validate_on_submit():
-			status = LocationStatus(status=form.status.data, created_on=datetime.utcnow())
+			status = Status(status=form.status.data, created_on=datetime.utcnow())
 			location.status_history.append(status)
 			location.status = form.status.data
 			db.session.add(status)
@@ -199,7 +205,7 @@ def check_in():
 		abort(404)
 	location = getNextLocation(truck)
 	if form.validate_on_submit():
-		status = LocationStatus(status=form.status.data, created_on=datetime.utcnow())
+		status = Status(status=form.status.data, created_on=datetime.utcnow())
 		location.status_history.append(status)
 		location.status = form.status.data
 		if location.status == "Departed":

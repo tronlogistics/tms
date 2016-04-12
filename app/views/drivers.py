@@ -3,7 +3,12 @@ from flask.ext.login import current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app
 from app.forms import DriverForm, TruckForm, AssignDriverForm
-from app.models import Load, Driver, Truck, User, Role
+#from app.models import Load, Driver, Truck, User, Role
+from app.models.load import Load
+from app.models.driver import Driver
+from app.models.truck import Truck
+from app.models.user import User
+from app.models.role import Role
 from app.permissions import *
 from app.emails import register_account
 

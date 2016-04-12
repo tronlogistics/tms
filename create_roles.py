@@ -1,4 +1,4 @@
-from app.models import Role
+from app.models.role import Role
 from app import db
 role1 = Role(code="admin", name="Admin")
 role2 = Role(code="shipper", name="Shipper")

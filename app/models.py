@@ -400,14 +400,9 @@ class Load(db.Model):
 			for cur_BOL in filter(lambda b: not b.retired == "0", location.BOLs):
 				bol = None
 				if stop_off.stop_type == "Drop Off":
-					print("finding dropoff")
-					print(filter((lambda loc: loc.stop_type == "Pickup"), stop_off_locations))
 					bol = Location.findMatchingBOLByNumber(filter((lambda loc: loc.stop_type == "Pickup"), stop_off_locations), cur_BOL)
-					print(bol)
 				else:				
-					print("adding new")
 					bol = BOL.createBOLFromForm(cur_BOL)
-					print(bol)
 				stop_off.BOLs.append(bol)
 			db.session.add(stop_off)
 			stop_off_locations.append(stop_off)

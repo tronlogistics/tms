@@ -3,7 +3,10 @@ from flask.ext.login import login_user, logout_user, current_user, login_require
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db, lm, app, mail
 from app.forms import LoginForm, RegisterForm, ForgotForm, ResetPasswordForm, ContactUsForm, EmailForm, DemoForm
-from app.models import User, Role, Lead, Load
+#from app.models import User, Role, Lead, Load
+from app.models.user import User
+from app.models.role import Role
+from app.models.load import Load
 from app.permissions import *
 from app.emails import register_account, new_lead, contact_us, reset_pass, get_serializer, request_demo
 #from app import stripe, stripe_keys
