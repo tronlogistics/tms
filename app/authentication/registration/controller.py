@@ -43,8 +43,8 @@ def registerUserFromJSON(json):
 	company.users.append(user)
 	
 	if role.code == "owner_operator":
-		truck = TruckDI.createTruckFromJSON(json)
-		driver = DriverDI.createDriverFromUserData(user)
+		truck = Truck.createTruckFromJSON(json)
+		driver = Driver.createDriverFromUserData(user)
 		driver.driver_type = "Owner Operator"
 		truck.driver = driver
 		company.fleet.trucks.append(truck)
