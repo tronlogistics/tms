@@ -2,6 +2,8 @@ from flask import Blueprint, render_template, url_for, redirect, request, flash,
 from app.repositories.user import UserDI
 from app.models.user import User
 from app.models.company import Company
+from app.models.driver import Driver
+from app.models.truck import Truck
 from app.repositories.companyrepository import CompanyDI
 from app.repositories.rolerepository import RoleDI
 from app.emails import register_account
@@ -41,8 +43,8 @@ def registerUserFromJSON(json):
 	company.users.append(user)
 	
 	if role.code == "owner_operator":
-		truck = Truck.createTruckFromJSON(json)
-		driver = Driver.createDriverFromUserData(user)
+		truck = TruckDI.createTruckFromJSON(json)
+		driver = DriverDI.createDriverFromUserData(user)
 		driver.driver_type = "Owner Operator"
 		truck.driver = driver
 		company.fleet.trucks.append(truck)
