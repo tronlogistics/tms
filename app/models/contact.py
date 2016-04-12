@@ -27,12 +27,5 @@ class Contact(db.Model):
 	shipped_loads = db.relationship('Load', backref='shipper', lazy='dynamic', foreign_keys='Load.shipper_id')
 	__mapper_args__ = {'polymorphic_on': contact_type}
 
-	@staticmethod
-	def createContactFromForm(form):
-		contact = Contact(name=form.contact_name.data,
-					phone=form.contact_phone.data,
-					email=form.contact_email.data)
-		return contact
-
 	def __repr__(self):
 		return '%s' % (self.name)

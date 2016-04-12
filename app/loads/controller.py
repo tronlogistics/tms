@@ -1,7 +1,12 @@
 from app import db, app
 from geopy import geocoders 
 from geopy.geocoders import Nominatim
-from app.models import Load, LoadDetail, Lane, Location, Address, Contact, BOL
+from app.models.load import *
+from app.models.loaddetail import *
+from app.models.lane import *
+from app.models.location import *
+from app.models.address import *
+from app.models.bol import *
 import urllib
 import urllib2
 import json

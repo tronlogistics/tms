@@ -17,6 +17,7 @@ from app.models.bol import BOL
 from app.models.user import User
 from app.permissions import *
 from app.emails import bid_accepted
+from app.repositories.loadrepository import LoadDI
 #from ..controllers import LoadService
 #from app.controllers.LoadService import *
 from sqlalchemy import desc
@@ -56,7 +57,7 @@ def create():
 		#db.session.add(g.user.company)
 		#db.session.commit()
 		#return redirect(url_for('.view', load_id=load.id))
-		load = createLoadFromForm(form, g.user)
+		load = LoadDI.createLoadFromForm(form, g.user)
 		load.created_by = g.user
 		g.user.company.loads.append(load)
 		load.setStatus("")

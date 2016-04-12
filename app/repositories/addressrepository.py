@@ -6,7 +6,7 @@ class AddressDI():
 	
 	@staticmethod
 	def createAddressFromForm(form):
-		address = Address(address1=form.address.data,
+		address = Address(address1=form.address1.data,
 							city=form.city.data,
 							state=form.state.data,
 							postal_code=form.postal_code.data)

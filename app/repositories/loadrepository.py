@@ -1,6 +1,7 @@
 from app import app
 from app import db
 from app.models.load import Load
+from app.repositories.lanerepository import LaneDI
 from app.repositories.locationrepository import LocationDI
 from app.repositories.bolrepository import BOLDI
 
@@ -47,5 +48,5 @@ class LoadDI():
 			stop_off_locations.append(stop_off)
 			
 
-		load.lane = Lane.createLaneFromLocationArray(stop_off_locations)
+		load.lane = LaneDI.createLaneFromLocationArray(stop_off_locations)
 		return load

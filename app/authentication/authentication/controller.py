@@ -1,4 +1,4 @@
-from flask import flash, current_app
+from flask import flash, current_app, session
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from flask.ext.principal import identity_loaded, Principal, Identity, AnonymousIdentity, identity_changed, RoleNeed, UserNeed
 from app import db
