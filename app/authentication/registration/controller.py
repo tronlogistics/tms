@@ -20,10 +20,6 @@ def registerUserFromForm(form):
 		company = CompanyDI.createCompanyFromForm(form)
 		user.makeCompanyAdmin()
 	company.users.append(user)
-	print("**********")
-	print user.roles
-	print(company.users)
-	print("**********")
 	db.session.add(user)
 	db.session.add(company)
 	db.session.commit()

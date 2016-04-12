@@ -218,7 +218,7 @@ class RegisterForm(Form):
 	company_name = StringField('Company Name', validators=[DataRequired()])
 	first_name = StringField('Name', validators=[DataRequired()])
 	last_name = StringField('Name', validators=[DataRequired()])
-	address = StringField('Address', validators=[])
+	address1 = StringField('Address', validators=[])
 	city = StringField('City', validators=[])
 	state = SelectField('State', choices = [('','State'),
 													('AL', 'Alabama'),
