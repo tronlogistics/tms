@@ -16,19 +16,12 @@ import json
 def verify_password(email_or_token, password):
     
     # first try to authenticate by token
-    print"%s - %s" % (email_or_token, password)
-    print email_or_token
     user = User.verify_auth_token(email_or_token)
-    print user
-    print "%s" % (not user)
     if not user:
         # try to authenticate with username/password
-        print "finding user %s" % email_or_token
-        print "finding user %s" % password
         user = User.query.filter_by(email=email_or_token).first()
         if not user or not user.check_password(password):
             return False
-        print "user found"
     g.user = user
     return True
 
@@ -91,7 +84,7 @@ location_fields = {
     'notes': fields.String,
     'contact': fields.Nested(contact_fields),
     'stop_number': fields.String,
-    'type': fields.String,
+    'stop_type': fields.String,
     'latitude': fields.String,
     'longitude': fields.String,
     'status_history': fields.List(fields.Nested(location_status_fields)),
