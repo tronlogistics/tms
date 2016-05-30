@@ -1530,3 +1530,8 @@
 2016-04-11 20:59:57,907 INFO: TMS startup [in /Users/johnlopez/tms/app/__init__.py:85]
 2016-04-11 21:00:01,649 INFO: TMS startup [in /Users/johnlopez/tms/app/__init__.py:85]
 2016-04-11 21:29:19,175 INFO: TMS startup [in /Users/johnlopez/tms/app/__init__.py:85]
+2016-05-30 09:36:25,214 INFO: TMS startup [in /Users/johnlopez/tms/app/__init__.py:85]
+2016-05-30 09:36:26,004 INFO: TMS startup [in /Users/johnlopez/tms/app/__init__.py:85]
+2016-05-30 09:36:57,574 INFO: 404: Not Found [in /Users/johnlopez/tms/app/views/org.py:112]
+2016-05-30 09:37:33,526 INFO: Sending email to john@tronlogistics.com [in /Users/johnlopez/tms/app/emails.py:24]
+2016-05-30 09:37:34,047 INFO: User "john@tronlogistics.com" with role "Company Admin" created [in /Users/johnlopez/tms/app/authentication/registration/controller.py:31]

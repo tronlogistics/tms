@@ -15,6 +15,7 @@ from ..authentication.controller import loginUser
 def registerUserFromForm(form):
 	if emailIsAlreadyRegistered(form.email.data):
 		flash("This e-mail is already registerd. Please sign in!")
+		return
 	user = UserDI.createUserFromForm(form)
 	
 	#registerUser(user)	
@@ -33,6 +34,7 @@ def registerUserFromForm(form):
 def registerUserFromJSON(json):
 	if emailIsAlreadyRegistered(json.get('email')):
 		flash("This e-mail is already registerd. Please sign in!")
+		return
 	user = UserDI.createUserFromJSON(json)	
 	company = CompanyDI.findCompanyByMCO(json.get('mco'))
 	role = RoleDI.findRoleByType(json.get('type'))
