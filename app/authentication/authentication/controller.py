@@ -16,16 +16,17 @@ def loginUser(user):
 def handleLoginFromForm(form):
 	user = UserDI.getUserByEmail(form.email.data)
 	if user is not None:
-		if not user.is_confirmed():
-			flash("You must confirm your e-mail prior to logging in. To confirm your e-mail, click the activation link provided to %s" % user.email )
-		elif user.disabled:
-			flash("Your account has been disabled. Please contact your organization for more information.")
-		elif user.check_password(form.password.data) and not user.disabled:
-			loginUser(user)
+		if user.check_password(form.password.data):
+			if not user.is_confirmed():
+				flash("You must confirm your e-mail prior to logging in. To confirm your e-mail, click the activation link provided to %s" % user.email )
+			elif user.disabled:
+				flash("Your account has been disabled. Please contact your organization for more information.")
+			else:
+				loginUser(user)
 		else:
-			flash("Wrong username/password")
+			flash("Invalid Password.")
 	else:
-		flash("Wrong username/password")
+		flash("This email is not registered.")
 
 def handleLoginFromJSON(json):
 	user = UserDI.getUserByEmail(json.get('email'))
