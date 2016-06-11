@@ -35,12 +35,12 @@
 								<a href="#tab{{ loop.index }}" data-toggle="tab">
 									{% if location.status_history.count() > 0 %}
 										{% if location.status_history[-1].status == "Departed" %}
-											<i class="pink fa fa-check"></i>{{ location.type }}
+											<i class="pink fa fa-check"></i>{{ location.stop_type }}
 										{% else %}
-											<i class="pink fa fa-truck"></i>{{ location.type }}
+											<i class="pink fa fa-truck"></i>{{ location.stop_type }}
 										{% endif %}
 									{% else %}
-										<i class="pink fa fa-truck"></i>{{ location.type }}
+										<i class="pink fa fa-truck"></i>{{ location.stop_type }}
 									{% endif %}
 								</a>
 							</li>
@@ -49,12 +49,12 @@
 								<a href="#tab{{ loop.index }}" data-toggle="tab">
 									{% if location.status_history.count() > 0 %}
 										{% if location.status_history[-1].status == "Departed" %}
-											<i class="pink fa fa-check"></i>{{ location.type }}
+											<i class="pink fa fa-check"></i>{{ location.stop_type }}
 										{% else %}
-											<i class="pink fa fa-truck"></i>{{ location.type }}
+											<i class="pink fa fa-truck"></i>{{ location.stop_type }}
 										{% endif %}
 									{% else %}
-										<i class="pink fa fa-truck"></i>{{ location.type }}
+										<i class="pink fa fa-truck"></i>{{ location.stop_type }}
 									{% endif %}
 								</a>
 							</li>
@@ -72,7 +72,7 @@
 										<li class="progtrckr-todo">En Route</li><!--
 									 --><li class="progtrckr-todo">Arrived</li><!--
 									 --><li class="progtrckr-todo">
-									 		{% if location.type == "Pickup" or location.type == "Both" %}
+									 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 									 			Loaded
 									 		{% else %}
 									 			Unloaded
@@ -84,7 +84,7 @@
 										    <li class="progtrckr-done">En Route</li><!--
 										 --><li class="progtrckr-todo">Arrived</li><!--
 										 --><li class="progtrckr-todo">
-										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 										 			Loaded
 										 		{% else %}
 										 			Unloaded
@@ -95,7 +95,7 @@
 										 	<li class="progtrckr-done">En Route</li><!--
 										 --><li class="progtrckr-done">Arrived</li><!--
 										 --><li class="progtrckr-todo">
-										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 										 			Loaded
 										 		{% else %}
 										 			Unloaded
@@ -106,7 +106,7 @@
 										 	<li class="progtrckr-done">En Route</li><!--
 										 --><li class="progtrckr-done">Arrived</li><!--
 										 --><li class="progtrckr-todo">
-										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 										 			Loaded
 										 		{% else %}
 										 			Unloaded
@@ -117,7 +117,7 @@
 										 	<li class="progtrckr-done">En Route</li><!--
 										 --><li class="progtrckr-done">Arrived</li><!--
 										 --><li class="progtrckr-done">
-										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 										 			Loaded
 										 		{% else %}
 										 			Unloaded
@@ -128,7 +128,7 @@
 										 	<li class="progtrckr-done">En Route</li><!--
 										 --><li class="progtrckr-done">Arrived</li><!--
 										 --><li class="progtrckr-done">
-										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 										 			Loaded
 										 		{% else %}
 										 			Unloaded
@@ -166,7 +166,7 @@
 										</tr>
 										<tr>
 											<td>Type</td>
-											<td>{{ location.type }}</td>
+											<td>{{ location.stop_type }}</td>
 										</tr>
 										<tr>
 											<td>Notes</td>
@@ -202,7 +202,7 @@
 										<li class="progtrckr-todo">En Route</li><!--
 									 --><li class="progtrckr-todo">Arrived</li><!--
 									 --><li class="progtrckr-todo">
-									 		{% if location.type == "Pickup" or location.type == "Both" %}
+									 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 									 			Loaded
 									 		{% else %}
 									 			Unloaded
@@ -214,7 +214,7 @@
 										    <li class="progtrckr-done">En Route</li><!--
 										 --><li class="progtrckr-todo">Arrived</li><!--
 										 --><li class="progtrckr-todo">
-										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 										 			Loaded
 										 		{% else %}
 										 			Unloaded
@@ -225,7 +225,7 @@
 										 	<li class="progtrckr-done">En Route</li><!--
 										 --><li class="progtrckr-done">Arrived</li><!--
 										 --><li class="progtrckr-todo">
-										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 										 			Loaded
 										 		{% else %}
 										 			Unloaded
@@ -236,7 +236,7 @@
 										 	<li class="progtrckr-done">En Route</li><!--
 										 --><li class="progtrckr-done">Arrived</li><!--
 										 --><li class="progtrckr-todo">
-										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 										 			Loaded
 										 		{% else %}
 										 			Unloaded
@@ -247,7 +247,7 @@
 										 	<li class="progtrckr-done">En Route</li><!--
 										 --><li class="progtrckr-done">Arrived</li><!--
 										 --><li class="progtrckr-done">
-										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 										 			Loaded
 										 		{% else %}
 										 			Unloaded
@@ -258,7 +258,7 @@
 										 	<li class="progtrckr-done">En Route</li><!--
 										 --><li class="progtrckr-done">Arrived</li><!--
 										 --><li class="progtrckr-done">
-										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 										 			Loaded
 										 		{% else %}
 										 			Unloaded
@@ -296,7 +296,7 @@
 										</tr>
 										<tr>
 											<td>Type</td>
-											<td>{{ location.type }}</td>
+											<td>{{ location.stop_type }}</td>
 										</tr>
 										
 										
@@ -514,12 +514,12 @@
 								<a href="#detailedTab{{ loop.index }}" data-toggle="tab">
 									{% if location.status_history.count() > 0 %}
 										{% if location.status_history[-1].status == "Departed" %}
-											<i class="pink fa fa-check"></i>{{ location.type }}
+											<i class="pink fa fa-check"></i>{{ location.stop_type }}
 										{% else %}
-											<i class="pink fa fa-truck"></i>{{ location.type }}
+											<i class="pink fa fa-truck"></i>{{ location.stop_type }}
 										{% endif %}
 									{% else %}
-										<i class="pink fa fa-truck"></i>{{ location.type }}
+										<i class="pink fa fa-truck"></i>{{ location.stop_type }}
 									{% endif %}
 								</a>
 							</li>
@@ -528,12 +528,12 @@
 								<a href="#detailedTab{{ loop.index }}" data-toggle="tab">
 									{% if location.status_history.count() > 0 %}
 										{% if location.status_history[-1].status == "Departed" %}
-											<i class="pink fa fa-check"></i>{{ location.type }}
+											<i class="pink fa fa-check"></i>{{ location.stop_type }}
 										{% else %}
-											<i class="pink fa fa-truck"></i>{{ location.type }}
+											<i class="pink fa fa-truck"></i>{{ location.stop_type }}
 										{% endif %}
 									{% else %}
-										<i class="pink fa fa-truck"></i>{{ location.type }}
+										<i class="pink fa fa-truck"></i>{{ location.stop_type }}
 									{% endif %}
 								</a>
 							</li>
@@ -551,7 +551,7 @@
 										<li class="progtrckr-todo">En Route</li><!--
 									 --><li class="progtrckr-todo">Arrived</li><!--
 									 --><li class="progtrckr-todo">
-									 		{% if location.type == "Pickup" or location.type == "Both" %}
+									 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 									 			Loaded
 									 		{% else %}
 									 			Unloaded
@@ -563,7 +563,7 @@
 										    <li class="progtrckr-done">En Route</li><!--
 										 --><li class="progtrckr-todo">Arrived</li><!--
 										 --><li class="progtrckr-todo">
-										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 										 			Loaded
 										 		{% else %}
 										 			Unloaded
@@ -574,7 +574,7 @@
 										 	<li class="progtrckr-done">En Route</li><!--
 										 --><li class="progtrckr-done">Arrived</li><!--
 										 --><li class="progtrckr-todo">
-										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 										 			Loaded
 										 		{% else %}
 										 			Unloaded
@@ -585,7 +585,7 @@
 										 	<li class="progtrckr-done">En Route</li><!--
 										 --><li class="progtrckr-done">Arrived</li><!--
 										 --><li class="progtrckr-todo">
-										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 										 			Loaded
 										 		{% else %}
 										 			Unloaded
@@ -596,7 +596,7 @@
 										 	<li class="progtrckr-done">En Route</li><!--
 										 --><li class="progtrckr-done">Arrived</li><!--
 										 --><li class="progtrckr-done">
-										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 										 			Loaded
 										 		{% else %}
 										 			Unloaded
@@ -607,7 +607,7 @@
 										 	<li class="progtrckr-done">En Route</li><!--
 										 --><li class="progtrckr-done">Arrived</li><!--
 										 --><li class="progtrckr-done">
-										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 										 			Loaded
 										 		{% else %}
 										 			Unloaded
@@ -647,7 +647,7 @@
 												</tr>
 												<tr>
 													<td>Type</td>
-													<td>{{ location.type }}</td>
+													<td>{{ location.stop_type }}</td>
 												</tr>
 
 												<tr>
@@ -744,7 +744,7 @@
 										<li class="progtrckr-todo">En Route</li><!--
 									 --><li class="progtrckr-todo">Arrived</li><!--
 									 --><li class="progtrckr-todo">
-									 		{% if location.type == "Pickup" or location.type == "Both" %}
+									 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 									 			Loaded
 									 		{% else %}
 									 			Unloaded
@@ -756,7 +756,7 @@
 										    <li class="progtrckr-done">En Route</li><!--
 										 --><li class="progtrckr-todo">Arrived</li><!--
 										 --><li class="progtrckr-todo">
-										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 										 			Loaded
 										 		{% else %}
 										 			Unloaded
@@ -767,7 +767,7 @@
 										 	<li class="progtrckr-done">En Route</li><!--
 										 --><li class="progtrckr-done">Arrived</li><!--
 										 --><li class="progtrckr-todo">
-										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 										 			Loaded
 										 		{% else %}
 										 			Unloaded
@@ -778,7 +778,7 @@
 										 	<li class="progtrckr-done">En Route</li><!--
 										 --><li class="progtrckr-done">Arrived</li><!--
 										 --><li class="progtrckr-todo">
-										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 										 			Loaded
 										 		{% else %}
 										 			Unloaded
@@ -789,7 +789,7 @@
 										 	<li class="progtrckr-done">En Route</li><!--
 										 --><li class="progtrckr-done">Arrived</li><!--
 										 --><li class="progtrckr-done">
-										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 										 			Loaded
 										 		{% else %}
 										 			Unloaded
@@ -800,7 +800,7 @@
 										 	<li class="progtrckr-done">En Route</li><!--
 										 --><li class="progtrckr-done">Arrived</li><!--
 										 --><li class="progtrckr-done">
-										 		{% if location.type == "Pickup" or location.type == "Both" %}
+										 		{% if location.stop_type == "Pickup" or location.stop_type == "Both" %}
 										 			Loaded
 										 		{% else %}
 										 			Unloaded
@@ -840,7 +840,7 @@
 												</tr>
 												<tr>
 													<td>Type</td>
-													<td>{{ location.type }}</td>
+													<td>{{ location.stop_type }}</td>
 												</tr>
 												<tr>
 													<td>Notes</td>
