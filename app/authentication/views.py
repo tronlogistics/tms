@@ -115,16 +115,23 @@ def new_user():
 
 @auth.route('/api/login', methods=['POST'])
 def api_login_user():
+	print("1")
 	email = request.json.get('email')
 	password = request.json.get('password')
+	print("2")
 	if email is None or password is None:
 		abort(400)    # missing arguments
+	print("3")
 	user = User.getUserByEmail(email)
+	print("4")
 	if not user.isOwnerOperator():
 		return abort(403)
+	print("5")
 	if user is None:
 		abort(400)    # no existing user
+	print("6")
 	if user.check_password(password):
+		print("7.1")
 		loginUser(user)
 		g.user = user
 		token = g.user.generate_auth_token()
@@ -133,6 +140,7 @@ def api_login_user():
 						'isOwnerOperator': len(filter(lambda role: role.code == "owner_operator", user.roles)) > 0 
 						}))
 	else:
+		print("7.2")
 		return abort(401)
 
 
