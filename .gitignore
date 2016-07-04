@@ -2,4 +2,6 @@
 *~
 *.pyc
 .sass-cache
+venv
+test.dbåå
 

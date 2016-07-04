@@ -11,6 +11,24 @@ class AuthTests(BaseTest.BaseAuthTestCase):
             email=email,
             password=password
         ), follow_redirects=True)
+
+    def register(self, company_name, first_name, last_name, address1, city, state, postal_code,
+                    mco, email, phone_number, password, confirm, account_type):
+        return self.app.post('/u/register', data=dict(
+            company_name=company_name,
+            first_name=first_name,
+            last_name=last_name,
+            address1=address1,
+            city=city,
+            state=state,
+            postal_code=postal_code,
+            mco=mco,
+            email=email,
+            phone_number=phone_number,
+            password=password,
+            confirm=confirm,
+            account_type=account_type
+        ), follow_redirects=True)
  
     def logout(self):
         return self.app.get('/u/logout', follow_redirects=True)
@@ -37,14 +55,14 @@ class AuthTests(BaseTest.BaseAuthTestCase):
     def test_login_without_confirmed_account(self):
         """Should display not confirmed message"""
         rv = self.login('admin@admin.local', 'admin')
-        print rv.data
-        self.assertTrue(b'"You must confirm your e-mail' in rv.data)
+        self.assertTrue(b'You must confirm your e-mail' in rv.data)
 
     def test_login_with_confirmed_account(self):
         """Should display successfully logged in message"""
-        #self.user.confirmed_at = INSERT
+        self.user.activate()
         rv = self.login('admin@admin.local', 'admin')
-        self.assertTrue(b'"You must confirm your e-mail' in rv.data)
+        self.assertEqual(rv.status_code, 200)
+        self.assertTrue(self.user.is_authenticated())
  
     #def test_login_success_session(self):
     #    """Successfull login should put user_name in session"""
@@ -69,17 +87,43 @@ class AuthTests(BaseTest.BaseAuthTestCase):
         rv = self.login('bad_email', 'admin')
         self.assertTrue(b'This email is not registered.' in rv.data)
  
-    #def test_user_creation_success(self):
-    #    """User should be found in the database after creation"""
-    #    with self.app as c:
-    #        self.create('test',
-    #            'test@admin.local',
-    #            'secret',
-    #            'secret',
-    #            'A test user')
- 
-    #        user = Users.query.filter_by(email='test@admin.local').count()
-    #        self.assertTrue(user == 1)
+    def test_user_creation_success(self):
+        """User should be found in the database after creation"""
+        rv = self.register("company_name", "first_name", "last_name", 
+                        "address1", "city", "IL", "postal_code",
+                        "mco", "email@email.com", "phone_number", "password", 
+                        "password", "broker")
+        user = User.query.filter_by(email='email@email.com').count()
+        self.assertTrue(user == 1)
+
+    def test_user_creation_with_duplicate_email_fails(self):
+        """User who registers with a duplicate email should not be allowed"""
+        rv = self.register("company_name", "first_name", "last_name", 
+                        "address1", "city", "IL", "postal_code",
+                        "mco", "email@email.com", "phone_number", "password", 
+                        "password", "broker")
+        rv = self.register("company_name", "first_name", "last_name", 
+                        "address1", "city", "IL", "postal_code",
+                        "mco", "email@email.com", "phone_number", "password", 
+                        "password", "broker")
+        user = User.query.filter_by(email='email@email.com').count()
+        self.assertTrue(user == 1)
+
+    def test_user_added_to_correct_company_success(self):
+        """Users who register with the same MCO should be part of the same Company"""
+        rv = self.register("company_name", "first_name", "last_name", 
+                        "address1", "city", "IL", "postal_code",
+                        "mco", "email1@email.com", "phone_number", "password", 
+                        "password", "broker")
+
+        rv = self.register("company_name", "first_name", "last_name", 
+                        "address1", "city", "IL", "postal_code",
+                        "mco", "email2@email.com", "phone_number", "password", 
+                        "password", "broker")
+
+        user1 = User.query.filter_by(email='email1@email.com').first()
+        user2 = User.query.filter_by(email='email2@email.com').first()
+        self.assertTrue(user1.company == user2.company)
  
  
  

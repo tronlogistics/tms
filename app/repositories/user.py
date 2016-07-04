@@ -1,6 +1,7 @@
 from app import app
 from app import db
 from app.models.user import User
+from app.repositories.rolerepository import RoleDI
 
 class UserDI():
 
@@ -23,6 +24,8 @@ class UserDI():
 				phone=form.phone_number.data,
 				email=form.email.data,
 				password=form.password.data)
+		role = RoleDI.findRoleByType(form.account_type.data)
+		user.roles.append(role)
 		return user
 
 	@staticmethod
